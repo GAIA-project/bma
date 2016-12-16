@@ -1,0 +1,49 @@
+<div class="page" ng-controller="SitesController">
+
+    <div class="row ui-section">
+        <div class="col-md-6">
+            <h2 class="section-header">Buildings </h2>
+        </div>
+        <div class="col-md-6 clearfix">
+            <div layout="row" layout-align="end center">
+            	<md-button class="md-raised btn-w-md md-primary" ng-click="add_new()">Add New</md-button>
+            </div>
+        </div>
+        <div class="col-md-12">
+        	<div class="col-md-3 col-xsm-6" ng-repeat="site in sites">
+	            <section class="pricing-table pricing-table-primary">
+	                <header><h2>{{site.name}}</h2></header>
+	                  <div class="pricing-plan-details">
+	                    
+	                    <ul>
+	                        <li>11 Class Rooms</li>
+	                        <li>56 Students</li>
+	                        <li>9 Teachers</li>
+	                        <li>8 Gaia Devices</li>
+	                    </ul>                            
+	                </div>
+	                <footer><a ui-wave href="javascript:;" ng-click="details(site.id)" class="btn btn-raised btn-primary">Details</a></footer>
+	            </section>
+        	</div>
+
+        	<!--<div class="col-md-3 col-xsm-6">
+	            <section class="pricing-table pricing-table-primary">
+	                <header><h2>Galatsi</h2></header>
+	                  <div class="pricing-plan-details">
+	                    
+	                    <ul>
+	                        <li>15 Class Rooms</li>
+	                        <li>49 Students</li>
+	                        <li>12 Teachers</li>
+	                        <li>4 Gaia Devices</li>
+	                    </ul>                            
+	                </div>
+	                <footer><a ui-wave href="javascript:;" ng-click="details(2)" class="btn btn-raised btn-primary">Details</a></footer>
+	            </section>
+        	</div>-->
+
+        	        	
+
+        </div>
+    </div>
+</div>

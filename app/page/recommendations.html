@@ -1,0 +1,23 @@
+<div class="page page-dashboard" data-ng-controller="RecommendationsCtrl">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default panel-minimal">                
+                <div class="panel-body">
+         			
+                    <div class="media-list media-divider-inset">
+                        <div class="media" ng-repeat="recommendation in recommendations">
+                            <div class="media-body">
+                                <h4 class="media-heading">{{recommendation.title}}</h4>
+                                <p>{{ recommendation.content }}</p>
+                            </div>
+                        </div>
+                     </div>
+
+
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    

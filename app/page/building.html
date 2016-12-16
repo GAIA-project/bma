@@ -1,0 +1,230 @@
+<div class="page" ng-controller="SiteController">
+
+    <div class="row">
+        <div class="col-md-8">
+            <h2 class="section-header">{{site.name}}</h2>
+        </div>
+        <div class="col-md-4">
+            <div layout="row" layout-align="end center">
+                <md-button class="md-accent md-raised" ng-click="goToMeasurements()">Add Measurements</md-button>&nbsp;
+                <md-button class="md-accent md-raised" ng-click="goToSensors()">Sensors</md-button>&nbsp;
+                <md-button class="md-accent md-raised" ng-click="goToDashboard()">View Building</md-button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row ui-section" style="margin-top:60px">
+        	
+         <div class="row ui-section">
+        <div class="col-md-12">
+        <form class="form-horizontal" role="form">
+            <section class="panel panel-default">
+                <div class="panel-body padding-xl">
+                    <uib-tabset class="ui-tab">
+                        <uib-tab heading="General Characteristics">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="form-group">
+                                        <label for="inputEmail3" class="col-sm-5 control-label">School Name</label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" id="inputEmail3" placeholder="School Name">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="BuildingID" class="col-sm-5 control-label">Building ID</label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" id="BuildingID" placeholder="Building ID">
+                                        </div>
+                                    </div>
+                                     <div class="form-group">
+                                        <label for="Orientation" class="col-sm-5 control-label">Energy types available</label>
+                                        <div class="col-sm-7">
+                                            <md-checkbox  aria-label="Electricity"> Electricity </md-checkbox>
+                                            <md-checkbox  class="md-primary" aria-label="Gas"> Gas </md-checkbox>
+                                            <md-checkbox  class="md-warn" aria-label="Petrol"> Petrol </md-checkbox>
+                                        </div>
+                                    </div>                              
+                                
+                                    <div class="form-group">
+                                        <label for="ConsumptionMeterSerialNumber" class="col-sm-5 control-label">Is there an automated thermostat installed?</label>
+                                        <div class="col-sm-7">
+                                            <md-switch  aria-label="Switch 1"> Yes </md-switch>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Threshold" class="col-sm-5 control-label">Which is the threshold value?</label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" id="Threshold" placeholder="20">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="ConsumptionMeter" class="col-sm-5 control-label">Are the heating and cooling systems serviced regularly?</label>
+                                        <div class="col-sm-7">
+                                            <md-switch  aria-label="Switch 12"> Yes </md-switch>
+                                        </div>
+                                    </div>
+                                     <div class="form-group">
+                                        <label for="ConsumptionMeter" class="col-sm-5 control-label">Are the heating and cooling system tubes insulated?</label>
+                                        <div class="col-sm-7">
+                                            <md-switch  aria-label="Switch 12"> Yes </md-switch>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-5 control-label">Serial number of the consumption meter</label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" id="inputPassword3" placeholder="Serial number of the consumption meter">
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    
+                                
+                                    <div class="form-group">
+                                        <label for="Orientation" class="col-sm-5 control-label">Type of heating system/energy source used</label>
+                                        <div class="col-sm-7">
+                                            <md-radio-group class="ui-md-radio-group-inline" ng-model="type_of_heating">
+                                                <md-radio-button value="Furnaces">Furnaces</md-radio-button><br/>
+                                                <md-radio-button value="Boilers">Boilers</md-radio-button><br/>
+                                                <md-radio-button value="South">Heat Pumps</md-radio-button>    <br/>                                        
+                                                <md-radio-button value="Southeast">Gas-Fired Space Heaters</md-radio-button><br/>
+                                                <md-radio-button value="East">Electric Space Heaters</md-radio-button><br/>
+                                                <md-radio-button value="East">Wood-Burning and Pellet Stoves</md-radio-button>
+                                            </md-radio-group>
+                                        </div>
+                                    </div>
+                                <div class="form-group">
+                                    <label for="Orientation" class="col-sm-5 control-label">Date of heating system installation</label>
+                                    <div class="col-sm-7">
+                                        <div class="input-group ui-datepicker">
+                                <input type="text" 
+                                       class="form-control"
+                                       uib-datepicker-popup="{{format}}"
+                                       ng-model="dt1"
+                                       is-open="popup1.opened"
+                                       min-date="minDate"
+                                       max-date="maxDate"
+                                       datepicker-options="dateOptions"
+                                       date-disabled="disabled(date, mode)"
+                                       ng-required="true"
+                                       close-text="Close"
+                                       alt-input-formats="altInputFormats" />
+                                <span class="input-group-addon" ng-click="open1()"><i class="fa fa-calendar"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                 <div class="form-group">
+                                    <label for="Orientation" class="col-sm-5 control-label">Type of cooling system/energy source used</label>
+                                    <div class="col-sm-7">
+                                        <md-radio-group class="ui-md-radio-group-inline radio2" ng-model="type_of_cooling_systen" >
+                                            <md-radio-button value="1">Central Air Conditioners</md-radio-button><br/>
+                                            <md-radio-button value="2">Room Air Conditioners</md-radio-button><br/>
+                                            <md-radio-button value="3">Evaporative Coolers</md-radio-button><br/>
+                                            <md-radio-button value="4">Ductless Mini-Split Air Conditioners</md-radio-button><br/>
+                                        </md-radio-group>
+                                    </div>
+                                </div>
+                               
+                                 <div class="form-group">
+                                    <label for="CoolingSystem" class="col-sm-5 control-label">Is there cooling system installed?</label>
+                                    <div class="col-sm-7">
+                                        <md-switch  aria-label="Switch 2"> Yes </md-switch>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="Orientation32" class="col-sm-5 control-label">Date of cooling system installation</label>
+                                    <div class="col-sm-7">
+                                        <div class="input-group ui-datepicker">
+                                            <input type="text" 
+                                                   class="form-control"
+                                                   uib-datepicker-popup="{{format}}"
+                                                   ng-model="dt2"
+                                                   is-open="popup2.opened"
+                                                   min-date="minDate"
+                                                   max-date="maxDate"
+                                                   datepicker-options="dateOptions"
+                                                   date-disabled="disabled(date, mode)"
+                                                   ng-required="true"
+                                                   close-text="Close"
+                                                   alt-input-formats="altInputFormats" />
+                                            <span class="input-group-addon" ng-click="open2()"><i class="fa fa-calendar"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="ConsumptionMeterSerialNumber" class="col-sm-5 control-label">Is there an automated thermostat installed for the cooling system?</label>
+                                    <div class="col-sm-7">
+                                        <md-switch  aria-label="Switch 12"> Yes </md-switch>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Threshold" class="col-sm-5 control-label">Which is the threshold value?</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control" id="Threshold" placeholder="20">
+                                    </div>
+                                </div>
+                                 
+                                
+                               
+                               
+
+                                </div>
+                            </div>
+                        </uib-tab>
+                        <uib-tab heading="Construction Characteristics">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="building_build_year" class="col-sm-5 control-label">Which year was the building built?</label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" id="age" placeholder="Year">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inhabitants" class="col-sm-5 control-label">Inhabitants</label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" id="inhabitants" placeholder="Inhabitants">
+                                        </div>
+                                    </div>
+                                   
+                                     <div class="form-group">
+                                        <label for="Orientation" class="col-sm-5 control-label">Orientation</label>
+                                        <div class="col-sm-7">
+                                            <md-radio-group class="ui-md-radio-group-inline" >
+                                                <md-radio-button value="West">West</md-radio-button>
+                                                <md-radio-button value="Southweast">Southweast</md-radio-button>
+                                                <md-radio-button value="South">South</md-radio-button>                                            
+                                                <md-radio-button value="Southeast">Southeast</md-radio-button>
+                                                <md-radio-button value="East">East</md-radio-button>
+                                                <md-radio-button value="ΝorthEastern">Νorth-eastern</md-radio-button>
+                                                <md-radio-button value="North">North</md-radio-button>                                            
+                                                <md-radio-button value="Νorthwest">Νorthwest</md-radio-button>
+                                            </md-radio-group>
+                                        </div>
+                                    </div>
+
+                                   
+
+
+
+
+                                </div>
+                            </div>
+                        </uib-tab>
+                    </uib-tabset>
+                </div>
+                    <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <md-button type="submit" class="md-raised md-primary btn-w-md">Save</md-button><div class="divider"></div>
+                                    </div>
+                                </div>
+            </section>
+        </form>
+                    
+        </div>
+    </div>
+    </div>
+</div>
