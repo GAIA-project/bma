@@ -30,7 +30,7 @@
         var date = new Date();
         var year = date.getFullYear();
         var main = {
-            logo:'/images/logo.png',
+            logo:'images/logo.png',
             brand: 'Gaia',
             username:'greenmindset20',    //used in sparkworks
             password:'16A321368Ca',       //used in sparkworks
