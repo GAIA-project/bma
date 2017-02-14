@@ -7,8 +7,8 @@
 
             routes = [
                 'ui/cards', 'ui/typography', 'ui/buttons', 'ui/icons', 'ui/grids', 'ui/widgets', 'ui/components', 'ui/timeline', 'ui/lists', 'ui/pricing-tables',
-                'map/maps','page/buildings','page/building','page/alerts','page/recommendations',
-                'table/static', 'table/dynamic', 'table/responsive',
+                'map/maps','page/buildings','page/building','page/alerts','page/recommendations','page/rule_engine',
+                'table/static', 'table/dynamic', 'table/responsive','page/add-a-rule',
                 'form/elements', 'form/layouts', 'form/validation', 'form/wizard',
                 'chart/echarts', 'chart/echarts-line', 'chart/echarts-bar', 'chart/echarts-pie', 'chart/echarts-scatter', 'chart/echarts-more',
                 'page/404', 'page/500', 'page/blank', 'page/forgot-password', 'page/invoice', 'page/lock-screen', 'page/profile', 'page/signin', 'page/signup',
@@ -33,6 +33,12 @@
             });
 
 
+            
+            $stateProvider.state('page/anomaly/view', {
+                url: '/page/anomaly/view/:id',
+                templateUrl: 'app/page/anomaly.html'
+            });
+
             $stateProvider.state('page/building/new', {
                 url: '/page/building/new',
                 templateUrl: 'app/page/building.html'
@@ -43,6 +49,11 @@
             $stateProvider.state('page/building/topview',{
                 url:'/page/building/topview/:id',
                 templateUrl:'app/page/building_top_view.html'
+            });
+
+             $stateProvider.state('page/building/anomalies',{
+                url:'/page/building/anomalies/:id',
+                templateUrl:'app/page/building_anomalies.html'
             });
 
             $stateProvider.state('page/building/add_measurements',{

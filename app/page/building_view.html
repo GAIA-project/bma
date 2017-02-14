@@ -1,14 +1,15 @@
 <div class="page" ng-controller="SiteController" >
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-sm-12 col-md-6">
             <h2 class="section-header">{{site.name}}</h2>
         </div>
-        <div class="col-md-4">
+        <div class="col-sm-12 col-md-6">
             <div layout="row" layout-align="end center">
                 <md-button class="md-accent md-raised" ng-click="goToTopView()">TopView</md-button>&nbsp;
                 <md-button class="md-accent md-raised" ng-click="goToMeasurements()">Add Measurements</md-button>&nbsp;
                 <md-button class="md-accent md-raised" ng-click="goToSensors()">Sensors</md-button>&nbsp;
-                <md-button class="md-accent md-raised" ng-click="goToEdit()">Edit Building</md-button>
+                <md-button class="md-accent md-raised" ng-click="goToEdit()">Edit Building</md-button>&nbsp;
+                <md-button class="md-accent md-raised" ng-click="goToAnomalies()"><span data-translate="ANOMALIES"></span></md-button>
             </div>
         </div>
     </div>

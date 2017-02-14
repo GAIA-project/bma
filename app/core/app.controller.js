@@ -1,10 +1,39 @@
 (function () {
     'use strict';
-var nikos = function(){
-    alert(0);
-}
     angular.module('app')
+    .controller('RuleCtrl',function($scope,$state){
+     
+
+        $scope.rules = [];
+        $scope.sensors = ('sensor1 sensor2 sensor3 sensor4 sensor5').split(' ').map(function(state) {
+            return {name: state};
+        });
+
+
+            $scope.verbs = ('> < =').split(' ').map(function(state) {
+                return {verbname: state};
+            })
+
+
+            $scope.add_condition = function(){
+                $scope.rules.push({name:'',sensor:''});
+            }
+            
+            if($scope.rules.length==0)
+                $scope.add_condition();
+
+    })
+    .controller('RuleEngineCtrl',function($scope,$state){
+        $scope.add_a_rule = function(){
+            $state.go('page/add-a-rule');
+        }
+
+      
+    })
     .controller('RecommendationsCtrl',function($scope){
+        
+
+
         $scope.recommendations = [];
         $scope.recommendations.push({title:'Turn-off the light', content:'Turn-off the light when leaving'});
         $scope.recommendations.push({title:'Natural Light',      content:'Make the most of the natural light'});
@@ -169,6 +198,92 @@ var nikos = function(){
         init();
         
     })
+    .controller('AnomaliesController',function($scope,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log){
+        $scope.getAnomalies=function(){
+            $scope.anomalies = [];
+            $scope.anomalies.push({"id":4432,"area":"area1","tags":['tag1','tag2','tag3']});
+            $scope.anomalies.push({"id":4433,"area":"area2","tags":['tag4','tag22','tag13']});
+            $scope.anomalies.push({"id":4434,"area":"area3","tags":['tag51','tag32','tag23']});
+            $scope.anomalies.push({"id":4435,"area":"area4","tags":['tag61','tag42','tag33']});
+        }
+        $scope.openAnomaly = function(id){
+            console.log("Anomaly Id:"+id);
+  
+            $location.path('page/anomaly/view/'+id);   
+        }
+        var t_site = site.getDetails($stateParams.id);
+        t_site.then(function(site){
+           $scope.site = site.data; 
+           console.log($scope.site);
+        });
+
+
+    })
+    .controller('AnomalyCtrl',function($scope,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log){
+        $scope.goToAnomalies = function(){
+            $location.path('page/building/anomalies/141587');   
+        }
+
+
+        $scope.atags = [];
+        $scope.atags.push({"id":1,"value":"tag1"});
+        $scope.atags.push({"id":2,"value":"tag2"});
+        $scope.atags.push({"id":3,"value":"tag3"});
+        $scope.atags.push({"id":4,"value":"tag4"});
+        
+        $scope.addTag = function(){
+            var a = {};
+            a.id = $scope.atags.length+1;
+            a.value = $scope.new_tag;
+            $scope.atags.push(a);
+            $scope.new_tag = "";
+            
+        }
+        $scope.line3 = {};
+        $scope.line3.options = {
+            title : {
+                text: 'Energy Consumption',
+            },
+            tooltip : {
+                trigger: 'axis'
+            },
+            legend: {
+                data:['kWh']
+            },
+            toolbox: {
+                show : true,
+                feature : {
+                    restore : {show: true, title: "restore"},
+                    saveAsImage : {show: true, title: "save as image"}
+                }
+            },
+            calculable : true,
+            xAxis : [
+                {
+                    type : 'category',
+                    boundaryGap : false,
+                    data : ['9:50','9:51','9:52','9:53','9:54','9:55','9:56','9:57','9:58','9:59','10:00','10:01','10:02','10:03','10:04','10:05','10:06']
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value'
+                }
+            ],
+            series : [
+                {
+                    name:'kWh',
+                    type:'line',
+                    smooth:true,
+                    itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                    data:[10, 11, 12, 54, 12,10.5, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9]
+                },
+              
+            ]
+        };
+        
+
+    })
     .controller('SiteController',function($scope,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log){
         
        $scope.goToMeasurements = function(){
@@ -176,6 +291,9 @@ var nikos = function(){
        }
        $scope.goToEdit = function(){
             $location.path('page/building/edit/'+$stateParams.id);
+       }
+       $scope.goToAnomalies = function(){
+            $location.path('page/building/anomalies/'+$stateParams.id);
        }
        $scope.goToTopView = function(){
             $location.path('page/building/topview/'+$stateParams.id);
