@@ -13,6 +13,11 @@
                                                 <label><span data-translate="RULE_NAME"></span></label>
                                                 <input ng-model="rule.name">
                                             </md-input-container>
+
+                                             <md-input-container flex>
+                                                <label>Alert Text</label>
+                                                <input ng-model="rule.text">
+                                            </md-input-container>
                                         </div>
                                         <span class="label label-primary" ng-click="add_condition()">
                                         	<span data-translate="ADD_CONDITION"></span>
