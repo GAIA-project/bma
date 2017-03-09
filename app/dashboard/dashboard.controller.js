@@ -20,7 +20,7 @@
                     .then(function(response) {
                         
                         
-                            console.log('building:'+building.id+' Areas:'+response.data.items.length)
+                            
                         
                               
                     })
@@ -28,7 +28,7 @@
                       console.error('Gists error', response.status, response.data);
                     })
                     .finally(function() {
-                      console.log("finally finished gists");
+                      
                     });
 
 

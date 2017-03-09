@@ -139,22 +139,7 @@
         var init = function(){
             var x = buildings.getAllBuildings();
             var m = buildings.getSites();
-            m.then(function(sites){
-
-              
-                sites.data.sites.forEach(function(building,index){
-                    
-                    var k = site.getResources(building.id);
-                    k.then(function(resource,indes){
-                        resource.data.resources.forEach(function(r,index){
-                            console.log(building.name+" : "+r.property);
-                            console.log(r);
-                        });
-                        
-                    })
-
-                });
-            })
+            
             x.then(function(buildings){
                 
                 $scope.abuildings = buildings.data.items;    
@@ -327,8 +312,12 @@
      
                 
                 $scope.selected_area_sensors.forEach(function(thesensor,index){
-                    console.log("********************");
-                    console.log(Sensor.getMeasurementsByURI(thesensor.uri_resource));
+                    
+                    var meas = Sensor.getMeasurementsByResourceId(thesensor.id);
+                    meas.then(function(measurements){
+                        console.log(measurements);
+                    })
+
                 });
             
             });
@@ -527,23 +516,114 @@
         };
 
     })
-    .controller('SiteController',function($scope,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log){
+    .controller('SiteController',function($scope,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor){
         
         $scope.building = {};
+        $scope.areas = [];
         
 
 
         var t_site = site.getDetails($stateParams.id);
-        console.log(t_site);
+        
         t_site.then(function(site){
            $scope.building.details = site.data;
         });
 
        var t_areas = site.getAreas($stateParams.id);
+       
         t_areas.then(function(areas){
+            console.log("AREAS");
+            console.log(areas);
+
             $scope.building.areas = areas.data.items;
-            
+
+            $scope.building.areas.forEach(function(area,index){
+                  
+                  $scope.areas.push(area.name);
+                var area_sensors = Area.getSensors(area.id);
+                    area_sensors.then(function(sensors){
+
+                        area.sensors = sensors.data.items;    
+                        
+                        area.sensors.forEach(function(thesensor,index){
+                                
+                            var meas = Sensor.getMeasurementsByResourceId(thesensor.id);
+                            meas.then(function(measurements){
+                                thesensor.meatrics = measurements;
+                            });
+
+                   
+
+
+
+
+
+                        });
+                    });
+            });
+
+
+
+                     
+        $scope.line3.options = {
+            title : {
+                text: "",
+            },
+            tooltip : {
+                trigger: 'axis'
+            },
+            legend: {
+                data:$scope.areas
+            },
+            toolbox: {
+                show : true,
+                feature : {
+                    restore : {show: true, title: "restore"},
+                    saveAsImage : {show: true, title: "save as image"}
+                }
+            },
+            calculable : true,
+            xAxis : [
+                {
+                    type : 'category',
+                    boundaryGap : false,
+                    data : ['Mon.','Tue.','Wed.','Thu.','Fri.','Sat.','Sun.']
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value'
+                }
+            ],
+            series : [
+                {
+                    name:'Deal closed',
+                    type:'line',
+                    smooth:true,
+                    itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                    data:[10, 12, 21, 54, 260, 830, 710]
+                },
+                {
+                    name:'Pre-order',
+                    type:'line',
+                    smooth:true,
+                    itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                    data:[30, 182, 434, 791, 390, 30, 10]
+                },
+                {
+                    name:'Intention',
+                    type:'line',
+                    smooth:true,
+                    itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                    data:[1320, 1132, 601, 234, 120, 90, 20]
+                }
+            ]
+        };
+
         });
+
+
+
 
 
 
@@ -570,12 +650,29 @@
         $scope.goToDashboard = function(){
             $location.path('page/building/view/'+$stateParams.id);   
         }
-            
-        
-        
+
+
 
         
+        $scope.line3 = {};
         
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         
 
         $scope.today = function() {
@@ -664,7 +761,6 @@
 
         $scope.line1 = {};
         $scope.line2 = {};
-        $scope.line3 = {};
         $scope.line4 = {};
 
         $scope.bar1 = {};
@@ -813,60 +909,7 @@
                 }
             ]
         };
-        $scope.line3.options = {
-            title : {
-                text: 'Sales',
-            },
-            tooltip : {
-                trigger: 'axis'
-            },
-            legend: {
-                data:['Intention','Pre-order','Deal closed']
-            },
-            toolbox: {
-                show : true,
-                feature : {
-                    restore : {show: true, title: "restore"},
-                    saveAsImage : {show: true, title: "save as image"}
-                }
-            },
-            calculable : true,
-            xAxis : [
-                {
-                    type : 'category',
-                    boundaryGap : false,
-                    data : ['Mon.','Tue.','Wed.','Thu.','Fri.','Sat.','Sun.']
-                }
-            ],
-            yAxis : [
-                {
-                    type : 'value'
-                }
-            ],
-            series : [
-                {
-                    name:'Deal closed',
-                    type:'line',
-                    smooth:true,
-                    itemStyle: {normal: {areaStyle: {type: 'default'}}},
-                    data:[10, 12, 21, 54, 260, 830, 710]
-                },
-                {
-                    name:'Pre-order',
-                    type:'line',
-                    smooth:true,
-                    itemStyle: {normal: {areaStyle: {type: 'default'}}},
-                    data:[30, 182, 434, 791, 390, 30, 10]
-                },
-                {
-                    name:'Intention',
-                    type:'line',
-                    smooth:true,
-                    itemStyle: {normal: {areaStyle: {type: 'default'}}},
-                    data:[1320, 1132, 601, 234, 120, 90, 20]
-                }
-            ]
-        };
+       
         $scope.line4.options = {
             tooltip : {
                 trigger: 'axis'

@@ -13,13 +13,6 @@
 
     function appConfig() {
 
-
-     
-
-
-
-
-
         var pageTransitionOpts = [
             {
                 name: 'Fade up',
