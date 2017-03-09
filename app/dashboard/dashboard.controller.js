@@ -2,21 +2,53 @@
     'use strict';
 
     angular.module('app')
-        .controller('DashboardCtrl', ['$scope','$interval', DashboardCtrl])
+        .controller('DashboardCtrl', ['$scope','$interval','$http','appConfig', DashboardCtrl])
 
-    function DashboardCtrl($scope,$interval) {
-        // success: #8BC34A 139,195,74
-        // info: #00BCD4 0,188,212
-        // gray: #EDF0F1 237,240,241
+    function DashboardCtrl($scope,$interval,$http,appConfig) {
+             
 
-        // Traffic chart
+        var calculateConsumption = function(){
+           
+            $http.get(appConfig.main.apis.over_db+appConfig.main.apis.buildings)
+            .then(function(response){
+                
+
+                /*appConfig.main.buildings.forEach(function(building,index){*/
+            response.data.items.forEach(function(building,index){
+
+               $http.get(appConfig.main.apis.over_db+appConfig.main.apis.areasByBuilding+'/'+building.id)
+                    .then(function(response) {
+                        
+                        
+                            console.log('building:'+building.id+' Areas:'+response.data.items.length)
+                        
+                              
+                    })
+                    .catch(function(response) {
+                      console.error('Gists error', response.status, response.data);
+                    })
+                    .finally(function() {
+                      console.log("finally finished gists");
+                    });
+
+
+
+
+
+                });
+
+            })
+            
+
+        }
+        calculateConsumption();
         $scope.combo = {};
         $scope.combo.options = {
             legend: {
                 show: true,
                 x: 'right',
                 y: 'top',
-                data: ['WOM', 'Rafina', 'Building 1','Building 2','Building 3']
+                data: ['dsadas','dasdas']
             },            
             grid: {
                 x: 40,
@@ -156,6 +188,11 @@
             ]            
         };
         
+
+
+
+
+
         $scope.real_time_timestamp = ['12:32:22','12:32:23','12:32:24','12:32:25','12:32:26','12:32:27','12:32:28'];
         $scope.line4 = {};
         $scope.line4.options = {

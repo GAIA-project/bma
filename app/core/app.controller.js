@@ -60,52 +60,6 @@
             $uibModalInstance.dismiss("cancel");
         };
     })
-    .controller('TopViewCtrl',function($scope,$stateParams, $uibModal, $log,site){
-       $scope.classes = [];
-      
-      
-
-        $scope.$on('onRepeatLast', function(scope, element, attrs){
-          $( ".draggable" ).draggable();
-      });
-
-        $scope.$on('new_class_created', function(event, data) {
-            var a_class=data;
-            console.log(data);
-            a_class.element_width = a_class.width*20+'px';
-            a_class.element_height = a_class.length*20+'px';
-            a_class.temperature = '17 C';
-            a_class.radiation = 0.2;
-            a_class.energy_consumtion = 80;
-            a_class.hum = 10;
-            $scope.classes.push(a_class);
-            
-        });
-        $scope.editClass = function(){
-            console.log('editClass');
-        }
-
-         $scope.createClass = function () {
-            $scope.new_class = [];
-            var modalInstance = $uibModal.open({
-                animation: $scope.animationsEnabled,
-                templateUrl: 'newclassRoom.html',
-                controller: 'ClassInstanceCtrl',
-                size: 'lg',
-                resolve: {
-                    new_class: function () {
-                        return $scope.new_class;
-                    }
-                }
-            });
-
-            
-        };
-
-
-
-         
-    })
     .controller('AlertCtrl',function($scope, $mdDialog){
 
         $scope.alerts = [
@@ -152,8 +106,12 @@
             var aut  = authentication.authenticate();
        
             aut.then(function(auth){
+                    
                 appConfig.main.auth_token = auth.data.access_token;                
+                console.log("Auth Data");
+                console.log(auth.data);
                 $location.path('dashboard');
+
             });
 
         }
@@ -174,15 +132,64 @@
             $location.url('/')
         } 
     })
-    .controller('SitesController',function($scope, $rootScope, $state, $document, appConfig,$http,sites,$location){
+    .controller('SitesController',function($scope, $rootScope, $state, $document, appConfig,$http,buildings,$location,site,Area){
         
         
         
         var init = function(){
-            var x = sites.getAllSites();
-            console.log(x);
-            x.then(function(sites){
-                $scope.sites = sites.data.sites;    
+            var x = buildings.getAllBuildings();
+            var m = buildings.getSites();
+            m.then(function(sites){
+
+              
+                sites.data.sites.forEach(function(building,index){
+                    
+                    var k = site.getResources(building.id);
+                    k.then(function(resource,indes){
+                        resource.data.resources.forEach(function(r,index){
+                            console.log(building.name+" : "+r.property);
+                            console.log(r);
+                        });
+                        
+                    })
+
+                });
+            })
+            x.then(function(buildings){
+                
+                $scope.abuildings = buildings.data.items;    
+
+                $scope.abuildings.forEach(function(build,index){
+                        
+                        
+
+
+                        var areas = site.getAreas(build.id);
+                        areas.then(function(areas){
+                            if(areas.data.items.length>0){
+                                
+                                areas.data.items.forEach(function(area,index){
+                                    
+                                    var sensors = Area.getSensors(area.id);
+                                    /*console.log(sensors);*/
+                                })
+                            }
+                            
+                        });
+                        /*var sensors  =site.getSensors(build.id);
+                        sensors.then(function(sensors){
+                            console.log(sensors);
+                        });*/
+
+                        /*var gateways = site.getGateways(build.id);
+                        gateways.then(function(gateways){
+
+                            console.log(gateways.data);
+                        })*/
+                        
+
+                })
+            
             })    
         }
 
@@ -207,14 +214,14 @@
             $scope.anomalies.push({"id":4435,"area":"area4","tags":['tag61','tag42','tag33']});
         }
         $scope.openAnomaly = function(id){
-            console.log("Anomaly Id:"+id);
+            
   
             $location.path('page/anomaly/view/'+id);   
         }
         var t_site = site.getDetails($stateParams.id);
         t_site.then(function(site){
            $scope.site = site.data; 
-           console.log($scope.site);
+           
         });
 
 
@@ -284,8 +291,267 @@
         
 
     })
+    .controller('SiteAreasController',function($scope,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor){
+        
+        $scope.building = {};
+
+
+        $scope.getInitAreas = function(){
+            var t_areas = site.getAreas($stateParams.id);
+            t_areas.then(function(areas){
+                $scope.building.areas = areas.data.items;            
+            });
+        }
+       
+
+
+
+
+        $scope.details = function(area_id){
+
+            $scope.selected_area_view = 0;
+            $scope.add_an_area_form = 0;  
+            $scope.selected_area_edit = 0;
+            
+            var s_area = Area.getDetails(area_id);
+            s_area.then(function(maarea){
+                $scope.selected_area = maarea.data.item;
+                $scope.selected_area.id = area_id;
+                $scope.selected_area_view = 1;
+            });
+
+            var area_sensors = Area.getSensors(area_id);
+            area_sensors.then(function(sensors){
+                
+                $scope.selected_area_sensors = sensors.data.items;
+     
+                
+                $scope.selected_area_sensors.forEach(function(thesensor,index){
+                    console.log("********************");
+                    console.log(Sensor.getMeasurementsByURI(thesensor.uri_resource));
+                });
+            
+            });
+        }
+
+
+        $scope.add_a_sensor = function(){
+
+        }
+        $scope.edit = function(){
+            $scope.selected_area_view = 0;
+            $scope.add_an_area_form = 0;  
+            $scope.selected_area_edit = 1;
+            
+        }
+        $scope.add_an_area = function(){
+            $scope.new_area = {};
+            $scope.selected_area_view = 0;
+            $scope.add_an_area_form = 1;  
+            $scope.selected_area_edit = 0;
+        }
+
+        $scope.save_new_area = function(){
+
+            var data = {"building_id":$stateParams.id,"name":$scope.new_area.name,"description":$scope.new_area.description,"type":$scope.new_area.type};
+            var req = {
+                 method: 'POST',
+                 url: appConfig.main.apis.over_db+appConfig.main.apis.areas,
+                 headers: {
+                   'Content-Type': 'application/json'
+                 },
+                 data: data
+            }
+
+            $http(req).then(function(d){
+                    var new_area = JSON.parse(d.data.area);                    
+                    $scope.getInitAreas();
+                    $scope.details(new_area.id);
+
+            }, function(e){console.log(e)});
+        }
+
+        $scope.update = function(){
+
+            var data = {"json":JSON.stringify({width:390,height:500}),"building_id":$stateParams.id,"name":$scope.selected_area.name,"description":$scope.selected_area.description,"type":$scope.selected_area.type,"id":$scope.selected_area.id};
+            var req = {
+                 method: 'PUT',
+                 url: appConfig.main.apis.over_db+appConfig.main.apis.areas,
+                 headers: {
+                   'Content-Type': 'application/json'
+                 },
+                 data: data
+            }
+
+            $http(req).then(function(d){
+                    
+                    $scope.selected_area = d.data.area;
+                    $scope.getInitAreas();
+                    $scope.details($scope.selected_area.id);
+
+            }, function(e){console.log(e)});
+        }
+
+        $scope.goToAreas = function(){
+            $location.path('page/building/areas/'+$stateParams.id);
+        }
+        
+        $scope.goToMeasurements = function(){
+            $location.path('page/building/add_measurements/'+$stateParams.id);
+        }
+        
+        $scope.goToEdit = function(){
+            $location.path('page/building/edit/'+$stateParams.id);
+        }
+        
+        $scope.goToAnomalies = function(){
+            $location.path('page/building/anomalies/'+$stateParams.id);
+        }
+        
+        $scope.goToTopView = function(){
+            $location.path('page/building/topview/'+$stateParams.id);
+        }
+        
+        $scope.goToSensors = function(){
+            $location.path('page/building/sensors/'+$stateParams.id);
+        }
+        
+        $scope.goToDashboard = function(){
+            $location.path('page/building/view/'+$stateParams.id);   
+        }
+            
+        
+        
+
+    
+    })
+    .controller('SiteΕditController',function($scope,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log){
+
+        var t_site = site.getDetails($stateParams.id);
+        console.log(t_site);
+        t_site.then(function(site){
+           console.log(site);
+        });
+
+         $scope.goToAreas = function(){
+            $location.path('page/building/areas/'+$stateParams.id);
+        }
+
+       $scope.goToMeasurements = function(){
+            $location.path('page/building/add_measurements/'+$stateParams.id);
+       }
+       $scope.goToEdit = function(){
+            $location.path('page/building/edit/'+$stateParams.id);
+       }
+       $scope.goToAnomalies = function(){
+            $location.path('page/building/anomalies/'+$stateParams.id);
+       }
+       $scope.goToTopView = function(){
+            $location.path('page/building/topview/'+$stateParams.id);
+       }
+        $scope.goToSensors = function(){
+            $location.path('page/building/sensors/'+$stateParams.id);
+        }
+        $scope.goToDashboard = function(){
+            $location.path('page/building/view/'+$stateParams.id);   
+        }
+
+    })
+    .controller('SiteTopViewController',function($scope,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log){
+
+         $scope.building = {};
+        $scope.$on('onRepeatLast', function(scope, element, attrs){
+          $( ".draggable" ).draggable();
+        });
+        
+        var t_site = site.getDetails($stateParams.id);
+        
+        t_site.then(function(site){
+           $scope.building.details = site.data;
+        });
+
+       var t_areas = site.getAreas($stateParams.id);
+        t_areas.then(function(areas){
+            $scope.building.areas = areas.data.items;
+            console.log(areas.data.items);
+            areas.data.items.forEach(function(area,index){
+                
+                if(area.json!=''){
+                    var js = area.json; 
+                        js = JSON.parse(js);
+                        area.element_width = js.width;
+                        area.element_width = js.height;
+                }else{
+                    area.element_width = 300;
+                    area.element_width=300;
+                }
+                
+
+                
+                
+            })
+            
+        });
+
+
+
+        $scope.$on('new_class_created', function(event, data) {
+            var a_class=data;
+            
+            a_class.element_width = a_class.width*20+'px';
+            a_class.element_height = a_class.length*20+'px';
+            a_class.temperature = '17 C';
+            a_class.radiation = 0.2;
+            a_class.energy_consumtion = 80;
+            a_class.hum = 10;
+            $scope.classes.push(a_class);
+            
+        });
+        $scope.editClass = function(){
+            
+        }
+
+         $scope.createClass = function () {
+            $scope.new_class = [];
+            var modalInstance = $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: 'newclassRoom.html',
+                controller: 'ClassInstanceCtrl',
+                size: 'lg',
+                resolve: {
+                    new_class: function () {
+                        return $scope.new_class;
+                    }
+                }
+            });            
+        };
+
+    })
     .controller('SiteController',function($scope,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log){
         
+        $scope.building = {};
+        
+
+
+        var t_site = site.getDetails($stateParams.id);
+        console.log(t_site);
+        t_site.then(function(site){
+           $scope.building.details = site.data;
+        });
+
+       var t_areas = site.getAreas($stateParams.id);
+        t_areas.then(function(areas){
+            $scope.building.areas = areas.data.items;
+            
+        });
+
+
+
+        
+        $scope.goToAreas = function(){
+            $location.path('page/building/areas/'+$stateParams.id);
+        }
+
        $scope.goToMeasurements = function(){
             $location.path('page/building/add_measurements/'+$stateParams.id);
        }
@@ -306,35 +572,10 @@
         }
             
         
-        var t_site = site.getDetails($stateParams.id);
-        t_site.then(function(site){
-           $scope.site = site.data; 
-        });
         
-        $scope.getResources = function(){
-            
-            var log = [];
-            var resources = site.getResources($stateParams.id);
-            resources.then(function(resources){
-                $scope.resources = resources.data.resources;
-                
-                angular.forEach($scope.resources, function(value, key) {
-                        var x = $http({
-                            url:appConfig.main.apis.main+'resource/'+value.resourceId+'/latest',
-                            method:'GET',
-                            headers:{"Accept": "application/json","Authorization":"bearer "+appConfig.main.auth_token}
-                        })
-                    x.then(function(x){
-                        var latest = {};
-                        latest.metric = x.data.latest;
-                        latest.uom = x.data.uom;
-                        value.latest = latest;
-                        console.log(value);
-                    })
-            }, log);
-               
-            })  
-        };
+
+        
+        
         
 
         $scope.today = function() {
@@ -1666,7 +1907,7 @@
             ]
         };
     })
-    .controller('AppCtrl',function($scope, $rootScope, $state, $document, appConfig,$http,sites){
+    .controller('AppCtrl',function($scope, $rootScope, $state, $document, appConfig,$http,buildings){
         
       
        

@@ -1,33 +1,35 @@
 <div class="page" ng-controller="SitesController">
-
     <div class="row ui-section">
         <div class="col-md-6">
-            <h2 class="section-header">Buildings </h2>
+            <h2 class="section-header">Buildings</h2>
         </div>
-        <div class="col-md-6 clearfix">
+        <!-- <div class="col-md-6 clearfix">
             <div layout="row" layout-align="end center">
             	<md-button class="md-raised btn-w-md md-primary" ng-click="add_new()">Add New</md-button>
             </div>
-        </div>
+        </div> -->
         <div class="col-md-12">
-        	<div class="col-md-3 col-xsm-6" ng-repeat="site in sites">
-	            <section class="pricing-table pricing-table-primary">
-	                <header><h2>{{site.name}}</h2></header>
-	                  <div class="pricing-plan-details">
-	                    
-	                    <ul>
-	                        <li>11 Class Rooms</li>
-	                        <li>56 Students</li>
-	                        <li>9 Teachers</li>
-	                        <li>8 Gaia Devices</li>
-	                    </ul>                            
-	                </div>
-	                <footer><a ui-wave href="javascript:;" ng-click="details(site.id)" class="btn btn-raised btn-primary"><span data-translate="DETAILS"></span></a></footer>
-	            </section>
+        	
+                <div class="table-responsive">
+                <table class="table table-striped table-bordered no-margin">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Country</th>
+                            <th>People</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="site in abuildings">
+                            <td>{{site.name}}</td>
+                            <td>{{site.country}}</td>
+                            <td>{{site.people}}</td>
+                            <td><a ui-wave href="javascript:;" ng-click="details(site.id)" class="btn btn-raised btn-primary"><span data-translate="DETAILS"></span></a></td>
+                        </tr>
+                    </tbody>
+                </table>
         	</div>
-
-      
-
         </div>
     </div>
 </div>

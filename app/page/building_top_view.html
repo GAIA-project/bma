@@ -1,4 +1,4 @@
-<div class="page page-top-view" data-ng-controller="TopViewCtrl">
+<div class="page page-top-view" data-ng-controller="SiteTopViewController">
     <div class="row">
     	<div class="col-sm-12">	
     		<div layout="row" layout-align="end center">
@@ -10,18 +10,18 @@
         <div class="col-md-12" style="width:100%;min-height:1000px">
           
 
-          	<div ng-repeat="class in classes" class="draggable class ui-widget-content" on-last-repeat style="width:{{class.element_width}};height:{{class.element_height}}">
+          	<div ng-repeat="area in building.areas" class="draggable class ui-widget-content" on-last-repeat style="width:{{area.element_width}};height:{{area.element_height}}">
           		<div class="class_measurements">
 					<ul>
-						<li>Temperature:{{class.temperature}} </li>
-						<li>Radiation:{{class.radiation}} </li>
-						<li>Energy Consumtion:{{class.energy_consumtion}} </li>
-						<li>Hum:{{class.hum}} </li>
+						<li>Temperature:{{area.temperature}} </li>
+						<li>Radiation:{{area.radiation}} </li>
+						<li>Energy Consumtion:{{area.energy_consumtion}} </li>
+						<li>Hum:{{area.hum}} </li>
 					</ul>
           		</div>
 
-  				<div class="class_name">{{class.name}}</div>
-  				<div class="edit_button"><i class="fa fa-pencil" ng-click="editClass(class)"></i></div>
+  				<div class="class_name">{{area.name}}</div>
+  				<div class="edit_button"><i class="fa fa-pencil" ng-click="editClass(area)"></i></div>
   				
 			</div>
 

@@ -53,12 +53,19 @@
             skin: '12',                                      // String: 11,12,13,14,15,16; 21,22,23,24,25,26; 31,32,33,34,35,36,
             apis:{
                 authentication: 'https://sso.sparkworks.net/aa/oauth/token',
-                main:'https://api.sparkworks.net/v1/',    
+                main:'https://api.sparkworks.net/v1/',
                 over_db:'http://150.140.5.64:8080/GaiaAnalytics/gaia/',
                 buildings:'utility/buildings/getall',
+                building:'utility/buildings/getbyid/',
+                gatewaysByBuilding:'utility/gateways/getall/',
+                sensorsByArea:'utility/sensors/getbyarea/',                
+                areas          :'utility/areas',
+                area           :'utility/areas/getbyid/',
+                areasByBuilding:'utility/areas/getall',                
                 sites:'location/site',
-                site: 'location/site',
-            }
+                site: 'location/site'
+            },
+            buildings:[{id:1,name:'Rafinas'},{id:2,name:'Markopoulo'}],
         };
         var color = {
             primary:    '#009688',

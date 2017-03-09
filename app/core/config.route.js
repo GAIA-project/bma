@@ -43,8 +43,10 @@
                 url: '/page/building/new',
                 templateUrl: 'app/page/building.html'
             });
-
-
+            $stateProvider.state('page/building/area', {
+                url: '/page/building/areas/:id',
+                templateUrl: 'app/page/building_areas.html'
+            });
             
             $stateProvider.state('page/building/topview',{
                 url:'/page/building/topview/:id',
