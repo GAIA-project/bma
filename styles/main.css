@@ -2155,3 +2155,27 @@ body {
     background: #EFEFEF;
     padding: 18px;
 }
+
+.sensorbox{
+  background: #262b33;
+  color: white;
+}
+.area_box{
+    background: white;
+    margin-bottom: 9px;
+}
+.area_title{
+  font-size: 13px;
+}
+
+.area_title {
+    font-size: 20px;
+    margin: 8px 10px;
+}
+.latest_value{
+      font-size: 11px;
+    font-weight: normal;
+    padding: 0px;
+    margin: 0;
+    margin-bottom: -10px;
+}

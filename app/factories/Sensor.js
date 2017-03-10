@@ -17,7 +17,7 @@ angular.module('app').factory('Sensor', function($http,appConfig){
             getMeasurementsByResourceId:function(resource_id){
             	if(resource_id>10)
 	            	return $http({
-	                    url:appConfig.main.apis.main+'/resource/'+resource_id+'/summary',
+	                    url:appConfig.main.apis.main+'resource/'+resource_id+'/summary',
 	                    method:'GET',
 	                    headers: {"Accept": "application/json","Authorization":"bearer "+appConfig.main.auth_token},
 	                })

@@ -284,7 +284,7 @@
         $scope.getInitAreas = function(){
             var t_areas = site.getAreas($stateParams.id);
             t_areas.then(function(areas){
-                $scope.building.areas = areas.data.items;            
+                $scope.building.areas = areas.data.items;           
             });
         }
        
@@ -307,7 +307,7 @@
 
             var area_sensors = Area.getSensors(area_id);
             area_sensors.then(function(sensors){
-                
+                console.log(area_sensors);
                 $scope.selected_area_sensors = sensors.data.items;
      
                 
@@ -315,7 +315,7 @@
                     
                     var meas = Sensor.getMeasurementsByResourceId(thesensor.id);
                     meas.then(function(measurements){
-                        console.log(measurements);
+                        
                     })
 
                 });
@@ -417,7 +417,7 @@
     .controller('SiteΕditController',function($scope,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log){
 
         var t_site = site.getDetails($stateParams.id);
-        console.log(t_site);
+        
         t_site.then(function(site){
            console.log(site);
         });
@@ -446,34 +446,67 @@
         }
 
     })
-    .controller('SiteTopViewController',function($scope,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log){
+    .controller('SiteTopViewController',function($scope,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor){
 
-         $scope.building = {};
+        $scope.building = {};
         $scope.$on('onRepeatLast', function(scope, element, attrs){
           $( ".draggable" ).draggable();
         });
         
+        
         var t_site = site.getDetails($stateParams.id);
         
-        t_site.then(function(site){
-           $scope.building.details = site.data;
+        t_site.then(function(tsite){
+           $scope.building.details = tsite.data;
         });
+
 
        var t_areas = site.getAreas($stateParams.id);
         t_areas.then(function(areas){
+
             $scope.building.areas = areas.data.items;
-            console.log(areas.data.items);
+            
             areas.data.items.forEach(function(area,index){
                 
+                var sens = Area.getSensors(area.id);
+                sens.then(function(val,index){
+                    area.sensors = val.data.items;
+                    area.sensors.forEach(function(sensor,index){
+                        var m = Sensor.getMeasurementsByResourceId(sensor.id);
+                            m.then(function(datas){
+                                sensor.metrics = datas.data;
+                            });                           
+                    });
+
+                });
+
+
+
                 if(area.json!=''){
                     var js = area.json; 
                         js = JSON.parse(js);
                         area.element_width = js.width;
-                        area.element_width = js.height;
+                        area.element_height = js.height;
+                        if(area.element_width<2)
+                            area.element_width=2;
+                        if(area.element_height<2)
+                            area.element_height=2;
+
+                        if(area.element_width>10)
+                            area.element_width=10;
+
+                        if(area.element_height>10)
+                            area.element_height=10;
+
                 }else{
-                    area.element_width = 300;
-                    area.element_width=300;
+                    area.element_width=3;
+                    area.element_width=3;
                 }
+                
+                area.style={
+                    'width':area.element_width*100+'px',
+                    'height':area.element_height*100+'px'
+                };
                 
 
                 
@@ -516,11 +549,141 @@
         };
 
     })
-    .controller('SiteController',function($scope,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor){
+    .controller('SiteSensorsController',function($scope,$q,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor){
+
+        $scope.building = {};
+       var t_areas = site.getAreas($stateParams.id);
+       
+        t_areas.then(function(areas){
+            $scope.building.areas = areas.data.items;
+
+            $scope.building.areas.forEach(function(area,index){
+                  
+                  var the_area = {};
+                  
+                var area_sensors = Area.getSensors(area.id);
+                    area_sensors.then(function(sensors){
+
+                        area.sensors = sensors.data.items;    
+                        
+                        area.sensors.forEach(function(thesensor,index){                            
+                                
+                            var meas = Sensor.getMeasurementsByResourceId(thesensor.id);
+                                meas.then(function(measurements){
+                                    thesensor.meatrics = measurements.data;
+                                }); 
+
+                        });
+                    });                  
+                });
+            console.log($scope.building.areas);
+        });
+
+
+        $scope.goToSensor = function(sensor_id){
+            $location.path('page/sensor/view/'+sensor_id);   
+        }
+
+
+    })
+    .controller('SensorController',function($scope,$q,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor){
+        $scope.sensor_measurements = {};
+        $scope.dates_one = [];
+
+
+         
+
+
+
+
+        $scope.sensor = {
+            id:$stateParams.id
+        };
+        var details = Sensor.getDetails($scope.sensor.id);
+            details.then(function(details){
+                $scope.sensor.details = details.data.item;
+            });
+
+        var meas = Sensor.getMeasurementsByResourceId($scope.sensor.id);
+            meas.then(function(measurements){
+                $scope.sensor.meatrics = measurements.data;  
+                
+                var the_data = measurements.data.day;                
+
+                the_data.forEach(function(d,index){
+                    the_data[index] = parseFloat(d).toFixed(2);
+                    $scope.dates_one[index] = new Date(measurements.data.latestTime-index*1000*3600*24);
+                    console.log(index);
+                });
+                
+                
+            $q.all(the_data).then(function(){
+                $scope.dates_one.reverse();
+                the_data.reverse();
+              
+
+              $scope.sensor_measurements.options = {
+                    title : {
+                        text: '',
+                    },
+                    tooltip : {
+                        trigger: 'axis'
+                    },
+                    legend: {
+                        data:['Mesurements']
+                    },
+                    toolbox: {
+                        show : true,
+                        feature : {
+                            restore : {show: true, title: "restore"},
+                            saveAsImage : {show: true, title: "save as image"}
+                        }
+                    },
+                    calculable : true,
+                    xAxis : [
+                        {
+                            type : 'category',
+                            boundaryGap : false,
+                            data : $scope.dates_one
+                        }
+                    ],
+                    yAxis : [
+                        {
+                            type : 'value'
+                        }
+                    ],
+                    series : [
+                        {
+                            name:'Mesurements',
+                            type:'line',
+                            smooth:true,
+                            itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                            data:the_data
+                        }
+                    ]
+                    };
+
+                
+            });
+
+
+
+
+
+
+                
+                
+                console.log($scope.sensor_measurements.options);
+            }); 
+
+    })
+    .controller('SiteController',function($scope,$q,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor){
         
         $scope.building = {};
         $scope.areas = [];
+        $scope.line3 = {};
         
+        $scope.bar4 = {};
 
 
         var t_site = site.getDetails($stateParams.id);
@@ -529,6 +692,14 @@
            $scope.building.details = site.data;
         });
 
+
+    //get all areas
+
+    //get sensors per area
+
+    //
+    $scope.getMeasurementsForFirstGraph = function(callback){
+        $scope.line3_series = [];
        var t_areas = site.getAreas($stateParams.id);
        
         t_areas.then(function(areas){
@@ -538,33 +709,81 @@
             $scope.building.areas = areas.data.items;
 
             $scope.building.areas.forEach(function(area,index){
-                  
+                  var the_area = {};
                   $scope.areas.push(area.name);
-                var area_sensors = Area.getSensors(area.id);
-                    area_sensors.then(function(sensors){
 
-                        area.sensors = sensors.data.items;    
-                        
-                        area.sensors.forEach(function(thesensor,index){
-                                
-                            var meas = Sensor.getMeasurementsByResourceId(thesensor.id);
-                            meas.then(function(measurements){
-                                thesensor.meatrics = measurements;
-                            });
+                  the_area.energy_consumtion_per_day = [];
 
                    
 
 
 
+                var area_sensors = Area.getSensors(area.id);
+                    area_sensors.then(function(sensors){
 
+                        area.sensors = sensors.data.items;    
+                        
+                        area.sensors.forEach(function(thesensor,index){                            
+                                
+                                var meas = Sensor.getMeasurementsByResourceId(thesensor.id);
+                                meas.then(function(measurements){
+                                    thesensor.meatrics = measurements.data;
+
+
+
+                                    if(thesensor.value_type=='Wh'){
+
+                                        thesensor.meatrics.day.forEach(function(day_meas,index){
+                                            console.log(index+":"+day_meas);
+                                            
+
+                                            if (the_area.energy_consumtion_per_day[index] === undefined || the_area.energy_consumtion_per_day[index] === null) {
+                                                        the_area.energy_consumtion_per_day[index]=0;
+                                            }
+
+                                            the_area.energy_consumtion_per_day[index]=parseFloat(the_area.energy_consumtion_per_day[index]).toFixed(2)+parseFloat(day_meas).toFixed(2);
+                                            
+                                        });
+                                    }
+                                }); 
 
                         });
+
                     });
+
+                    $scope.line3_series.push({
+                                name:area.name,
+                                type:'line',
+                                smooth:true,
+                                itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                                data:[432,432,3,42,5,3215]
+                    });
+
             });
 
 
+                            
+       
 
-                     
+        });
+
+
+
+        
+            
+            
+            $q.all($scope.line3_series).then(function(){
+                console.log("XM");
+                callback();
+            });
+        }
+
+
+
+
+
+    $scope.getMeasurementsForFirstGraph(function () {
+        console.log("NAI RE 2");
         $scope.line3.options = {
             title : {
                 text: "",
@@ -595,32 +814,14 @@
                     type : 'value'
                 }
             ],
-            series : [
-                {
-                    name:'Deal closed',
-                    type:'line',
-                    smooth:true,
-                    itemStyle: {normal: {areaStyle: {type: 'default'}}},
-                    data:[10, 12, 21, 54, 260, 830, 710]
-                },
-                {
-                    name:'Pre-order',
-                    type:'line',
-                    smooth:true,
-                    itemStyle: {normal: {areaStyle: {type: 'default'}}},
-                    data:[30, 182, 434, 791, 390, 30, 10]
-                },
-                {
-                    name:'Intention',
-                    type:'line',
-                    smooth:true,
-                    itemStyle: {normal: {areaStyle: {type: 'default'}}},
-                    data:[1320, 1132, 601, 234, 120, 90, 20]
-                }
-            ]
+            series : $scope.line3_series
         };
+        console.log("NAI RE 3");
+    });
 
-        });
+
+
+
 
 
 
@@ -766,7 +967,7 @@
         $scope.bar1 = {};
         $scope.bar2 = {};
         $scope.bar3 = {};
-        $scope.bar4 = {};
+        
         $scope.bar5 = {};
 
         $scope.pie1 = {};
@@ -1142,73 +1343,7 @@
                 }
             ]
         };
-        $scope.bar4.options = {
-            tooltip : {
-                trigger: 'axis',
-                axisPointer : {            
-                    type : 'shadow'
-                }
-            },
-            legend: {
-                data:['AirCondition','Heating','Lighting','Machinery Operations','Others']
-            },
-            toolbox: {
-                show : true,
-                feature : {
-                    restore : {show: true, title: "restore"},
-                    saveAsImage : {show: true, title: "save as image"}
-                }
-            },
-            calculable : true,
-            xAxis : [
-                {
-                    type : 'value'
-                }
-            ],
-            yAxis : [
-                {
-                    type : 'category',
-                    data : ['CR1','CR2','CR3','CR4','Tennis Court','MRoom']
-                }
-            ],
-            series : [
-                {
-                    name:'AirCondition',
-                    type:'bar',
-                    stack: 'Sum',
-                    itemStyle : { normal: {label : {show: true, position: 'insideRight'}}},
-                    data:[320, 302, 301, 334, 390, 330, 320]
-                },
-                {
-                    name:'Heating',
-                    type:'bar',
-                    stack: 'Sum',
-                    itemStyle : { normal: {label : {show: true, position: 'insideRight'}}},
-                    data:[120, 132, 101, 134, 90, 230, 210]
-                },
-                {
-                    name:'Lighting',
-                    type:'bar',
-                    stack: 'Sum',
-                    itemStyle : { normal: {label : {show: true, position: 'insideRight'}}},
-                    data:[220, 182, 191, 234, 290, 330, 310]
-                },
-                {
-                    name:'Machinery Operations',
-                    type:'bar',
-                    stack: 'Sum',
-                    itemStyle : { normal: {label : {show: true, position: 'insideRight'}}},
-                    data:[150, 212, 201, 154, 190, 330, 410]
-                },
-                {
-                    name:'Others',
-                    type:'bar',
-                    stack: 'Sum',
-                    itemStyle : { normal: {label : {show: true, position: 'insideRight'}}},
-                    data:[820, 832, 901, 934, 1290, 1330, 1320]
-                }
-            ]
-        };
+        
         $scope.bar5.options = {
             tooltip : {
                 trigger: 'axis',

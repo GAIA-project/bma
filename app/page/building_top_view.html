@@ -10,13 +10,12 @@
         <div class="col-md-12" style="width:100%;min-height:1000px">
           
 
-          	<div ng-repeat="area in building.areas" class="draggable class ui-widget-content" on-last-repeat style="width:{{area.element_width}};height:{{area.element_height}}">
+          	<div ng-repeat="area in building.areas" class="draggable class ui-widget-content" on-last-repeat 
+                 ng-style="area.style">
+                            
           		<div class="class_measurements">
 					<ul>
-						<li>Temperature:{{area.temperature}} </li>
-						<li>Radiation:{{area.radiation}} </li>
-						<li>Energy Consumtion:{{area.energy_consumtion}} </li>
-						<li>Hum:{{area.hum}} </li>
+						<li ng-repeat="sensor in area.sensors">{{sensor.name+": "+sensor.metrics.latest+" "+sensor.value_type}}</li>
 					</ul>
           		</div>
 

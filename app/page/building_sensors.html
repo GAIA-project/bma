@@ -1,7 +1,7 @@
-<div class="page" ng-controller="SiteController" >
+<div class="page" ng-controller="SiteSensorsController" >
     <div class="row">
         <div class="col-md-8">
-            <h2 class="section-header">{{site.name}}</h2>
+            <h2 class="section-header"></h2>
         </div>
         <div class="col-md-4">
             <div layout="row" layout-align="end center">
@@ -11,19 +11,21 @@
         </div>
     </div>   
 
-    <div class="row" ng-init="getResources()">
-        <div class="col-md-3 col-lg-4" ng-repeat="resource in resources">
-            <div class="panel panel-default panel-minimal">
-                <div class="row white-bg">
-                    <div class="col-sm-3"><span class="info-box-icon bg-purple"><i class="ion ion-speedometer"></i></span></div>
-                    <div class="col-sm-9">
-                        <div class="panel-heading">{{resource.uri}}</div>
-                        <div class="panel-body" style="margin-top: -20px;">
-                            <h2>{{resource.latest.metric + " "+resource.latest.uom}}</h2>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row area_box" ng-repeat="area in building.areas">
+            <h2 class="area_title">{{area.name}}</h2>
+            <div style="text-align: center;margin-bottom: 10px" ng-show="area.sensors==0">The area has not assigned sensors</div>
+            <div class="col-sm-6 col-md-3 col-lg-2" style="margin-bottom: 5px" ng-repeat="sensor in area.sensors" ng-click="goToSensor(sensor.id)">
+                <div class="sensorbox">
+                    <div class="panel-heading">{{sensor.name}}</div>
+                        <div class="panel-body">
+                            <h5 class="latest_value">Latest value</h5>
+                            <h4>{{sensor.meatrics.latest+" "+sensor.value_type}}</h4>
                         </div>
                     </div>
                 </div>
-            </div>         
+            </div>
         </div>
-    </div>
+    </div>  
 </div>

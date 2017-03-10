@@ -77,6 +77,11 @@
                 templateUrl: 'app/page/building.html'
             });
 
+            $stateProvider.state('page/sensor/view', {
+                url: '/page/sensor/view/:id',
+                templateUrl: 'app/page/sensor_view.html'
+            });
+
             $urlRouterProvider
                 .when('/', '/dashboard')
 
