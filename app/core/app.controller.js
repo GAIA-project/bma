@@ -101,12 +101,15 @@
     .controller('authCtrl',function($scope,$window,$location,appConfig,authentication){
         
         appConfig.main.auth_token = '';
-        $scope.authenticate= function(){
+        $scope.user = {};
 
+        $scope.authenticate= function(){
+            appConfig.main.username = $scope.user.username;
+            appConfig.main.password = $scope.user.password;
             var aut  = authentication.authenticate();
        
             aut.then(function(auth){
-                    
+                
                 appConfig.main.auth_token = auth.data.access_token;                
                 console.log("Auth Data");
                 console.log(auth.data);
@@ -141,9 +144,10 @@
             var m = buildings.getSites();
             m.then(function(bs){
                 console.log(bs);
+                $scope.abuildings = bs.data.sites;
             })
             
-            x.then(function(buildings){
+           /* x.then(function(buildings){
                 
                 $scope.abuildings = buildings.data.items;    
 
@@ -159,26 +163,15 @@
                                 areas.data.items.forEach(function(area,index){
                                     
                                     var sensors = Area.getSensors(area.id);
-                                    /*console.log(sensors);*/
+                                    
                                 })
                             }
                             
                         });
-                        /*var sensors  =site.getSensors(build.id);
-                        sensors.then(function(sensors){
-                            console.log(sensors);
-                        });*/
-
-                        /*var gateways = site.getGateways(build.id);
-                        gateways.then(function(gateways){
-
-                            console.log(gateways.data);
-                        })*/
                         
-
                 })
             
-            })    
+            })    */
         }
 
         $scope.details = function(id){
@@ -301,6 +294,8 @@
 
         var available_resources = site.getResources($stateParams.id);
         available_resources.then(function(resources,index){
+            console.log("Resources");
+            console.log(resources);
             $scope.available_resources = [];
             resources.data.resources.forEach(function(tresource){
                 $scope.available_resources.push({id:tresource.resourceId,uri:tresource.uri});
@@ -341,15 +336,7 @@
                 console.log(area_sensors);
                 $scope.selected_area_sensors = sensors.data.items;
      
-                
-                $scope.selected_area_sensors.forEach(function(thesensor,index){
-                    
-                    var meas = Sensor.getMeasurementsByResourceId(thesensor.id);
-                    meas.then(function(measurements){
-                        
-                    })
-
-                });
+            
             
             });
         }
@@ -374,8 +361,8 @@
             var sensor = Sensor.getDetailsFromSparks($scope.new_sensor.id);
             sensor.then(function(sensor_data){
              
-
                 console.log(sensor_data);
+                
              var data = {
                 "name":$scope.new_sensor.name,
                 "description":$scope.new_sensor.description,
@@ -384,9 +371,9 @@
                 "value_type":sensor_data.data.uom,
                 "gateway_id":1,
                 "area_id":$scope.selected_area.id,
-                "id":sensor_data.data.resource_id
+                "id":sensor_data.data.resourceId
             };
-            
+            console.log(data);
             
            var req = {
                  method: 'POST',
@@ -513,7 +500,17 @@
            
            
            $scope.school = site.data.item;           
-           $scope.jjson = JSON.parse(site.data.item.json);
+            
+            if(angular.isUndefined(site.data.item.json) || site.data.item.json === null || site.data.item.json==null || site.data.item.json=="null")
+                $scope.jjson = {};
+            else{
+                console.log(site.data.item.json);
+                console.log(site.data.item);
+                $scope.jjson = JSON.parse(site.data.item.json);
+            }
+                
+            console.log("JJSON:");
+            console.log($scope.jjson);
 
            
 
@@ -536,6 +533,7 @@
             console.log("JSON");
             console.log($scope.jjson);
             console.log($scope.manos);
+
             var data = {
                         "json":JSON.stringify($scope.jjson),
                         "id":$scope.school.id,

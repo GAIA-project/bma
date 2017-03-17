@@ -273,7 +273,8 @@ md-tab {
   cursor: pointer;
   white-space: nowrap;
   position: relative;
-  text-transform: uppercase;
+  
+
   float: left;
   font-weight: 500;
   box-sizing: border-box;

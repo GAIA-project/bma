@@ -60,8 +60,8 @@
                 sites                   :'location/site',
                 site                    :'location/site'
             },
-            buildings:[{id:1,name:'Rafinas'},{id:2,name:'Markopoulo'}],
-            auth_token:'31591800-796d-49d9-9dc4-35bf76689f45'
+            buildings:[],
+            auth_token:'b96b6e29-fb19-4a67-a442-e6fe032a6dec'
         };
         var color = {
             primary:    '#009688',

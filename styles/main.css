@@ -29,7 +29,8 @@
   background: none;
   color: #3D4051;
   border: 1px solid transparent;
-  text-transform: uppercase;
+  
+
   -webkit-tap-highlight-color: transparent;
   -webkit-transition: .25s ease-out;
   transition: .25s ease-out; }
@@ -548,7 +549,8 @@ md-toast {
     line-height: 1;
     padding: 1.2em 1em;
     margin: 0;
-    text-transform: uppercase;
+    
+
     border-bottom: 1px solid #e1e1e1; }
 
 .ui-angular-wizard .ui-wizard-content {
@@ -616,7 +618,8 @@ md-toast {
     .steps-indicator li a {
       color: #808080;
       text-decoration: none;
-      text-transform: uppercase;
+      
+
       font-weight: bold;
       -webkit-transition: 0.25s;
       transition: 0.25s;
@@ -687,7 +690,8 @@ md-toast {
     font-size: 12px;
     line-height: 26px;
     color: #A5AEB1;
-    text-transform: uppercase; }
+    
+ }
   .page-dashboard .box-stats .box-num {
     font-size: 42px;
     line-height: 80px;
@@ -704,7 +708,8 @@ md-toast {
     font-size: 26px;
     color: #009688; }
   .page-dashboard .metrics .metric-info {
-    text-transform: uppercase;
+    
+
     font-size: 16px;
     color: #aaa; }
 
@@ -732,7 +737,8 @@ md-toast {
       height: 24px;
       display: inline-block;
       padding: 4px 10px;
-      text-transform: uppercase;
+      
+
       line-height: 14px;
       background-color: #fff;
       border: 1px solid #dfdfdf;
@@ -841,7 +847,8 @@ md-toast {
       margin: 0;
       font-weight: 300;
       font-size: 28px;
-      text-transform: uppercase; }
+      
+ }
       @media (min-width: 768px) {
         .page-err .err h2 {
           font-size: 36px; } }

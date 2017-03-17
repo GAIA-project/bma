@@ -964,7 +964,8 @@ input.input-danger {
     border: none;
     outline: none;
     background: transparent;
-    text-transform: uppercase;
+    
+
     font-size: 11px;
     font-weight: bold;
     text-indent: 0.01px;
@@ -1196,7 +1197,8 @@ input.input-danger {
 
 .btn.btn-raised,
 .btn-group.btn-raised {
-  text-transform: uppercase;
+  
+
   -webkit-transition: 0.25s ease-out;
   transition: 0.25s ease-out; }
   .btn.btn-raised:hover, .btn.btn-raised:focus, .btn.btn-raised:active,
@@ -1327,7 +1329,8 @@ input.input-danger {
   background: none;
   color: #3D4051;
   border: 1px solid transparent;
-  text-transform: uppercase;
+  
+
   -webkit-tap-highlight-color: transparent;
   -webkit-transition: 0.25s ease-out;
   transition: 0.25s ease-out; }
@@ -2332,7 +2335,8 @@ input.input-danger {
       text-align: center; }
       .ih-item.ih-material .info-content .info-inner h3 {
         margin: 0 0 10px;
-        text-transform: uppercase;
+        
+
         color: #fff;
         font-size: 18px; }
       .ih-item.ih-material .info-content .info-inner p {
@@ -2433,7 +2437,8 @@ img.img80_80 {
   .panel .panel {
     box-shadow: none; }
   .panel .panel-heading {
-    text-transform: uppercase; }
+    
+ }
   .panel .panel-title {
     font-size: 14px; }
   .panel.panel-labeled {
@@ -2642,7 +2647,8 @@ img.img80_80 {
   .pricing-table .pricing-lead {
     margin-bottom: 1.5em;
     font-size: 18px;
-    text-transform: uppercase; }
+    
+ }
     .pricing-table .pricing-lead:after {
       margin: 0 auto;
       content: "";
@@ -3022,7 +3028,8 @@ img.img80_80 {
       cursor: pointer; }
   .card .card-action > a {
     margin-right: 20px;
-    text-transform: uppercase; }
+    
+ }
   .card .card-image {
     position: relative; }
     .card .card-image img {

@@ -674,7 +674,8 @@ button.md-button::-moz-focus-inner {
   white-space: nowrap;
   min-width: 88px;
   text-align: center;
-  text-transform: uppercase;
+  
+
   font-weight: 500;
   font-size: 14px;
   font-style: inherit;
@@ -3932,7 +3933,8 @@ md-optgroup {
   md-optgroup label {
     display: block;
     font-size: 14px;
-    text-transform: uppercase;
+    
+
     padding: 16px;
     font-weight: 500; }
   md-optgroup md-option {
@@ -4730,7 +4732,8 @@ md-toast {
     margin-left: 24px;
     margin-right: 0;
     cursor: pointer;
-    text-transform: uppercase;
+    
+
     float: right; }
     md-toast .md-action.md-button {
       min-width: 0; }
@@ -5022,7 +5025,8 @@ md-tab {
   cursor: pointer;
   white-space: nowrap;
   position: relative;
-  text-transform: uppercase;
+  
+
   float: left;
   font-weight: 500;
   box-sizing: border-box;

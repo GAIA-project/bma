@@ -35,7 +35,8 @@ button.md-button::-moz-focus-inner {
   white-space: nowrap;
   min-width: 88px;
   text-align: center;
-  text-transform: uppercase;
+  
+
   font-weight: 500;
   font-size: 14px;
   font-style: inherit;

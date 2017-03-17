@@ -6,7 +6,8 @@
     background: none;
     color: $text-color;
     border: 1px solid transparent;
-    text-transform: uppercase;
+    
+
     -webkit-tap-highlight-color: transparent; // Gets rid of tap active state
     transition: .25s ease-out;
     &:hover,

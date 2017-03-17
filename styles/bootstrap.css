@@ -443,7 +443,8 @@ mark,
   text-transform: lowercase; }
 
 .text-uppercase, .initialism {
-  text-transform: uppercase; }
+  
+ }
 
 .text-capitalize {
   text-transform: capitalize; }

@@ -1625,7 +1625,8 @@ button.md-button::-moz-focus-inner {
   text-align: center;
 
   // Always uppercase buttons
-  text-transform: uppercase;
+  
+
   font-weight: 500;
   font-size: $body-font-size-base;
   font-style: inherit;
@@ -5095,7 +5096,8 @@ md-optgroup {
   label {
     display: block;
     font-size: rem(1.4);
-    text-transform: uppercase;
+    
+
     padding: $baseline-grid * 2;
     font-weight: 500;
   }
@@ -6240,7 +6242,8 @@ md-tab {
   cursor: pointer;
   white-space: nowrap;
   position: relative;
-  text-transform: uppercase;
+  
+
   @include rtl(float, left, right);
   font-weight: 500;
   box-sizing: border-box;
@@ -6393,7 +6396,8 @@ md-toast {
     margin-left: 24px;
     margin-right: 0;
     cursor: pointer;
-    text-transform: uppercase;
+    
+
     float: right;
   }
 

@@ -68,7 +68,8 @@
 .steps-indicator li a {
   color: #808080;
   text-decoration: none;
-  text-transform: uppercase;
+  
+
   font-weight: bold;
   transition: 0.25s;
   cursor: pointer;

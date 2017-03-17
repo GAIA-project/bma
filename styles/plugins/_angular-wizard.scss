@@ -15,7 +15,8 @@ $wz-color-editing: $brand-primary;
             line-height: 1;
             padding: 1.2em 1em;
             margin: 0;
-            text-transform: uppercase;
+            
+
             border-bottom: 1px solid #e1e1e1;
         }
     }
@@ -119,7 +120,8 @@ $wz-color-editing: $brand-primary;
         a {
             color: $wz-color-current;
             text-decoration: none;
-            text-transform: uppercase;
+            
+
             font-weight: bold;
             transition: 0.25s;
             cursor: pointer;
