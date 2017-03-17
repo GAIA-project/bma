@@ -1,0 +1,89 @@
+<div class="page" ng-controller="SiteComparisonController" >
+    <div class="row">
+        <div class="col-sm-12 col-md-6">
+            <h2 class="section-header">{{site.name}}</h2>
+        </div>
+        <div class="col-sm-12 col-md-6">
+            <div layout="row" layout-align="end center">
+                <md-button class="md-accent md-raised" ng-click="goToTopView()"><span data-translate="TOPVIEW"></span></md-button>&nbsp;
+                <md-button class="md-accent md-raised" ng-click="goToAreas()"><span data-translate="AREAS"></span></md-button>&nbsp;
+                <md-button class="md-accent md-raised" ng-click="goToSensors()"><span data-translate="SENSORS"></span></md-button>&nbsp;
+                <md-button class="md-accent md-raised" ng-click="goToMeasurements()"><span data-translate="AddMeasurements"></span></md-button>&nbsp;                
+                <md-button class="md-accent md-raised" ng-click="goToEdit()"><span data-translate="EDIT_BUILDING"></span></md-button>&nbsp;
+                <md-button class="md-accent md-raised" ng-click="goToAnomalies()"><span data-translate="ANOMALIES"></span></md-button>
+                <md-button class="md-accent md-raised" ng-click="goToComparison()"><span data-translate="COMPARISON"></span></md-button>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="row" style="margin-top:60px">    
+ 		<div class="col-sm-12 col-md-3">
+ 			<div class="panel panel-default panel-minimal">
+                <div class="divider divider-md"></div>
+                <div class="panel-heading"><span data-translate="FILTERS"></span></div>
+                <div class="panel-body">
+                	<div class="row">
+                 		<div class="col-md-12">
+                            <div class="form-group">
+                                <label for="building_build_year" class="col-sm-12 control-label"><span data-translate="BUILDING_ONE"></span></label>
+                                <div class="col-sm-12">                                        
+                                        <md-select ng-model="school_one">
+                                            <md-option ng-repeat="site in available_sites" value="{{site.id}}">
+                                                {{site.name}}
+                                            </md-option>
+                                        </md-select>                                    
+                                </div>
+                            </div>
+                        </div>
+                 	</div>
+                 	<div class="row">
+         				<div class="col-md-12">
+                            <div class="form-group">
+                                <label for="building_build_year" class="col-sm-12 control-label"><span data-translate="BUILDING_TWO"></span></label>
+                                <div class="col-sm-12">                                        
+                                	<md-select ng-model="school_two">
+                                    	<md-option ng-repeat="site in available_sites" value="{{site.id}}">
+                                       		{{site.name}}
+                                    	</md-option>
+                                	</md-select>                                    
+                                </div>
+                            </div>
+                        </div>
+                 	</div>
+                 	<div class="row text-center">
+                 		<md-button class="md-accent md-raised" ng-click="update()"><span data-translate="UPDATE"></span></md-button>
+                 	</div>
+                </div>
+            </div>
+ 		</div>
+        <div class="col-sm-12 col-md-9">
+            <div class="panel panel-default panel-minimal">
+                <div class="divider divider-md"></div>
+                <div class="panel-body">                    
+                    <div class="row">
+                    	<div class="col-sm-12 col-md-4">
+                    			<span class="col-sm-12 watt_count">2.343 kWh</span>
+                    			<span class="col-sm-12 school_name">2ο Γυμνάσιο Ραφήνας</span>
+                    	</div>
+                    	<div class="col-sm-12 col-md-4">
+                    			<span class="col-sm-12 watt_count">2.243 kWh</span>
+                    			<span class="col-sm-12 school_name">1ο Γυμνάσιο Ραφήνας</span>
+                    	</div>
+                    	<div class="col-sm-12 col-md-4">
+                    			<span class="col-sm-12 watt_count">100 kWh</span>
+                    			<span class="col-sm-12 school_name">Διαφορά</span>
+                    	</div>
+
+                    </div>
+                </div>
+                <div class="panel-body">
+                <div data-echarts data-options="line3.options" style="height: 350px;"></div>
+                </div>
+            </div>
+            
+        </div>
+    
+    </div> 
+
+</div>

@@ -39,6 +39,8 @@
                 templateUrl: 'app/page/anomaly.html'
             });
 
+            
+
             $stateProvider.state('page/building/new', {
                 url: '/page/building/new',
                 templateUrl: 'app/page/building.html'
@@ -46,6 +48,10 @@
             $stateProvider.state('page/building/area', {
                 url: '/page/building/areas/:id',
                 templateUrl: 'app/page/building_areas.html'
+            });
+             $stateProvider.state('page/building/comparison', {
+                url: '/page/building/comparison/:id',
+                templateUrl: 'app/page/building_comparison.html'
             });
             
             $stateProvider.state('page/building/topview',{

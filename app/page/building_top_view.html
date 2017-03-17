@@ -2,7 +2,7 @@
     <div class="row">
     	<div class="col-sm-12">	
     		<div layout="row" layout-align="end center">
-                <md-button class="md-accent md-raised" ng-click="createClass()">Add ClassRoom</md-button>&nbsp;
+                <md-button class="md-accent md-raised" ng-click="createClass()"><span data-translate="ADD_AREA"></span></md-button>&nbsp;
             </div>
     	</div>
     </div>
@@ -33,13 +33,13 @@
 
                         <script type="text/ng-template" id="newclassRoom.html">
                             <div class="modal-header">
-                                <h3>Add A New ClassRoom</h3>
+                                <h3><span data-translate="ADD_AREA"></span></h3>
                             </div>
                             <div class="modal-body">
                             	<div class="row">
 	                            	<div class="col-md-12">
 	                               		<div class="form-group">
-	                                        <label for="name" class="col-sm-5 control-label">Name</label>
+	                                        <label for="name" class="col-sm-5 control-label"><span data-translate="NAME"></span></label>
 	                                        <div class="col-sm-7">
 	                                            <input type="text" class="form-control" id="name" ng-model="new_class.name" placeholder="Name">
 	                                        </div>
@@ -49,7 +49,7 @@
 	                            <div class="row" style="margin-top: 18px;margin-bottom: 18px;">
 	                            	<div class="col-md-6">
 	                               		<div class="form-group">
-	                                        <label for="width" class="col-sm-5 control-label">Width (meters)</label>
+	                                        <label for="width" class="col-sm-5 control-label"><span data-translate="Width"></span> (cm)</label>
 	                                        <div class="col-sm-7">
 	                                            <input type="text" class="form-control" id="width" ng-model="new_class.width" placeholder="Width (m)">
 	                                        </div>
@@ -57,57 +57,12 @@
 	                                </div>
 	                                <div class="col-md-6">
 	                                    <div class="form-group">
-	                                        <label for="Length" class="col-sm-5 control-label">Length (meters)</label>
+	                                        <label for="Length" class="col-sm-5 control-label"><span data-translate="Length"></span> (cm)</label>
 	                                        <div class="col-sm-7">
 	                                            <input type="text" class="form-control" ng-model="new_class.length" id="Length" placeholder="Length (m)">
 	                                        </div>
 	                                    </div>
 	                                </div>
-                                </div>
-                                <div class="row">
-                                	<div class="sensorial">
-                                		<div class="table-responsive">
-                                		<table class="table table-striped table-bordered no-margin">
-                                			<tr><td>Temperature</td>
-                                				<td> 
-                			       					<select ng-model="new_class.temperature_sensor" class="ng-pristine ng-valid ng-empty ng-touched" aria-label="select">
-                                                    	<option ng-repeat="sensor in sensors" value="{{sensor.resourceId}}">
-                                                        	{{sensor.name}}
-                                                    	</option>
-                                                    </select>
-                                                </td>
-                                            </tr>
-                                			<tr><td>Energy Consumtion</td><td>
-                                				
-                                				<select ng-model="new_class.energy_consumption" class="ng-pristine ng-valid ng-empty ng-touched" aria-label="select">
-                                                    	<option ng-repeat="sensor in sensors" value="{{sensor.resourceId}}">
-                                                        	{{sensor.name}}
-                                                    	</option>
-                                                    </select>
-
-                                			</td></tr>
-                                			<tr><td>Radiation</td><td>
-                                				
-                                				<select ng-model="new_class.radiation" class="ng-pristine ng-valid ng-empty ng-touched" aria-label="select">
-                                                    	<option ng-repeat="sensor in sensors" value="{{sensor.resourceId}}">
-                                                        	{{sensor.name}}
-                                                    	</option>
-                                                    </select>
-
-
-                                			</td></tr>
-                                			<tr><td>HUM</td><td>
-                                				
-                                				<select ng-model="new_class.hum" class="ng-pristine ng-valid ng-empty ng-touched" aria-label="select">
-                                                    	<option ng-repeat="sensor in sensors" value="{{sensor.resourceId}}">
-                                                        	{{sensor.name}}
-                                                    	</option>
-                                                    </select>
-
-                                			</td></tr>
-                                		</table>
-                                		</div>
-                                	</div>
                                 </div>
                             </div>
                             <div class="modal-footer">

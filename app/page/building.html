@@ -1,15 +1,15 @@
-<div class="page" ng-controller="SiteΕditController">
-
+<div class="page" ng-controller="SiteEditController">
+    <div class="saved">Updated</div>
     <div class="row">
         <div class="col-md-8">
             <h2 class="section-header">{{site.name}}</h2>
         </div>
         <div class="col-md-4">
             <div layout="row" layout-align="end center">
-                <md-button class="md-accent md-raised" ng-click="goToMeasurements()">Add Measurements</md-button>&nbsp;
-                <md-button class="md-accent md-raised" ng-click="goToAreas()">Areas</md-button>&nbsp;
-                <md-button class="md-accent md-raised" ng-click="goToSensors()">Sensors</md-button>&nbsp;
-                <md-button class="md-accent md-raised" ng-click="goToDashboard()">View Building</md-button>
+                <md-button class="md-accent md-raised" ng-click="goToMeasurements()"><span data-translate="ADD_MEASUREMENTS"></span></md-button>&nbsp;
+                <md-button class="md-accent md-raised" ng-click="goToAreas()"><span data-translate="AREAS"></span></md-button>&nbsp;
+                <md-button class="md-accent md-raised" ng-click="goToSensors()"><span data-translate="SENSORS"></span></md-button>&nbsp;
+                <md-button class="md-accent md-raised" ng-click="goToDashboard()"><span data-translate="VIEW_BUILDING"></span></md-button>
 
             </div>
         </div>
@@ -27,56 +27,57 @@
                             <div class="row">
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-group">
-                                        <label for="inputEmail3" class="col-sm-5 control-label">School Name</label>
+                                        <label for="inputEmail3" class="col-sm-5 control-label"><span data-translate="SchoolName"></span></label>
                                         <div class="col-sm-7">
-                                            <input type="text" class="form-control" id="inputEmail3" placeholder="School Name">
+                                            <input type="text" class="form-control" id="inputEmail3" placeholder="School Name" ng-model="school.name">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="BuildingID" class="col-sm-5 control-label">Building ID</label>
+                                        <label for="BuildingID" class="col-sm-5 control-label"><span data-translate="BuildingID"></span></label>
                                         <div class="col-sm-7">
-                                            <input type="text" class="form-control" id="BuildingID" placeholder="Building ID">
+                                            <input type="text" class="read-only form-control" id="BuildingID" placeholder="Building ID" ng-model="school.id">
                                         </div>
                                     </div>
                                      <div class="form-group">
-                                        <label for="Orientation" class="col-sm-5 control-label">Energy types available</label>
+                                        <label for="Orientation" class="col-sm-5 control-label"><span data-translate="Energy_types_available"></span></label>
                                         <div class="col-sm-7">
-                                            <md-checkbox  aria-label="Electricity"> Electricity </md-checkbox>
-                                            <md-checkbox  class="md-primary" aria-label="Gas"> Gas </md-checkbox>
-                                            <md-checkbox  class="md-warn" aria-label="Petrol"> Petrol </md-checkbox>
+                                            <md-checkbox  ng-model="jjson.available_electricity" aria-label="Electricity"> <span data-translate="Electricity"></span> </md-checkbox>
+                                            <md-checkbox  ng-model="jjson.available_gas" class="md-primary" aria-label="Gas"> <span data-translate="Gas"></span> </md-checkbox>
+                                            <md-checkbox  ng-model="jjson.available_petrol" class="md-warn" aria-label="Petrol"> <span data-translate="Petrol"></span> </md-checkbox>
                                         </div>
                                     </div>                              
                                 
                                     <div class="form-group">
-                                        <label for="ConsumptionMeterSerialNumber" class="col-sm-5 control-label">Is there an automated thermostat installed?</label>
+                                        <label for="ConsumptionMeterSerialNumber" class="col-sm-5 control-label"><span data-translate="Is_there_an_automated_thermostat_installed"></span></label>
                                         <div class="col-sm-7">
-                                            <md-switch  aria-label="Switch 1"> Yes </md-switch>
+                                            <md-switch  aria-label="Switch 1" ng-model="jjson.thermostat_installed"> <span data-translate="Yes"></span> </md-switch>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="Threshold" class="col-sm-5 control-label">Which is the threshold value?</label>
+                                        <label for="Threshold" class="col-sm-5 control-label"><span data-translate="Which_is_the_threshold_value"></span></label>
                                         <div class="col-sm-7">
-                                            <input type="text" class="form-control" id="Threshold" placeholder="20">
+                                            <input type="text" class="form-control" id="Threshold" ng-model="jjson.threshold" placeholder="20">
                                         </div>
                                     </div>
+                                     
 
 
                                     <div class="form-group">
-                                        <label for="ConsumptionMeter" class="col-sm-5 control-label">Are the heating and cooling systems serviced regularly?</label>
+                                        <label for="ConsumptionMeter" class="col-sm-5 control-label"><span data-translate="Aretheheatingandcoolingsystemsservicedregularly"></span></label>
                                         <div class="col-sm-7">
-                                            <md-switch  aria-label="Switch 12"> Yes </md-switch>
+                                            <md-switch  aria-label="Switch 12" ng-model="jjson.serviced_regularly"> <span data-translate="Yes"></span> </md-switch>
                                         </div>
                                     </div>
                                      <div class="form-group">
-                                        <label for="ConsumptionMeter" class="col-sm-5 control-label">Are the heating and cooling system tubes insulated?</label>
+                                        <label for="ConsumptionMeter" class="col-sm-5 control-label"><span data-translate="Aretheheatingandcoolingsystemtubesinsulated"></span></label>
                                         <div class="col-sm-7">
-                                            <md-switch  aria-label="Switch 12"> Yes </md-switch>
+                                            <md-switch  aria-label="Switch 12" ng-model="jjson.tubes_insulated"> <span data-translate="Yes"></span></md-switch>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="inputPassword3" class="col-sm-5 control-label">Serial number of the consumption meter</label>
+                                        <label for="inputPassword3" class="col-sm-5 control-label"><span data-translate="Serial_number_of_the_consumption_meter"></span></label>
                                         <div class="col-sm-7">
-                                            <input type="text" class="form-control" id="inputPassword3" placeholder="Serial number of the consumption meter">
+                                            <input type="text" class="form-control" id="inputPassword3" ng-model="jjson.consumption_meter_serial_number" placeholder="Serial number of the consumption meter">
                                         </div>
                                     </div>
 
@@ -85,87 +86,48 @@
                                     
                                 
                                     <div class="form-group">
-                                        <label for="Orientation" class="col-sm-5 control-label">Type of heating system/energy source used</label>
+                                        <label for="Orientation" class="col-sm-5 control-label"><span data-translate="Type_of_heating_system_energy_source_used"></span></label>
                                         <div class="col-sm-7">
-                                            <md-radio-group class="ui-md-radio-group-inline" ng-model="type_of_heating">
-                                                <md-radio-button value="Furnaces">Furnaces</md-radio-button><br/>
-                                                <md-radio-button value="Boilers">Boilers</md-radio-button><br/>
-                                                <md-radio-button value="South">Heat Pumps</md-radio-button>    <br/>                                        
-                                                <md-radio-button value="Southeast">Gas-Fired Space Heaters</md-radio-button><br/>
-                                                <md-radio-button value="East">Electric Space Heaters</md-radio-button><br/>
-                                                <md-radio-button value="East">Wood-Burning and Pellet Stoves</md-radio-button>
+                                            <md-radio-group class="ui-md-radio-group-inline" ng-model="jjson.type_of_heating">
+                                                <md-radio-button value="Furnaces"><span data-translate="Furnaces"></span></md-radio-button><br/>
+                                                <md-radio-button value="Boilers"><span data-translate="Boilers"></span></md-radio-button><br/>
+                                                <md-radio-button value="South"><span data-translate="Heat_Pumps"></span></md-radio-button>    <br/>                                        
+                                                <md-radio-button value="Southeast"><span data-translate="Gas_Fired_Space_Heaters"></span></md-radio-button><br/>
+                                                <md-radio-button value="East"><span data-translate="Electric_Space_Heaters"></span></md-radio-button><br/>
+                                                <md-radio-button value="East"><span data-translate="Wood_Burning_and_Pellet_Stoves"></span></md-radio-button>
                                             </md-radio-group>
                                         </div>
                                     </div>
-                                <div class="form-group">
-                                    <label for="Orientation" class="col-sm-5 control-label">Date of heating system installation</label>
-                                    <div class="col-sm-7">
-                                        <div class="input-group ui-datepicker">
-                                <input type="text" 
-                                       class="form-control"
-                                       uib-datepicker-popup="{{format}}"
-                                       ng-model="dt1"
-                                       is-open="popup1.opened"
-                                       min-date="minDate"
-                                       max-date="maxDate"
-                                       datepicker-options="dateOptions"
-                                       date-disabled="disabled(date, mode)"
-                                       ng-required="true"
-                                       close-text="Close"
-                                       alt-input-formats="altInputFormats" />
-                                <span class="input-group-addon" ng-click="open1()"><i class="fa fa-calendar"></i></span>
-                                        </div>
-                                    </div>
-                                </div>
+                                                          
                                  <div class="form-group">
-                                    <label for="Orientation" class="col-sm-5 control-label">Type of cooling system/energy source used</label>
+                                    <label for="Orientation" class="col-sm-5 control-label"><span data-translate="Type_of_cooling_system_energy_source_used"></span></label>
                                     <div class="col-sm-7">
-                                        <md-radio-group class="ui-md-radio-group-inline radio2" ng-model="type_of_cooling_systen" >
-                                            <md-radio-button value="1">Central Air Conditioners</md-radio-button><br/>
-                                            <md-radio-button value="2">Room Air Conditioners</md-radio-button><br/>
-                                            <md-radio-button value="3">Evaporative Coolers</md-radio-button><br/>
-                                            <md-radio-button value="4">Ductless Mini-Split Air Conditioners</md-radio-button><br/>
+                                        <md-radio-group class="ui-md-radio-group-inline radio2" ng-model="jjson.type_of_cooling_systen" >
+                                            <md-radio-button value="1"><span data-translate="Central_Air_Conditioners"></span></md-radio-button><br/>
+                                            <md-radio-button value="2"><span data-translate="Room_Air_Conditioners"></span></md-radio-button><br/>
+                                            <md-radio-button value="3"><span data-translate="Evaporative_Coolers"></span></md-radio-button><br/>
+                                            <md-radio-button value="4"><span data-translate="Ductless_Mini_Split_Air_Conditioners"></span></md-radio-button><br/>
                                         </md-radio-group>
                                     </div>
                                 </div>
                                
                                  <div class="form-group">
-                                    <label for="CoolingSystem" class="col-sm-5 control-label">Is there cooling system installed?</label>
+                                    <label for="CoolingSystem" class="col-sm-5 control-label"><span data-translate="Is_there_cooling_system_installed"></span></label>
                                     <div class="col-sm-7">
-                                        <md-switch  aria-label="Switch 2"> Yes </md-switch>
+                                        <md-switch  aria-label="Switch 2" ng-model="jjson.cooling_installed"> <span data-translate="Yes"></span> </md-switch>
                                     </div>
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label for="Orientation32" class="col-sm-5 control-label">Date of cooling system installation</label>
+                                    <label for="ConsumptionMeterSerialNumber" class="col-sm-5 control-label"><span data-translate="Is_there_an_automated_thermostat_installed_for_the_cooling_system"></span></label>
                                     <div class="col-sm-7">
-                                        <div class="input-group ui-datepicker">
-                                            <input type="text" 
-                                                   class="form-control"
-                                                   uib-datepicker-popup="{{format}}"
-                                                   ng-model="dt2"
-                                                   is-open="popup2.opened"
-                                                   min-date="minDate"
-                                                   max-date="maxDate"
-                                                   datepicker-options="dateOptions"
-                                                   date-disabled="disabled(date, mode)"
-                                                   ng-required="true"
-                                                   close-text="Close"
-                                                   alt-input-formats="altInputFormats" />
-                                            <span class="input-group-addon" ng-click="open2()"><i class="fa fa-calendar"></i></span>
-                                        </div>
+                                        <md-switch  aria-label="Switch 12" ng-model="jjson.cooling_thermostat_installed"> <span data-translate="Yes"></span> </md-switch>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="ConsumptionMeterSerialNumber" class="col-sm-5 control-label">Is there an automated thermostat installed for the cooling system?</label>
+                                    <label for="Threshold" class="col-sm-5 control-label"><span data-translate="Which_is_the_threshold_value"></span></label>
                                     <div class="col-sm-7">
-                                        <md-switch  aria-label="Switch 12"> Yes </md-switch>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="Threshold" class="col-sm-5 control-label">Which is the threshold value?</label>
-                                    <div class="col-sm-7">
-                                        <input type="text" class="form-control" id="Threshold" placeholder="20">
+                                        <input type="text" class="form-control" id="Threshold" placeholder="20" ng-model="jjson.cooling_threshold_value">
                                     </div>
                                 </div>
                                  
@@ -180,49 +142,136 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="building_build_year" class="col-sm-5 control-label">Which year was the building built?</label>
+                                        <label for="building_build_year" class="col-sm-5 control-label"><span data-translate="Which_year_was_the_building_built"></span></label>
                                         <div class="col-sm-7">
-                                            <input type="text" class="form-control" id="age" placeholder="Year">
+                                            <input type="text" class="form-control" id="age" placeholder="Year" ng-model="jjson.construction_year">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="inhabitants" class="col-sm-5 control-label">Inhabitants</label>
+                                        <label for="People" class="col-sm-5 control-label"><span data-translate="People"></span></label>
                                         <div class="col-sm-7">
-                                            <input type="text" class="form-control" id="inhabitants" placeholder="Inhabitants">
+                                            <input type="text" class="form-control" id="People" placeholder="People" ng-model="school.people">
                                         </div>
                                     </div>
                                    
                                      <div class="form-group">
-                                        <label for="Orientation" class="col-sm-5 control-label">Orientation</label>
+                                        <label for="Orientation" class="col-sm-5 control-label"><span data-translate="Orientation"></span></label>
                                         <div class="col-sm-7">
-                                            <md-radio-group class="ui-md-radio-group-inline" >
-                                                <md-radio-button value="West">West</md-radio-button>
-                                                <md-radio-button value="Southweast">Southweast</md-radio-button>
-                                                <md-radio-button value="South">South</md-radio-button>                                            
-                                                <md-radio-button value="Southeast">Southeast</md-radio-button>
-                                                <md-radio-button value="East">East</md-radio-button>
-                                                <md-radio-button value="ΝorthEastern">Νorth-eastern</md-radio-button>
-                                                <md-radio-button value="North">North</md-radio-button>                                            
-                                                <md-radio-button value="Νorthwest">Νorthwest</md-radio-button>
+                                            <md-radio-group class="ui-md-radio-group-inline"  ng-model="jjson.orientation">
+                                                <md-radio-button value="West"><span data-translate="West"></span></md-radio-button>
+                                                <md-radio-button value="Southweast"><span data-translate="Southweast"></span></md-radio-button>
+                                                <md-radio-button value="South"><span data-translate="South"></span></md-radio-button>                                            
+                                                <md-radio-button value="Southeast"><span data-translate="Southeast"></span></md-radio-button>
+                                                <md-radio-button value="East"><span data-translate="East"></span></md-radio-button>
+                                                <md-radio-button value="ΝorthEastern"><span data-translate="Νorth-eastern"></span></md-radio-button>
+                                                <md-radio-button value="North"><span data-translate="North"></span></md-radio-button>                                            
+                                                <md-radio-button value="Νorthwest"><span data-translate="Νorthwest"></span></md-radio-button>
                                             </md-radio-group>
                                         </div>
                                     </div>
-
-                                   
-
-
-
-
                                 </div>
                             </div>
                         </uib-tab>
+                    
+
+                    <uib-tab heading="Resources">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                    <div class="form-group">
+                                        <label for="building_build_year" class="col-sm-5 control-label"><span data-translate="Please_select_the_Resource_for_Energy_Consumption"></span></label>
+                                        <div class="col-sm-7">                                                
+                                                <md-select ng-model="jjson.energy_consumption_resource">
+                                                    <md-option ng-repeat="resource in available_resources" value="{{resource.id}}">
+                                                        {{resource.uri}}
+                                                    </md-option>
+                                                </md-select>                                            
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="building_build_year" class="col-sm-5 control-label"><span data-translate="Please_select_the_Resource_for_Temperature"></span></label>
+                                        <div class="col-sm-7">                                                
+                                                <md-select ng-model="jjson.temperature_resource">
+                                                    <md-option ng-repeat="resource in available_resources" value="{{resource.id}}">
+                                                        {{resource.uri}}
+                                                    </md-option>
+                                                </md-select>                                            
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="building_build_year" class="col-sm-5 control-label"><span data-translate="Please_select_the_Resource_for_Rain_Height"></span></label>
+                                        <div class="col-sm-7">                                                
+                                                <md-select ng-model="jjson.rain_resource">
+                                                    <md-option ng-repeat="resource in available_resources" value="{{resource.id}}">
+                                                        {{resource.uri}}
+                                                    </md-option>
+                                                </md-select>                                            
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="building_build_year" class="col-sm-5 control-label"><span data-translate="Please_select_the_Resource_for_Wind_Direction"></span></label>
+                                        <div class="col-sm-7">                                                
+                                                <md-select ng-model="jjson.wind_direction_resource">
+                                                    <md-option ng-repeat="resource in available_resources" value="{{resource.id}}">
+                                                        {{resource.uri}}
+                                                    </md-option>
+                                                </md-select>                                            
+                                        </div>
+                                    </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                    <div class="form-group">
+                                        <label for="building_build_year" class="col-sm-5 control-label"><span data-translate="Please_select_the_Resource_for_Wind_Speed"></span></label>
+                                        <div class="col-sm-7">                                                
+                                                <md-select ng-model="jjson.wind_speed_resource">
+                                                    <md-option ng-repeat="resource in available_resources" value="{{resource.id}}">
+                                                        {{resource.uri}}
+                                                    </md-option>
+                                                </md-select>                                            
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="building_build_year" class="col-sm-5 control-label"><span data-translate="Please_select_the_Resource_for_Movement"></span></label>
+                                        <div class="col-sm-7">                                                
+                                                <md-select ng-model="jjson.movement_resource">
+                                                    <md-option ng-repeat="resource in available_resources" value="{{resource.id}}">
+                                                        {{resource.uri}}
+                                                    </md-option>
+                                                </md-select>                                            
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="building_build_year" class="col-sm-5 control-label"><span data-translate="Please_select_the_Resource_for_Carbon_Monoxide_Concentration"></span></label>
+                                        <div class="col-sm-7">                                                
+                                                <md-select ng-model="jjson.carbon_monoxide_concentration_resource">
+                                                    <md-option ng-repeat="resource in available_resources" value="{{resource.id}}">
+                                                        {{resource.uri}}
+                                                    </md-option>
+                                                </md-select>                                            
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="building_build_year" class="col-sm-5 control-label"><span data-translate="Please_select_the_Resource_for_Noise"></span></label>
+                                        <div class="col-sm-7">                                                
+                                                <md-select ng-model="jjson.noise_resource">
+                                                    <md-option ng-repeat="resource in available_resources" value="{{resource.id}}">
+                                                        {{resource.uri}}
+                                                    </md-option>
+                                                </md-select>                                            
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                        </uib-tab>
                     </uib-tabset>
                 </div>
-                    <div class="form-group">
-                                    <div class="col-sm-offset-2 col-sm-10">
-                                        <md-button type="submit" class="md-raised md-primary btn-w-md">Save</md-button><div class="divider"></div>
-                                    </div>
-                                </div>
+
+                    <div class="col-sm-12" style="margin-top:20px">
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 text-right col-sm-10">
+                                <md-button type="submit" class="md-raised md-primary btn-w-md" ng-click="saveBuilding()"><span data-translate="Save"></span></md-button><div class="divider"></div>
+                            </div>
+                        </div>
+                    </div>
             </section>
         </form>
                     

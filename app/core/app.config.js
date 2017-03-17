@@ -48,7 +48,9 @@
                 authentication          :'https://sso.sparkworks.net/aa/oauth/token',
                 main                    :'https://api.sparkworks.net/v1/',
                 over_db                 :'http://150.140.5.64:8080/GaiaAnalytics/gaia/',
+                getAnomalies            :'anomaly/events/getall',
                 buildings               :'utility/buildings/getall',
+                buildings_post          :'utility/buildings',
                 building                :'utility/buildings/getbyid/',
                 gatewaysByBuilding      :'utility/gateways/getall/',
                 sensorsByArea           :'utility/sensors/getbyarea/',                
@@ -59,7 +61,7 @@
                 site                    :'location/site'
             },
             buildings:[{id:1,name:'Rafinas'},{id:2,name:'Markopoulo'}],
-            auth_token:'387a2148-15de-4a17-b385-97f03735e963'
+            auth_token:'31591800-796d-49d9-9dc4-35bf76689f45'
         };
         var color = {
             primary:    '#009688',

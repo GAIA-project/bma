@@ -139,6 +139,9 @@
         var init = function(){
             var x = buildings.getAllBuildings();
             var m = buildings.getSites();
+            m.then(function(bs){
+                console.log(bs);
+            })
             
             x.then(function(buildings){
                 
@@ -190,13 +193,21 @@
         init();
         
     })
-    .controller('AnomaliesController',function($scope,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log){
+    .controller('AnomaliesController',function($scope,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Anomaly){
+        
+
         $scope.getAnomalies=function(){
-            $scope.anomalies = [];
+            var anomalies = Anomaly.getAnomalies($stateParams.id,1489442400000,1489142400000);
+            /*$scope.anomalies = [];
             $scope.anomalies.push({"id":4432,"area":"area1","tags":['tag1','tag2','tag3']});
             $scope.anomalies.push({"id":4433,"area":"area2","tags":['tag4','tag22','tag13']});
             $scope.anomalies.push({"id":4434,"area":"area3","tags":['tag51','tag32','tag23']});
-            $scope.anomalies.push({"id":4435,"area":"area4","tags":['tag61','tag42','tag33']});
+            $scope.anomalies.push({"id":4435,"area":"area4","tags":['tag61','tag42','tag33']});*/
+            anomalies.then(function(tanomalies){
+                console.log('The Anomalies');
+                console.log(tanomalies);    
+            });
+            
         }
         $scope.openAnomaly = function(id){
             
@@ -287,6 +298,14 @@
                 $scope.building.areas = areas.data.items;           
             });
         }
+
+        var available_resources = site.getResources($stateParams.id);
+        available_resources.then(function(resources,index){
+            $scope.available_resources = [];
+            resources.data.resources.forEach(function(tresource){
+                $scope.available_resources.push({id:tresource.resourceId,uri:tresource.uri});
+            });
+        });
        
 
 
@@ -301,6 +320,18 @@
             var s_area = Area.getDetails(area_id);
             s_area.then(function(maarea){
                 $scope.selected_area = maarea.data.item;
+
+
+                if(maarea.data.item.json!='')
+                    var jjson = JSON.parse(maarea.data.item.json); 
+                else 
+                    var jjson = {};
+
+                $scope.selected_area.width = jjson.width;
+                $scope.selected_area.height = jjson.height;
+                $scope.selected_area.length = jjson.length;
+
+
                 $scope.selected_area.id = area_id;
                 $scope.selected_area_view = 1;
             });
@@ -323,10 +354,64 @@
             });
         }
 
+        $scope.addSensor = function(){
+            $scope.add_a_sensor_form = 1;
+            $scope.selected_area_view = 0;
+            $scope.add_an_area_form = 0;  
+            $scope.selected_area_edit = 0;
+            $scope.new_sensor = {};
+            
+        }
+        $scope.cancel_new_sensor = function(){
+            $scope.add_a_sensor_form = 0;
+            $scope.selected_area_view = 1;
+            $scope.add_an_area_form = 0;  
+            $scope.selected_area_edit = 0;
+        }
 
-        $scope.add_a_sensor = function(){
+        $scope.save_new_sensor = function(){
+            
+            var sensor = Sensor.getDetailsFromSparks($scope.new_sensor.id);
+            sensor.then(function(sensor_data){
+             
+
+                console.log(sensor_data);
+             var data = {
+                "name":$scope.new_sensor.name,
+                "description":$scope.new_sensor.description,
+                "type":"Type",
+                "uri_resource":sensor_data.data.uri,
+                "value_type":sensor_data.data.uom,
+                "gateway_id":1,
+                "area_id":$scope.selected_area.id,
+                "id":sensor_data.data.resource_id
+            };
+            
+            
+           var req = {
+                 method: 'POST',
+                 url: appConfig.main.apis.over_db+'utility/sensors',
+                 headers: {
+                   'Content-Type': 'application/json'
+                 },
+                 data: data
+            }
+
+            $http(req).then(function(d){
+                    /*var new_area = JSON.parse(d.data.area);                    
+                    $scope.getInitAreas();
+                    $scope.details(new_area.id);*/
+                    console.log(d);
+
+            }, function(e){console.log(e)});
+
+               
+            });
+
+
 
         }
+        
         $scope.edit = function(){
             $scope.selected_area_view = 0;
             $scope.add_an_area_form = 0;  
@@ -339,10 +424,16 @@
             $scope.add_an_area_form = 1;  
             $scope.selected_area_edit = 0;
         }
-
+        $scope.cancel_new_area = function(){
+            $scope.new_area = {};
+            $scope.selected_area_view = 0;
+            $scope.add_an_area_form = 0;  
+            $scope.selected_area_edit = 0;
+        }
         $scope.save_new_area = function(){
 
-            var data = {"building_id":$stateParams.id,"name":$scope.new_area.name,"description":$scope.new_area.description,"type":$scope.new_area.type};
+            var data = {"json":JSON.stringify({width:$scope.new_area.width,height:$scope.new_area.height,length:$scope.new_area.length}),"building_id":$stateParams.id,"name":$scope.new_area.name,"description":$scope.new_area.description,"type":$scope.new_area.type};
+            
             var req = {
                  method: 'POST',
                  url: appConfig.main.apis.over_db+appConfig.main.apis.areas,
@@ -362,7 +453,8 @@
 
         $scope.update = function(){
 
-            var data = {"json":JSON.stringify({width:390,height:500}),"building_id":$stateParams.id,"name":$scope.selected_area.name,"description":$scope.selected_area.description,"type":$scope.selected_area.type,"id":$scope.selected_area.id};
+            var data = {"json":JSON.stringify({width:$scope.selected_area.width,height:$scope.selected_area.height,length:$scope.selected_area.length}),"building_id":$stateParams.id,"name":$scope.selected_area.name,"description":$scope.selected_area.description,"type":$scope.selected_area.type,"id":$scope.selected_area.id};
+
             var req = {
                  method: 'PUT',
                  url: appConfig.main.apis.over_db+appConfig.main.apis.areas,
@@ -414,13 +506,70 @@
 
     
     })
-    .controller('SiteΕditController',function($scope,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log){
+    .controller('SiteEditController',function($scope,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log){
 
         var t_site = site.getDetails($stateParams.id);
-        
         t_site.then(function(site){
-           console.log(site);
+           
+           
+           $scope.school = site.data.item;           
+           $scope.jjson = JSON.parse(site.data.item.json);
+
+           
+
         });
+        var available_resources = site.getResources($stateParams.id);
+        available_resources.then(function(resources,index){
+            $scope.available_resources = [];
+            resources.data.resources.forEach(function(tresource){
+                console.log(tresource.resourceId);
+                $scope.available_resources.push({id:tresource.resourceId,uri:tresource.uri});
+            });
+        });
+        
+
+        
+
+
+
+        $scope.saveBuilding = function(){
+            console.log("JSON");
+            console.log($scope.jjson);
+            console.log($scope.manos);
+            var data = {
+                        "json":JSON.stringify($scope.jjson),
+                        "id":$scope.school.id,
+                        "name":$scope.school.name,
+                        "people":$scope.school.people,
+                        "sqmt":$scope.school.sqmt,
+                        "country":$scope.school.country
+                    };
+            console.log(data);
+            var req = {
+                 method: 'PUT',
+                 url: appConfig.main.apis.over_db+appConfig.main.apis.buildings_post,
+                 headers: {
+                   'Content-Type': 'application/json'
+                 },
+                 data: data
+            };
+
+            $http(req).then(function(d){
+                    console.log(d);
+            if(d.statusText=="OK"){
+                    $scope.saved();
+                }
+                    
+
+            }, function(e){console.log(e)});
+        };
+
+        $scope.saved = function(){
+            
+            $('.saved').show();
+            $('.saved').delay(3000).fadeOut('slow');    
+                    
+        }
 
          $scope.goToAreas = function(){
             $location.path('page/building/areas/'+$stateParams.id);
@@ -450,7 +599,15 @@
 
         $scope.building = {};
         $scope.$on('onRepeatLast', function(scope, element, attrs){
-          $( ".draggable" ).draggable();
+          $( ".draggable" ).draggable({
+                                        drag: function(){
+                                            var offset = $(this).offset();
+                                            var xPos = offset.left;
+                                            var yPos = offset.top;
+                                            console.log(this.id+":"+xPos);
+                                            console.log(this.id+":"+yPos);
+                                        }
+                                    });
         });
         
         
@@ -458,6 +615,7 @@
         
         t_site.then(function(tsite){
            $scope.building.details = tsite.data;
+           console.log($scope.building.details);
         });
 
 
@@ -486,17 +644,18 @@
                     var js = area.json; 
                         js = JSON.parse(js);
                         area.element_width = js.width;
+                        area.element_length = js.length;
                         area.element_height = js.height;
                         if(area.element_width<2)
                             area.element_width=2;
-                        if(area.element_height<2)
-                            area.element_height=2;
+                        if(area.element_length<2)
+                            area.element_length=2;
 
                         if(area.element_width>10)
                             area.element_width=10;
 
-                        if(area.element_height>10)
-                            area.element_height=10;
+                        if(area.element_length>10)
+                            area.element_length=10;
 
                 }else{
                     area.element_width=3;
@@ -505,7 +664,7 @@
                 
                 area.style={
                     'width':area.element_width*100+'px',
-                    'height':area.element_height*100+'px'
+                    'height':area.element_length*100+'px'
                 };
                 
 
@@ -605,6 +764,7 @@
             });
 
         var meas = Sensor.getMeasurementsByResourceId($scope.sensor.id);
+        console.log($scope.sensor.id);
             meas.then(function(measurements){
                 $scope.sensor.meatrics = measurements.data;  
                 
@@ -677,122 +837,32 @@
             }); 
 
     })
-    .controller('SiteController',function($scope,$q,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor){
+    .controller('SiteComparisonController',function($scope,$q,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor,buildings){
         
-        $scope.building = {};
-        $scope.areas = [];
+
+        var sites = buildings.getAllBuildings();
+        sites.then(function(resources,index){
+            $scope.available_sites = [];
+            
+            resources.data.items.forEach(function(tsite){
+                $scope.available_sites.push({id:tsite.id,name:tsite.name});
+                console.log(tsite);
+            });
+            
+        });
+
+
+
         $scope.line3 = {};
-        
-        $scope.bar4 = {};
-
-
-        var t_site = site.getDetails($stateParams.id);
-        
-        t_site.then(function(site){
-           $scope.building.details = site.data;
-        });
-
-
-    //get all areas
-
-    //get sensors per area
-
-    //
-    $scope.getMeasurementsForFirstGraph = function(callback){
-        $scope.line3_series = [];
-       var t_areas = site.getAreas($stateParams.id);
-       
-        t_areas.then(function(areas){
-            console.log("AREAS");
-            console.log(areas);
-
-            $scope.building.areas = areas.data.items;
-
-            $scope.building.areas.forEach(function(area,index){
-                  var the_area = {};
-                  $scope.areas.push(area.name);
-
-                  the_area.energy_consumtion_per_day = [];
-
-                   
-
-
-
-                var area_sensors = Area.getSensors(area.id);
-                    area_sensors.then(function(sensors){
-
-                        area.sensors = sensors.data.items;    
-                        
-                        area.sensors.forEach(function(thesensor,index){                            
-                                
-                                var meas = Sensor.getMeasurementsByResourceId(thesensor.id);
-                                meas.then(function(measurements){
-                                    thesensor.meatrics = measurements.data;
-
-
-
-                                    if(thesensor.value_type=='Wh'){
-
-                                        thesensor.meatrics.day.forEach(function(day_meas,index){
-                                            console.log(index+":"+day_meas);
-                                            
-
-                                            if (the_area.energy_consumtion_per_day[index] === undefined || the_area.energy_consumtion_per_day[index] === null) {
-                                                        the_area.energy_consumtion_per_day[index]=0;
-                                            }
-
-                                            the_area.energy_consumtion_per_day[index]=parseFloat(the_area.energy_consumtion_per_day[index]).toFixed(2)+parseFloat(day_meas).toFixed(2);
-                                            
-                                        });
-                                    }
-                                }); 
-
-                        });
-
-                    });
-
-                    $scope.line3_series.push({
-                                name:area.name,
-                                type:'line',
-                                smooth:true,
-                                itemStyle: {normal: {areaStyle: {type: 'default'}}},
-                                data:[432,432,3,42,5,3215]
-                    });
-
-            });
-
-
-                            
-       
-
-        });
-
-
-
-        
-            
-            
-            $q.all($scope.line3_series).then(function(){
-                console.log("XM");
-                callback();
-            });
-        }
-
-
-
-
-
-    $scope.getMeasurementsForFirstGraph(function () {
-        console.log("NAI RE 2");
-        $scope.line3.options = {
-            title : {
-                text: "",
+        $scope.line3.options={
+           title : {
+                text: 'Energy Consumption',
             },
             tooltip : {
                 trigger: 'axis'
             },
             legend: {
-                data:$scope.areas
+                data:['School 1','School 2']
             },
             toolbox: {
                 show : true,
@@ -814,10 +884,263 @@
                     type : 'value'
                 }
             ],
-            series : $scope.line3_series
+            series : [
+                {
+                    name:'School 1',
+                    type:'line',
+                    smooth:true,
+                    itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                    data:[30, 182, 434, 791, 390, 30, 10]
+                },
+                {
+                    name:'School 2',
+                    type:'line',
+                    smooth:true,
+                    itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                    data:[1320, 1132, 601, 234, 120, 90, 20]
+                }
+            ]
         };
-        console.log("NAI RE 3");
-    });
+
+
+    })
+    .controller('SiteController',function($scope,$q,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor){
+        
+        $scope.add_a_chart_visible_form = 0;
+        $scope.building = {};
+        $scope.areas = [];
+        $scope.line3 = {};
+        $scope.new_chart = {};
+        $scope.extra_charts = [];
+        
+        $scope.bar4 = {};
+
+
+        var t_site = site.getDetails($stateParams.id);
+        /*var resources = site.getResources($stateParams.id);
+        resources.then(function(resourcess){        
+            resourcess.data.resources.forEach(function(resource,index){
+        
+            });
+        });*/
+
+        var available_resources = site.getResources($stateParams.id);
+        available_resources.then(function(resources,index){
+            $scope.available_resources = [];
+            resources.data.resources.forEach(function(tresource){
+                $scope.available_resources.push({id:tresource.resourceId,uri:tresource.uri});
+            });
+        });
+
+        $scope.cancel_new_chart = function(){
+            $scope.add_a_chart_visible_form = 0;
+            $scope.new_chart = {};
+        }
+        
+        $scope.save_new_chart = function(){
+            $scope.new_chart.class="col-sm-12 col-md-6";
+            var chart = $scope.new_chart;
+            var sitename
+
+            $scope.extra_charts.push(chart);
+            $scope.new_chart = {};
+            $scope.setChartOptions(chart,sitename);
+            console.log($scope.extra_charts);
+        }
+
+
+
+
+        t_site.then(function(site){
+            
+
+           $scope.building.details = site.data;
+           $scope.sitename = site.data.item.name
+           var json = JSON.parse(site.data.item.json);
+           console.log(json);
+           $scope.building.energy_consumtion_meter = json.energy_consumption_resource;
+           console.log("Energy Consumption Meter:"+$scope.building.energy_consumtion_meter);
+
+           var latest = Sensor.getMeasurementsByResourceId($scope.building.energy_consumtion_meter);
+           latest.then(function(metrics){
+                console.log(metrics);
+                $scope.average_per_day = (parseFloat(metrics.data.average.day)/1000).toFixed(2);
+                $scope.average_per_month = (parseFloat(metrics.data.average.month)/1000).toFixed(2);
+                $scope.measurementUnit = 'kWh';
+
+                var dates = [];
+                var d = new Date().getTime();
+                
+                var i = 0;
+                while(i<metrics.data.day.length){
+                    var m = new Date(d-i*1000*60*60*24);
+                    dates.push(m);
+                    i++;
+                }
+
+
+
+                $scope.line3.options={
+                
+                   title : {
+                        text: 'Energy Consumption',
+                    },
+                    legend : {
+                        data:[$scope.sitename]
+                    },
+                    tooltip : {
+                        trigger: 'axis'
+                    },
+                    toolbox: {
+                        show : true,
+                        feature : {
+                            restore : {show: true, title: "restore"},
+                            saveAsImage : {show: true, title: "save as image"}
+                        }
+                    },
+                    calculable : true,
+                    xAxis : [
+                        {
+                            type : 'category',
+                            boundaryGap : false,
+                            data : dates.reverse()
+                        }
+                    ],
+                    yAxis : [
+                        {
+                            type : 'value'
+                        }
+                    ],
+                    series : [
+                        {
+                            name:site.data.item.name,
+                            type:'line',
+                            smooth:true,
+                            itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                            data:metrics.data.day.reverse()
+                        }
+                    ]
+                };
+
+
+
+
+           });
+
+        });
+
+
+        
+        $scope.setChartOptions = function(chart){
+             /*console.log('setChartOptions');*/
+             
+              var latest = Sensor.getMeasurementsByResourceId(parseInt(chart.sensor));
+             
+           latest.then(function(metrics){
+                    console.log(metrics);
+
+                var dates = [];
+                var d = new Date().getTime();
+                
+                var i = 0;
+                while(i<metrics.data.day.length){
+                    var m = new Date(d-i*1000*60*60*24);
+                    dates.push(m);
+                    i++;
+                }
+                
+                chart.options={
+                    
+                       title : {
+                            text: chart.name,
+                        },
+                        legend : {
+                            data:[$scope.sitename]
+                        },
+                        tooltip : {
+                            trigger: 'axis'
+                        },
+                        toolbox: {
+                            show : true,
+                            feature : {
+                                restore : {show: true, title: "restore"},
+                                saveAsImage : {show: true, title: "save as image"}
+                            }
+                        },
+                        calculable : true,
+                        xAxis : [
+                            {
+                                type : 'category',
+                                boundaryGap : false,
+                                data : dates.reverse()
+                            }
+                        ],
+                        yAxis : [
+                            {
+                                type : 'value'
+                            }
+                        ],
+                        series : [
+                            {
+                                name:$scope.sitename,
+                                type:'line',
+                                smooth:true,
+                                itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                                data:metrics.data.day.reverse()
+                            }
+                        ]
+                    };
+
+
+                     var myChart = ec.init(document.getElementById(chart.id));
+                    myChart.setOption(chart.options);
+
+                })
+        }
+       
+
+
+
+
+
+
+
+
+        var t_areas = site.getAreas($stateParams.id);
+       
+        t_areas.then(function(areas){
+            
+            
+            $scope.building.areas = areas.data.items;
+
+            $scope.building.areas.forEach(function(area,index){
+                var the_area = {};
+                $scope.areas.push(area.name);
+
+                var area_sensors = Area.getSensors(area.id);
+                
+                    area_sensors.then(function(sensors){
+
+                        area.sensors = sensors.data.items;    
+                        area.sensors.forEach(function(thesensor,index){
+                            
+
+                                var meas2 = Sensor.getMeasurementsBySearch(thesensor.uri_resource,thesensor.id);
+                                meas2.then(function(tmeas2){
+                                    
+                                    var obj = tmeas2.data.results;
+                                        var measurem = obj[Object.keys(obj)[0]];
+                                        
+                                });
+                                var meas = Sensor.getMeasurementsByResourceId(thesensor.id);
+                                meas.then(function(measurements){
+                                    /*console.log(thesensor.id);
+                                    console.log(measurements);*/
+                                });
+                        });
+                    });
+                });
+        });
 
 
 
@@ -827,6 +1150,15 @@
 
 
 
+
+
+
+
+
+
+        $scope.add_a_chart = function(){
+            $scope.add_a_chart_visible_form = 1;
+        }
 
         
         $scope.goToAreas = function(){
@@ -851,22 +1183,14 @@
         $scope.goToDashboard = function(){
             $location.path('page/building/view/'+$stateParams.id);   
         }
+        $scope.goToComparison = function(){
+            $location.path('page/building/comparison/'+$stateParams.id);      
+        }
 
 
 
         
-        $scope.line3 = {};
         
-
-
-
-
-
-
-
-
-
-
 
 
 

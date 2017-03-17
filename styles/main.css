@@ -2179,3 +2179,29 @@ body {
     margin: 0;
     margin-bottom: -10px;
 }
+
+.saved{
+    display: none;
+    width: 70%;
+    position: fixed;
+    top: 0px;
+    z-index: 9999999999;
+    text-align: center;
+    background: green;
+    min-height: 44px;
+    border-radius: 0px 0px 10px 10px;
+    color: white;
+    line-height: 41px;
+    font-size: 17px;
+}
+.watt_count{
+  font-weight: bold;
+    font-size: 25px;
+    text-align: center;
+}
+.school_name {
+    text-align: center;
+    font-weight: normal;
+    font-size: 15px;
+    color: #7d7d7d;
+}
