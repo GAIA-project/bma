@@ -494,6 +494,35 @@
     
     })
     .controller('SiteEditController',function($scope,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log){
+        $scope.add_a_chart_visible_form = 0;
+        $scope.new_chart = {};
+        $scope.extra_charts = [];
+
+
+        
+
+        $scope.addExtraChart = function(){
+            
+            $scope.add_a_chart_visible_form = 1;
+        }
+
+        $scope.cancel_new_chart = function(){
+            $scope.add_a_chart_visible_form = 0;
+            $scope.new_chart = {};
+        }
+        
+        $scope.save_new_chart = function(){
+         
+            var chart = $scope.new_chart;
+            $scope.jjson.extra_charts.push(chart);
+            $scope.new_chart = {};
+
+        }
+
+
+
+
+
 
         var t_site = site.getDetails($stateParams.id);
         t_site.then(function(site){
@@ -501,39 +530,42 @@
            
            $scope.school = site.data.item;           
             
-            if(angular.isUndefined(site.data.item.json) || site.data.item.json === null || site.data.item.json==null || site.data.item.json=="null")
+            if(angular.isUndefined(site.data.item.json) || site.data.item.json === null || site.data.item.json==null || site.data.item.json=="null"){
+
                 $scope.jjson = {};
+                $scope.jjson.extra_charts = [];
+            }
             else{
-                console.log(site.data.item.json);
-                console.log(site.data.item);
+
                 $scope.jjson = JSON.parse(site.data.item.json);
+                if(angular.isUndefined($scope.jjson.extra_charts) || $scope.jjson.extra_charts === null || $scope.jjson.extra_charts==null || $scope.jjson.extra_charts=="null")
+                    $scope.jjson.extra_charts = [];
+                
+
+
+
             }
                 
-            console.log("JJSON:");
-            console.log($scope.jjson);
-
-           
+                
 
         });
         var available_resources = site.getResources($stateParams.id);
         available_resources.then(function(resources,index){
             $scope.available_resources = [];
             resources.data.resources.forEach(function(tresource){
-                console.log(tresource.resourceId);
+     
                 $scope.available_resources.push({id:tresource.resourceId,uri:tresource.uri});
             });
         });
         
-
+        
         
 
 
 
         $scope.saveBuilding = function(){
-            console.log("JSON");
-            console.log($scope.jjson);
-            console.log($scope.manos);
-
+            
+     
             var data = {
                         "json":JSON.stringify($scope.jjson),
                         "id":$scope.school.id,
@@ -542,7 +574,7 @@
                         "sqmt":$scope.school.sqmt,
                         "country":$scope.school.country
                     };
-            console.log(data);
+     
             var req = {
                  method: 'PUT',
                  url: appConfig.main.apis.over_db+appConfig.main.apis.buildings_post,
@@ -912,7 +944,9 @@
         $scope.extra_charts = [];
         
         $scope.bar4 = {};
-
+        $scope.visual_sources = [{id:1,texts:"Electricity"},
+                                 {id:2,texts:"Petrol"},
+                                 {id:3,texts:"Gas"}];
 
         var t_site = site.getDetails($stateParams.id);
         /*var resources = site.getResources($stateParams.id);
@@ -930,21 +964,7 @@
             });
         });
 
-        $scope.cancel_new_chart = function(){
-            $scope.add_a_chart_visible_form = 0;
-            $scope.new_chart = {};
-        }
         
-        $scope.save_new_chart = function(){
-            $scope.new_chart.class="col-sm-12 col-md-6";
-            var chart = $scope.new_chart;
-            var sitename
-
-            $scope.extra_charts.push(chart);
-            $scope.new_chart = {};
-            $scope.setChartOptions(chart,sitename);
-            console.log($scope.extra_charts);
-        }
 
 
 
@@ -953,15 +973,81 @@
             
 
            $scope.building.details = site.data;
-           $scope.sitename = site.data.item.name
+           $scope.sitename = site.data.item.name;
            var json = JSON.parse(site.data.item.json);
-           console.log(json);
+           $scope.building.extra_charts = json.extra_charts;
+
+           $scope.building.extra_charts.forEach(function(chart,index){
+
+                var latest = Sensor.getMeasurementsByResourceId(chart.resource_id);
+                latest.then(function(metrics){
+                    console.log(metrics);
+
+                var dates = [];
+                var d = new Date().getTime();
+                
+                var i = 0;
+                while(i<metrics.data.day.length){
+                    var m = new Date(d-i*1000*60*60*24);
+                    dates.push(m);
+                    i++;
+                }
+
+
+
+                chart.options ={
+                
+                   title : {
+                        text: chart.name,
+                    },
+                    legend : {
+                        data:[chart.name]
+                    },
+                    tooltip : {
+                        trigger: 'axis'
+                    },
+                    toolbox: {
+                        show : true,
+                        feature : {
+                            restore : {show: true, title: "restore"},
+                            saveAsImage : {show: true, title: "save as image"}
+                        }
+                    },
+                    calculable : true,
+                    xAxis : [
+                        {
+                            type : 'category',
+                            boundaryGap : false,
+                            data : dates.reverse()
+                        }
+                    ],
+                    yAxis : [
+                        {
+                            type : 'value'
+                        }
+                    ],
+                    series : [
+                        {
+                            name:site.data.item.name,
+                            type:'line',
+                            smooth:true,
+                            itemStyle: {normal: {areaStyle: {type: 'default'},color:'rgba(38,43,51,1)'}},
+                            data:metrics.data.day.reverse()
+                        }
+                    ]
+                };
+
+                });
+           });
+
+
+           
            $scope.building.energy_consumtion_meter = json.energy_consumption_resource;
-           console.log("Energy Consumption Meter:"+$scope.building.energy_consumtion_meter);
+           
 
            var latest = Sensor.getMeasurementsByResourceId($scope.building.energy_consumtion_meter);
            latest.then(function(metrics){
-                console.log(metrics);
+           
                 $scope.average_per_day = (parseFloat(metrics.data.average.day)/1000).toFixed(2);
                 $scope.average_per_month = (parseFloat(metrics.data.average.month)/1000).toFixed(2);
                 $scope.measurementUnit = 'kWh';
@@ -1029,73 +1115,7 @@
 
 
         
-        $scope.setChartOptions = function(chart){
-             /*console.log('setChartOptions');*/
-             
-              var latest = Sensor.getMeasurementsByResourceId(parseInt(chart.sensor));
-             
-           latest.then(function(metrics){
-                    console.log(metrics);
-
-                var dates = [];
-                var d = new Date().getTime();
-                
-                var i = 0;
-                while(i<metrics.data.day.length){
-                    var m = new Date(d-i*1000*60*60*24);
-                    dates.push(m);
-                    i++;
-                }
-                
-                chart.options={
-                    
-                       title : {
-                            text: chart.name,
-                        },
-                        legend : {
-                            data:[$scope.sitename]
-                        },
-                        tooltip : {
-                            trigger: 'axis'
-                        },
-                        toolbox: {
-                            show : true,
-                            feature : {
-                                restore : {show: true, title: "restore"},
-                                saveAsImage : {show: true, title: "save as image"}
-                            }
-                        },
-                        calculable : true,
-                        xAxis : [
-                            {
-                                type : 'category',
-                                boundaryGap : false,
-                                data : dates.reverse()
-                            }
-                        ],
-                        yAxis : [
-                            {
-                                type : 'value'
-                            }
-                        ],
-                        series : [
-                            {
-                                name:$scope.sitename,
-                                type:'line',
-                                smooth:true,
-                                itemStyle: {normal: {areaStyle: {type: 'default'}}},
-                                data:metrics.data.day.reverse()
-                            }
-                        ]
-                    };
-
-
-                     var myChart = ec.init(document.getElementById(chart.id));
-                    myChart.setOption(chart.options);
-
-                })
-        }
-       
+      
 
 
 
@@ -1132,8 +1152,7 @@
                                 });
                                 var meas = Sensor.getMeasurementsByResourceId(thesensor.id);
                                 meas.then(function(measurements){
-                                    /*console.log(thesensor.id);
-                                    console.log(measurements);*/
+    
                                 });
                         });
                     });
@@ -1152,11 +1171,6 @@
 
 
 
-
-
-        $scope.add_a_chart = function(){
-            $scope.add_a_chart_visible_form = 1;
-        }
 
         
         $scope.goToAreas = function(){

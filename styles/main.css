@@ -2212,3 +2212,10 @@ body {
     font-size: 15px;
     color: #7d7d7d;
 }
+
+
+.new_chart_class {
+    background: #dddddd;
+    padding: 20px;
+    margin: 10px;
+}

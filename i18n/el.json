@@ -11,6 +11,7 @@
     "ADD_CONDITION":"Προσθήκη Συνθήκης",
     "FLAG_WILL_ARISE":"Η ειδοποίηση θα εμφανιστεί όταν η τιμή του:",
     "SAVE_FORM":"Αποθήκευση",
+    "SAVE":"Αποθήκευση",
     "RULE_NAME":"Όνομα Κανόνα",
     "ANOMALIES":"Ασυνέχειες",
     "BUILDING":"Κτήριο",
@@ -92,6 +93,7 @@
     "Actions": "Ενέργειες",
     "Height": "Ύψος",
     "Length": "Μήκος",
+    "Lenght": "Μήκος",
     "Width": "Πλάτος",
     "Type": "Τύπος",
     "Therearenoassignedsensors": "Δεν υπάρχουν αντιστοιχισμένοι αισθητήρες",
@@ -101,7 +103,10 @@
     "BUILDING_ONE": "Πρώτο Κτήριο",
     "BUILDING_TWO": "Δεύτερο Κτήριο",
     "AddMeasurements":"Προσθήκη Μετρήσεων",
-    "Energy_types_available":"Διαθέσιμες πηγές ενέργειας"
+    "Energy_types_available":"Διαθέσιμες πηγές ενέργειας",
+    "ADD_EXTRA_CHART":"Προσθήκη Γραφήματος",
+    "UPDATED":"Ανανεώθηκε",
+    "UPDATE":"Ανανέωση"
 
 
 }

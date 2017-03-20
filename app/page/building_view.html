@@ -1,16 +1,16 @@
 <div class="page" ng-controller="SiteController" >
     <div class="row">
-        <div class="col-sm-12 col-md-6">
+        <div class="col-sm-12 col-md-3">
             <h2 class="section-header">{{site.name}}</h2>
         </div>
-        <div class="col-sm-12 col-md-6">
+        <div class="col-sm-12 col-md-9">
             <div layout="row" layout-align="end center">
                 <md-button class="md-accent md-raised" ng-click="goToTopView()"><span data-translate="TOPVIEW"></span></md-button>&nbsp;
                 <md-button class="md-accent md-raised" ng-click="goToAreas()"><span data-translate="AREAS"></span></md-button>&nbsp;
                 <md-button class="md-accent md-raised" ng-click="goToSensors()"><span data-translate="SENSORS"></span></md-button>&nbsp;
                 <md-button class="md-accent md-raised" ng-click="goToMeasurements()"><span data-translate="AddMeasurements"></span></md-button>&nbsp;                
                 <md-button class="md-accent md-raised" ng-click="goToEdit()"><span data-translate="EDIT_BUILDING"></span></md-button>&nbsp;
-                <md-button class="md-accent md-raised" ng-click="goToAnomalies()"><span data-translate="ANOMALIES"></span></md-button>
+                <md-button class="md-accent md-raised" ng-click="goToAnomalies()"><span data-translate="ANOMALIES"></span></md-button>&nbsp;
                 <md-button class="md-accent md-raised" ng-click="goToComparison()"><span data-translate="COMPARISON"></span></md-button>
             </div>
         </div>
@@ -45,51 +45,17 @@
     </div>
     <div class="row">
         
-        <div ng-repeat="chart in extra_charts" ng-class="chart.class">
+        <div ng-repeat="chart in building.extra_charts" class="col-sm-6">
             <div class="panel panel-default panel-minimal">
                 <div class="divider divider-md"></div>
                 <div class="panel-heading">{{chart.name}}</div>
                 <div class="panel-body">
-                    <div data-echarts id="{{chart.id}}" style="height: 350px;"></div>
+                    <div data-echarts id="{{chart.resource_id}}" data-options="chart.options" style="height: 350px;"></div>
                 </div>
             </div>
         </div>
         
-        <div class="col-sm-12 col-md-6">
-            <div class="panel panel-default panel-minimal">
-                <div class="divider divider-md"></div>
-                <div class="panel-body text-center">
-                    <md-button ng-hide="add_a_chart_visible_form" class="md-accent md-raised" ng-click="add_a_chart()"><span data-translate="ADD_A_CHART"></span></md-button>
-                    <div ng-show="add_a_chart_visible_form">
-                        <div class="row">
-                            <div class="form-group">
-                                <label for="new_chart_name" class="col-sm-5 control-label"><span data-translate="CHART_NAME"></span></label>
-                                <div class="col-sm-7">
-                                    <input type="text" class="form-control" id="new_chart_name" ng-model="new_chart.name">
-                                </div>
-                            </div>
-                             <div class="form-group">
-                                <label for="Orientation" class="col-sm-5 control-label"><span data-translate="CHART_SENSOR"></span></label>
-                                <div class="col-sm-7">
-                                        <md-select ng-model="new_chart.sensor">
-                                            <md-option ng-repeat="resource in available_resources" value="{{resource.id}}">
-                                                {{resource.uri}}
-                                            </md-option>
-                                        </md-select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <md-button class="md-accent md-raised" ng-click="cancel_new_chart()"><span data-translate="CANCEL"></span></md-button>
-                            <md-button class="md-accent md-raised" ng-click="save_new_chart()"><span data-translate="SAVE"></span></md-button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
+     
 
         <!-- <div class="col-md-8">
             <div class="panel panel-default panel-minimal">

@@ -1,5 +1,5 @@
 <div class="page" ng-controller="SiteEditController">
-    <div class="saved">Updated</div>
+    <div class="saved"><span data-translate="UPDATED"></span></div>
     <div class="row">
         <div class="col-md-8">
             <h2 class="section-header">{{site.name}}</h2>
@@ -176,7 +176,60 @@
 
                     <uib-tab heading="Resources">
                         <div class="row">
+                            <div class="col-sm-12">
+                                <div layout="row" layout-align="end center">
+                                    <md-button class="md-accent md-raised" ng-click="addExtraChart()"><span data-translate="ADD_EXTRA_CHART"></span></md-button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            
+
+
+                                <div ng-show="add_a_chart_visible_form" class="new_chart_class">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="new_chart_name" class="col-sm-5 control-label"><span data-translate="CHART_NAME"></span></label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control" id="new_chart_name" ng-model="new_chart.name">
+                                            </div>
+                                        </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                         <div class="form-group">
+                                            <label for="Orientation" class="col-sm-5 control-label"><span data-translate="CHART_SENSOR"></span></label>
+                                            <div class="col-sm-7">
+                                                    <md-select ng-model="new_chart.resource_id">
+                                                        <md-option ng-repeat="resource in available_resources" value="{{resource.id}}">
+                                                            {{resource.uri}}
+                                                        </md-option>
+                                                    </md-select>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <div class="row text-right">
+                                        <md-button class="md-accent md-raised" ng-click="cancel_new_chart()"><span data-translate="CANCEL"></span></md-button>
+                                        <md-button class="md-accent md-raised" ng-click="save_new_chart()"><span data-translate="SAVE"></span></md-button>
+                                    </div>
+                                </div>
+                            
+
+
                             <div class="col-sm-12 col-md-6">
+                                    <div class="form-group" ng-repeat="ch in jjson.extra_charts">
+                                        <label for="building_build_year" class="col-sm-5 control-label">{{ch.name}}</label>
+                                        <div class="col-sm-7">                                                
+                                                <md-select ng-model="ch.resource_id">
+                                                    <md-option ng-repeat="resource in available_resources" value="{{resource.id}}">
+                                                        {{resource.uri}}
+                                                    </md-option>
+                                                </md-select>                                            
+                                        </div>
+                                    </div>
+
+
                                     <div class="form-group">
                                         <label for="building_build_year" class="col-sm-5 control-label"><span data-translate="Please_select_the_Resource_for_Energy_Consumption"></span></label>
                                         <div class="col-sm-7">                                                
