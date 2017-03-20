@@ -2,13 +2,13 @@
     <div class="row">
     	<div class="col-sm-12">	
     		<div layout="row" layout-align="end center">
+    			<input type="button" id="btnSave" value="Save PNG"/>
                 <!-- <md-button class="md-accent md-raised" ng-click="createClass()"><span data-translate="ADD_AREA"></span></md-button>&nbsp; -->
             </div>
     	</div>
     </div>
-    <div class="row">
-        <div class="col-md-12" style="width:100%;min-height:1000px">
-          
+    <div class="row" id="widget">
+        <div class="col-md-12" style="width:100%;min-height:1000px">          
 
           	<div ng-repeat="area in building.areas" class="draggable class ui-widget-content" on-last-repeat 
                  ng-style="area.style">
@@ -18,10 +18,7 @@
 						<li ng-repeat="sensor in area.sensors">{{sensor.name+": "+sensor.metrics.latest+" "+sensor.value_type}}</li>
 					</ul>
           		</div>
-
-  				<div class="class_name">{{area.name}}</div>
-  				<div class="edit_button"><i class="fa fa-pencil" ng-click="editClass(area)"></i></div>
-  				
+  				<div class="class_name">{{area.name}}</div>  				
 			</div>
 
 	
@@ -29,45 +26,21 @@
         </div>
     </div>
 
-
-
-                        <script type="text/ng-template" id="newclassRoom.html">
-                            <div class="modal-header">
-                                <h3><span data-translate="ADD_AREA"></span></h3>
-                            </div>
-                            <div class="modal-body">
-                            	<div class="row">
-	                            	<div class="col-md-12">
-	                               		<div class="form-group">
-	                                        <label for="name" class="col-sm-5 control-label"><span data-translate="NAME"></span></label>
-	                                        <div class="col-sm-7">
-	                                            <input type="text" class="form-control" id="name" ng-model="new_class.name" placeholder="Name">
-	                                        </div>
-	                                    </div>
-	                                </div>
-	                            </div>
-	                            <div class="row" style="margin-top: 18px;margin-bottom: 18px;">
-	                            	<div class="col-md-6">
-	                               		<div class="form-group">
-	                                        <label for="width" class="col-sm-5 control-label"><span data-translate="Width"></span> (cm)</label>
-	                                        <div class="col-sm-7">
-	                                            <input type="text" class="form-control" id="width" ng-model="new_class.width" placeholder="Width (m)">
-	                                        </div>
-	                                    </div>
-	                                </div>
-	                                <div class="col-md-6">
-	                                    <div class="form-group">
-	                                        <label for="Length" class="col-sm-5 control-label"><span data-translate="Length"></span> (cm)</label>
-	                                        <div class="col-sm-7">
-	                                            <input type="text" class="form-control" ng-model="new_class.length" id="Length" placeholder="Length (m)">
-	                                        </div>
-	                                    </div>
-	                                </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button ui-wave class="btn btn-flat btn-default" ng-click="cancel()">Cancel</button>
-                                <button ui-wave class="btn btn-flat btn-primary" ng-click="ok()">Save</button>
-                            </div>
-                        </script>
 </div>
+
+<script>
+$("#btnSave").click(function() { 
+        html2canvas($("#widget"), {
+            onrendered: function(canvas) {
+                theCanvas = canvas;
+                document.body.appendChild(canvas);
+
+                // Convert and download as image 
+                Canvas2Image.saveAsPNG(canvas); 
+                /*$("#img-out").append(canvas);*/
+                // Clean up 
+                //document.body.removeChild(canvas);
+            }
+        });
+    });
+</script>

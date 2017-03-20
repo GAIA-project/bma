@@ -217,10 +217,12 @@
                             
 
 
-                            <div class="col-sm-12 col-md-6">
+                            <div class="col-sm-12">
                                     <div class="form-group" ng-repeat="ch in jjson.extra_charts">
-                                        <label for="building_build_year" class="col-sm-5 control-label">{{ch.name}}</label>
-                                        <div class="col-sm-7">                                                
+
+                                        <label for="building_build_year" class="col-sm-12 col-md-3 control-label"><span data-translate="DELETE" ng-click="removeThisChart(ch)" class="delete_label"></span>
+                                        {{ch.name}}</label>
+                                        <div class="col-sm-12 col-md-9">                                                
                                                 <md-select ng-model="ch.resource_id">
                                                     <md-option ng-repeat="resource in available_resources" value="{{resource.id}}">
                                                         {{resource.uri}}
@@ -231,8 +233,8 @@
 
 
                                     <div class="form-group">
-                                        <label for="building_build_year" class="col-sm-5 control-label"><span data-translate="Please_select_the_Resource_for_Energy_Consumption"></span></label>
-                                        <div class="col-sm-7">                                                
+                                        <label for="building_build_year" class="col-sm-12 col-md-3 control-label"><span data-translate="Please_select_the_Resource_for_Energy_Consumption"></span></label>
+                                        <div class="col-sm-12 col-md-9">                                                
                                                 <md-select ng-model="jjson.energy_consumption_resource">
                                                     <md-option ng-repeat="resource in available_resources" value="{{resource.id}}">
                                                         {{resource.uri}}
@@ -240,79 +242,9 @@
                                                 </md-select>                                            
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="building_build_year" class="col-sm-5 control-label"><span data-translate="Please_select_the_Resource_for_Temperature"></span></label>
-                                        <div class="col-sm-7">                                                
-                                                <md-select ng-model="jjson.temperature_resource">
-                                                    <md-option ng-repeat="resource in available_resources" value="{{resource.id}}">
-                                                        {{resource.uri}}
-                                                    </md-option>
-                                                </md-select>                                            
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="building_build_year" class="col-sm-5 control-label"><span data-translate="Please_select_the_Resource_for_Rain_Height"></span></label>
-                                        <div class="col-sm-7">                                                
-                                                <md-select ng-model="jjson.rain_resource">
-                                                    <md-option ng-repeat="resource in available_resources" value="{{resource.id}}">
-                                                        {{resource.uri}}
-                                                    </md-option>
-                                                </md-select>                                            
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="building_build_year" class="col-sm-5 control-label"><span data-translate="Please_select_the_Resource_for_Wind_Direction"></span></label>
-                                        <div class="col-sm-7">                                                
-                                                <md-select ng-model="jjson.wind_direction_resource">
-                                                    <md-option ng-repeat="resource in available_resources" value="{{resource.id}}">
-                                                        {{resource.uri}}
-                                                    </md-option>
-                                                </md-select>                                            
-                                        </div>
-                                    </div>
+                                  
                             </div>
-                            <div class="col-sm-12 col-md-6">
-                                    <div class="form-group">
-                                        <label for="building_build_year" class="col-sm-5 control-label"><span data-translate="Please_select_the_Resource_for_Wind_Speed"></span></label>
-                                        <div class="col-sm-7">                                                
-                                                <md-select ng-model="jjson.wind_speed_resource">
-                                                    <md-option ng-repeat="resource in available_resources" value="{{resource.id}}">
-                                                        {{resource.uri}}
-                                                    </md-option>
-                                                </md-select>                                            
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="building_build_year" class="col-sm-5 control-label"><span data-translate="Please_select_the_Resource_for_Movement"></span></label>
-                                        <div class="col-sm-7">                                                
-                                                <md-select ng-model="jjson.movement_resource">
-                                                    <md-option ng-repeat="resource in available_resources" value="{{resource.id}}">
-                                                        {{resource.uri}}
-                                                    </md-option>
-                                                </md-select>                                            
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="building_build_year" class="col-sm-5 control-label"><span data-translate="Please_select_the_Resource_for_Carbon_Monoxide_Concentration"></span></label>
-                                        <div class="col-sm-7">                                                
-                                                <md-select ng-model="jjson.carbon_monoxide_concentration_resource">
-                                                    <md-option ng-repeat="resource in available_resources" value="{{resource.id}}">
-                                                        {{resource.uri}}
-                                                    </md-option>
-                                                </md-select>                                            
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="building_build_year" class="col-sm-5 control-label"><span data-translate="Please_select_the_Resource_for_Noise"></span></label>
-                                        <div class="col-sm-7">                                                
-                                                <md-select ng-model="jjson.noise_resource">
-                                                    <md-option ng-repeat="resource in available_resources" value="{{resource.id}}">
-                                                        {{resource.uri}}
-                                                    </md-option>
-                                                </md-select>                                            
-                                        </div>
-                                    </div>
-                            </div>
+                           
                         </div>
                         </uib-tab>
                     </uib-tabset>

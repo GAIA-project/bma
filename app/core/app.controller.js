@@ -349,6 +349,7 @@
             $scope.new_sensor = {};
             
         }
+
         $scope.cancel_new_sensor = function(){
             $scope.add_a_sensor_form = 0;
             $scope.selected_area_view = 1;
@@ -386,11 +387,16 @@
 
             $http(req).then(function(d){
                     /*var new_area = JSON.parse(d.data.area);                    
-                    $scope.getInitAreas();
+                    
                     $scope.details(new_area.id);*/
+
+                    $scope.cancel_new_sensor();
+                    $scope.getInitAreas();
                     console.log(d);
 
-            }, function(e){console.log(e)});
+            }, function(e){
+                alert("This sensor exists. Please try to assign other sensor");
+            });
 
                
             });
@@ -516,9 +522,14 @@
             var chart = $scope.new_chart;
             $scope.jjson.extra_charts.push(chart);
             $scope.new_chart = {};
+            $scope.add_a_chart_visible_form = 0;
 
         }
+        $scope.removeThisChart = function(chart){
 
+            var index = $scope.jjson.extra_charts.indexOf(chart);
+            $scope.jjson.extra_charts.splice(index, 1);    
+        }
 
 
 
@@ -676,25 +687,17 @@
                         area.element_width = js.width;
                         area.element_length = js.length;
                         area.element_height = js.height;
-                        if(area.element_width<2)
-                            area.element_width=2;
-                        if(area.element_length<2)
-                            area.element_length=2;
-
-                        if(area.element_width>10)
-                            area.element_width=10;
-
-                        if(area.element_length>10)
-                            area.element_length=10;
+                      
 
                 }else{
-                    area.element_width=3;
-                    area.element_width=3;
+                    area.element_width=200;
+                    area.element_height=200;
+                    area.element_height=300;
                 }
                 
                 area.style={
-                    'width':area.element_width*100+'px',
-                    'height':area.element_length*100+'px'
+                    'width':area.element_width*0.7+'px',
+                    'height':area.element_length*0.7+'px'
                 };
                 
 

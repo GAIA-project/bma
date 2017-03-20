@@ -2219,3 +2219,9 @@ body {
     padding: 20px;
     margin: 10px;
 }
+
+.delete_label{
+    font-size: 10px;
+    color: red;
+    text-decoration: underline;
+}
