@@ -89,9 +89,9 @@
             });
 
             $urlRouterProvider
-                .when('/', '/dashboard')
+                .when('/', '/page/buildings')
 
-                .otherwise('/dashboard');
+                .otherwise('/page/buildings');
 
 
             $stateProvider.state('dashboard', {

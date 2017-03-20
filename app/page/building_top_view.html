@@ -1,12 +1,20 @@
 <div class="page page-top-view" data-ng-controller="SiteTopViewController">
     <div class="row">
-    	<div class="col-sm-12">	
-    		<div layout="row" layout-align="end center">
-    			<input type="button" id="btnSave" value="Save PNG"/>
-                <!-- <md-button class="md-accent md-raised" ng-click="createClass()"><span data-translate="ADD_AREA"></span></md-button>&nbsp; -->
+        <div class="col-sm-12">
+            <h2 class="section-header">{{building.details.item.name}}</h2>
+        </div>
+        <div class="col-sm-12">
+            <div layout="row" layout-align="end center">
+                <md-button class="md-accent md-raised" ng-click="goToDashboard()"><span data-translate="VIEW_BUILDING"></span></md-button>&nbsp;
+                <md-button class="md-accent md-raised" ng-click="goToAreas()"><span data-translate="AREAS"></span></md-button>&nbsp;
+                <md-button class="md-accent md-raised" ng-click="goToSensors()"><span data-translate="SENSORS"></span></md-button>&nbsp;
+                <md-button class="md-accent md-raised" ng-click="goToMeasurements()"><span data-translate="AddMeasurements"></span></md-button>&nbsp;                
+                <md-button class="md-accent md-raised" id="btnSave"><span class="fa fa-file-image-o"></span> <span data-translate="SAVE"></span></md-button>
+                
             </div>
-    	</div>
+        </div>
     </div>
+
     <div class="row" id="widget">
         <div class="col-md-12" style="width:100%;min-height:1000px">          
 

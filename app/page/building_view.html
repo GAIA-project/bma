@@ -1,9 +1,9 @@
 <div class="page" ng-controller="SiteController" >
     <div class="row">
-        <div class="col-sm-12 col-md-3">
-            <h2 class="section-header">{{site.name}}</h2>
+        <div class="col-sm-12">
+            <h2 class="section-header">{{building.details.item.name}}</h2>
         </div>
-        <div class="col-sm-12 col-md-9">
+        <div class="col-sm-12">
             <div layout="row" layout-align="end center">
                 <md-button class="md-accent md-raised" ng-click="goToTopView()"><span data-translate="TOPVIEW"></span></md-button>&nbsp;
                 <md-button class="md-accent md-raised" ng-click="goToAreas()"><span data-translate="AREAS"></span></md-button>&nbsp;

@@ -1,23 +1,25 @@
 <div class="page" ng-controller="SiteAreasController" >
-    <div class="row" style="margin-bottom:10px">
-        <div class="col-md-8">
-            <h2 class="section-header">{{site.name}}</h2>
+    <div class="row" >
+        <div class="col-sm-12">
+            <h2 class="section-header">{{building.details.item.name}}</h2>
         </div>
-        <div class="col-md-4">
+        <div class="col-sm-12">
             <div layout="row" layout-align="end center">
-                <md-button class="md-accent md-raised" ng-click="goToDashboard()"><span data-translate="DASHBOARD"></span></md-button> &nbsp;
-                <md-button class="md-accent md-raised" ng-click="goToEdit()"><span data-translate="EDIT_BUILDING"></span></md-button>
-
+                <md-button class="md-accent md-raised" ng-click="goToDashboard()"><span data-translate="VIEW_BUILDING"></span></md-button>&nbsp;
+                <md-button class="md-accent md-raised" ng-click="goToSensors()"><span data-translate="SENSORS"></span></md-button>&nbsp;
+                <md-button class="md-accent md-raised" ng-click="goToMeasurements()"><span data-translate="AddMeasurements"></span></md-button>&nbsp;                
+                
             </div>
         </div>
-    </div>   
-<div class="row" style="margin-top:60px">    
+    </div>
+
+ 
+<div class="row" style="margin-top: 10px">    
         <div class="col-md-4">
             <div class="panel panel-default panel-minimal">
                 <div class="divider divider-md"></div>
                 <div class="panel-heading">
                     <span class="card-title"  data-translate="AREAS"></span>
-
                 </div>
                 <div class="panel-body" ng-init="getInitAreas()">
                 	<div style="text-align: right;margin-bottom: 10px">

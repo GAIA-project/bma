@@ -1,21 +1,26 @@
 <div class="page" ng-controller="SiteEditController">
     <div class="saved"><span data-translate="UPDATED"></span></div>
     <div class="row">
-        <div class="col-md-8">
-            <h2 class="section-header">{{site.name}}</h2>
+        <div class="col-sm-12">
+            <h2 class="section-header">{{school.name}}</h2>
         </div>
-        <div class="col-md-4">
+        <div class="col-sm-12">
             <div layout="row" layout-align="end center">
-                <md-button class="md-accent md-raised" ng-click="goToMeasurements()"><span data-translate="ADD_MEASUREMENTS"></span></md-button>&nbsp;
+                <md-button class="md-accent md-raised" ng-click="goToTopView()"><span data-translate="TOPVIEW"></span></md-button>&nbsp;
                 <md-button class="md-accent md-raised" ng-click="goToAreas()"><span data-translate="AREAS"></span></md-button>&nbsp;
                 <md-button class="md-accent md-raised" ng-click="goToSensors()"><span data-translate="SENSORS"></span></md-button>&nbsp;
-                <md-button class="md-accent md-raised" ng-click="goToDashboard()"><span data-translate="VIEW_BUILDING"></span></md-button>
-
+                <md-button class="md-accent md-raised" ng-click="goToMeasurements()"><span data-translate="AddMeasurements"></span></md-button>&nbsp;                
+                <md-button class="md-accent md-raised" ng-click="goToDashboard()"><span data-translate="VIEW_BUILDING"></span></md-button>&nbsp;
+                <md-button class="md-accent md-raised" ng-click="goToAnomalies()"><span data-translate="ANOMALIES"></span></md-button>&nbsp;
+                <md-button class="md-accent md-raised" ng-click="goToComparison()"><span data-translate="COMPARISON"></span></md-button>
             </div>
         </div>
     </div>
 
-    <div class="row ui-section" style="margin-top:60px">
+
+
+
+    <div class="row ui-section" style="margin-top:10px">
         	
          <div class="row ui-section">
         <div class="col-md-12">

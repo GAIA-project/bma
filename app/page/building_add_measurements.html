@@ -1,19 +1,20 @@
 <div class="page" ng-controller="SiteController" >
     <div class="row">
-        <div class="col-md-8">
-            <h2 class="section-header">{{site.name}}</h2>
+        <div class="col-sm-12">
+            <h2 class="section-header">{{building.details.item.name}}</h2>
         </div>
-        <div class="col-md-4">
+        <div class="col-sm-12">
             <div layout="row" layout-align="end center">
-                <md-button class="md-accent md-raised" ng-click="goToDashboard()">Dashboard</md-button>&nbsp;
-                <md-button class="md-accent md-raised" ng-click="goToSensors()">Sensors</md-button>&nbsp;
-                <md-button class="md-accent md-raised" ng-click="goToEdit()">Edit Building</md-button>
+                <md-button class="md-accent md-raised" ng-click="goToDashboard()"><span data-translate="VIEW_BUILDING"></span></md-button>&nbsp;
+                <md-button class="md-accent md-raised" ng-click="goToTopView()"><span data-translate="TOPVIEW"></span></md-button>&nbsp;                
+                <md-button class="md-accent md-raised" ng-click="goToAreas()"><span data-translate="AREAS"></span></md-button>&nbsp;                
             </div>
         </div>
     </div>
 
+  
     
-    <div class="row ui-section" style="margin-top:60px">    
+    <div class="row ui-section" style="margin-top:10px">    
     	<section class="panel panel-default">
             <div class="panel-body" data-ng-controller="TabsDemoCtrl">
         

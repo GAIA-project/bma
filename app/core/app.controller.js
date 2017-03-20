@@ -113,7 +113,8 @@
                 appConfig.main.auth_token = auth.data.access_token;                
                 console.log("Auth Data");
                 console.log(auth.data);
-                $location.path('dashboard');
+                $location.path('page/buildings');
+                /*$location.path('dashboard');*/
 
             });
 
@@ -283,7 +284,13 @@
     .controller('SiteAreasController',function($scope,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor){
         
         $scope.building = {};
-
+        
+        
+        var t_site = site.getDetails($stateParams.id);
+        t_site.then(function(tsite){            
+            $scope.building.details = tsite.data;
+        });
+        
 
         $scope.getInitAreas = function(){
             var t_areas = site.getAreas($stateParams.id);
@@ -613,6 +620,7 @@
         }
 
          $scope.goToAreas = function(){
+            console.log("Areas");
             $location.path('page/building/areas/'+$stateParams.id);
         }
 
@@ -637,6 +645,35 @@
 
     })
     .controller('SiteTopViewController',function($scope,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor){
+
+
+
+        $scope.goToAreas = function(){
+            console.log("Areas");
+            $location.path('page/building/areas/'+$stateParams.id);
+        }
+
+       $scope.goToMeasurements = function(){
+            $location.path('page/building/add_measurements/'+$stateParams.id);
+       }
+       $scope.goToEdit = function(){
+            $location.path('page/building/edit/'+$stateParams.id);
+       }
+       $scope.goToAnomalies = function(){
+            $location.path('page/building/anomalies/'+$stateParams.id);
+       }
+       $scope.goToTopView = function(){
+            $location.path('page/building/topview/'+$stateParams.id);
+       }
+
+        $scope.goToSensors = function(){
+            $location.path('page/building/sensors/'+$stateParams.id);
+        }
+        $scope.goToDashboard = function(){
+            $location.path('page/building/view/'+$stateParams.id);   
+        }
+
+
 
         $scope.building = {};
         $scope.$on('onRepeatLast', function(scope, element, attrs){
@@ -740,12 +777,44 @@
             });            
         };
 
+
+
+
+
+
     })
     .controller('SiteSensorsController',function($scope,$q,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor){
 
         $scope.building = {};
        var t_areas = site.getAreas($stateParams.id);
        
+
+       var t_site = site.getDetails($stateParams.id);
+        t_site.then(function(tsite){            
+            $scope.building.details = tsite.data;
+        });
+
+
+
+
+       var senss = site.getResources($stateParams.id);
+       senss.then(function(sites){
+        
+        
+            sites.data.resources.forEach(function(thesensor,index){                            
+                
+                if(thesensor.uom=="")
+                    console.log(thesensor.uri+":"+thesensor.resourceId);
+               
+            });
+
+
+       });
+
+        
+
+
+
         t_areas.then(function(areas){
             $scope.building.areas = areas.data.items;
 
@@ -759,7 +828,11 @@
                         area.sensors = sensors.data.items;    
                         
                         area.sensors.forEach(function(thesensor,index){                            
-                                
+                            var t = Sensor.getDetailsFromSparks(thesensor.id);
+                            t.then(function(metrics){
+                                if(metrics.data.uom!="")
+                                    console.log("EEE:"+thesensor.id);
+                            });
                             var meas = Sensor.getMeasurementsByResourceId(thesensor.id);
                                 meas.then(function(measurements){
                                     thesensor.meatrics = measurements.data;
@@ -772,9 +845,40 @@
         });
 
 
+
+
         $scope.goToSensor = function(sensor_id){
             $location.path('page/sensor/view/'+sensor_id);   
         }
+
+
+        $scope.goToAreas = function(){
+            $location.path('page/building/areas/'+$stateParams.id);
+        }
+
+       $scope.goToMeasurements = function(){
+            $location.path('page/building/add_measurements/'+$stateParams.id);
+       }
+       $scope.goToEdit = function(){
+            $location.path('page/building/edit/'+$stateParams.id);
+       }
+       $scope.goToAnomalies = function(){
+            $location.path('page/building/anomalies/'+$stateParams.id);
+       }
+       $scope.goToTopView = function(){
+            $location.path('page/building/topview/'+$stateParams.id);
+       }
+        $scope.goToSensors = function(){
+            $location.path('page/building/sensors/'+$stateParams.id);
+        }
+        $scope.goToDashboard = function(){
+            $location.path('page/building/view/'+$stateParams.id);   
+        }
+        $scope.goToComparison = function(){
+            $location.path('page/building/comparison/'+$stateParams.id);      
+        }
+
+
 
 
     })
@@ -871,7 +975,9 @@
 
     })
     .controller('SiteComparisonController',function($scope,$q,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor,buildings){
-        
+    
+       
+
 
         var sites = buildings.getAllBuildings();
         sites.then(function(resources,index){
@@ -952,12 +1058,7 @@
                                  {id:3,texts:"Gas"}];
 
         var t_site = site.getDetails($stateParams.id);
-        /*var resources = site.getResources($stateParams.id);
-        resources.then(function(resourcess){        
-            resourcess.data.resources.forEach(function(resource,index){
-        
-            });
-        });*/
+
 
         var available_resources = site.getResources($stateParams.id);
         available_resources.then(function(resources,index){
@@ -974,7 +1075,7 @@
 
         t_site.then(function(site){
             
-
+            
            $scope.building.details = site.data;
            $scope.sitename = site.data.item.name;
            var json = JSON.parse(site.data.item.json);
@@ -1047,9 +1148,16 @@
            
            $scope.building.energy_consumtion_meter = json.energy_consumption_resource;
            
-
+           console.log("Building");
+           console.log($scope.building);
+           var k = Sensor.getDetailsFromSparks($scope.building.energy_consumtion_meter);
+           k.then(function(metrics){
+            console.log(metrics);
+           })
            var latest = Sensor.getMeasurementsByResourceId($scope.building.energy_consumtion_meter);
            latest.then(function(metrics){
+
+            console.log(metrics);
            
                 $scope.average_per_day = (parseFloat(metrics.data.average.day)/1000).toFixed(2);
                 $scope.average_per_month = (parseFloat(metrics.data.average.month)/1000).toFixed(2);

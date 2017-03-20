@@ -1,18 +1,22 @@
 <div class="page" ng-controller="SiteSensorsController" >
-    <div class="row">
-        <div class="col-md-8">
-            <h2 class="section-header"></h2>
+     <div class="row">
+        <div class="col-sm-12">
+            <h2 class="section-header">{{building.details.item.name}}</h2>
         </div>
-        <div class="col-md-4">
+        <div class="col-sm-12">
             <div layout="row" layout-align="end center">
-                <md-button class="md-accent md-raised" ng-click="goToDashboard()"><span data-translate="DASHBOARD"></span></md-button> &nbsp;
-                <md-button class="md-accent md-raised" ng-click="goToEdit()"><span data-translate="EDIT_BUILDING"></span></md-button>
+                <md-button class="md-accent md-raised" ng-click="goToTopView()"><span data-translate="TOPVIEW"></span></md-button>&nbsp;
+                <md-button class="md-accent md-raised" ng-click="goToDashboard()"><span data-translate="VIEW_BUILDING"></span></md-button>&nbsp;
+                <md-button class="md-accent md-raised" ng-click="goToAreas()"><span data-translate="AREAS"></span></md-button>&nbsp;                
             </div>
         </div>
-    </div>   
+    </div>
 
-    <div class="row">
+
+
+    <div class="row" style="margin-top: 10px">
         <div class="col-sm-12">
+
             <div class="row area_box" ng-repeat="area in building.areas">
             <h2 class="area_title">{{area.name}}</h2>
             <div style="text-align: center;margin-bottom: 10px" ng-show="area.sensors==0"><span data-translate="Therearenoassignedsensors"></span></div>
@@ -25,6 +29,7 @@
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
         </div>
     </div>  
