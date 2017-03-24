@@ -38,16 +38,14 @@ angular.module('app').factory('Sensor', function($http,appConfig){
                     return $http({
                         url:appConfig.main.apis.main+'resource/query/timerange',
                         data:{
-                            
-                                "queries":[{
-                                    "from":last,                                           
-                                    "granularity":"day",
-                                    "resourceID":id,
-                                    "resultLimit":200,
-                                    "to":date
-                                }]
-                            
-                        },
+                            "queries": [
+                                    {
+                                      "from": 1182139200,
+                                      "granularity": "5min",
+                                      "resourceID": 141675,
+                                      "to": 1466222400
+                                    }
+                            ]},
                         method:'POST',
                         headers: {"Accept": "application/json","Authorization":"bearer "+appConfig.main.auth_token},
                     })
@@ -64,6 +62,38 @@ angular.module('app').factory('Sensor', function($http,appConfig){
 	                })
             	else
             		return "resource with resource_id="+resource_id+" is in wrong database";
+            },
+            getComparingQueryTimeRange:function(object){
+                return $http({
+                        url:appConfig.main.apis.main+'resource/query/timerange',
+                        method:'POST',
+                        data:{
+                            "queries": [
+                                    {
+                                      "from": object.from,
+                                      "granularity": object.granularity,
+                                      "resourceID": object.resourceID,
+                                      "to": object.to
+                                    }
+                            ]},
+                        headers: {"Accept": "application/json","Authorization":"bearer "+appConfig.main.auth_token},
+                    })
+            },
+            getDetailsFromTimeRange:function(resource_id,uri){
+                return $http({
+                        url:appConfig.main.apis.main+'resource/query/timerange',
+                        method:'POST',
+                        data:{
+                            "queries": [
+                                    {
+                                      "from": new Date(new Date().getTime() - (200 * 24 * 60 * 60 * 1000)).getTime(),
+                                      "granularity": "day",
+                                      "resourceID": 143440,
+                                      "to": new Date().getTime()
+                                    }
+                            ]},
+                        headers: {"Accept": "application/json","Authorization":"bearer "+appConfig.main.auth_token},
+                    })
             }
         }
        

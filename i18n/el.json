@@ -30,8 +30,8 @@
     "ADD_A_SENSOR":"Προσθήκη αισθητήρα",
     "energy_cons_per_area":"Κατανάλωση ανα Περιοχή",
     "COMPARISON":"Σύγκριση",
-    "average_per_day":"Μέση Κατανάλωση Ανα Ημέρα",
-    "average_per_month":"Μέση Κατανάλωση Ανα Μήνα",
+    "average_per_day":"Μέση Τιμή Ανα Ημέρα",
+    "average_per_month":"Μέση Τιμή Ανα Μήνα",
     "ADD_A_CHART":"Προσθήκη Γραφήματος",
     "CHART_NAME":"Όνομα Γραφήματος",
     "CHART_SENSOR":"Μέτρηση",
@@ -108,8 +108,13 @@
     "Energy_types_available":"Διαθέσιμες πηγές ενέργειας",
     "ADD_EXTRA_CHART":"Προσθήκη Γραφήματος",
     "UPDATED":"Ανανεώθηκε",
-    "UPDATE":"Ανανέωση"
-
+    "UPDATE":"Ανανέωση",
+    "FROM_TIME":"Από",
+    "TO_TIME":"Έως",
+    "GRANULARITY":"Αναλυτικότητα",
+    "second_period":"Δεύτερη Περίοδος",
+    "first_period":"Πρώτη Περίοδος",
+    "PROFILE":"Ρυθμίσεις"
 
 }
  

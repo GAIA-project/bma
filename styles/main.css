@@ -2206,6 +2206,12 @@ body {
     font-size: 25px;
     text-align: center;
 }
+.watt_count_small{
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+
+}
 .school_name {
     text-align: center;
     font-weight: normal;
@@ -2225,3 +2231,10 @@ body {
     color: red;
     text-decoration: underline;
 }
+
+.fp{
+  background: #e2e2e2;
+  float: left;
+  padding: 20px 0px;
+  margin: 10px 30px;
+  }

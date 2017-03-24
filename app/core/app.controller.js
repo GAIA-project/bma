@@ -506,10 +506,32 @@
 
     
     })
-    .controller('SiteEditController',function($scope,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log){
+    .controller('SiteEditController',function($scope,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Sensor){
         $scope.add_a_chart_visible_form = 0;
         $scope.new_chart = {};
         $scope.extra_charts = [];
+
+
+                    var pertimerange  = Sensor.getDetailsFromTimeRange();
+                    pertimerange.then(function(dd){
+                        console.log("PerTimer THEN");
+                        console.log(dd); 
+                         
+                                    
+                                    var obj = dd.data.results;
+                                    var measurem = obj[Object.keys(obj)[0]];
+                                        console.log(measurem);
+                                        measurem.forEach(function(rec,index){
+                                            if(rec.reading>0)
+                                                console.log("VRIKA:"+rec.reading+" se "+rec.timestamp);
+                                        });
+
+
+                    });
+                    pertimerange.error(function(error){
+                        console.log("ERROR");
+                        console.log(error);
+                    });
 
 
         
@@ -571,8 +593,12 @@
         available_resources.then(function(resources,index){
             $scope.available_resources = [];
             resources.data.resources.forEach(function(tresource){
-     
+                
                 $scope.available_resources.push({id:tresource.resourceId,uri:tresource.uri});
+
+
+
+
             });
         });
         
@@ -975,71 +1001,180 @@
 
     })
     .controller('SiteComparisonController',function($scope,$q,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor,buildings){
-    
+        var todate = new Date().getTime();
+        $scope.line3 = {};
+        $scope.loading = 0;
+        $scope.first_period_from_time   = new Date(todate-100*1000*60*60*24).getTime();
+        $scope.first_period_to_time     = todate;
+
+        $scope.second_period_from_time  = new Date(todate-200*1000*60*60*24).getTime();
+        $scope.second_period_to_time    = new Date(todate-100*1000*60*60*24).getTime();
+        
+        var t_site = site.getDetails($stateParams.id);
+        t_site.then(function(respo){
+
+             var json = JSON.parse(respo.data.item.json);
+             $scope.energy_consumption_resource = json.energy_consumption_resource;
+                console.log("Energy Consumption");
+                console.log($scope.energy_consumption_resource);
+        });
+
        
-
-
+        $scope.granularity_values = [];
+        $scope.granularity_values.push({'text':'5mins','name':'Per 5 mins'});
+        $scope.granularity_values.push({'text':'quarter','name':'Per quarter'});
+        $scope.granularity_values.push({'text':'hour','name':'Per Hour'});
+        $scope.granularity_values.push({'text':'day','name':'Per Day'});
+        $scope.granularity_values.push({'text':'month','name':'Month'});
+/*
         var sites = buildings.getAllBuildings();
         sites.then(function(resources,index){
             $scope.available_sites = [];
             
             resources.data.items.forEach(function(tsite){
                 $scope.available_sites.push({id:tsite.id,name:tsite.name});
-                console.log(tsite);
+                
             });
             
-        });
+        });*/
+
+        $scope.update = function(){
+
+            $scope.loading = 1;
+
+            if($scope.energy_consumption_resource>0){
+
+
+            var sensor = $scope.energy_consumption_resource; 
+
+            $scope.obj = {};
+            $scope.obj.one = {};
+            $scope.obj.one.from = $scope.first_period_from_time.getTime();
+            $scope.obj.one.to = $scope.first_period_to_time.getTime();
+            $scope.obj.one.resourceID= sensor;
+            $scope.obj.one.granularity = $scope.granularity;
+            
+            $scope.obj.two = {};
+            $scope.obj.two.to = $scope.second_period_to_time.getTime();
+            $scope.obj.two.from = $scope.second_period_from_time.getTime();
+            $scope.obj.two.resourceID = sensor;
+            $scope.obj.two.granularity = $scope.granularity;
+            
+            
+            $scope.obj.resourceID = sensor;
 
 
 
-        $scope.line3 = {};
-        $scope.line3.options={
-           title : {
-                text: 'Energy Consumption',
-            },
-            tooltip : {
-                trigger: 'axis'
-            },
-            legend: {
-                data:['School 1','School 2']
-            },
-            toolbox: {
-                show : true,
-                feature : {
-                    restore : {show: true, title: "restore"},
-                    saveAsImage : {show: true, title: "save as image"}
-                }
-            },
-            calculable : true,
-            xAxis : [
-                {
-                    type : 'category',
-                    boundaryGap : false,
-                    data : ['Mon.','Tue.','Wed.','Thu.','Fri.','Sat.','Sun.']
-                }
-            ],
-            yAxis : [
-                {
-                    type : 'value'
-                }
-            ],
-            series : [
-                {
-                    name:'School 1',
-                    type:'line',
-                    smooth:true,
-                    itemStyle: {normal: {areaStyle: {type: 'default'}}},
-                    data:[30, 182, 434, 791, 390, 30, 10]
-                },
-                {
-                    name:'School 2',
-                    type:'line',
-                    smooth:true,
-                    itemStyle: {normal: {areaStyle: {type: 'default'}}},
-                    data:[1320, 1132, 601, 234, 120, 90, 20]
-                }
-            ]
-        };
+            var first = Sensor.getComparingQueryTimeRange($scope.obj.one);
+            first.then(function(vals){
+
+
+                console.log(vals);
+                var obj     = vals.data.results;
+                var vals1   = obj[Object.keys(obj)[0]];
+                var vals    = [];
+                $scope.vals1 = [];
+                $scope.vals2 = [];
+                $scope.tdates   = [];
+
+                vals1.forEach(function(val,index){
+                            $scope.tdates.push(new Date(val.timestamp));
+                            $scope.vals1.push(val.reading);
+                });
+
+                var second = Sensor.getComparingQueryTimeRange($scope.obj.two);
+                    second.then(function(vals_2){
+                        $scope.loading = 0;
+                        
+                                                
+
+                        var obj = vals_2.data.results;
+                        var vals2 = obj[Object.keys(obj)[0]];                        
+                        vals2.forEach(function(val,index){
+                            $scope.vals2.push(val.reading);
+                        });
+                        
+                       
+                            $scope.count++;
+
+                        
+                        $scope.line3.options={
+                           title : {
+                                text: 'Energy Consumption',
+                            },
+                            tooltip : {
+                                trigger: 'axis'
+                            },
+                            legend: {
+                                data:['Duration 1','Duration 3']
+                            },
+                            toolbox: {
+                                show : true,
+                                feature : {
+                                    restore : {show: true, title: "Restore"},
+                                    saveAsImage : {show: true, title: "save as image"},
+                                    dataZoom : {show: true,title:{zoom:"Zoom",back:"Reset Zoom"}},
+                                    dataView : {show: true,title:"DataView"},
+                                    magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled'],title:{
+                                        line: 'Line',
+                                        bar: 'Bar',
+                                        stack: 'Stack',
+                                        tiled: 'Tiled',
+                                        force: 'Force',
+                                        chord: 'Chord',
+                                        pie: 'Pie',
+                                        funnel: 'Funnel'
+                                    }},
+                                }
+                            },
+                            calculable : true,
+                            xAxis : [
+                                {
+                                    type : 'category',
+                                    boundaryGap : false,
+                                    data : $scope.tdates
+                                }
+                            ],
+                            yAxis : [
+                                {
+                                    type : 'value'
+                                }
+                            ],
+                            series : [
+                                {
+                                    name:'Duration 1',
+                                    type:'line',
+                                    smooth:true,
+                                    itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                                    data:$scope.vals1
+                                },
+                                {
+                                    name:'Duration 3',
+                                    type:'line',
+                                    smooth:true,
+                                    itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                                    data:$scope.vals2
+                                }
+                            ]
+                        };
+                        
+
+                       
+
+
+
+
+                    });
+
+            })
+            }else{
+                $scope.loading = 0;
+                alert("Please assign Energy Consumption Meter");
+            }
+        }
+
+
+        
 
 
     })
@@ -1082,15 +1217,23 @@
            $scope.building.extra_charts = json.extra_charts;
 
            $scope.building.extra_charts.forEach(function(chart,index){
-
+                var chart_details = Sensor.getDetailsFromSparks(chart.resource_id);
+                chart_details.then(function(chartdetails){
+                    chart.measurementUnit = chartdetails.data.uom;
+                });
                 var latest = Sensor.getMeasurementsByResourceId(chart.resource_id);
                 latest.then(function(metrics){
-                    console.log(metrics);
+                    
+                chart.average_per_day = parseFloat(metrics.data.average.day).toFixed(2);
+                chart.average_per_month = parseFloat(metrics.data.average.month).toFixed(2);
+                chart.latest = {
+                    time:metrics.data.latestTime,
+                    val:parseFloat(metrics.data.latest).toFixed(2)
+                };
 
                 var dates = [];
-                var d = new Date().getTime();
-                
-                var i = 0;
+                var d = new Date(chart.latest.time).getTime();                
+                var i = 1;
                 while(i<metrics.data.day.length){
                     var m = new Date(d-i*1000*60*60*24);
                     dates.push(m);
@@ -1148,25 +1291,24 @@
            
            $scope.building.energy_consumtion_meter = json.energy_consumption_resource;
            
-           console.log("Building");
-           console.log($scope.building);
            var k = Sensor.getDetailsFromSparks($scope.building.energy_consumtion_meter);
-           k.then(function(metrics){
-            console.log(metrics);
-           })
-           var latest = Sensor.getMeasurementsByResourceId($scope.building.energy_consumtion_meter);
-           latest.then(function(metrics){
+           k.then(function(sensor_details){
+            console.log("Sensor DETAILS");
+            console.log(sensor_details);
+            $scope.measurementUnit = sensor_details.data.uom;
 
-            console.log(metrics);
-           
-                $scope.average_per_day = (parseFloat(metrics.data.average.day)/1000).toFixed(2);
-                $scope.average_per_month = (parseFloat(metrics.data.average.month)/1000).toFixed(2);
-                $scope.measurementUnit = 'kWh';
+            var latest = Sensor.getMeasurementsByResourceId($scope.building.energy_consumtion_meter);
+            latest.then(function(metrics){
+          
+                $scope.average_per_day = parseFloat(metrics.data.average.day).toFixed(2);
+                $scope.average_per_month = parseFloat(metrics.data.average.month).toFixed(2);
+                
+
 
                 var dates = [];
-                var d = new Date().getTime();
+                var d = new Date(metrics.data.latestTime).getTime();
                 
-                var i = 0;
+                var i = 1;
                 while(i<metrics.data.day.length){
                     var m = new Date(d-i*1000*60*60*24);
                     dates.push(m);
@@ -1222,6 +1364,9 @@
 
            });
 
+           });
+           
+
         });
 
 
@@ -1254,17 +1399,17 @@
                         area.sensors.forEach(function(thesensor,index){
                             
 
-                                var meas2 = Sensor.getMeasurementsBySearch(thesensor.uri_resource,thesensor.id);
+                                /*var meas2 = Sensor.getMeasurementsBySearch(thesensor.uri_resource,thesensor.id);
                                 meas2.then(function(tmeas2){
                                     
                                     var obj = tmeas2.data.results;
                                         var measurem = obj[Object.keys(obj)[0]];
                                         
-                                });
-                                var meas = Sensor.getMeasurementsByResourceId(thesensor.id);
+                                });*/
+                              /*  var meas = Sensor.getMeasurementsByResourceId(thesensor.id);
                                 meas.then(function(measurements){
     
-                                });
+                                });*/
                         });
                     });
                 });
