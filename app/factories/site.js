@@ -34,7 +34,13 @@ angular.module('app').factory('site', function($http,appConfig){
                     method: 'GET'
                 })
             },
-                        
+            syncCNIT:function(site_id){
+              return $http({
+                    url: appConfig.main.apis.cnit+'building/'+site_id,
+                    method: 'PUT',
+                    headers: {"Accept": "application/json","Authorization":"bearer "+appConfig.main.auth_token}
+                })  
+            }                        
         }
        
 });

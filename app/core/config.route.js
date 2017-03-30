@@ -53,6 +53,12 @@
                 url: '/page/building/comparison/:id',
                 templateUrl: 'app/page/building_comparison.html'
             });
+
+             $stateProvider.state('page/building/notifications', {
+                url: '/page/building/notifications/:id',
+                templateUrl: 'app/page/building_notifications.html'
+            });
+             
             
             $stateProvider.state('page/building/topview',{
                 url:'/page/building/topview/:id',

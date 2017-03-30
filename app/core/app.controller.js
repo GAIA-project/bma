@@ -511,17 +511,68 @@
         $scope.new_chart = {};
         $scope.extra_charts = [];
 
+        
 
-                    var pertimerange  = Sensor.getDetailsFromTimeRange();
+
+        $scope.translations = {};
+        $scope.translations.el = {};
+        $scope.translations.en = {};
+        $scope.translations.sw = {};
+        $scope.translations.it = {};
+
+        $scope.translations.el.general_characteristic = "Γενικά Χαρακτηριστικά";
+        $scope.translations.el.construction_characteristics = "Κατασκευαστικά Χαρακτηριστικά";
+        $scope.translations.el.resources = "Γραφήματα & Αισθητήρες";
+
+
+
+
+
+        switch ($rootScope.lang) {
+            case 'en':
+                $scope.language = $scope.translations.en;                        
+                break; 
+            case 'el':
+                $scope.language = $scope.translations.el; 
+                break; 
+            case 'sw':
+                $scope.language = $scope.translations.sw; 
+                break; 
+            case 'it':
+                $scope.language = $scope.translations.it; 
+                break; 
+            default: 
+                $scope.language = $scope.translations.el;                         
+        }
+
+
+
+
+        console.log("App COnfing");
+        console.log(appConfig);
+
+
+        $scope.available_steps = [];
+        $scope.available_steps.push({'text':'5mins','name':'Per 5 mins'});
+        $scope.available_steps.push({'text':'hour','name':'Per Hour'});
+        $scope.available_steps.push({'text':'day','name':'Per Day'});
+        $scope.available_steps.push({'text':'month','name':'Month'});
+
+                   /* var pertimerange  = Sensor.getDetailsFromTimeRange();
                     pertimerange.then(function(dd){
-                        console.log("PerTimer THEN");
-                        console.log(dd); 
-                         
+                        
                                     
                                     var obj = dd.data.results;
-                                    var measurem = obj[Object.keys(obj)[0]];
+                                    console.log("obj");
+                                    console.log(obj);
+
+                                    var measurem = obj[Object.keys(obj)[0]]; 
+
+                                    console.log("measurem");
+                                    console.log(measurem);
+
                                         console.log(measurem);
-                                        measurem.forEach(function(rec,index){
+                                        measurem.data.forEach(function(rec,index){
                                             if(rec.reading>0)
                                                 console.log("VRIKA:"+rec.reading+" se "+rec.timestamp);
                                         });
@@ -531,7 +582,7 @@
                     pertimerange.error(function(error){
                         console.log("ERROR");
                         console.log(error);
-                    });
+                    });*/
 
 
         
@@ -570,13 +621,14 @@
            
            $scope.school = site.data.item;           
             
-            if(angular.isUndefined(site.data.item.json) || site.data.item.json === null || site.data.item.json==null || site.data.item.json=="null"){
+            if(angular.isUndefined(site.data.item.json) || site.data.item.json === null || site.data.item.json==null || site.data.item.json=="null" || site.data.item.json === " " || site.data.item.json === ""){
 
                 $scope.jjson = {};
                 $scope.jjson.extra_charts = [];
             }
             else{
-
+                console.log("JSSSSON");
+                console.log(site.data.item.json);
                 $scope.jjson = JSON.parse(site.data.item.json);
                 if(angular.isUndefined($scope.jjson.extra_charts) || $scope.jjson.extra_charts === null || $scope.jjson.extra_charts==null || $scope.jjson.extra_charts=="null")
                     $scope.jjson.extra_charts = [];
@@ -803,10 +855,64 @@
             });            
         };
 
+    })
+    .controller('SiteNotificationsController',function($scope,$q,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor){
+
+
+
+       $scope.building = {};
+       var t_areas = site.getAreas($stateParams.id);
+       
+
+       var t_site = site.getDetails($stateParams.id);
+        t_site.then(function(tsite){            
+            $scope.building.details = tsite.data;
+            $scope.building_sync();
+        });
+        
+        $scope.building_sync = function(){
+            var m = site.syncCNIT($stateParams.id);
+            m.then(function(data){
+                console.log("Synced");
+                console.log(data);
+            })
+        }
 
 
 
 
+
+
+        $scope.goToSensor = function(sensor_id){
+            $location.path('page/sensor/view/'+sensor_id);   
+        }
+
+
+        $scope.goToAreas = function(){
+            $location.path('page/building/areas/'+$stateParams.id);
+        }
+
+       $scope.goToMeasurements = function(){
+            $location.path('page/building/add_measurements/'+$stateParams.id);
+       }
+       $scope.goToEdit = function(){
+            $location.path('page/building/edit/'+$stateParams.id);
+       }
+       $scope.goToAnomalies = function(){
+            $location.path('page/building/anomalies/'+$stateParams.id);
+       }
+       $scope.goToTopView = function(){
+            $location.path('page/building/topview/'+$stateParams.id);
+       }
+        $scope.goToSensors = function(){
+            $location.path('page/building/sensors/'+$stateParams.id);
+        }
+        $scope.goToDashboard = function(){
+            $location.path('page/building/view/'+$stateParams.id);   
+        }
+        $scope.goToComparison = function(){
+            $location.path('page/building/comparison/'+$stateParams.id);      
+        }
 
     })
     .controller('SiteSensorsController',function($scope,$q,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor){
@@ -912,12 +1018,6 @@
         $scope.sensor_measurements = {};
         $scope.dates_one = [];
 
-
-         
-
-
-
-
         $scope.sensor = {
             id:$stateParams.id
         };
@@ -927,7 +1027,19 @@
             });
 
         var meas = Sensor.getMeasurementsByResourceId($scope.sensor.id);
-        console.log($scope.sensor.id);
+
+
+
+        
+        $scope.update = function(){
+
+        }
+
+
+
+
+        
+        
             meas.then(function(measurements){
                 $scope.sensor.meatrics = measurements.data;  
                 
@@ -977,7 +1089,7 @@
                     ],
                     series : [
                         {
-                            name:'Mesurements',
+                            name:'Measurements',
                             type:'line',
                             smooth:true,
                             itemStyle: {normal: {areaStyle: {type: 'default'}}},
@@ -988,15 +1100,7 @@
 
                 
             });
-
-
-
-
-
-
-                
-                
-                console.log($scope.sensor_measurements.options);
+               
             }); 
 
     })
@@ -1022,7 +1126,6 @@
        
         $scope.granularity_values = [];
         $scope.granularity_values.push({'text':'5mins','name':'Per 5 mins'});
-        $scope.granularity_values.push({'text':'quarter','name':'Per quarter'});
         $scope.granularity_values.push({'text':'hour','name':'Per Hour'});
         $scope.granularity_values.push({'text':'day','name':'Per Day'});
         $scope.granularity_values.push({'text':'month','name':'Month'});
@@ -1053,12 +1156,14 @@
             $scope.obj.one.to = $scope.first_period_to_time.getTime();
             $scope.obj.one.resourceID= sensor;
             $scope.obj.one.granularity = $scope.granularity;
+            $scope.obj.one.string = $scope.first_period_from_time+" TO "+$scope.first_period_to_time;
             
             $scope.obj.two = {};
             $scope.obj.two.to = $scope.second_period_to_time.getTime();
             $scope.obj.two.from = $scope.second_period_from_time.getTime();
             $scope.obj.two.resourceID = sensor;
             $scope.obj.two.granularity = $scope.granularity;
+            $scope.obj.two.string = $scope.second_period_from_time+" TO "+$scope.second_period_to_time;
             
             
             $scope.obj.resourceID = sensor;
@@ -1069,9 +1174,10 @@
             first.then(function(vals){
 
 
-                console.log(vals);
                 var obj     = vals.data.results;
                 var vals1   = obj[Object.keys(obj)[0]];
+                vals1 = vals1.data;
+
                 var vals    = [];
                 $scope.vals1 = [];
                 $scope.vals2 = [];
@@ -1089,7 +1195,9 @@
                                                 
 
                         var obj = vals_2.data.results;
-                        var vals2 = obj[Object.keys(obj)[0]];                        
+                        var vals2 = obj[Object.keys(obj)[0]];   
+                        vals2 = vals2.data;
+                        $scope.                     
                         vals2.forEach(function(val,index){
                             $scope.vals2.push(val.reading);
                         });
@@ -1106,7 +1214,7 @@
                                 trigger: 'axis'
                             },
                             legend: {
-                                data:['Duration 1','Duration 3']
+                                data:[$scope.obj.one.string,$scope.obj.two.string]
                             },
                             toolbox: {
                                 show : true,
@@ -1142,14 +1250,14 @@
                             ],
                             series : [
                                 {
-                                    name:'Duration 1',
+                                    name:$scope.obj.one.string,
                                     type:'line',
                                     smooth:true,
                                     itemStyle: {normal: {areaStyle: {type: 'default'}}},
                                     data:$scope.vals1
                                 },
                                 {
-                                    name:'Duration 3',
+                                    name:$scope.obj.two.string,
                                     type:'line',
                                     smooth:true,
                                     itemStyle: {normal: {areaStyle: {type: 'default'}}},
@@ -1174,6 +1282,37 @@
         }
 
 
+
+$scope.goToSensor = function(sensor_id){
+            $location.path('page/sensor/view/'+sensor_id);   
+        }
+
+
+        $scope.goToAreas = function(){
+            $location.path('page/building/areas/'+$stateParams.id);
+        }
+
+       $scope.goToMeasurements = function(){
+            $location.path('page/building/add_measurements/'+$stateParams.id);
+       }
+       $scope.goToEdit = function(){
+            $location.path('page/building/edit/'+$stateParams.id);
+       }
+       $scope.goToAnomalies = function(){
+            $location.path('page/building/anomalies/'+$stateParams.id);
+       }
+       $scope.goToTopView = function(){
+            $location.path('page/building/topview/'+$stateParams.id);
+       }
+        $scope.goToSensors = function(){
+            $location.path('page/building/sensors/'+$stateParams.id);
+        }
+        $scope.goToDashboard = function(){
+            $location.path('page/building/view/'+$stateParams.id);   
+        }
+        $scope.goToComparison = function(){
+            $location.path('page/building/comparison/'+$stateParams.id);      
+        }
         
 
 
@@ -1207,7 +1346,6 @@
 
 
 
-
         t_site.then(function(site){
             
             
@@ -1223,7 +1361,10 @@
                 });
                 var latest = Sensor.getMeasurementsByResourceId(chart.resource_id);
                 latest.then(function(metrics){
-                    
+                    console.log(metrics);
+
+                    console.log(json);
+
                 chart.average_per_day = parseFloat(metrics.data.average.day).toFixed(2);
                 chart.average_per_month = parseFloat(metrics.data.average.month).toFixed(2);
                 chart.latest = {
@@ -1231,14 +1372,79 @@
                     val:parseFloat(metrics.data.latest).toFixed(2)
                 };
 
+                
+
+
+
+
+
                 var dates = [];
-                var d = new Date(chart.latest.time).getTime();                
-                var i = 1;
-                while(i<metrics.data.day.length){
-                    var m = new Date(d-i*1000*60*60*24);
-                    dates.push(m);
-                    i++;
+                var metrics_of_this = [];
+
+                var d = new Date(metrics.data.latestTime).getTime();
+
+                
+                switch (chart.step) {
+                    case '5mins':                        
+                        metrics_of_this = metrics.data.minutes5.reverse();
+                        var i = 1;
+                        while(i<metrics.data.minutes5.length){
+                            
+                            var m = new Date(d-i*1000*60*5);
+                            dates.push(m);
+                            i++;
+                        }
+                        break; 
+                    case 'hour':
+                         metrics_of_this = metrics.data.minutes60.reverse();  
+                        var i = 1;
+                        while(i<metrics.data.minutes60.length){
+                            var m = new Date(d-i*1000*60*60);
+                            dates.push(m);
+                            i++;
+                        }
+
+                        break; 
+                    case 'day':
+                         metrics_of_this = metrics.data.day.reverse();
+
+                         var i = 1;
+                        while(i<metrics.data.day.length){
+                            var m = new Date(d-i*1000*60*60*24);
+                            dates.push(m);
+                            i++;
+                        }
+
+                        break; 
+                    case 'month':
+                         metrics_of_this = metrics.data.month.reverse(); 
+                         var i = 1;
+                        while(i<metrics.data.month.length){
+                            var m = new Date(d-i*1000*60*60*24*30);
+                            dates.push(m);
+                            i++;
+                        }            
+                        break; 
+                    default: 
+                        var i = 1;
+                        while(i<metrics.data.day.length){
+                            var m = new Date(d-i*1000*60*60*24);
+                            dates.push(m);
+                            i++;
+                        } 
+                         metrics_of_this = metrics.data.day.reverse();             
                 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1279,7 +1485,7 @@
                             type:'line',
                             smooth:true,
                             itemStyle: {normal: {areaStyle: {type: 'default'},color:'rgba(38,43,51,1)'}},
-                            data:metrics.data.day.reverse()
+                            data:metrics_of_this
                         }
                     ]
                 };
@@ -1299,21 +1505,76 @@
 
             var latest = Sensor.getMeasurementsByResourceId($scope.building.energy_consumtion_meter);
             latest.then(function(metrics){
-          
+
                 $scope.average_per_day = parseFloat(metrics.data.average.day).toFixed(2);
                 $scope.average_per_month = parseFloat(metrics.data.average.month).toFixed(2);
-                
-
 
                 var dates = [];
+                var metrics_of_this = [];
+
                 var d = new Date(metrics.data.latestTime).getTime();
+
                 
-                var i = 1;
-                while(i<metrics.data.day.length){
-                    var m = new Date(d-i*1000*60*60*24);
-                    dates.push(m);
-                    i++;
+                switch (json.energy_consumption_resource_step) {
+                    case '5mins':                        
+                        metrics_of_this = metrics.data.minutes5.reverse();
+                        var i = 1;
+                        while(i<metrics.data.minutes5.length){
+                            
+                            var m = new Date(d-i*1000*60*5);
+                            dates.push(m);
+                            i++;
+                        }
+                        break; 
+                    case 'hour':
+                         metrics_of_this = metrics.data.minutes60.reverse();  
+                        var i = 1;
+                        while(i<metrics.data.minutes60.length){
+                            var m = new Date(d-i*1000*60*60);
+                            dates.push(m);
+                            i++;
+                        }
+
+                        break; 
+                    case 'day':
+                         metrics_of_this = metrics.data.day.reverse();
+
+                         var i = 1;
+                        while(i<metrics.data.day.length){
+                            var m = new Date(d-i*1000*60*60*24);
+                            dates.push(m);
+                            i++;
+                        }
+
+                        break; 
+                    case 'month':
+                         metrics_of_this = metrics.data.month.reverse(); 
+                         var i = 1;
+                        while(i<metrics.data.month.length){
+                            var m = new Date(d-i*1000*60*60*24*30);
+                            dates.push(m);
+                            i++;
+                        }            
+                        break; 
+                    default: 
+                        var i = 1;
+                        while(i<metrics.data.day.length){
+                            var m = new Date(d-i*1000*60*60*24);
+                            dates.push(m);
+                            i++;
+                        } 
+                         metrics_of_this = metrics.data.day.reverse();             
                 }
+
+
+
+                 
+                
+                
+                
+                
+
+
 
 
 
@@ -1354,7 +1615,7 @@
                             type:'line',
                             smooth:true,
                             itemStyle: {normal: {areaStyle: {type: 'default'}}},
-                            data:metrics.data.day.reverse()
+                            data:metrics_of_this
                         }
                     ]
                 };
@@ -1454,7 +1715,9 @@
         $scope.goToComparison = function(){
             $location.path('page/building/comparison/'+$stateParams.id);      
         }
-
+        $scope.goToNotifications = function(){
+            $location.path('page/building/notifications/'+$stateParams.id);         
+        }
 
 
         

@@ -7,9 +7,8 @@
                 scope.$emit('onRepeatLast', element, attrs);
             }, 1);
         };
-    })
-        .factory('appConfig', [appConfig])
-        .config(['$mdThemingProvider', mdConfig]);
+    }).factory('appConfig', [appConfig])
+      .config(['$mdThemingProvider', mdConfig]);
 
     function appConfig() {
 
@@ -58,10 +57,12 @@
                 area                    :'utility/areas/getbyid/',
                 areasByBuilding         :'utility/areas/getall',                
                 sites                   :'location/site',
-                site                    :'location/site'
+                site                    :'location/site',
+                cnit                    :'http://150.140.5.63:8080/'
+                
             },
             buildings:[],
-            auth_token:'c172d22d-bada-4d60-afc2-8c4e0597baae'
+            auth_token:'3c75a843-fa37-4aab-85a1-ee9649417e87'
         };
         var color = {
             primary:    '#009688',

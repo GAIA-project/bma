@@ -1,0 +1,36 @@
+<div class="page" ng-controller="SiteNotificationsController" >
+     <div class="row">
+        <div class="col-sm-12">
+            <h2 class="section-header">{{building.details.item.name}}</h2>
+        </div>
+        <div class="col-sm-12">
+            <div layout="row" layout-align="end center">
+                <md-button class="md-accent md-raised" ng-click="goToTopView()"><span data-translate="TOPVIEW"></span></md-button>&nbsp;
+                <md-button class="md-accent md-raised" ng-click="goToDashboard()"><span data-translate="VIEW_BUILDING"></span></md-button>&nbsp;
+                <md-button class="md-accent md-raised" ng-click="goToAreas()"><span data-translate="AREAS"></span></md-button>&nbsp;                
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="row" style="margin-top: 10px">
+        <div class="col-sm-12">
+
+            <div class="row area_box" ng-repeat="area in building.areas">
+            <h2 class="area_title">{{area.name}}</h2>
+            <div style="text-align: center;margin-bottom: 10px" ng-show="area.sensors==0"><span data-translate="Therearenoassignedsensors"></span></div>
+            <div class="col-sm-6 col-md-3 col-lg-2" style="margin-bottom: 5px" ng-repeat="sensor in area.sensors" ng-click="goToSensor(sensor.id)">
+                <div class="sensorbox">
+                    <div class="panel-heading">{{sensor.name}}</div>
+                        <div class="panel-body">
+                            <h5 class="latest_value"><span data-translate="Latestvalue"></span></h5>
+                            <h4>{{sensor.meatrics.latest+" "+sensor.value_type}}</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>  
+</div>

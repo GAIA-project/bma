@@ -9,7 +9,8 @@
                 <md-button class="md-accent md-raised" ng-click="goToAreas()"><span data-translate="AREAS"></span></md-button>&nbsp;
                 <md-button class="md-accent md-raised" ng-click="goToSensors()"><span data-translate="SENSORS"></span></md-button>&nbsp;
                 <md-button class="md-accent md-raised" ng-click="goToMeasurements()"><span data-translate="AddMeasurements"></span></md-button>&nbsp;                
-                <md-button class="md-accent md-raised" id="btnSave"><span class="fa fa-file-image-o"></span> <span data-translate="SAVE"></span></md-button>
+                
+                <button class="md-accent md-raised md-button md-ink-ripple" type="button" ng-transclude="" id="btnSave"><span class="fa fa-file-image-o ng-scope"></span> <span data-translate="SAVE" class="ng-scope"><span data-translate="SAVE"></span></span><div class="md-ripple-container"></div></button>
                 
             </div>
         </div>
@@ -34,21 +35,5 @@
         </div>
     </div>
 
+
 </div>
-
-<script>
-$("#btnSave").click(function() { 
-        html2canvas($("#widget"), {
-            onrendered: function(canvas) {
-                theCanvas = canvas;
-                document.body.appendChild(canvas);
-
-                // Convert and download as image 
-                Canvas2Image.saveAsPNG(canvas); 
-                /*$("#img-out").append(canvas);*/
-                // Clean up 
-                //document.body.removeChild(canvas);
-            }
-        });
-    });
-</script>

@@ -2,7 +2,7 @@
 
     angular.module('app.i18n', ['pascalprecht.translate'])
         .config(['$translateProvider', i18nConfig])
-        .controller('LangCtrl', ['$scope', '$translate', LangCtrl]);
+        .controller('LangCtrl', ['$scope', '$translate','$rootScope', LangCtrl]);
 
     // English, Español, 日本語, 中文, Deutsch, français, Italiano, Portugal, Русский язык, 한국어
     // Note: Used on Header, Sidebar, Footer, Dashboard
@@ -28,12 +28,12 @@
             suffix: '.json'
         });
 
-        $translateProvider.preferredLanguage('en');
+        $translateProvider.preferredLanguage('el');
         $translateProvider.useSanitizeValueStrategy(null);
     }
 
-    function LangCtrl($scope, $translate) {
-        $scope.lang = 'English';
+    function LangCtrl($scope, $translate,$rootScope) {
+        $scope.lang = 'Greek';
         $scope.setLang = setLang;
         $scope.getFlag = getFlag;
 
@@ -42,15 +42,19 @@
             switch (lang) {
                 case 'English':
                     $translate.use('en');
+                    $rootScope.lang = 'en';
                     break;
                 case 'Greek':
                     $translate.use('el');
+                    $rootScope.lang = 'el';
                     break;
                 case 'Swidian':
                     $translate.use('sw');
+                    $rootScope.lang = 'sw';
                     break;
                 case 'Italy':
                     $translate.use('it');
+                    $rootScope.lang = 'it';
                     break;
                 
             }

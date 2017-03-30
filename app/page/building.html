@@ -28,7 +28,7 @@
             <section class="panel panel-default">
                 <div class="panel-body padding-xl">
                     <uib-tabset class="ui-tab">
-                        <uib-tab heading="General Characteristics">
+                        <uib-tab heading="{{language.general_characteristic}}">
                             <div class="row">
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-group">
@@ -37,12 +37,7 @@
                                             <input type="text" class="form-control" id="inputEmail3" placeholder="School Name" ng-model="school.name">
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="BuildingID" class="col-sm-5 control-label"><span data-translate="BuildingID"></span></label>
-                                        <div class="col-sm-7">
-                                            <input type="text" class="read-only form-control" id="BuildingID" placeholder="Building ID" ng-model="school.id">
-                                        </div>
-                                    </div>
+
                                      <div class="form-group">
                                         <label for="Orientation" class="col-sm-5 control-label"><span data-translate="Energy_types_available"></span></label>
                                         <div class="col-sm-7">
@@ -96,10 +91,10 @@
                                             <md-radio-group class="ui-md-radio-group-inline" ng-model="jjson.type_of_heating">
                                                 <md-radio-button value="Furnaces"><span data-translate="Furnaces"></span></md-radio-button><br/>
                                                 <md-radio-button value="Boilers"><span data-translate="Boilers"></span></md-radio-button><br/>
-                                                <md-radio-button value="South"><span data-translate="Heat_Pumps"></span></md-radio-button>    <br/>                                        
-                                                <md-radio-button value="Southeast"><span data-translate="Gas_Fired_Space_Heaters"></span></md-radio-button><br/>
-                                                <md-radio-button value="East"><span data-translate="Electric_Space_Heaters"></span></md-radio-button><br/>
-                                                <md-radio-button value="East"><span data-translate="Wood_Burning_and_Pellet_Stoves"></span></md-radio-button>
+                                                <md-radio-button value="Heat_Pumps"><span data-translate="Heat_Pumps"></span></md-radio-button>    <br/>                                        
+                                                <md-radio-button value="Gas_Fired_Space_Heaters"><span data-translate="Gas_Fired_Space_Heaters"></span></md-radio-button><br/>
+                                                <md-radio-button value="Electric_Space_Heaters"><span data-translate="Electric_Space_Heaters"></span></md-radio-button><br/>
+                                                <md-radio-button value="Wood_Burning_and_Pellet_Stoves"><span data-translate="Wood_Burning_and_Pellet_Stoves"></span></md-radio-button>
                                             </md-radio-group>
                                         </div>
                                     </div>
@@ -143,7 +138,7 @@
                                 </div>
                             </div>
                         </uib-tab>
-                        <uib-tab heading="Construction Characteristics">
+                        <uib-tab heading="{{language.construction_characteristics}}">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
@@ -179,7 +174,7 @@
                         </uib-tab>
                     
 
-                    <uib-tab heading="Resources">
+                    <uib-tab heading="{{language.resources}}">
                         <div class="row">
                             <div class="col-sm-12">
                                 <div layout="row" layout-align="end center">
@@ -225,12 +220,19 @@
                             <div class="col-sm-12">
                                     <div class="form-group" ng-repeat="ch in jjson.extra_charts">
 
-                                        <label for="building_build_year" class="col-sm-12 col-md-3 control-label"><span data-translate="DELETE" ng-click="removeThisChart(ch)" class="delete_label"></span>
+                                        <label for="building_build_year" class="col-sm-12 col-md-2 control-label"><span data-translate="DELETE" ng-click="removeThisChart(ch)" class="delete_label"></span>
                                         {{ch.name}}</label>
-                                        <div class="col-sm-12 col-md-9">                                                
+                                        <div class="col-sm-12 col-md-4">                                                
                                                 <md-select ng-model="ch.resource_id">
                                                     <md-option ng-repeat="resource in available_resources" value="{{resource.id}}">
                                                         {{resource.uri}}
+                                                    </md-option>
+                                                </md-select>                                            
+                                        </div>
+                                        <div class="col-sm-12 col-md-4">                                                
+                                                <md-select ng-model="ch.step">
+                                                    <md-option ng-repeat="step in available_steps" value="{{step.text}}">
+                                                        {{step.name}}
                                                     </md-option>
                                                 </md-select>                                            
                                         </div>
@@ -238,11 +240,18 @@
 
 
                                     <div class="form-group">
-                                        <label for="building_build_year" class="col-sm-12 col-md-3 control-label"><span data-translate="Please_select_the_Resource_for_Energy_Consumption"></span></label>
-                                        <div class="col-sm-12 col-md-9">                                                
+                                        <label for="building_build_year" class="col-sm-12 col-md-2 control-label"><span data-translate="Please_select_the_Resource_for_Energy_Consumption"></span></label>
+                                        <div class="col-sm-12 col-md-4">                                                
                                                 <md-select ng-model="jjson.energy_consumption_resource">
                                                     <md-option ng-repeat="resource in available_resources" value="{{resource.id}}">
                                                         {{resource.uri}}
+                                                    </md-option>
+                                                </md-select>                                            
+                                        </div>
+                                        <div class="col-sm-12 col-md-4">                                                
+                                                <md-select ng-model="jjson.energy_consumption_resource_step">
+                                                    <md-option ng-repeat="step in available_steps" value="{{step.text}}">
+                                                        {{step.name}}
                                                     </md-option>
                                                 </md-select>                                            
                                         </div>
@@ -258,7 +267,7 @@
                     <div class="col-sm-12" style="margin-top:20px">
                         <div class="form-group">
                             <div class="col-sm-offset-2 text-right col-sm-10">
-                                <md-button type="submit" class="md-raised md-primary btn-w-md" ng-click="saveBuilding()"><span data-translate="Save"></span></md-button><div class="divider"></div>
+                                <md-button type="submit" class="md-raised md-primary btn-w-md" ng-click="saveBuilding()"><span data-translate="SAVE"></span></md-button><div class="divider"></div>
                             </div>
                         </div>
                     </div>
