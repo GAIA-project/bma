@@ -11,7 +11,6 @@ angular.module('app').factory('site', function($http,appConfig){
                 return $http({
                     url:appConfig.main.apis.over_db+appConfig.main.apis.gatewaysByBuilding+site_id,
                     method:'GET'
-
                 })
             },
             getSap:function(){
@@ -40,6 +39,13 @@ angular.module('app').factory('site', function($http,appConfig){
                     method: 'PUT',
                     headers: {"Accept": "application/json","Authorization":"bearer "+appConfig.main.auth_token}
                 })  
+            },
+            getRules:function(site_id){
+                return $http({
+                    url: appConfig.main.apis.cnit+'building/'+site_id+'/events',
+                    method: 'GET',
+                    headers: {"Accept": "application/json","Authorization":"bearer "+appConfig.main.auth_token}
+                })    
             }                        
         }
        

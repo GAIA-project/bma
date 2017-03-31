@@ -3,14 +3,6 @@
         <div class="col-sm-12">
             <h2 class="section-header">{{building.details.item.name}}</h2>
         </div>
-        <div class="col-sm-12">
-            <div layout="row" layout-align="end center">
-                <md-button class="md-accent md-raised" ng-click="goToDashboard()"><span data-translate="VIEW_BUILDING"></span></md-button>&nbsp;
-                <md-button class="md-accent md-raised" ng-click="goToSensors()"><span data-translate="SENSORS"></span></md-button>&nbsp;
-                <md-button class="md-accent md-raised" ng-click="goToMeasurements()"><span data-translate="AddMeasurements"></span></md-button>&nbsp;                
-                
-            </div>
-        </div>
     </div>
 
  
@@ -36,7 +28,8 @@
                             <tbody>
                                 <tr ng-repeat="area in building.areas">
                                     <td>{{area.name}}</td>
-                                    <td><a ui-wave href="javascript:;" ng-click="details(area.id)" class="btn btn-sm btn-raised btn-primary"><span data-translate="DETAILS"></span></a></td>
+                                    <td><a ui-wave href="javascript:;" ng-click="details(area.id)" class="btn btn-sm btn-raised btn-primary"><span data-translate="DETAILS"></span></a>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -68,17 +61,19 @@
                         	<thead>
                         		<tr>
                         			<th><span data-translate="SensorName"></span></th>
-                        			<th><span data-translate="Type"></span></th>
+                        			<!-- <th><span data-translate="Type"></span></th> -->
                         			<th><span data-translate="Description"></span></th>
                         			<th><span data-translate="Value_Type"></span></th>
+                                    <th><span data-translate="ACTIONS"></span></th>
                         		</tr>
                         	</thead>
                         	<tbody>
                         		<tr ng-repeat="sensor in selected_area_sensors" ng-show="selected_area_sensors.length">
                         			<td>{{sensor.name}}</td>
-                        			<td>{{sensor.type}}</td>
+                        			<!-- <td>{{sensor.type}}</td> -->
                         			<td>{{sensor.description}}</td>
                         			<td>{{sensor.value_type}}</td>
+                                    <td><span data-translate="DELETE" class="delete_label" ng-click="deleteThis(sensor.id)"></span></td>
                         		</tr>
                         		<tr ng-show="!selected_area_sensors.length">
                         			<td style="text-align: center;" colspan="4"><span data-translate="Therearenoassignedsensors"></span></td>

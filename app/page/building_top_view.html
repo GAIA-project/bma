@@ -4,31 +4,31 @@
             <h2 class="section-header">{{building.details.item.name}}</h2>
         </div>
         <div class="col-sm-12">
-            <div layout="row" layout-align="end center">
-                <md-button class="md-accent md-raised" ng-click="goToDashboard()"><span data-translate="VIEW_BUILDING"></span></md-button>&nbsp;
-                <md-button class="md-accent md-raised" ng-click="goToAreas()"><span data-translate="AREAS"></span></md-button>&nbsp;
-                <md-button class="md-accent md-raised" ng-click="goToSensors()"><span data-translate="SENSORS"></span></md-button>&nbsp;
-                <md-button class="md-accent md-raised" ng-click="goToMeasurements()"><span data-translate="AddMeasurements"></span></md-button>&nbsp;                
-                
-                <button class="md-accent md-raised md-button md-ink-ripple" type="button" ng-transclude="" id="btnSave"><span class="fa fa-file-image-o ng-scope"></span> <span data-translate="SAVE" class="ng-scope"><span data-translate="SAVE"></span></span><div class="md-ripple-container"></div></button>
+            <md-button class="md-raised btn-w-md" ng-click="saveTopView()"><span data-translate="SAVE"></span></md-button>
+        </div>
+        <!-- <div class="col-sm-12">
+            <div layout="row" layout-align="end center">                
+                <button class="md-accent md-raised md-button md-ink-ripple" type="button" ng-transclude="" id="btnSave">
+                    <span class="fa fa-file-image-o ng-scope"></span> 
+                    <span data-translate="SAVE" class="ng-scope"><span data-translate="SAVE"></span></span><div class="md-ripple-container"></div></button>
                 
             </div>
-        </div>
+        </div> -->
     </div>
 
     <div class="row" id="widget">
         <div class="col-md-12" style="width:100%;min-height:1000px">          
 
           	<div ng-repeat="area in building.areas" class="draggable class ui-widget-content" on-last-repeat 
-                 ng-style="area.style">
+                 ng-style="area.style" data-area_id="{{area.id}}">
                             
           		<div class="class_measurements">
-					<ul>
-						<li ng-repeat="sensor in area.sensors">{{sensor.name+": "+sensor.metrics.latest+" "+sensor.value_type}}</li>
-					</ul>
+      					<ul>
+      						<li ng-repeat="sensor in area.sensors">{{sensor.name+": "+sensor.metrics.latest+" "+sensor.value_type}}</li>
+      					</ul>
           		</div>
-  				<div class="class_name">{{area.name}}</div>  				
-			</div>
+  				      <div class="class_name">{{area.name}}</div>  				
+			     </div>
 
 	
 		

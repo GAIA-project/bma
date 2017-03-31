@@ -13,7 +13,12 @@ angular.module('app').factory('Area', function($http,appConfig){
                     method: 'GET'
                 })
             },
-
+            delete:function(area_id){
+                return $http({
+                    url: appConfig.main.apis.over_db+'utility/areas/'+area_id,
+                    method:'DELETE'
+                }) 
+            }
                         
         }
        

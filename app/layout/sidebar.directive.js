@@ -2,13 +2,13 @@
     'use strict';
 
     angular.module('app.layout')
-        .directive('toggleNavCollapsedMin', ['$rootScope', toggleNavCollapsedMin])
+        .directive('toggleNavCollapsedMin', ['$rootScope','$stateParams', toggleNavCollapsedMin])
         .directive('collapseNav', collapseNav)
         .directive('highlightActive', highlightActive)
         .directive('toggleOffCanvas', toggleOffCanvas);
 
     // switch for mini style NAV, realted to 'collapseNav' directive
-    function toggleNavCollapsedMin($rootScope) {
+    function toggleNavCollapsedMin($rootScope,$stateParams) {
         var directive = {
             restrict: 'A',
             link: link

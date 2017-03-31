@@ -30,6 +30,7 @@
         var date = new Date();
         var year = date.getFullYear();
         var main = {
+            selected_building:0,
             logo:'images/logo.png',
             brand: 'Gaia',
             username:'greenmindset20',    //used in sparkworks
@@ -62,7 +63,7 @@
                 
             },
             buildings:[],
-            auth_token:'3c75a843-fa37-4aab-85a1-ee9649417e87'
+            auth_token:'349b2026-c85a-4a82-a5e3-36093e4a5841'
         };
         var color = {
             primary:    '#009688',

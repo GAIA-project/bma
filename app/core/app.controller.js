@@ -141,11 +141,16 @@
         
         
         var init = function(){
+            appConfig.main.selected_building = 0;
             var x = buildings.getAllBuildings();
             var m = buildings.getSites();
             m.then(function(bs){
                 console.log(bs);
-                $scope.abuildings = bs.data.sites;
+                $scope.abuildings = [];
+                bs.data.sites.forEach(function(site,index){
+                    if(site.subsites.length>0)
+                        $scope.abuildings.push(site);
+                });
             })
             
            /* x.then(function(buildings){
@@ -176,6 +181,7 @@
         }
 
         $scope.details = function(id){
+            appConfig.main.selected_building = id;
             $location.path('page/building/view/'+id);
         }
         
@@ -291,6 +297,18 @@
             $scope.building.details = tsite.data;
         });
         
+        $scope.delete_area = function(area_id){
+            var d = Area.delete(area_id);
+            d.then(function(dat){
+                alert("the area deleted");
+            });
+        }
+        $scope.deleteThis = function(sensor_id){
+            var d = Sensor.delete(sensor_id);
+            d.then(function(dat){
+                alert("The sensor deleted");
+            })
+        }
 
         $scope.getInitAreas = function(){
             var t_areas = site.getAreas($stateParams.id);
@@ -370,6 +388,7 @@
             sensor.then(function(sensor_data){
              
                 console.log(sensor_data);
+
                 
              var data = {
                 "name":$scope.new_sensor.name,
@@ -399,7 +418,7 @@
 
                     $scope.cancel_new_sensor();
                     $scope.getInitAreas();
-                    console.log(d);
+                    $scope.details($scope.selected_area.id);
 
             }, function(e){
                 alert("This sensor exists. Please try to assign other sensor");
@@ -473,34 +492,7 @@
             }, function(e){console.log(e)});
         }
 
-        $scope.goToAreas = function(){
-            $location.path('page/building/areas/'+$stateParams.id);
-        }
-        
-        $scope.goToMeasurements = function(){
-            $location.path('page/building/add_measurements/'+$stateParams.id);
-        }
-        
-        $scope.goToEdit = function(){
-            $location.path('page/building/edit/'+$stateParams.id);
-        }
-        
-        $scope.goToAnomalies = function(){
-            $location.path('page/building/anomalies/'+$stateParams.id);
-        }
-        
-        $scope.goToTopView = function(){
-            $location.path('page/building/topview/'+$stateParams.id);
-        }
-        
-        $scope.goToSensors = function(){
-            $location.path('page/building/sensors/'+$stateParams.id);
-        }
-        
-        $scope.goToDashboard = function(){
-            $location.path('page/building/view/'+$stateParams.id);   
-        }
-            
+      
         
         
 
@@ -697,73 +689,38 @@
                     
         }
 
-         $scope.goToAreas = function(){
-            console.log("Areas");
-            $location.path('page/building/areas/'+$stateParams.id);
-        }
-
-       $scope.goToMeasurements = function(){
-            $location.path('page/building/add_measurements/'+$stateParams.id);
-       }
-       $scope.goToEdit = function(){
-            $location.path('page/building/edit/'+$stateParams.id);
-       }
-       $scope.goToAnomalies = function(){
-            $location.path('page/building/anomalies/'+$stateParams.id);
-       }
-       $scope.goToTopView = function(){
-            $location.path('page/building/topview/'+$stateParams.id);
-       }
-        $scope.goToSensors = function(){
-            $location.path('page/building/sensors/'+$stateParams.id);
-        }
-        $scope.goToDashboard = function(){
-            $location.path('page/building/view/'+$stateParams.id);   
-        }
-
+      
     })
     .controller('SiteTopViewController',function($scope,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor){
 
-
-
-        $scope.goToAreas = function(){
-            console.log("Areas");
-            $location.path('page/building/areas/'+$stateParams.id);
-        }
-
-       $scope.goToMeasurements = function(){
-            $location.path('page/building/add_measurements/'+$stateParams.id);
-       }
-       $scope.goToEdit = function(){
-            $location.path('page/building/edit/'+$stateParams.id);
-       }
-       $scope.goToAnomalies = function(){
-            $location.path('page/building/anomalies/'+$stateParams.id);
-       }
-       $scope.goToTopView = function(){
-            $location.path('page/building/topview/'+$stateParams.id);
-       }
-
-        $scope.goToSensors = function(){
-            $location.path('page/building/sensors/'+$stateParams.id);
-        }
-        $scope.goToDashboard = function(){
-            $location.path('page/building/view/'+$stateParams.id);   
-        }
-
-
-
         $scope.building = {};
         $scope.$on('onRepeatLast', function(scope, element, attrs){
-          $( ".draggable" ).draggable({
-                                        drag: function(){
-                                            var offset = $(this).offset();
-                                            var xPos = offset.left;
-                                            var yPos = offset.top;
-                                            console.log(this.id+":"+xPos);
-                                            console.log(this.id+":"+yPos);
-                                        }
-                                    });
+            
+            $( ".draggable" ).draggable({
+                drag: function(){
+                    var offset = $(this).offset();
+                    var xPos = offset.left;
+                    var yPos = offset.top;
+                }
+            });
+
+              $('.draggable').each(function(){
+                    
+                    var area_id = $(this).attr('data-area_id');
+                    
+                    /*var offset = $(this).offset();
+                    var xPos = offset.left;
+                    var yPos = offset.top;
+                    */
+                    /*localStorage.getItem('gaia_area_'+area_id+'_x');*/
+                    /*console.log("EEEE:"+localStorage.getItem('gaia_area_'+area_id+'_y'));*/
+                    $(this).offset({ top: localStorage.getItem('gaia_area_'+area_id+'_y'), left: localStorage.getItem('gaia_area_'+area_id+'_x') });
+
+
+              });
+              
+
+
         });
         
         
@@ -823,37 +780,25 @@
         });
 
 
-
-        $scope.$on('new_class_created', function(event, data) {
-            var a_class=data;
-            
-            a_class.element_width = a_class.width*20+'px';
-            a_class.element_height = a_class.length*20+'px';
-            a_class.temperature = '17 C';
-            a_class.radiation = 0.2;
-            a_class.energy_consumtion = 80;
-            a_class.hum = 10;
-            $scope.classes.push(a_class);
-            
-        });
-        $scope.editClass = function(){
-            
+        $scope.saveTopView = function(){
+           
+            $('.draggable').each(function(){
+                    var area_id = $(this).attr('data-area_id');
+                    
+                    var offset = $(this).offset();
+                    var xPos = offset.left;
+                    var yPos = offset.top;
+                    
+                    localStorage.setItem('gaia_area_'+area_id+'_x', xPos);
+                    localStorage.setItem('gaia_area_'+area_id+'_y', yPos);
+            })
+            alert('OK');
+           
         }
 
-         $scope.createClass = function () {
-            $scope.new_class = [];
-            var modalInstance = $uibModal.open({
-                animation: $scope.animationsEnabled,
-                templateUrl: 'newclassRoom.html',
-                controller: 'ClassInstanceCtrl',
-                size: 'lg',
-                resolve: {
-                    new_class: function () {
-                        return $scope.new_class;
-                    }
-                }
-            });            
-        };
+        
+
+         
 
     })
     .controller('SiteNotificationsController',function($scope,$q,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor){
@@ -868,8 +813,11 @@
         t_site.then(function(tsite){            
             $scope.building.details = tsite.data;
             $scope.building_sync();
+            $scope.getRules();
         });
         
+
+
         $scope.building_sync = function(){
             var m = site.syncCNIT($stateParams.id);
             m.then(function(data){
@@ -878,41 +826,19 @@
             })
         }
 
-
-
-
-
-
-        $scope.goToSensor = function(sensor_id){
-            $location.path('page/sensor/view/'+sensor_id);   
+        $scope.getRules = function(){
+            var g = site.getRules($stateParams.id);
+            g.then(function(events){
+                console.log("Events");
+                console.log(events);
+            })
         }
 
 
-        $scope.goToAreas = function(){
-            $location.path('page/building/areas/'+$stateParams.id);
-        }
 
-       $scope.goToMeasurements = function(){
-            $location.path('page/building/add_measurements/'+$stateParams.id);
-       }
-       $scope.goToEdit = function(){
-            $location.path('page/building/edit/'+$stateParams.id);
-       }
-       $scope.goToAnomalies = function(){
-            $location.path('page/building/anomalies/'+$stateParams.id);
-       }
-       $scope.goToTopView = function(){
-            $location.path('page/building/topview/'+$stateParams.id);
-       }
-        $scope.goToSensors = function(){
-            $location.path('page/building/sensors/'+$stateParams.id);
-        }
-        $scope.goToDashboard = function(){
-            $location.path('page/building/view/'+$stateParams.id);   
-        }
-        $scope.goToComparison = function(){
-            $location.path('page/building/comparison/'+$stateParams.id);      
-        }
+
+
+
 
     })
     .controller('SiteSensorsController',function($scope,$q,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor){
@@ -978,36 +904,8 @@
 
 
 
-
         $scope.goToSensor = function(sensor_id){
             $location.path('page/sensor/view/'+sensor_id);   
-        }
-
-
-        $scope.goToAreas = function(){
-            $location.path('page/building/areas/'+$stateParams.id);
-        }
-
-       $scope.goToMeasurements = function(){
-            $location.path('page/building/add_measurements/'+$stateParams.id);
-       }
-       $scope.goToEdit = function(){
-            $location.path('page/building/edit/'+$stateParams.id);
-       }
-       $scope.goToAnomalies = function(){
-            $location.path('page/building/anomalies/'+$stateParams.id);
-       }
-       $scope.goToTopView = function(){
-            $location.path('page/building/topview/'+$stateParams.id);
-       }
-        $scope.goToSensors = function(){
-            $location.path('page/building/sensors/'+$stateParams.id);
-        }
-        $scope.goToDashboard = function(){
-            $location.path('page/building/view/'+$stateParams.id);   
-        }
-        $scope.goToComparison = function(){
-            $location.path('page/building/comparison/'+$stateParams.id);      
         }
 
 
@@ -1026,14 +924,150 @@
                 $scope.sensor.details = details.data.item;
             });
 
+
         var meas = Sensor.getMeasurementsByResourceId($scope.sensor.id);
 
+        $scope.granularity_values = [];
+        $scope.granularity_values.push({'text':'5mins','name':'Per 5 mins'});
+        $scope.granularity_values.push({'text':'hour','name':'Per Hour'});
+        $scope.granularity_values.push({'text':'day','name':'Per Day'});
+        $scope.granularity_values.push({'text':'month','name':'Month'});
 
 
         
         $scope.update = function(){
+            
+            $scope.loading = 1;
+
+
+            $scope.obj = {};
+            $scope.obj.one = {};
+            $scope.obj.one.from = $scope.first_period_from_time.getTime();
+            $scope.obj.one.to = $scope.first_period_to_time.getTime();
+            $scope.obj.one.resourceID= $scope.sensor.id;
+            $scope.obj.one.granularity = $scope.selected_granularity;
+
+            $scope.obj.one.string = $scope.first_period_from_time+" TO "+$scope.first_period_to_time;
+
+            console.log($scope.obj.one);
+
+            var first = Sensor.getComparingQueryTimeRange($scope.obj.one);
+              first.then(function(vals){
+                console.log(vals);
+
+                var obj     = vals.data.results;
+                var vals1   = obj[Object.keys(obj)[0]];
+                vals1 = vals1.data;
+
+                var vals    = [];
+                $scope.vals1 = [];
+                
+                $scope.tdates   = [];
+
+                vals1.forEach(function(val,index){
+                            $scope.tdates.push(new Date(val.timestamp));
+                            $scope.vals1.push(val.reading);
+                });
+
+
+
+                 $scope.sensor_measurements.options = {
+                    title : {
+                        text: '',
+                    },
+                    tooltip : {
+                        trigger: 'axis'
+                    },
+                    legend: {
+                        data:['Mesurements']
+                    },
+                    toolbox: {
+                        show : true,
+                        feature : {
+                            restore : {show: true, title: "restore"},
+                            saveAsImage : {show: true, title: "save as image"}
+                        }
+                    },
+                    calculable : true,
+                    xAxis : [
+                        {
+                            type : 'category',
+                            boundaryGap : false,
+                            data : $scope.tdates
+                        }
+                    ],
+                    yAxis : [
+                        {
+                            type : 'value'
+                        }
+                    ],
+                    series : [
+                        {
+                            name:'Measurements',
+                            type:'line',
+                            smooth:true,
+                            itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                            data:$scope.vals1
+                        }
+                    ]
+                    };
+
+
+
+
+
+            });
+
 
         }
+
+
+
+
+
+
+
+
+
+ 
+
+            
+
+
+       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1041,6 +1075,7 @@
         
         
             meas.then(function(measurements){
+
                 $scope.sensor.meatrics = measurements.data;  
                 
                 var the_data = measurements.data.day;                
@@ -1283,36 +1318,12 @@
 
 
 
-$scope.goToSensor = function(sensor_id){
+        $scope.goToSensor = function(sensor_id){
             $location.path('page/sensor/view/'+sensor_id);   
         }
 
 
-        $scope.goToAreas = function(){
-            $location.path('page/building/areas/'+$stateParams.id);
-        }
-
-       $scope.goToMeasurements = function(){
-            $location.path('page/building/add_measurements/'+$stateParams.id);
-       }
-       $scope.goToEdit = function(){
-            $location.path('page/building/edit/'+$stateParams.id);
-       }
-       $scope.goToAnomalies = function(){
-            $location.path('page/building/anomalies/'+$stateParams.id);
-       }
-       $scope.goToTopView = function(){
-            $location.path('page/building/topview/'+$stateParams.id);
-       }
-        $scope.goToSensors = function(){
-            $location.path('page/building/sensors/'+$stateParams.id);
-        }
-        $scope.goToDashboard = function(){
-            $location.path('page/building/view/'+$stateParams.id);   
-        }
-        $scope.goToComparison = function(){
-            $location.path('page/building/comparison/'+$stateParams.id);      
-        }
+       
         
 
 

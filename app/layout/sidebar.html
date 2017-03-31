@@ -7,7 +7,26 @@
 
      <!--    <li><a md-button aria-label="meanu" href="#/dashboard"><i class="zmdi zmdi-view-dashboard"></i><span data-translate="DASHBOARD"></span> </a></li> -->
 
+
         <li><a md-button aria-label="meanu" href="#/page/buildings"><i class="zmdi zmdi-home"></i><span data-translate="BUILDINGS"></span> </a></li>
+        <li ng-show="main.selected_building>0"><a md-button aria-label="meanu" href="#/page/building/view/{{main.selected_building}}"><span data-translate="VIEW_BUILDING"></span> </a></li>
+        
+
+        <li ng-show="main.selected_building>0"><a md-button aria-label="meanu" href="#/page/building/edit/{{main.selected_building}}"><span data-translate="EDIT_BUILDING"></span> </a></li>
+        <li ng-show="main.selected_building>0"><a md-button aria-label="meanu" href="#/page/building/areas/{{main.selected_building}}"><span data-translate="AREAS"></span> </a></li>
+
+
+        <li ng-show="main.selected_building>0"><a md-button aria-label="meanu" href="#/page/building/topview/{{main.selected_building}}"><span data-translate="TOPVIEW"></span> </a></li>
+        <li ng-show="main.selected_building>0"><a md-button aria-label="meanu" href="#/page/building/sensors/{{main.selected_building}}"><span data-translate="SENSORS"></span> </a></li>
+        
+        <li ng-show="main.selected_building>0"><a md-button aria-label="meanu" href="#/page/building/comparison/{{main.selected_building}}"><span data-translate="COMPARISON"></span> </a></li>
+
+        <li ng-show="main.selected_building>0"><a md-button aria-label="meanu" href="#/page/building/add_measurements/{{main.selected_building}}"><span data-translate="AddMeasurements"></span> </a></li>
+        
+        
+
+
+
 <!--         <li><a md-button aria-label="meanu" href="#/page/rule_engine"><i class="fa fa-puzzle-piece"></i><span data-translate="RULE_ENGINE"></span> </a></li>
        <li>
        
