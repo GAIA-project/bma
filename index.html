@@ -21,6 +21,9 @@
             <link rel="stylesheet" href="styles/ui.css">
             <link rel="stylesheet" href="styles/main.css">
             <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+              <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
             
             <!-- endbuild -->
             <script src="https://cdn.jsdelivr.net/sockjs/1/sockjs.min.js"></script>
@@ -175,13 +178,13 @@
 
         <script>
 
-        var socket = new SockJS('http://150.140.5.63:8080/gs-guide-notification');
+       /* var socket = new SockJS('http://150.140.5.63:8080/gs-guide-notification');
         stompClient = Stomp.over(socket);
         stompClient.connect({}, function (f) {
                stompClient.subscribe('/recommendations/prato', function (message) {
                 console.log(message.body);
             });
-        });
+        });*/
 
         </script>
     </body>

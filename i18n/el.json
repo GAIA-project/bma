@@ -1,6 +1,4 @@
 {
-
-    "Katerina":"Κατερίνα",
     "DASHBOARD": "Αρχική Σελίδα",
     "BUILDINGS": "Κτήρια",
     "RECOMMENDATIONS": "Προτάσεις",
@@ -28,6 +26,7 @@
     "ADD_AN_AREA":"Προσθήκη περιοχής",
     "TOPVIEW":"Κάτοψη",
     "ADD_A_SENSOR":"Προσθήκη αισθητήρα",
+    "ADD_A_SUBAREA":"Προσθήκη Ενσωματωμένης Περιοχής",
     "energy_cons_per_area":"Κατανάλωση ανα Περιοχή",
     "COMPARISON":"Σύγκριση",
     "average_per_day":"Μέση Τιμή Ανα Ημέρα",
@@ -38,12 +37,17 @@
     "SensorName":"Όνομα αισθητήρα",
     "Type":"Τύπος",
     "Description":"Περιγραφή",
+    "Therearenoassignedareas":"Δεν υπάρχουν Υπο-Περιοχές",
     "Value_Type":"Τύπος Τιμής",
     "CANCEL":"Ακύρωση",
     "ADD_MEASUREMENTS": "Προσθήκη Τιμών",
     "SENSOR": "Αισθητήρας",
     "cm":"Εκ.",
     "AREAS": "Περιοχές",
+    "SUBAREAS":"Υπο-Περιοχές",
+    "ADD_SUBAREA":"Προσθήκη Περιοχής",
+    "ADD_A_VIRTUAL_SENSOR":"Προσθήκη Εικονικού Αισθητήρα",
+    "SELECT_OBSERVE":"Επιλέξτε Μέτρηση",
     "SENSORS": "Αισθητήρες",
     "VIEW_BUILDING": "Προβολή",
     "Please_select_the_Resource_for_Noise": "Παρακαλώ Επιλέξτε τον αισθητήρα Θορύβου",
@@ -115,7 +119,8 @@
     "second_period":"Δεύτερη Περίοδος",
     "first_period":"Πρώτη Περίοδος",
     "PROFILE":"Ρυθμίσεις",
-    "NOTIFICATIONS":"Ειδοποιήσεις"
+    "NOTIFICATIONS":"Ειδοποιήσεις",
+    "info_box_1":"Όταν οι αισθητήρες είναι εκτός λειτουργίας, στο γράφημα η έλειψη τιμών παριστάνεται με μηδέν"
 
 }
  

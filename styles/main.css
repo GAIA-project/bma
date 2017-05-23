@@ -2165,6 +2165,7 @@ body {
 
 .sensorbox{
   background: #262b33;
+  min-height: 125px;
   color: white;
 }
 .area_box{
@@ -2237,4 +2238,14 @@ body {
   float: left;
   padding: 20px 0px;
   margin: 10px 30px;
+  }
+
+  .info_box{
+    margin-top: 10px;
+    text-align: center;
+    border: 1px solid #0063c8;
+    background: #bbd8e6;
+    padding: 20px;
+    color: #080030;
+    font-weight: bold;
   }

@@ -22,6 +22,10 @@
             if($scope.rules.length==0)
                 $scope.add_condition();
 
+
+
+           
+
     })
     .controller('RuleEngineCtrl',function($scope,$state){
         $scope.add_a_rule = function(){
@@ -104,19 +108,30 @@
         $scope.user = {};
 
         $scope.authenticate= function(){
-            appConfig.main.username = $scope.user.username;
-            appConfig.main.password = $scope.user.password;
-            var aut  = authentication.authenticate();
-       
-            aut.then(function(auth){
-                
-                appConfig.main.auth_token = auth.data.access_token;                
-                console.log("Auth Data");
-                console.log(auth.data);
-                $location.path('page/buildings');
-                /*$location.path('dashboard');*/
+            $scope.login_error = 0;
+            if($scope.user.username!='' && $scope.user.password!=''){
 
-            });
+                appConfig.main.username = $scope.user.username;
+                appConfig.main.password = $scope.user.password;
+                var auth  = authentication.authenticate();
+                
+                auth.then(function(auth) {
+                    
+                    appConfig.main.auth_token = auth.data.access_token;                
+                    console.log("Auth Data");
+                    console.log(auth.data);
+
+                }, function(err) {
+                    $scope.login_error = 1;
+                }); 
+
+
+
+            }else{
+                    $location.path('page/signin');
+
+            }
+
 
         }
         
@@ -253,13 +268,7 @@
             legend: {
                 data:['kWh']
             },
-            toolbox: {
-                show : true,
-                feature : {
-                    restore : {show: true, title: "restore"},
-                    saveAsImage : {show: true, title: "save as image"}
-                }
-            },
+            toolbox: $rootScope.toolbox,
             calculable : true,
             xAxis : [
                 {
@@ -287,10 +296,14 @@
         
 
     })
-    .controller('SiteAreasController',function($scope,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor){
+    .controller('SiteAreasController',function($scope,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor,$filter){
         
         $scope.building = {};
+        $scope.new_virtual_sensor = {};
         
+        $scope.available_observes = [];
+        $scope.available_observes.push({'name':'Light2','encoded_name':'light2','uom':'lux2'});
+        $scope.available_observes.push({'name':'Light','encoded_name':'light','uom':'lux'});
         
         var t_site = site.getDetails($stateParams.id);
         t_site.then(function(tsite){            
@@ -313,7 +326,8 @@
         $scope.getInitAreas = function(){
             var t_areas = site.getAreas($stateParams.id);
             t_areas.then(function(areas){
-                $scope.building.areas = areas.data.items;           
+                $scope.building.areas = areas.data.items;
+                console.log(areas);
             });
         }
 
@@ -339,6 +353,7 @@
             
             var s_area = Area.getDetails(area_id);
             s_area.then(function(maarea){
+                console.log(maarea);
                 $scope.selected_area = maarea.data.item;
 
 
@@ -351,6 +366,16 @@
                 $scope.selected_area.height = jjson.height;
                 $scope.selected_area.length = jjson.length;
 
+                $scope.selected_area.subareas=[];
+                $scope.selected_area.subareaIds.forEach(function(sub){
+                   console.log(sub);
+                     var s_area = Area.getDetails(sub);
+                        s_area.then(function(maaresa){
+                            $scope.selected_area.subareas.push(maaresa.data.item);
+                      });
+
+
+                });
 
                 $scope.selected_area.id = area_id;
                 $scope.selected_area_view = 1;
@@ -372,7 +397,13 @@
             $scope.add_an_area_form = 0;  
             $scope.selected_area_edit = 0;
             $scope.new_sensor = {};
-            
+        }
+        $scope.addVirtualSensor = function(){
+            $scope.add_a_virtual_sensor_form = 1;
+            $scope.selected_area_view = 0;
+            $scope.add_an_area_form = 0;  
+            $scope.selected_area_edit = 0;
+            $scope.new_virtual_sensor = {};
         }
 
         $scope.cancel_new_sensor = function(){
@@ -381,6 +412,61 @@
             $scope.add_an_area_form = 0;  
             $scope.selected_area_edit = 0;
         }
+
+
+
+
+        $scope.save_new_virtual_sensor = function(){
+            console.log("Filter Name:"+$scope.new_virtual_sensor.observes);
+
+
+            var obs = $scope.available_observes.filter(function(item) {
+                        return item.name === $scope.new_virtual_sensor.observes;
+                        })[0];
+             
+             
+             
+             var data = {
+                "name":         $scope.new_virtual_sensor.name,
+                "observes":     $scope.new_virtual_sensor.observes,
+                "uom":          obs.uom
+            };
+            var req = {
+                 method: 'POST',
+                 url: appConfig.main.apis.main+'myresource',
+                 headers: {
+                   'Content-Type': 'application/json',"Authorization":"bearer 4ba8bbeb-f520-429b-9de7-a23d8295635f"
+                 },
+                 data: data
+            }
+            $http(req).then(function(d){
+                console.log(d);
+                var nj = {
+                    "resources":[d.data]
+                };
+                
+
+                var req2 = {
+                 method: 'POST',
+                 url: appConfig.main.apis.main+'location/site/'+appConfig.main.selected_building+'/resource/add',
+                 headers: {
+                   'Content-Type': 'application/json',"Authorization":"bearer 4ba8bbeb-f520-429b-9de7-a23d8295635f"
+                 },
+                 data: nj
+            }
+            $http(req2).then(function(d){
+                console.log(d);
+
+            });
+
+            }, function(e){
+                console.log(e);
+            });
+
+        }
+
+
+
 
         $scope.save_new_sensor = function(){
             
@@ -430,6 +516,49 @@
 
 
         }
+
+
+        $scope.addSubArea = function(){
+            $scope.new_subarea={};
+            $scope.add_a_subarea_form = 1;
+
+        }
+        $scope.cancel_new_subarea = function(){
+            $scope.add_a_subarea_form = 0;
+            $scope.new_subarea={};
+        }
+        $scope.save_new_subarea = function(){
+            console.log("NAI NAI");
+            console.log($scope.new_subarea);
+
+            
+
+            var data = {
+                    "area_parent_id":$scope.selected_area.id,
+                    "area_child_id":$scope.new_subarea.id
+                };
+
+
+            var req = {
+                 method: 'POST',
+                 url: appConfig.main.apis.over_db+appConfig.main.apis.subareas,
+                 headers: {
+                   'Content-Type': 'application/json'
+                 },
+                 data: data
+            };
+            $http(req).then(function(d){
+                   /* var new_area = JSON.parse(d.data.area);                    
+                    $scope.getInitAreas();
+                    $scope.details(new_area.id);*/
+                    console.log(d);
+                    $scope.details($scope.selected_area.id);
+                    $scope.cancel_new_subarea();
+            }, function(e){console.log(e)});
+
+
+        }
+
         
         $scope.edit = function(){
             $scope.selected_area_view = 0;
@@ -443,11 +572,14 @@
             $scope.add_an_area_form = 1;  
             $scope.selected_area_edit = 0;
         }
+        $scope.cancel_edit_area = function(){
+           $scope.details($scope.selected_area.id);
+        }
         $scope.cancel_new_area = function(){
-            $scope.new_area = {};
+            
             $scope.selected_area_view = 0;
             $scope.add_an_area_form = 0;  
-            $scope.selected_area_edit = 0;
+            $scope.selected_area_edit = 1;
         }
         $scope.save_new_area = function(){
 
@@ -501,9 +633,7 @@
     .controller('SiteEditController',function($scope,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Sensor){
         $scope.add_a_chart_visible_form = 0;
         $scope.new_chart = {};
-        $scope.extra_charts = [];
-
-        
+        $scope.extra_charts = [];        
 
 
         $scope.translations = {};
@@ -515,10 +645,6 @@
         $scope.translations.el.general_characteristic = "Γενικά Χαρακτηριστικά";
         $scope.translations.el.construction_characteristics = "Κατασκευαστικά Χαρακτηριστικά";
         $scope.translations.el.resources = "Γραφήματα & Αισθητήρες";
-
-
-
-
 
         switch ($rootScope.lang) {
             case 'en':
@@ -610,7 +736,7 @@
         var t_site = site.getDetails($stateParams.id);
         t_site.then(function(site){
            
-           
+           console.log(site);
            $scope.school = site.data.item;           
             
             if(angular.isUndefined(site.data.item.json) || site.data.item.json === null || site.data.item.json==null || site.data.item.json=="null" || site.data.item.json === " " || site.data.item.json === ""){
@@ -981,13 +1107,7 @@
                     legend: {
                         data:['Mesurements']
                     },
-                    toolbox: {
-                        show : true,
-                        feature : {
-                            restore : {show: true, title: "restore"},
-                            saveAsImage : {show: true, title: "save as image"}
-                        }
-                    },
+                    toolbox:$rootScope.toolbox,
                     calculable : true,
                     xAxis : [
                         {
@@ -1102,13 +1222,7 @@
                     legend: {
                         data:['Mesurements']
                     },
-                    toolbox: {
-                        show : true,
-                        feature : {
-                            restore : {show: true, title: "restore"},
-                            saveAsImage : {show: true, title: "save as image"}
-                        }
-                    },
+                    toolbox:$rootScope.toolbox,
                     calculable : true,
                     xAxis : [
                         {
@@ -1179,6 +1293,7 @@
         $scope.update = function(){
 
             $scope.loading = 1;
+            
 
             if($scope.energy_consumption_resource>0){
 
@@ -1251,25 +1366,7 @@
                             legend: {
                                 data:[$scope.obj.one.string,$scope.obj.two.string]
                             },
-                            toolbox: {
-                                show : true,
-                                feature : {
-                                    restore : {show: true, title: "Restore"},
-                                    saveAsImage : {show: true, title: "save as image"},
-                                    dataZoom : {show: true,title:{zoom:"Zoom",back:"Reset Zoom"}},
-                                    dataView : {show: true,title:"DataView"},
-                                    magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled'],title:{
-                                        line: 'Line',
-                                        bar: 'Bar',
-                                        stack: 'Stack',
-                                        tiled: 'Tiled',
-                                        force: 'Force',
-                                        chord: 'Chord',
-                                        pie: 'Pie',
-                                        funnel: 'Funnel'
-                                    }},
-                                }
-                            },
+                            toolbox:$rootScope.toolbox,
                             calculable : true,
                             xAxis : [
                                 {
@@ -1330,6 +1427,28 @@
     })
     .controller('SiteController',function($scope,$q,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor){
         
+
+         $rootScope.toolbox = {
+            show : true,
+            feature : {
+                restore : {show: true, title: "Restore"},
+                saveAsImage : {show: true, title: "Save as image"},
+                dataZoom : {show: true,title:{zoom:"Zoom",back:"Reset Zoom"}},
+                dataView : {show: true,title:"DataView",lang: ['Data View', 'Close', 'Refresh']},
+                magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled'],title:{
+                    line: 'Line',
+                    bar: 'Bar',
+                    stack: 'Stack',
+                    tiled: 'Tiled',
+                    force: 'Force',
+                    chord: 'Chord',
+                    pie: 'Pie',
+                    funnel: 'Funnel'
+                }},
+            }
+        };
+
+
         $scope.add_a_chart_visible_form = 0;
         $scope.building = {};
         $scope.areas = [];
@@ -1366,9 +1485,12 @@
            $scope.building.extra_charts = json.extra_charts;
 
            $scope.building.extra_charts.forEach(function(chart,index){
+
+
                 var chart_details = Sensor.getDetailsFromSparks(chart.resource_id);
                 chart_details.then(function(chartdetails){
                     chart.measurementUnit = chartdetails.data.uom;
+
                 });
                 var latest = Sensor.getMeasurementsByResourceId(chart.resource_id);
                 latest.then(function(metrics){
@@ -1378,8 +1500,18 @@
 
                 chart.average_per_day = parseFloat(metrics.data.average.day).toFixed(2);
                 chart.average_per_month = parseFloat(metrics.data.average.month).toFixed(2);
+
+                
+                var dateObj = new Date(metrics.data.latestTime);
+                var month = dateObj.getUTCMonth() + 1; //months from 1-12
+                var day = dateObj.getUTCDate();
+                var year = dateObj.getUTCFullYear();
+
+                var newdate = day + "/" + month + "/" + year;
+
+
                 chart.latest = {
-                    time:metrics.data.latestTime,
+                    time:newdate,
                     val:parseFloat(metrics.data.latest).toFixed(2)
                 };
 
@@ -1402,7 +1534,7 @@
                         while(i<metrics.data.minutes5.length){
                             
                             var m = new Date(d-i*1000*60*5);
-                            dates.push(m);
+                             dates.push(m.getHours()+":"+m.getMinutes()+":00");
                             i++;
                         }
                         break; 
@@ -1411,7 +1543,7 @@
                         var i = 1;
                         while(i<metrics.data.minutes60.length){
                             var m = new Date(d-i*1000*60*60);
-                            dates.push(m);
+                            dates.push(m.getHours()+":00 - "+parseInt(m.getHours()+1)+":00");
                             i++;
                         }
 
@@ -1422,7 +1554,7 @@
                          var i = 1;
                         while(i<metrics.data.day.length){
                             var m = new Date(d-i*1000*60*60*24);
-                            dates.push(m);
+                            dates.push(m.getDate()+"/"+parseInt(m.getUTCMonth()+1)+"/"+m.getUTCFullYear());
                             i++;
                         }
 
@@ -1432,7 +1564,7 @@
                          var i = 1;
                         while(i<metrics.data.month.length){
                             var m = new Date(d-i*1000*60*60*24*30);
-                            dates.push(m);
+                            dates.push($rootScope.convertToTextMonth(parseInt(m.getUTCMonth()+1))+" "+m.getUTCFullYear());
                             i++;
                         }            
                         break; 
@@ -1454,15 +1586,15 @@
 
 
 
-
-
+                console.log("CHART");
+                console.log(chart);
 
 
 
                 chart.options ={
                 
                    title : {
-                        text: chart.name,
+                        text: chart.name+" ("+chart.measurementUnit+")",
                     },
                     legend : {
                         data:[chart.name]
@@ -1470,13 +1602,7 @@
                     tooltip : {
                         trigger: 'axis'
                     },
-                    toolbox: {
-                        show : true,
-                        feature : {
-                            restore : {show: true, title: "restore"},
-                            saveAsImage : {show: true, title: "save as image"}
-                        }
-                    },
+                    toolbox: $rootScope.toolbox,
                     calculable : true,
                     xAxis : [
                         {
@@ -1487,7 +1613,8 @@
                     ],
                     yAxis : [
                         {
-                            type : 'value'
+                            type : 'value',
+                            
                         }
                     ],
                     series : [
@@ -1517,7 +1644,7 @@
             var latest = Sensor.getMeasurementsByResourceId($scope.building.energy_consumtion_meter);
             latest.then(function(metrics){
 
-                $scope.average_per_day = parseFloat(metrics.data.average.day).toFixed(2);
+                $scope.average_per_day   = parseFloat(metrics.data.average.day).toFixed(2);
                 $scope.average_per_month = parseFloat(metrics.data.average.month).toFixed(2);
 
                 var dates = [];
@@ -1533,7 +1660,9 @@
                         while(i<metrics.data.minutes5.length){
                             
                             var m = new Date(d-i*1000*60*5);
-                            dates.push(m);
+                            dates.push(m.getHours()+":"+m.getMinutes()+":00");
+
+
                             i++;
                         }
                         break; 
@@ -1542,7 +1671,8 @@
                         var i = 1;
                         while(i<metrics.data.minutes60.length){
                             var m = new Date(d-i*1000*60*60);
-                            dates.push(m);
+                            dates.push(m.getHours()+":00 - "+parseInt(m.getHours()+1)+":00");
+                            
                             i++;
                         }
 
@@ -1553,7 +1683,7 @@
                          var i = 1;
                         while(i<metrics.data.day.length){
                             var m = new Date(d-i*1000*60*60*24);
-                            dates.push(m);
+                            dates.push(m.getDate()+"/"+parseInt(m.getUTCMonth()+1)+"/"+m.getUTCFullYear());
                             i++;
                         }
 
@@ -1563,7 +1693,9 @@
                          var i = 1;
                         while(i<metrics.data.month.length){
                             var m = new Date(d-i*1000*60*60*24*30);
-                            dates.push(m);
+
+                            dates.push($rootScope.convertToTextMonth(parseInt(m.getUTCMonth()+1))+" "+m.getUTCFullYear());
+                            
                             i++;
                         }            
                         break; 
@@ -1574,7 +1706,8 @@
                             dates.push(m);
                             i++;
                         } 
-                         metrics_of_this = metrics.data.day.reverse();             
+                         metrics_of_this = metrics.data.day.reverse();  
+                         
                 }
 
 
@@ -1592,7 +1725,7 @@
                 $scope.line3.options={
                 
                    title : {
-                        text: 'Energy Consumption',
+                        text: 'Energy Consumption'+"("+$scope.measurementUnit+")",
                     },
                     legend : {
                         data:[$scope.sitename]
@@ -1600,24 +1733,20 @@
                     tooltip : {
                         trigger: 'axis'
                     },
-                    toolbox: {
-                        show : true,
-                        feature : {
-                            restore : {show: true, title: "restore"},
-                            saveAsImage : {show: true, title: "save as image"}
-                        }
-                    },
+                    toolbox: $rootScope.toolbox,
                     calculable : true,
                     xAxis : [
                         {
                             type : 'category',
                             boundaryGap : false,
                             data : dates.reverse()
+
                         }
                     ],
                     yAxis : [
                         {
-                            type : 'value'
+                            type : 'value',
+                            
                         }
                     ],
                     series : [
@@ -1642,23 +1771,12 @@
         });
 
 
-        
-      
-
-
-
-
-
-
-
 
         var t_areas = site.getAreas($stateParams.id);
        
-        t_areas.then(function(areas){
-            
+        t_areas.then(function(areas){            
             
             $scope.building.areas = areas.data.items;
-
             $scope.building.areas.forEach(function(area,index){
                 var the_area = {};
                 $scope.areas.push(area.name);
@@ -1668,37 +1786,9 @@
                     area_sensors.then(function(sensors){
 
                         area.sensors = sensors.data.items;    
-                        area.sensors.forEach(function(thesensor,index){
-                            
-
-                                /*var meas2 = Sensor.getMeasurementsBySearch(thesensor.uri_resource,thesensor.id);
-                                meas2.then(function(tmeas2){
-                                    
-                                    var obj = tmeas2.data.results;
-                                        var measurem = obj[Object.keys(obj)[0]];
-                                        
-                                });*/
-                              /*  var meas = Sensor.getMeasurementsByResourceId(thesensor.id);
-                                meas.then(function(measurements){
-    
-                                });*/
-                        });
                     });
                 });
         });
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         
         $scope.goToAreas = function(){
@@ -1859,13 +1949,7 @@
             legend: {
                 data:['Highest temperature','Lowest temperature']
             },
-            toolbox: {
-                show : true,
-                feature : {
-                    restore : {show: true, title: "restore"},
-                    saveAsImage : {show: true, title: "save as image"}
-                }
-            },
+            toolbox: $rootScope.toolbox,
             calculable : true,
             xAxis : [
                 {
@@ -1923,13 +2007,7 @@
             legend: {
                 data:['Email','Affiliate','Video Ads','Direct','Search']
             },
-            toolbox: {
-                show : true,
-                feature : {
-                    restore : {show: true, title: "restore"},
-                    saveAsImage : {show: true, title: "save as image"}
-                }
-            },
+            toolbox: $rootScope.toolbox,
             calculable : true,
             xAxis : [
                 {
@@ -2181,13 +2259,7 @@
             legend: {
                 data:['2016']
             },
-            toolbox: {
-                show : true,
-                feature : {
-                    restore : {show: true, title: "restore"},
-                    saveAsImage : {show: true, title: "save as image"}
-                }
-            },
+            toolbox:$rootScope.toolbox,
             calculable : true,
             xAxis : [
                 {
@@ -2220,13 +2292,7 @@
             legend: {
                 data:['Profit', 'Cost', 'Income']
             },
-            toolbox: {
-                show : true,
-                feature : {
-                    restore : {show: true, title: "restore"},
-                    saveAsImage : {show: true, title: "save as image"}
-                }
-            },
+            toolbox: $rootScope.toolbox,
             calculable : true,
             xAxis : [
                 {
@@ -2990,6 +3056,37 @@
         $rootScope.$on("$stateChangeSuccess", function (event, currentRoute, previousRoute) {
             $document.scrollTo(0, 0);
         });
+
+        $rootScope.convertToTextMonth = function(month_num){
+
+            if(month_num==1)
+                return "Jan";
+            else if(month_num==2)
+                return "Feb";
+            else if(month_num==3)
+                return "Mar";
+            else if(month_num==4)
+                return "Apr";
+            else if(month_num==5)
+                return "May";
+            else if(month_num==6)
+                return "Jun";
+            else if(month_num==7)
+                return "Jul";
+            else if(month_num==8)
+                return "Aug";
+            else if(month_num==9)
+                return "Sep";
+            else if(month_num==10)
+                return "Oct";
+            else if(month_num==11)
+                return "Nov";
+            else if(month_num==12)
+                return "Dec";
+            else
+                return "Null";
+
+        }
         
     })
        

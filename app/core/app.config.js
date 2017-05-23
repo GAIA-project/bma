@@ -8,9 +8,15 @@
             }, 1);
         };
     }).factory('appConfig', [appConfig])
-      .config(['$mdThemingProvider', mdConfig]);
+        .config(['$mdThemingProvider', mdConfig]);
 
-    function appConfig() {
+
+    function appConfig($location) {
+        var debug = true;
+
+                    
+
+
 
         var pageTransitionOpts = [
             {
@@ -47,6 +53,7 @@
             apis:{
                 authentication          :'https://sso.sparkworks.net/aa/oauth/token',
                 main                    :'https://api.sparkworks.net/v1/',
+                myresource              :'myresource',
                 over_db                 :'http://150.140.5.64:8080/GaiaAnalytics/gaia/',
                 getAnomalies            :'anomaly/events/getall',
                 buildings               :'utility/buildings/getall',
@@ -56,6 +63,7 @@
                 sensorsByArea           :'utility/sensors/getbyarea/',                
                 areas                   :'utility/areas',
                 area                    :'utility/areas/getbyid/',
+                subareas                :'utility/subareas',
                 areasByBuilding         :'utility/areas/getall',                
                 sites                   :'location/site',
                 site                    :'location/site',
@@ -63,7 +71,7 @@
                 
             },
             buildings:[],
-            auth_token:'349b2026-c85a-4a82-a5e3-36093e4a5841'
+            auth_token:'3d7b4ac2-cf50-4f0f-b2fd-25e58e7d5f09'
         };
         var color = {
             primary:    '#009688',
@@ -75,6 +83,18 @@
             text:       '#3D4051',
             gray:       '#EDF0F1'
         };
+
+            if(debug==false){
+                console.log("EEE");
+                if(main.auth_token!='mm')
+                    window.location='http://bms.gaia-project.eu/#/page/buildings';
+                else
+                    window.location='http://bms.gaia-project.eu/#/page/signin'; 
+            }
+              /*  if(debug==false){
+                   
+                }*/
+                   
 
         return {
             pageTransitionOpts: pageTransitionOpts,
