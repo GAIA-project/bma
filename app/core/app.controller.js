@@ -684,6 +684,10 @@
         $scope.translations.el.construction_characteristics = "Κατασκευαστικά Χαρακτηριστικά";
         $scope.translations.el.resources = "Γραφήματα & Αισθητήρες";
 
+        $scope.translations.it.general_characteristic = "Genelar Characteristics";
+        $scope.translations.it.construction_characteristics = "Construction Characteristics";
+        $scope.translations.it.resources = "Resources";
+
         switch ($rootScope.lang) {
             case 'en':
                 $scope.language = $scope.translations.en;                        
