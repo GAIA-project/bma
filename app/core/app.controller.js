@@ -164,8 +164,9 @@
                 console.log(bs);
                 $scope.abuildings = [];
                 bs.data.sites.forEach(function(site,index){
-                    if(site.subsites.length>0)
+                    /*if(site.subsites.length>0)  I removed it because of Prato School*/
                         $scope.abuildings.push(site);
+
                 });
             })
             
