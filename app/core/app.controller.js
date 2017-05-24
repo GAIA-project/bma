@@ -120,6 +120,7 @@
                     appConfig.main.auth_token = auth.data.access_token;                
                     console.log("Auth Data");
                     console.log(auth.data);
+                    $location.url('/page/buildings');
 
                 }, function(err) {
                     $scope.login_error = 1;
@@ -1307,6 +1308,15 @@
 
         $scope.second_period_from_time  = new Date(todate-200*1000*60*60*24).getTime();
         $scope.second_period_to_time    = new Date(todate-100*1000*60*60*24).getTime();
+
+        var vals    = [];
+        $scope.vals1 = [];
+        $scope.vals2 = [];
+        $scope.tdates   = [];
+        $scope.tdates2 = [];
+
+
+
         
         var t_site = site.getDetails($stateParams.id);
         t_site.then(function(respo){
@@ -1406,11 +1416,9 @@
                 var vals1   = obj[Object.keys(obj)[0]];
                 vals1 = vals1.data;
 
-                var vals    = [];
-                $scope.vals1 = [];
-                $scope.vals2 = [];
-                $scope.tdates   = [];
-                $scope.tdates2 = [];
+
+                
+
 
                 vals1.forEach(function(val,index){
                             $scope.tdates.push(new Date(val.timestamp));
@@ -1474,7 +1482,7 @@
 
                         $scope.line4.options={
                            title : {
-                                text: 'Energy Consumption s',
+                                text: 'Energy Consumption',
                             },
                             tooltip : {
                                 trigger: 'axis'
@@ -3132,14 +3140,20 @@
             ]
         };
     })
-    .controller('AppCtrl',function($scope, $rootScope, $state, $document, appConfig,$http,buildings){
+    .controller('AppCtrl',function($scope, $rootScope, $state, $document, appConfig,$http,buildings,$location){
         
       
-       
+                     if(appConfig.main.auth_token==""){
+                        $location.url('/page/signin');
+                    }else{
+                        console.log(appConfig.main.auth_token);
+                    }
 
         $scope.pageTransitionOpts = appConfig.pageTransitionOpts;
         $scope.main = appConfig.main;
         $scope.color = appConfig.color;
+
+
 
         $scope.$watch('main', function(newVal, oldVal) {
             // if (newVal.menu !== oldVal.menu || newVal.layout !== oldVal.layout) {
