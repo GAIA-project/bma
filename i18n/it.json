@@ -119,7 +119,8 @@
     "second_period":"secondo semestre",
     "first_period":"primo semestre",
     "PROFILE":"Profilo",
-    "NOTIFICATIONS":"Notifiche"
+    "NOTIFICATIONS":"Notifiche",
+    "info_box_1":"Quando i sensori sono spenti, l'assenza di valori viene rappresentata come zero nel grafico"
 
 }
  

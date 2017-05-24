@@ -71,7 +71,7 @@
                 
             },
             buildings:[],
-            auth_token:'3d7b4ac2-cf50-4f0f-b2fd-25e58e7d5f09'
+            auth_token:'6646cdff-08b9-4418-9ddf-779ea6bc9ddb'
         };
         var color = {
             primary:    '#009688',

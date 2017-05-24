@@ -304,6 +304,44 @@
         $scope.available_observes = [];
         $scope.available_observes.push({'name':'Light2','encoded_name':'light2','uom':'lux2'});
         $scope.available_observes.push({'name':'Light','encoded_name':'light','uom':'lux'});
+
+
+
+        $scope.translations = {};
+        $scope.translations.el = {};
+        $scope.translations.en = {};
+        $scope.translations.sw = {};
+        $scope.translations.it = {};
+
+        $scope.translations.el.description = "Περιγραφή";
+        $scope.translations.el.subareas = "Υποπεριοχές";
+        $scope.translations.el.sensors = "Αισθητήρες";
+
+
+        $scope.translations.it.description = "description";
+        $scope.translations.it.subareas = "subareas";
+        $scope.translations.it.sensors = "sensors";
+
+        switch ($rootScope.lang) {
+            case 'en':
+                $scope.language = $scope.translations.en;                        
+                break; 
+            case 'el':
+                $scope.language = $scope.translations.el; 
+                break; 
+            case 'sw':
+                $scope.language = $scope.translations.sw; 
+                break; 
+            case 'it':
+                $scope.language = $scope.translations.it; 
+                break; 
+            default: 
+                $scope.language = $scope.translations.el;                         
+        }
+
+
+
+
         
         var t_site = site.getDetails($stateParams.id);
         t_site.then(function(tsite){            
@@ -1256,6 +1294,9 @@
     .controller('SiteComparisonController',function($scope,$q,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor,buildings){
         var todate = new Date().getTime();
         $scope.line3 = {};
+        $scope.line4 = {};
+        $scope.line4 = {};
+        $scope.line4.options={};
         $scope.loading = 0;
         $scope.first_period_from_time   = new Date(todate-100*1000*60*60*24).getTime();
         $scope.first_period_to_time     = todate;
@@ -1305,22 +1346,55 @@
             $scope.obj.one.from = $scope.first_period_from_time.getTime();
             $scope.obj.one.to = $scope.first_period_to_time.getTime();
             $scope.obj.one.resourceID= sensor;
-            $scope.obj.one.granularity = $scope.granularity;
-            $scope.obj.one.string = $scope.first_period_from_time+" TO "+$scope.first_period_to_time;
+            $scope.obj.one.granularity = $scope.granularity; 
+
+
+                var month = $scope.first_period_from_time.getUTCMonth() + 1; //months from 1-12
+                var day = $scope.first_period_from_time.getUTCDate();
+                var year = $scope.first_period_from_time.getUTCFullYear();
+                var newdate = day + "/" + month + "/" + year;
+
+
+                var month = $scope.first_period_to_time.getUTCMonth() + 1; //months from 1-12
+                var day = $scope.first_period_to_time.getUTCDate();
+                var year = $scope.first_period_to_time.getUTCFullYear();
+                var newdate2 = day + "/" + month + "/" + year;
+
+
+            $scope.obj.one.string = newdate+" TO "+newdate2;
+
+
             
             $scope.obj.two = {};
             $scope.obj.two.to = $scope.second_period_to_time.getTime();
             $scope.obj.two.from = $scope.second_period_from_time.getTime();
             $scope.obj.two.resourceID = sensor;
             $scope.obj.two.granularity = $scope.granularity;
-            $scope.obj.two.string = $scope.second_period_from_time+" TO "+$scope.second_period_to_time;
+
+
+
+                var month = $scope.second_period_from_time.getUTCMonth() + 1; //months from 1-12
+                var day = $scope.second_period_from_time.getUTCDate();
+                var year = $scope.second_period_from_time.getUTCFullYear();
+                var newdate = day + "/" + month + "/" + year;
+
+
+                var month = $scope.second_period_to_time.getUTCMonth() + 1; //months from 1-12
+                var day = $scope.second_period_to_time.getUTCDate();
+                var year = $scope.second_period_to_time.getUTCFullYear();
+                var newdate2 = day + "/" + month + "/" + year;
+
+
+            $scope.obj.two.string = newdate+" TO "+newdate2;
             
+
             
             $scope.obj.resourceID = sensor;
 
 
 
             var first = Sensor.getComparingQueryTimeRange($scope.obj.one);
+
             first.then(function(vals){
 
 
@@ -1332,39 +1406,20 @@
                 $scope.vals1 = [];
                 $scope.vals2 = [];
                 $scope.tdates   = [];
+                $scope.tdates2 = [];
 
                 vals1.forEach(function(val,index){
                             $scope.tdates.push(new Date(val.timestamp));
                             $scope.vals1.push(val.reading);
                 });
 
-                var second = Sensor.getComparingQueryTimeRange($scope.obj.two);
-                    second.then(function(vals_2){
-                        $scope.loading = 0;
-                        
-                                                
 
-                        var obj = vals_2.data.results;
-                        var vals2 = obj[Object.keys(obj)[0]];   
-                        vals2 = vals2.data;
-                        $scope.                     
-                        vals2.forEach(function(val,index){
-                            $scope.vals2.push(val.reading);
-                        });
-                        
-                       
-                            $scope.count++;
-
-                        
-                        $scope.line3.options={
+                $scope.line3.options={
                            title : {
                                 text: 'Energy Consumption',
                             },
                             tooltip : {
                                 trigger: 'axis'
-                            },
-                            legend: {
-                                data:[$scope.obj.one.string,$scope.obj.two.string]
                             },
                             toolbox:$rootScope.toolbox,
                             calculable : true,
@@ -1387,7 +1442,57 @@
                                     smooth:true,
                                     itemStyle: {normal: {areaStyle: {type: 'default'}}},
                                     data:$scope.vals1
-                                },
+                                }
+                                
+                            ]
+                        };
+                });
+
+                var second = Sensor.getComparingQueryTimeRange($scope.obj.two);
+                    second.then(function(vals_2){
+                        $scope.loading = 0;
+                        
+                                                
+
+                        var obj = vals_2.data.results;
+                        var vals2 = obj[Object.keys(obj)[0]];   
+                        vals2 = vals2.data;
+                        vals2.forEach(function(val,index){
+                            $scope.tdates2.push(new Date(val.timestamp));
+                            $scope.vals2.push(val.reading);
+                        });
+                        
+                       
+                            $scope.count++;
+
+                        
+                        
+
+                        $scope.line4.options={
+                           title : {
+                                text: 'Energy Consumption s',
+                            },
+                            tooltip : {
+                                trigger: 'axis'
+                            },
+                            legend: {
+                                data:[$scope.obj.two.string]
+                            },
+                            toolbox:$rootScope.toolbox,
+                            calculable : true,
+                            xAxis : [
+                                {
+                                    type : 'category',
+                                    boundaryGap : false,
+                                    data : $scope.tdates2
+                                }
+                            ],
+                            yAxis : [
+                                {
+                                    type : 'value'
+                                }
+                            ],
+                            series : [
                                 {
                                     name:$scope.obj.two.string,
                                     type:'line',
@@ -1398,7 +1503,13 @@
                             ]
                         };
                         
-
+                        console.log($scope.tdates);
+                        console.log($scope.vals2);
+                        console.log($scope.vals2);
+                        console.log($scope.vals2);
+                        console.log($scope.vals2);
+                        console.log($scope.vals2);
+                        console.log($scope.vals2);
                        
 
 
@@ -1406,7 +1517,7 @@
 
                     });
 
-            })
+            
             }else{
                 $scope.loading = 0;
                 alert("Please assign Energy Consumption Meter");
