@@ -13,10 +13,20 @@
         <div class="col-sm-12">
             <div class="panel panel-default panel-minimal">
                 <div class="divider divider-md"></div>
-                <div class="panel-heading"><span data-translate="energy_cons_per_area"></span></div>
+                <div class="panel-heading"><span data-translate="energy_consumption"></span></div>
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-sm-12">
+                            
+                            <div class="text-right right">
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                  <button type="button" class="btn btn-secondary" ng-click="changeLineIn('5mins',line3)"><span data-translate="per_5mins"></span></button>
+                                  <button type="button" class="btn btn-secondary" ng-click="changeLineIn('hour',line3)"><span data-translate="per_hour"></span></button>
+                                  <button type="button" class="btn btn-secondary selected" ng-click="changeLineIn('day',line3)"><span data-translate="per_day"></span></button>
+                                  <button type="button" class="btn btn-secondary" ng-click="changeLineIn('month',line3)"><span data-translate="per_month"></span></button>
+                                </div>
+
+                            </div>
                             <div data-echarts data-options="line3.options" style="height: 350px;"></div>
                         </div>
                     </div>
@@ -42,6 +52,14 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-sm-12">
+                            <div class="text-right right">
+                                <div class="btn-group" role="group" aria-label="Ex2">
+                                  <button type="button" class="btn btn-secondary" ng-click="changeLineChartIn('5mins',chart)"><span data-translate="per_5mins"></span></button>
+                                  <button type="button" class="btn btn-secondary" ng-click="changeLineChartIn('hour',chart)"><span data-translate="per_hour"></span></button>
+                                  <button type="button" class="btn btn-secondary selected" ng-click="changeLineChartIn('day',chart)"><span data-translate="per_day"></span></button>
+                                  <button type="button" class="btn btn-secondary" ng-click="changeLineChartIn('month',chart)"><span data-translate="per_month"></span></button>
+                                </div>
+                            </div>
                             <div data-echarts id="{{chart.resource_id}}" data-options="chart.options" style="height: 350px;"></div>
                         </div>
                     </div>
@@ -65,69 +83,7 @@
         
      
 
-        <!-- <div class="col-md-8">
-            <div class="panel panel-default panel-minimal">
-                <div class="divider divider-md"></div>
-                <div class="panel-heading">Energy Consumption Per SubSite</div>
-                <div class="panel-body">
-                    <div data-echarts data-options="bar4.options" style="height: 350px;"></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="panel panel-default panel-minimal">
-                <div class="divider divider-md"></div>
-                <div class="panel-heading">Energy Consumption Per Category </div>
-                <div class="panel-body">
-                    <div data-echarts data-options="bar2.options" style="height: 350px;"></div>
-                </div>
-            </div>
-
-        </div> -->
     </div>
 
-    <div class="row">
-     <!--    <div class="col-md-12">
-
-            <div class="panel panel-default panel-minimal">
-                <div class="divider divider-md"></div>
-                <div class="panel-heading">Energy Consumption per week Day</div>
-                <div class="panel-body">
-                    <div data-echarts data-options="bar3.options" style="height: 350px;"></div>
-                </div>
-            </div>
-            
-        </div> -->
-        <!-- <div class="col-md-6">
-        
-             <div class="panel panel-default panel-minimal">
-                <div class="divider divider-md"></div>
-                <div class="panel-heading">Basic Column</div>
-                <div class="panel-body">
-                    <div data-echarts data-options="bar1.options" style="height: 350px;"></div>
-                </div>
-            </div>
-        
-        
-        
-        
-        </div> -->
-    </div>
-
- <!--    <div class="row">
-        <div class="col-md-12">
-
-            <div class="panel panel-default panel-minimal">
-                <div class="divider divider-md"></div>
-                <div class="panel-heading">Energy Consumption per weekday prior and after using GAIA</div>
-                <div class="panel-body">
-                    <div data-echarts data-options="bar5.options" style="height: 350px;"></div>
-                </div>
-            </div>
-            
-        </div>
-    </div> -->
-
-   
 
 </div>

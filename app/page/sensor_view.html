@@ -12,19 +12,15 @@
     <div class="form-group">
         <label for="building_build_year" class="col-sm-12 control-label"><span data-translate="FROM_TIME"></span></label>
         <div class="col-sm-12" style="background: white">
-            <md-datepicker ng-model="first_period_from_time" md-placeholder="Enter date"></md-datepicker>                                                             
+            <md-datepicker ng-model="first_period_from_time" md-placeholder="Enter date"></md-datepicker>
         </div>
     </div>
-
-
     <div class="form-group">
         <label for="building_build_year" class="col-sm-12 control-label"><span data-translate="TO_TIME"></span></label>
         <div class="col-sm-12" style="background: white">
-            <md-datepicker ng-model="first_period_to_time" md-placeholder="Enter date"></md-datepicker>                                                             
+            <md-datepicker ng-model="first_period_to_time" md-placeholder="Enter date"></md-datepicker>
         </div>
     </div>
-
-
     <div class="form-group">
         <label for="granularity" class="col-sm-12 control-label"><span data-translate="GRANULARITY"></span></label>
         <div class="col-sm-12">                                        
@@ -35,12 +31,7 @@
             </md-select>                              
         </div>
     </div>
-
-
-
-
      <md-button class="md-accent md-success" ng-click="update()"><span data-translate="UPDATE"></span></md-button>             
-
 </div>
 
     <div class="row">                         
@@ -53,29 +44,4 @@
             </div>
         </div>
     </div>
-
- <!--    <div class="row">                         
-        <div class="col-sm-12">
-            <div class="panel panel-default panel-minimal">
-                <div class="panel-header">Rules</div>
-                <div class="divider divider-md"></div>
-                <div class="panel-body">
-                    <table>
-                        <thead>
-                            <th><td>id</td><td>Name</td><td>Operator</td><td>Threshold</td><td>Suggestion</td></th>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="rule in ruleList">
-                                <td>{{rule.id}}</td>
-                                <td>{{rule.name}}</td>
-                                <td>{{rule.operator}}</td>
-                                <td>{{rule.threshold}}</td>
-                                <td>{{rule.suggestion}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div> -->
 </div>

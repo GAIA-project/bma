@@ -53,6 +53,7 @@
             apis:{
                 authentication          :'https://sso.sparkworks.net/aa/oauth/token',
                 main                    :'https://api.sparkworks.net/v1/',
+                getRole                 :'https://sso.sparkworks.net/aa/user',
                 myresource              :'myresource',
                 over_db                 :'http://150.140.5.64:8080/GaiaAnalytics/gaia/',
                 getAnomalies            :'anomaly/events/getall',
@@ -71,7 +72,9 @@
                 
             },
             buildings:[],
-            auth_token:''
+            auth_token:'',
+            auth_role : 'ROLE_GAIA_STUDENT'
+
         };
         var color = {
             primary:    '#009688',

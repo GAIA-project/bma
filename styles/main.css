@@ -2249,3 +2249,12 @@ body {
     color: #080030;
     font-weight: bold;
   }
+
+h2.tmes {
+    font-size: 18px;
+    color: #7b7b7b;
+    font-weight: normal;
+}
+h3.vals {
+    font-size: 23px;
+}
