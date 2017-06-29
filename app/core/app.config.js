@@ -72,8 +72,8 @@
                 
             },
             buildings:[],
-            auth_token:'',
-            auth_role : 'ROLE_GAIA_STUDENT'
+            auth_token:'mm',
+            auth_role : ''
 
         };
         var color = {
@@ -90,9 +90,9 @@
             if(debug==false){
                 console.log("EEE");
                 if(main.auth_token!='mm')
-                    window.location='http://bms.gaia-project.eu/#/page/buildings';
+                    window.location='/#/page/buildings';
                 else
-                    window.location='http://bms.gaia-project.eu/#/page/signin'; 
+                    window.location='/#/page/signin'; 
             }
               /*  if(debug==false){
                    

@@ -126,7 +126,15 @@
     "per_5mins":"Ανα 5 λεπτά",
     "per_hour":"Ανα Ώρα",
     "per_month":"Ανα Μήνα",
-    "average_energy_consumption":"Μέση κατανάλωση ενέργειας"
+    "average_energy_consumption":"Μέση κατανάλωση ενέργειας",
+    "MEASUREMENT":"Μέτρηση",
+    "sum":"Άθροισμα",
+    "average":"Μέση Τιμή",
+    "NEW_RULE":"Νέος κανόνας",
+    "operator":"Τελεστές",
+    "threshold":"Τιμή εισόδου",
+    "suggestion":"Πρόταση",
+    "School":"Σχολείο"
 
 }
  

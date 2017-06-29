@@ -10,17 +10,14 @@
                     <thead>
                         <tr>
                             <th><span data-translate="Name"></span></th>
-                            <th><span data-translate="Country"></span></th>
-                            <th><span data-translate="People"></span></th>
                             <th><span data-translate="Actions"></span></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr ng-repeat="site in abuildings">
                             <td>{{site.name}}</td>
-                            <td>{{site.country}}</td>
-                            <td>{{site.people}}</td>
                             <td><a ui-wave href="javascript:;" ng-click="details(site.id)" class="btn btn-raised btn-primary"><span data-translate="DETAILS"></span></a></td>
+                            
                         </tr>
                     </tbody>
                 </table>

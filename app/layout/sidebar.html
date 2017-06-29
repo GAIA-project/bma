@@ -24,6 +24,17 @@
         <li ng-show="main.selected_building>0"><a md-button aria-label="meanu" href="#/page/building/sensors/{{main.selected_building}}"><span data-translate="SENSORS"></span> </a></li>
         
         <li ng-show="main.selected_building>0"><a md-button aria-label="meanu" href="#/page/building/comparison/{{main.selected_building}}"><span data-translate="COMPARISON"></span> </a></li>
+        <li ng-show="main.selected_building>0"><a md-button aria-label="meanu" href="#/page/building/rules/{{main.selected_building}}"><span data-translate="RULE_ENGINE"></span> </a></li>
+
+        <li ng-show="main.selected_building>0">
+          <a md-button aria-label="meanu" href="#/page/building/notifications/{{main.selected_building}}">
+            <span data-translate="NOTIFICATIONS"></span> 
+            <span class="badge badge-info" >{{recommendations}}</span>
+          </a>
+        </li>
+
+
+        
 
         <!-- <li ng-show="main.selected_building>0 && (main.auth_role=='ROLE_GAIA_LOCAL_MANAGER' || main.auth_role=='ROLE_GAIA_GLOBAL_MANAGER' || main.auth_role=='ROLE_GAIA_ADMIN'"" ><a md-button aria-label="meanu" href="#/page/building/add_measurements/{{main.selected_building}}"><span data-translate="AddMeasurements"></span> </a></li> -->
         
@@ -100,4 +111,5 @@
                <li class="li-small"><a href="#/form/elements"><i class="fa fa-circle color-success"></i> <span data-translate="MATERIAL_ELEMENTS"></span></a></li>
                <li class="li-small"><a href="#/ui/icons"><i class="fa fa-circle color-danger"></i> <span data-translate="MATERIAL_ICONS"></span></a></li> -->
     </ul>
+    <img src="images/facebook_group.png" class="facebookgroup" onclick="window.location='https://www.facebook.com/groups/430658993982993'"/>
 </div>

@@ -53,6 +53,7 @@
                 url: '/page/building/comparison/:id',
                 templateUrl: 'app/page/building_comparison.html'
             });
+             
 
              $stateProvider.state('page/building/notifications', {
                 url: '/page/building/notifications/:id',
@@ -73,7 +74,11 @@
             $stateProvider.state('page/building/add_measurements',{
                 url:'/page/building/add_measurements/:id',
                 templateUrl:'app/page/building_add_measurements.html'
-            })
+            });
+            $stateProvider.state('page/building/rules', {
+                url: '/page/building/rules/:id',
+                templateUrl: 'app/page/building_rules.html'
+            });
 
             $stateProvider.state('page/building/view', {
                 url: '/page/building/view/:id',
@@ -96,7 +101,6 @@
 
             $urlRouterProvider
                 .when('/', '/page/buildings')
-
                 .otherwise('/page/buildings');
 
 

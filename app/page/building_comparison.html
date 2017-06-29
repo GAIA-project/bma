@@ -1,13 +1,25 @@
 <div class="page" ng-controller="SiteComparisonController" >
-      
+  
     <div class="row" style="margin-top:60px">    
  		<div class="col-sm-12 col-md-3">
- 			<div class="panel panel-default panel-minimal">
+ 			<div class="panel panel-default panel-minimal" style="background-color:#009688;">
                 <div class="divider divider-md"></div>
                 <div class="panel-body">
                 	<div class="row">
                         <div class="fp">
                      		<h2 style="font-size: 18px;text-align: center;margin: 0"><span data-translate="first_period"></span></h2>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="building_build_year" class="col-sm-12 control-label"><span data-translate="School"></span></label>
+                                    <div class="col-sm-12" style="background: white">                                        
+                                        <md-select ng-model="school_one">
+                                            <md-option ng-repeat="school in schools" value="{{school.id}}">
+                                                {{school.name}}
+                                            </md-option>
+                                        </md-select>                              
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="building_build_year" class="col-sm-12 control-label"><span data-translate="FROM_TIME"></span></label>
@@ -29,6 +41,18 @@
                         <div class="fp">
                         <h2 style="font-size: 18px;text-align: center;margin: 0"><span data-translate="second_period"></span></h2>
                         <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="building_build_year" class="col-sm-12 control-label"><span data-translate="School"></span></label>
+                                    <div class="col-sm-12" style="background: white">                                        
+                                        <md-select ng-model="school_two">
+                                            <md-option ng-repeat="school in schools" value="{{school.id}}">
+                                                {{school.name}}
+                                            </md-option>
+                                        </md-select>                              
+                                    </div>
+                                </div>
+                            </div>
+                        <div class="col-md-12">
                             <div class="form-group">
                                 <label for="building_build_year" class="col-sm-12 control-label"><span data-translate="FROM_TIME"></span></label>
                                 <div class="col-sm-12" style="background: white">
@@ -48,12 +72,24 @@
                     </div>
 
 
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="building_build_year" class="col-sm-12 control-label"><span data-translate="MEASUREMENT"></span></label>
+                                <div class="col-sm-12">                                        
+                                    <md-select ng-model="metric">
+                                        <md-option ng-repeat="gran in metrics" value="{{gran.resource_id}}">
+                                            {{gran.name}}
+                                        </md-option>
+                                    </md-select>                              
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="building_build_year" class="col-sm-12 control-label"><span data-translate="GRANULARITY"></span></label>
                                 <div class="col-sm-12">                                        
-                                    <md-select ng-model="granularity">
+                                    <md-select ng-model="granularity" style="color:white">
                                         <md-option ng-repeat="gran in granularity_values" value="{{gran.text}}">
                                             {{gran.name}}
                                         </md-option>
@@ -69,7 +105,7 @@
                 </div>
             </div>
  		</div>
-        <div class="col-sm-12 col-md-9">
+        <div class="col-sm-12 col-md-9" ng-show="right_side_visible">
             <div class="panel panel-default panel-minimal">
                 <div class="panel-body">
                     <div ng-show="loading" style="text-align: center;width:100%">
@@ -83,27 +119,29 @@
                         <div data-echarts id="diagram" data-options="line4.options" style="height: 350px;"></div>
                     </div>
                 </div>
+                
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-sm-12 col-md-3">
-                            <h2 class="tmes"><span data-translate="energy_consumption"></span></h2>{{obj.one.string}}
+                            <h2 class="tmes"><span data-translate="sum"></span></h2>{{obj.one.string}}
                             <h3 class="vals">{{obj.one.sum}}{{' '+measurementUnit}}</h3>                            
                         </div>
                         <div class="col-sm-12 col-md-3">
-                            <h2 class="tmes"><span data-translate="energy_consumption"></h2>{{obj.two.string}}
+                            <h2 class="tmes"><span data-translate="sum"></h2>{{obj.two.string}}
                             <h3 class="vals">{{obj.two.sum}}{{' '+measurementUnit}}</h3> 
                             
                         </div>
                         <div class="col-sm-12 col-md-3">
-                            <h2 class="tmes"><span data-translate="average_energy_consumption"></span></h2>{{obj.one.string}}
+                            <h2 class="tmes"><span data-translate="average"></span></h2>{{obj.one.string}}
                             <h3 class="vals">{{obj.one.average}}{{' '+measurementUnit}}</h3> 
                         </div>
                         <div class="col-sm-12 col-md-3">
-                            <h2 class="tmes"><span data-translate="average_energy_consumption"></span></h2>{{obj.two.string}}
+                            <h2 class="tmes"><span data-translate="average"></span></h2>{{obj.two.string}}
                             <h3 class="vals">{{obj.two.average}}{{' '+measurementUnit}}</h3> 
                         </div>                        
                     </div>
                 </div>
+
                 
             </div>
             
