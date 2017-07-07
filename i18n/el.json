@@ -134,7 +134,11 @@
     "operator":"Τελεστές",
     "threshold":"Τιμή εισόδου",
     "suggestion":"Πρόταση",
-    "School":"Σχολείο"
+    "School":"Σχολείο",
+    "VIRTUAL_SENSORS":"Εικονικοί Αισθητήρες",
+    "add_virtual_values":"Προσθήκη Μετρήσεων",
+    "observes":"Μετρούμενο μέγεθος",
+    "Value":"Τιμή"
 
 }
  

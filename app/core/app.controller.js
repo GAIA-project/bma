@@ -113,6 +113,7 @@
                 var auth  = authentication.authenticate();
                 
                 auth.then(function(auth) {
+                    console.log(auth.data.access_token);
                     appConfig.main.auth_token = auth.data.access_token;                
                     var role = authentication.getRole();
                     role.then(function(a){
@@ -571,7 +572,7 @@
              var data = {
                 "name":         $scope.new_virtual_sensor.name,
                 "observes":     $scope.new_virtual_sensor.observes,
-                "uom":          obs.uom
+                "uom":          $scope.new_virtual_sensor.uom
             };
             var req = {
                  method: 'POST',
@@ -1096,6 +1097,67 @@
     })
     .controller('SiteSensorsController',function($scope,$q,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor){
 
+        $scope.available_observes = [];
+        $scope.available_observes.push({'name':'Light','encoded_name':'Light','uom':'lux'});
+        $scope.available_observes.push({'name':'Energy','encoded_name':'Energy','uom':'kWh'});
+        $scope.available_observes.push({'name':'Temperature','encoded_name':'Temperature','uom':'C'});
+        $scope.available_observes.push({'name':'ComfortLevel','encoded_name':'comfort level','uom':'Raw'});
+        $scope.available_observes.push({'name':'SharedResource','encoded_name':'shared resource','uom':'Raw'});
+        $scope.virtual_sensors = [];
+
+        $scope.save_new_virtual_sensor = function(){
+            
+            console.log("Filter Name:"+$scope.new_virtual_sensor.observes);
+
+
+            var obs = $scope.available_observes.filter(function(item) {
+                        return item.name === $scope.new_virtual_sensor.observes;
+                        })[0];
+             console.log(obs);
+
+             
+             
+             var data = {
+                "name":         $scope.new_virtual_sensor.name,
+                "observes":     $scope.new_virtual_sensor.observes,
+                "uom":          obs.uom
+            };
+            var req = {
+                 method: 'POST',
+                 url: appConfig.main.apis.main+'ps/resource',
+                 headers: {
+                   'Content-Type': 'application/json',"Authorization":"bearer "+appConfig.main.auth_token
+                 },
+                 data: data
+            }
+            $http(req).then(function(d){
+                console.log(d);
+                var nj = {
+                    "resources":[d.data]
+                };
+                
+
+             var req2 = {
+                 method: 'POST',
+                 url: appConfig.main.apis.main+'location/site/'+$stateParams.id+'/resource/add',
+                 headers: {
+                   'Content-Type': 'application/json',"Authorization":"bearer "+appConfig.main.auth_token
+                 },
+                 data: nj
+            }
+            $http(req2).then(function(d){
+                console.log(d);
+                $scope.add_a_virtual_sensor_form = 0;
+                $scope.new_virtual_sensor = {};
+                $scope.getSiteResources();
+
+            }, function(e){
+                console.log(e);
+            });
+
+        });
+
+}
         $scope.building = {};
        var t_areas = site.getAreas($stateParams.id);
        
@@ -1106,21 +1168,24 @@
         });
 
 
-
-
-       var senss = site.getResources($stateParams.id);
-       senss.then(function(sites){
+        $scope.getSiteResources = function(){
+            var senss = site.getResources($stateParams.id);
+                senss.then(function(sites){
         
-        
-            sites.data.resources.forEach(function(thesensor,index){                            
-                
-                if(thesensor.uom=="")
-                    console.log(thesensor.uri+":"+thesensor.resourceId);
+                $scope.virtual_sensors = [];
+
+                sites.data.resources.forEach(function(thesensor,index){                            
+                        if(thesensor.uri.startsWith("gaia-ps")){
+                            $scope.virtual_sensors.push(thesensor);
+                            console.log(thesensor);
+                        }                       
                
-            });
+                    });
 
+                });
+        }
 
-       });
+       $scope.getSiteResources();
 
         
 
@@ -1162,6 +1227,12 @@
         }
 
 
+        $scope.addVirtualSensor = function(){
+            $scope.add_a_virtual_sensor_form = 1;
+            $scope.new_virtual_sensor = {};
+        }
+
+
 
 
     })
@@ -1174,6 +1245,7 @@
         };
         var details = Sensor.getDetails($scope.sensor.id);
             details.then(function(details){
+
                 $scope.sensor.details = details.data.item;
             });
 
@@ -1182,16 +1254,23 @@
                 $scope.measurementUnit = chartdetails.data.uom;
             
 
-        var meas = Sensor.getMeasurementsByResourceId($scope.sensor.id);
+        
 
         $scope.granularity_values = [];
-        $scope.granularity_values.push({'text':'5mins','name':'Per 5 mins'});
+        $scope.granularity_values.push({'text':'5min','name':'Per 5 min'});
         $scope.granularity_values.push({'text':'hour','name':'Per Hour'});
         $scope.granularity_values.push({'text':'day','name':'Per Day'});
         $scope.granularity_values.push({'text':'month','name':'Month'});
 
-
+        var meas = Sensor.getMeasurementsByResourceId($scope.sensor.id);
         meas.then(function(measurements){
+
+     
+                if(measurements.data.keyName.startsWith("gaia-ps")){
+                    $scope.add_measurements_btn_view = true;
+
+                }
+
 
                 $scope.sensor.meatrics = measurements.data;  
                 
@@ -1202,13 +1281,7 @@
                      var m= new Date(measurements.data.latestTime-index*1000*3600*24);
                     $scope.dates_one[index] = $rootScope.convertForTimeAxis(m,'day');
                 });
-                
-                /*vals1.forEach(function(val,index){                            
-                    $scope.vals1.push($rootScope.addCommas(parseFloat(val.reading).toFixed(2)));
-                    var m = new Date(val.timestamp);                            
-                    $scope.tdates.push($rootScope.convertForTimeAxis(m,$scope.obj.one.granularity));
-                });*/ 
-                
+             
             $q.all(the_data).then(function(){
                 $scope.dates_one.reverse();
                 the_data.reverse();
@@ -1259,9 +1332,64 @@
             }); 
          });
 
-
-
+            
+        $scope.open_new_measurements = function(){
+            $scope.new_measurements_form = 1;
+            $scope.virtual = {};
+            $scope.virtual.time = new Date().getTime();
+        }
         
+
+         var req = {
+                 method: 'GET',
+                 url: appConfig.main.apis.main+'/uom',
+                 headers: {
+                   'Content-Type': 'application/json',"Authorization":"bearer "+appConfig.main.auth_token
+                 }
+            }
+            $http(req).then(function(d){
+                console.log("UOMSSSS");
+                console.log(d);
+                
+            }); 
+
+
+        $scope.save_value_virtual = function(){
+            console.log($scope.virtual);
+
+            var data = [];
+            data.push({
+                    "resourceId": $scope.sensor.id,
+                  "time": $scope.virtual.time,
+                  "value": $scope.virtual.value
+            });
+            var x = {data:data};
+
+
+            var req = {
+                 method: 'POST',
+                 url: appConfig.main.apis.main+'ps/data',
+                 headers: {
+                   'Content-Type': 'application/json',"Authorization":"bearer "+appConfig.main.auth_token
+                 },
+                 data: x
+            }
+            $http(req).then(function(d){
+                console.log(d);
+                $scope.new_measurements_form = 0;
+                $scope.virtual = {};
+            });    
+
+
+
+        }
+
+        $scope.cancel_virtual_value = function(){
+            $scope.virtual = {};
+            $scope.new_measurements_form = 0;
+        }
+
+
         $scope.update = function(){
             
             $scope.loading = 1;
@@ -1270,15 +1398,14 @@
             $scope.obj = {};
             $scope.obj.one = {};
             $scope.obj.one.from = $scope.first_period_from_time.getTime();
-            $scope.obj.one.to = $scope.first_period_to_time.getTime();
+            $scope.obj.one.to = $scope.second_period_to_time.getTime();
             $scope.obj.one.resourceID= $scope.sensor.id;
+            $scope.obj.one.targetUom= "kWh";
             $scope.obj.one.granularity = $scope.selected_granularity;
 
-            $scope.obj.one.string = $scope.first_period_from_time+" TO "+$scope.first_period_to_time;
+            $scope.obj.one.string = $scope.first_period_from_time+" TO "+$scope.second_period_to_time;
 
-            console.log($scope.obj.one);
-
-           
+            console.log($scope.obj.one);           
 
             
             var first = Sensor.getComparingQueryTimeRange($scope.obj.one);
@@ -1287,14 +1414,12 @@
 
                 var obj     = vals.data.results;
                 var vals1   = obj[Object.keys(obj)[0]];
-                vals1 = vals1.data;
+                    vals1 = vals1.data;
 
                 var vals    = [];
                 $scope.vals1 = [];
                 
-                $scope.tdates   = [];
-
-             
+                $scope.tdates   = [];             
 
                 vals1.forEach(function(val,index){                            
                     $scope.vals1.push($rootScope.addCommas(parseFloat(val.reading).toFixed(2)));
@@ -1322,7 +1447,21 @@
                     legend: {
                         data:['Mesurements']
                     },
-                    toolbox:$rootScope.toolbox,
+                    toolbox:{show : true,
+            feature : {
+                restore : {show: true, title: "Restore"},
+                saveAsImage : {show: true, title: "Save as image"},
+                dataZoom : {show: true,title:{zoom:"Zoom",back:"Reset Zoom"}},
+                dataView : {show: true,title:"DataView",lang: ['Data View', 'Close', 'Refresh']},
+                magicType : {show: true, type: ['line', 'bar'],title:{
+                    line: 'Line',
+                    bar: 'Bar',
+                    force: 'Force',
+                    chord: 'Chord',
+                    pie: 'Pie',
+                    funnel: 'Funnel'
+                }},
+            }},
                     calculable : true,
                     xAxis : [
                         {
@@ -1618,7 +1757,7 @@
     })
     .controller('SiteController',function($scope,$q,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor){
         $rootScope.connectToRuleEngine($stateParams.id);
-        $rootScope.recommendations = 1;
+        $rootScope.recommendations = 0;
 
         $scope.changeLineIn = function(time,line){            
                 $scope.central_chart_step = time;
@@ -1713,7 +1852,7 @@
            
             k.then(function(sensor_details){
                 
-                $scope.measurementUnit = sensor_details.data.uom;
+                $scope.measurementUnit = 'kWh';
                 $scope.getCentralChart();
                
             });
@@ -1850,9 +1989,9 @@
 
            $scope.getCentralChart = function(){
 
-                var latest = Sensor.getMeasurementsByResourceId($scope.building.energy_consumtion_meter);
+                var latest = Sensor.getMeasurementsByResourceIdAndUOM($scope.building.energy_consumtion_meter,'kWh');
                 latest.then(function(metrics){
-
+                        console.log(metrics);
                         $scope.average_per_day   = $rootScope.addCommas(parseFloat(metrics.data.average.day).toFixed(2));
                         $scope.average_per_month = $rootScope.addCommas(parseFloat(metrics.data.average.month).toFixed(2));
 
@@ -3203,7 +3342,7 @@
                 var stompClient = Stomp.over(socket);
                 stompClient.connect({}, function (f) {
                        stompClient.subscribe('/recommendations/'+school_id, function (message) {
-                        console.log("MESSAGE ALERT"); //manos
+                        console.log("MESSAGE ALERT"); 
                         console.log(message);
                         console.log(message.body);
                         $rootScope.recommendations++;

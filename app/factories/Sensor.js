@@ -72,6 +72,16 @@ angular.module('app').factory('Sensor', function($http,appConfig){
             	else
             		return "resource with resource_id="+resource_id+" is in wrong database";
             },
+            getMeasurementsByResourceIdAndUOM:function(resource_id,uom){
+                if(resource_id>10)
+                    return $http({
+                        url:appConfig.main.apis.main+'resource/'+resource_id+'/summary/'+uom,
+                        method:'GET',
+                        headers: {"Accept": "application/json","Authorization":"bearer "+appConfig.main.auth_token},
+                    })
+                else
+                    return "resource with resource_id="+resource_id+" is in wrong database";
+            },
             getComparingQueryTimeRange:function(object){
                 return $http({
                         url:appConfig.main.apis.main+'resource/query/timerange',
@@ -98,6 +108,7 @@ angular.module('app').factory('Sensor', function($http,appConfig){
                                       "from": new Date(new Date().getTime() - (200 * 24 * 60 * 60 * 1000)).getTime(),
                                       "granularity": "day",
                                       "resourceID": 143440,
+                                      "targetUom": object.targetUom,
                                       "to": new Date().getTime()
                                     }
                             ]},

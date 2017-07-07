@@ -12,7 +12,7 @@
         <li ng-show="main.selected_building>0"><a md-button aria-label="meanu" href="#/page/building/view/{{main.selected_building}}"><span data-translate="VIEW_BUILDING"></span> </a></li>
         
 
-        <li ng-show="main.selected_building>0 && (main.auth_role=='ROLE_GAIA_LOCAL_MANAGER' || main.auth_role=='ROLE_GAIA_GLOBAL_MANAGER' || main.auth_role=='ROLE_GAIA_ADMIN')">
+        <li ng-show="main.selected_building>0">
           <a md-button aria-label="meanu" href="#/page/building/edit/{{main.selected_building}}">
             <span data-translate="EDIT_BUILDING"></span> 
           </a>
@@ -29,14 +29,14 @@
         <li ng-show="main.selected_building>0">
           <a md-button aria-label="meanu" href="#/page/building/notifications/{{main.selected_building}}">
             <span data-translate="NOTIFICATIONS"></span> 
-            <span class="badge badge-info" >{{recommendations}}</span>
+            <span class="badge badge-info" ng-show="recommendations>0">{{recommendations}}</span>
           </a>
         </li>
 
 
         
 
-        <!-- <li ng-show="main.selected_building>0 && (main.auth_role=='ROLE_GAIA_LOCAL_MANAGER' || main.auth_role=='ROLE_GAIA_GLOBAL_MANAGER' || main.auth_role=='ROLE_GAIA_ADMIN'"" ><a md-button aria-label="meanu" href="#/page/building/add_measurements/{{main.selected_building}}"><span data-translate="AddMeasurements"></span> </a></li> -->
+        <li ng-show="main.selected_building>0"><a md-button aria-label="meanu" href="#/page/building/add_measurements/{{main.selected_building}}"><span data-translate="AddMeasurements"></span> </a></li>
         
         
 

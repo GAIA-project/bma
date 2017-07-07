@@ -1,6 +1,7 @@
 (function() {
     'use strict';
 
+
     angular.module('app.core').directive('onLastRepeat', function() {
         return function(scope, element, attrs) {
             if (scope.$last) setTimeout(function(){
@@ -72,7 +73,8 @@
                 
             },
             buildings:[],
-            auth_token:'mm',
+            auth_token:'mm',/*
+            auth_token:'2d6e5062-a185-4a26-bc74-7d87bae96df8',*/            
             auth_role : ''
 
         };
