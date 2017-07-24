@@ -34,11 +34,25 @@
         </li>
 
 
+        <li ng-show="main.selected_building>0">
+           <a md-button aria-label="meanu" href="#/form"><span data-translate="COMPARISON"></span></a>
+           <ul>
+           <li><a md-button aria-label="meanu" href="#/page/building/school_compare/{{main.selected_building}}"><i class="fa fa-circle"></i>Στο σχολείο σας</a></li>
+               <li><a md-button aria-label="meanu" href="#/page/building/school_compare/{{main.selected_building}}"><i class="fa fa-circle"></i>Με άλλα σχολεία</a></li>
+               <li><a md-button aria-label="meanu" href="#/page/building/school_area_compare/{{main.selected_building}}"><i class="fa fa-circle"></i>Περιοχών</a></li>
+               <li><a md-button aria-label="meanu" href="#/page/building/school_sensors/{{main.selected_building}}"><i class="fa fa-circle"></i>Πολλαπλών αισθητήρων</a></li>
+               
+           </ul>
+                </li>
+
+
+
         
 
         <li ng-show="main.selected_building>0"><a md-button aria-label="meanu" href="#/page/building/add_measurements/{{main.selected_building}}"><span data-translate="AddMeasurements"></span> </a></li>
         
-        
+        <li><a md-button aria-label="meanu" href="https://gaia-project.atlassian.net/servicedesk/customer/portal/2/" target="_blank"><i class="fa fa-info"></i><span data-translate="contact_us"></span> </a></li>
+       <li>
 
 
 

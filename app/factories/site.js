@@ -7,6 +7,13 @@ angular.module('app').factory('site', function($http,appConfig){
                     method:'GET'
                 })
             },
+            getSparkAreas:function(site_id){
+                return $http({
+                    url:appConfig.main.apis.main+appConfig.main.apis.site+'/'+site_id+'/subsite',
+                    method:'GET',
+                    headers: {"Accept": "application/json","Authorization":"bearer "+appConfig.main.auth_token}
+                })
+            },
             getGateways:function(site_id){
                 return $http({
                     url:appConfig.main.apis.over_db+appConfig.main.apis.gatewaysByBuilding+site_id,

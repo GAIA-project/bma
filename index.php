@@ -151,6 +151,7 @@
         <script src="app/factories/site.js?v=<?php echo $version; ?>"></script>
         <script src="app/factories/Anomaly.js?v=<?php echo $version; ?>"></script>
         <script src="app/factories/Sensor.js?v=<?php echo $version; ?>"></script>
+        <script src="app/factories/uom.js?v=<?php echo $version; ?>"></script>
         <script src="app/factories/area.js?v=<?php echo $version; ?>"></script>
         <script src="app/factories/sites.js?v=<?php echo $version; ?>"></script>
         <script src="app/layout/layout.controller.js?v=<?php echo $version; ?>"></script>
@@ -168,9 +169,14 @@
         <script src="app/form/wizard.controller.js?v=<?php echo $version; ?>"></script>
         <script src="app/core/app.config.js?v=<?php echo $version; ?>"></script>
         <script src="app/core/app.controller.js?v=<?php echo $version; ?>"></script>
+
+        
+        
         <script src="app/core/config.route.js?v=<?php echo $version; ?>"></script>
         <script src="app/core/i18n.js?v=<?php echo $version; ?>"></script>
         <script src="app/table/table.controller.js?v=<?php echo $version; ?>"></script>
+
+        
         <!-- endinject -->
         <!-- build:js scripts/app.js -->
         

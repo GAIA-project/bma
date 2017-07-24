@@ -2277,3 +2277,28 @@ h3.vals {
 .brules li .btn {
     margin-top: 10px;
 }
+
+button.active {
+    background: #686b71!important;
+    color: white!important;
+}
+.chart_loading {
+    position: absolute;
+    width: 100%;
+    background: #efefef;
+    height: 100%;
+    top: 0;
+    text-align: center;
+    color: #262b33;
+    padding-top: 50px;
+    left: 0;
+    z-index: 9999
+}
+.error_div{
+  text-align: center;
+    background: #ffc728;
+    padding: 61px;
+    font-weight: bold;
+    color: black;
+    border: 2px solid #f98b02;
+}

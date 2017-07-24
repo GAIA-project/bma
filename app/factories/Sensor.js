@@ -87,14 +87,18 @@ angular.module('app').factory('Sensor', function($http,appConfig){
                         url:appConfig.main.apis.main+'resource/query/timerange',
                         method:'POST',
                         data:{
-                            "queries": [
-                                    {
-                                      "from": object.from,
-                                      "granularity": object.granularity,
-                                      "resourceID": object.resourceID,
-                                      "to": object.to
-                                    }
-                            ]},
+                            "queries": [object]
+                        },
+                        headers: {"Accept": "application/json","Authorization":"bearer "+appConfig.main.auth_token},
+                    })
+            },
+            getComparingQueryTimeRangeBulk:function(queries){
+                return $http({
+                        url:appConfig.main.apis.main+'resource/query/timerange',
+                        method:'POST',
+                        data:{
+                            "queries": queries
+                        },
                         headers: {"Accept": "application/json","Authorization":"bearer "+appConfig.main.auth_token},
                     })
             },

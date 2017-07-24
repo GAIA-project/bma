@@ -1,4 +1,4 @@
-<div class="page" ng-controller="SiteController" >
+<div class="page" ng-controller="SiteViewController" >
     <div class="row">
         <div class="col-sm-12">
             <h2 class="section-header">{{building.details.item.name}}</h2>
@@ -19,34 +19,38 @@
                         <div class="col-sm-12">
                             
                             <div class="text-right right">
-                                <div class="btn-group" role="group" aria-label="Basic example">
-                                  <button type="button" class="btn btn-secondary" ng-click="changeLineIn('5mins',line3)"><span data-translate="per_5mins"></span></button>
-                                  <button type="button" class="btn btn-secondary" ng-click="changeLineIn('hour',line3)"><span data-translate="per_hour"></span></button>
-                                  <button type="button" class="btn btn-secondary selected" ng-click="changeLineIn('day',line3)"><span data-translate="per_day"></span></button>
-                                  <button type="button" class="btn btn-secondary" ng-click="changeLineIn('month',line3)"><span data-translate="per_month"></span></button>
+                                <div class="btn-group" role="group" aria-label="Options">
+                                  <button type="button" ng-repeat="boption in energy_chart.boptions"  ng-class="boption.class" ng-click="changeRegularity(boption,energy_chart)" data-attr="{{'btn_'+energy_chart.resource_id}}"><span data-translate="{{boption.translate}}"></span></button>
                                 </div>
 
                             </div>
-                            <div data-echarts data-options="line3.options" style="height: 350px;"></div>
+                            <div data-echarts data-options="energy_chart.options" style="height: 350px;"></div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            <span class="col-sm-12 watt_count">{{average_per_day+" "+measurementUnit}}</span>
+                            <span class="col-sm-12 watt_count">{{average_per_day+" "+energy_chart.uom}}</span>
                             <span class="col-sm-12 school_name"><span data-translate="average_per_day"></span></span>
                         </div>
                         <div class="col-sm-6">
-                            <span class="col-sm-12 watt_count">{{average_per_month+" "+measurementUnit}}</span>
+                            <span class="col-sm-12 watt_count">{{average_per_month+" "+energy_chart.uom}}</span>
                             <span class="col-sm-12 school_name"><span data-translate="average_per_month"></span></span>
                         </div>
                     </div>
                 </div>
             </div>
+            <div ng-show="energy_chart.loading" style="text-align: center;width:100%" class="chart_loading">
+                <h4>Loading</h4>
+                <md-progress-circular md-mode="indeterminate" style="margin:0 auto"></md-progress-circular>
+            </div>
+            <div ng-show = "energy_chart.error.view" style="text-align: center;width: 100%" class="chart_loading">
+                {{energy_chart.error.text}}
+            </div>
         </div>
     </div>
     <div class="row">
         
-        <div ng-repeat="chart in building.extra_charts" class="col-sm-6">
+        <div ng-repeat="chart in building.additional_charts" class="col-sm-6">
             <div class="panel panel-default panel-minimal">
                 <div class="divider divider-md"></div>
                 <div class="panel-body">
@@ -54,13 +58,61 @@
                         <div class="col-sm-12">
                             <div class="text-right right">
                                 <div class="btn-group" role="group" aria-label="Ex2">
-                                  <button type="button" class="btn btn-secondary" ng-click="changeLineChartIn('5mins',chart)"><span data-translate="per_5mins"></span></button>
-                                  <button type="button" class="btn btn-secondary" ng-click="changeLineChartIn('hour',chart)"><span data-translate="per_hour"></span></button>
-                                  <button type="button" class="btn btn-secondary selected" ng-click="changeLineChartIn('day',chart)"><span data-translate="per_day"></span></button>
-                                  <button type="button" class="btn btn-secondary" ng-click="changeLineChartIn('month',chart)"><span data-translate="per_month"></span></button>
+                                    <button type="button" ng-repeat="boption in chart.boptions"  ng-class="boption.class" ng-click="changeRegularity(boption,chart)" data-attr="{{'btn_'+chart.resource_id}}"><span data-translate="{{boption.translate}}"></span></button>
                                 </div>
                             </div>
-                            <div data-echarts id="{{chart.resource_id}}" data-options="chart.options" style="height: 350px;"></div>
+
+                            <div ng-hide="chart.loading" data-echarts id="{{chart.resource_id}}" data-options="chart.options" 
+                                style="height: 350px;">
+                            </div>
+
+                            
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <span class="col-sm-12 watt_count_small">{{chart.average_per_day+" "+chart.measurementUnit}}</span>
+                            <span class="col-sm-12 school_name"><span data-translate="average_per_day"></span></span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="col-sm-12 watt_count_small">{{chart.average_per_month+" "+chart.measurementUnit}}</span>
+                            <span class="col-sm-12 school_name"><span data-translate="average_per_month"></span></span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="col-sm-12 watt_count_small">{{chart.latest.val+" "+chart.measurementUnit}}</span>
+                            <span class="col-sm-12 school_name">{{chart.latest.time|date:short}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                <div ng-show="chart.loading" style="text-align: center;width:100%" class="chart_loading">
+                    <h4>Loading</h4>
+                    <md-progress-circular md-mode="indeterminate" style="margin:0 auto"></md-progress-circular>
+                </div>
+                <div ng-show = "chart.error.view" style="text-align: center;width: 100%" class="chart_loading">
+                    {{chart.error.text}}
+                </div>
+
+        </div>
+
+
+        <div ng-repeat="chart in building.extra_charts" class="col-xs-12 col-sm-6">
+            <div class="panel panel-default panel-minimal">
+                <div class="divider divider-md"></div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="text-right right">
+                                <div class="btn-group" role="group" aria-label="Ex2">
+                                <button type="button" ng-repeat="boption in chart.boptions"  ng-class="boption.class" ng-click="changeRegularity(boption,chart)" data-attr="{{'btn_'+chart.resource_id}}"><span data-translate="{{boption.translate}}"></span></button>
+                            </div>
+                            <div data-echarts id="{{chart.resource_id}}" data-options="chart.options" 
+                                style="height: 350px;">
+                            </div>
+                            
+
                         </div>
                     </div>
                     <div class="row">
@@ -82,7 +134,13 @@
         </div>
         
      
-
+        <div ng-show="chart.loading" style="text-align: center;width:100%" class="chart_loading">
+            <h4>Loading</h4>
+            <md-progress-circular md-mode="indeterminate" style="margin:0 auto"></md-progress-circular>
+        </div>
+        <div ng-show = "chart.error.view" style="text-align: center;width: 100%" class="chart_loading">
+                    {{chart.error.text}}
+        </div>
     </div>
 
 

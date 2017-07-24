@@ -18,7 +18,7 @@
                     
 
 
-
+        
         var pageTransitionOpts = [
             {
                 name: 'Fade up',
@@ -69,12 +69,13 @@
                 areasByBuilding         :'utility/areas/getall',                
                 sites                   :'location/site',
                 site                    :'location/site',
-                cnit                    :'http://150.140.5.63:8080/'
+                cnit                    :'http://150.140.5.63:8080/',
+                uom                     :'uom'
                 
             },
             buildings:[],
-            auth_token:'mm',/*
-            auth_token:'2d6e5062-a185-4a26-bc74-7d87bae96df8',*/            
+            /*auth_token:'mm',*/
+            auth_token:'0e9dd2b4-519a-4529-9556-9692a4e30062',
             auth_role : ''
 
         };

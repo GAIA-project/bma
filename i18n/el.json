@@ -58,6 +58,10 @@
     "Please_select_the_Resource_for_Rain_Height": "Παρακαλώ Επιλέξτε τον αισθητήρα ύψους νερού",
     "Please_select_the_Resource_for_Wind_Direction": "Παρακαλώ Επιλέξτε τον αισθητήρα διεύθυνση ανέμου",
     "Please_select_the_Resource_for_Energy_Consumption": "Παρακαλώ Επιλέξτε τον αισθητήρα Κατανάλωσης ενέργειας",
+    "Resource_for_Energy_Consumption":"Αισθητήρας Κατανάλωσης Ενέργειας",
+    "Resource_for_Temperature":"Αισθητήρας θερμοκρασίας",
+    "Resource_for_Relative_Humidity":"Αισθητήρας Σχετικής Υγρασίας",
+    "Resource_for_Luminosity":"Αισθητήρας Φωτεινότητας",
     "West": "Δυτικά",
     "Southweast": "Νοτιοδυτικά",
     "South": "Νότια",
@@ -121,7 +125,7 @@
     "PROFILE":"Ρυθμίσεις",
     "NOTIFICATIONS":"Ειδοποιήσεις",
     "info_box_1":"Όταν οι αισθητήρες είναι εκτός λειτουργίας, στο γράφημα η έλειψη τιμών παριστάνεται με μηδέν",
-    "energy_consumption":"Κατανάλωση Ενέργειας",
+    "energy_consumption":"Συνολική Κατανάλωση Ενέργειας Σχολείου",
     "per_day":"Ανα Ημέρα",
     "per_5mins":"Ανα 5 λεπτά",
     "per_hour":"Ανα Ώρα",
@@ -138,7 +142,8 @@
     "VIRTUAL_SENSORS":"Εικονικοί Αισθητήρες",
     "add_virtual_values":"Προσθήκη Μετρήσεων",
     "observes":"Μετρούμενο μέγεθος",
-    "Value":"Τιμή"
+    "Value":"Τιμή",
+    "contact_us":"Επικοινωνήστε μαζί μας"
 
 }
  

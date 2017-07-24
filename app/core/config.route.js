@@ -44,9 +44,7 @@ angular.module('app').run(function($rootScope, $templateCache) {
                 url: '/page/anomaly/view/:id',
                 templateUrl: 'app/page/anomaly.html'
             });
-
             
-
             $stateProvider.state('page/building/new', {
                 url: '/page/building/new',
                 templateUrl: 'app/page/building.html'
@@ -55,13 +53,18 @@ angular.module('app').run(function($rootScope, $templateCache) {
                 url: '/page/building/areas/:id',
                 templateUrl: 'app/page/building_areas.html'
             });
-             $stateProvider.state('page/building/comparison', {
+            $stateProvider.state('page/building/comparison', {
                 url: '/page/building/comparison/:id',
                 templateUrl: 'app/page/building_comparison.html'
             });
+            $stateProvider.state('page/building/school_sensors', {
+                url: '/page/building/school_sensors/:id',
+                templateUrl: 'app/page/building_sensors_comparison.html'
+            });
+             
              
 
-             $stateProvider.state('page/building/notifications', {
+            $stateProvider.state('page/building/notifications', {
                 url: '/page/building/notifications/:id',
                 templateUrl: 'app/page/building_notifications.html'
             });

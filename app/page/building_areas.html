@@ -94,6 +94,7 @@
                                         <tr>
                                             <th><span data-translate="SensorName"></span></th>
                                             <th><span data-translate="Description"></span></th>
+                                            <th><span data-translate="URI"></span></th>
                                             <th><span data-translate="Value_Type"></span></th>
                                             <th><span data-translate="ACTIONS"></span></th>
                                         </tr>
@@ -102,6 +103,7 @@
                                         <tr ng-repeat="sensor in selected_area_sensors" ng-show="selected_area_sensors.length">
                                             <td>{{sensor.name}}</td>
                                             <td>{{sensor.description}}</td>
+                                            <td>{{sensor.uri_resource}}</td>
                                             <td>{{sensor.value_type}}</td>
                                             <td><span ng-show="main.auth_role=='ROLE_GAIA_LOCAL_MANAGER' || main.auth_role=='ROLE_GAIA_GLOBAL_MANAGER' || main.auth_role=='ROLE_GAIA_ADMIN'" data-translate="DELETE" class="delete_label" ng-click="deleteThis(sensor.id)"></span></td>
                                         </tr>
