@@ -57,6 +57,7 @@
 
         <div id="loader-container"></div>
 
+
         <header data-ng-include=" 'app/layout/header.html' "
                  id="header"
                  class="header-container "
