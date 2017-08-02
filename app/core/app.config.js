@@ -18,7 +18,7 @@
                     
 
 
-        
+
         var pageTransitionOpts = [
             {
                 name: 'Fade up',
@@ -57,6 +57,7 @@
                 getRole                 :'https://sso.sparkworks.net/aa/user',
                 myresource              :'myresource',
                 over_db                 :'http://150.140.5.64:8080/GaiaAnalytics/gaia/',
+                over_new_api            :'https://buildings.gaia-project.eu/gaia-building-knowledge-base/',
                 getAnomalies            :'anomaly/events/getall',
                 buildings               :'utility/buildings/getall',
                 buildings_post          :'utility/buildings',
@@ -70,12 +71,13 @@
                 sites                   :'location/site',
                 site                    :'location/site',
                 cnit                    :'http://150.140.5.63:8080/',
-                uom                     :'uom'
+                uom                     :'uom',
+                siteInfo                :'siteInfo/search/findBySiteId'
                 
             },
             buildings:[],
             /*auth_token:'mm',*/
-            auth_token:'0e9dd2b4-519a-4529-9556-9692a4e30062',
+            auth_token:'7b5b648e-826a-4f0d-9736-9339bcfe4cb8',
             auth_role : ''
 
         };

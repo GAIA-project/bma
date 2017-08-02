@@ -24,7 +24,7 @@
     "DELETE":"Delete",
     "DETAILS":"Details",
     "ADD_AN_AREA":"Add Area",
-    "TOPVIEW":"TopView",
+    "TOPVIEW":"Floor Plan",
     "ADD_A_SENSOR":"Add Sensor",
     "ADD_A_SUBAREA":"Add a Sub-area",
     "energy_cons_per_area":"Energy Consumption per Area",
@@ -120,7 +120,15 @@
     "first_period":"First Period",
     "PROFILE":"Profile",
     "NOTIFICATIONS":"Notifications",
-    "info_box_1":"When the sensors are off-line, the lack of values is represented by zero in the graph"
-
+    "info_box_1":"When the sensors are off-line, the lack of values is represented by zero in the graph",
+    "contact_us":"Contact Us",
+    "per_day":"Per Day",
+    "per_5mins":"Per 5 mins",
+    "per_hour":"Per Hour",
+    "per_month":"Per Month",
+    "energy_consumption":"Energy Consumption",
+    "VIRTUAL_SENSORS":"Virtual Sensors",
+    "ThereareNoRules":"There are not rules",
+    "NEW_RULE":"New Rule"
 }
  

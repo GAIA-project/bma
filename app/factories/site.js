@@ -1,6 +1,12 @@
 angular.module('app').factory('site', function($http,appConfig){
     
         return{
+            getAllSites:function(){
+                 return $http({
+                    url:appConfig.main.apis.main+'gaia/site',
+                    method:'GET'                    
+                })
+            },
             getAreas:function(site_id){
                 return $http({
                     url:appConfig.main.apis.over_db+appConfig.main.apis.areasByBuilding+'/'+site_id,

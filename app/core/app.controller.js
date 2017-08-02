@@ -159,22 +159,27 @@
         $scope.add_a_rule_form = 0;
         $scope.building = {};
         $scope.rules = [];
+
         $scope.getInitAreas = function(){
-             var t_areas = site.getAreas($stateParams.id);
-            t_areas.then(function(areas){
-                $scope.building.areas = areas.data.items;
-                console.log(areas);
+            var spark_areas = site.getSparkAreas($stateParams.id);
+            spark_areas.then(function(areas){
+                $scope.building.areas = areas.data.sites;
             });
         }
+
 
         $scope.getSensors = function(){
 
             var area_sensors = Area.getSensors($scope.selected_area);
             area_sensors.then(function(sensors){
-                
+
                 $scope.selected_area_sensors = sensors.data.items;  
                 console.log($scope.selected_area_sensors);
                             
+            }).catch(function(error){
+              console.log(error);  
+                /*$scope.error = 1;
+                $scope.error_text = "Currently there is an error with the database connection. Please try it later";*/
             });
         
         }
@@ -449,231 +454,98 @@
         }
 
 
-
-
-        
         var t_site = site.getDetails($stateParams.id);
         t_site.then(function(tsite){            
             $scope.building.details = tsite.data;
         });
+
+
+
         
-        $scope.delete_area = function(area_id){
-            var d = Area.delete(area_id);
-            d.then(function(dat){
-                alert("the area deleted");
-            });
-        }
-        $scope.deleteThis = function(sensor_id){
-            var d = Sensor.delete(sensor_id);
-            d.then(function(dat){
-                alert("The sensor deleted");
-            })
-        }
+        
+
 
         $scope.getInitAreas = function(){
-
-           var t_areas = site.getAreas($stateParams.id);
-            t_areas.then(function(areas){
-                $scope.building.areas = areas.data.items;
-                console.log(areas);
-            });
-
-
-            /*var spark_areas = site.getSparkAreas($stateParams.id);
+            var spark_areas = site.getSparkAreas($stateParams.id);
             spark_areas.then(function(areas){
-                $scope.building.areas = areas.data.items;
-                console.log("Sparkworks Areas");
-                console.log(areas);
                 $scope.building.areas = areas.data.sites;
-            });*/
-        }
-
-        var available_resources = site.getResources($stateParams.id);
-        available_resources.then(function(resources,index){
-            console.log("Resources");
-            console.log(resources);
-            $scope.available_resources = [];
-            resources.data.resources.forEach(function(tresource){
-                $scope.available_resources.push({id:tresource.resourceId,uri:tresource.uri});
-            });
-        });
-       
-
-
-
-
-        $scope.details = function(area_id){
-
-            $scope.selected_area_view = 0;
-            $scope.add_an_area_form = 0;  
-            $scope.selected_area_edit = 0;
-            
-            var s_area = Area.getDetails(area_id);
-            s_area.then(function(maarea){
-                console.log(maarea);
-                $scope.selected_area = maarea.data.item;
-
-
-                if(maarea.data.item.json!='')
-                    var jjson = JSON.parse(maarea.data.item.json); 
-                else 
-                    var jjson = {};
-
-                $scope.selected_area.width = jjson.width;
-                $scope.selected_area.height = jjson.height;
-                $scope.selected_area.length = jjson.length;
-
-                $scope.selected_area.subareas=[];
-                $scope.selected_area.subareaIds.forEach(function(sub){
-                   console.log(sub);
-                     var s_area = Area.getDetails(sub);
-                        s_area.then(function(maaresa){
-                            $scope.selected_area.subareas.push(maaresa.data.item);
-                      });
-
-
-                });
-
-                $scope.selected_area.id = area_id;
-                $scope.selected_area_view = 1;
-            });
-
-            var area_sensors = Area.getSensors(area_id);
-            area_sensors.then(function(sensors){
-                console.log(sensors);
-                $scope.selected_area_sensors = sensors.data.items;
-     
-            
-            
             });
         }
 
-        $scope.addSensor = function(){
-            $scope.add_a_sensor_form = 1;
-            $scope.selected_area_view = 0;
-            $scope.add_an_area_form = 0;  
-            $scope.selected_area_edit = 0;
-            $scope.new_sensor = {};
-        }
-        $scope.addVirtualSensor = function(){
-            $scope.add_a_virtual_sensor_form = 1;
-            $scope.selected_area_view = 0;
-            $scope.add_an_area_form = 0;  
-            $scope.selected_area_edit = 0;
-            $scope.new_virtual_sensor = {};
-        }
-
-        $scope.cancel_new_sensor = function(){
-            $scope.add_a_sensor_form = 0;
-            $scope.selected_area_view = 1;
-            $scope.add_an_area_form = 0;  
-            $scope.selected_area_edit = 0;
-        }
-
-
-
-
-        $scope.save_new_virtual_sensor = function(){
-            console.log("Filter Name:"+$scope.new_virtual_sensor.observes);
-
-
-            var obs = $scope.available_observes.filter(function(item) {
-                        return item.name === $scope.new_virtual_sensor.observes;
-                        })[0];
-             
-             
-             
-             var data = {
-                "name":         $scope.new_virtual_sensor.name,
-                "observes":     $scope.new_virtual_sensor.observes,
-                "uom":          $scope.new_virtual_sensor.uom
-            };
-            var req = {
-                 method: 'POST',
-                 url: appConfig.main.apis.main+'myresource',
-                 headers: {
-                   'Content-Type': 'application/json',"Authorization":"bearer 4ba8bbeb-f520-429b-9de7-a23d8295635f"
-                 },
-                 data: data
-            }
-            $http(req).then(function(d){
-                console.log(d);
-                var nj = {
-                    "resources":[d.data]
-                };
-                
-
-                var req2 = {
-                 method: 'POST',
-                 url: appConfig.main.apis.main+'location/site/'+appConfig.main.selected_building+'/resource/add',
-                 headers: {
-                   'Content-Type': 'application/json',"Authorization":"bearer 4ba8bbeb-f520-429b-9de7-a23d8295635f"
-                 },
-                 data: nj
-            }
-            $http(req2).then(function(d){
-                console.log(d);
-
-            });
-
-            }, function(e){
+       $scope.createSiteInfo = function(area){
+        
+        
+        var k = Area.createSiteInfo(area);
+            k.then(function(info){
+                console.log(info);
+            }).catch(function(e){
                 console.log(e);
-            });
-
-        }
-
-
-
-
-        $scope.save_new_sensor = function(){
-            
-            var sensor = Sensor.getDetailsFromSparks($scope.new_sensor.id);
-            sensor.then(function(sensor_data){
-             
-                console.log(sensor_data);
-
-                
-             var data = {
-                "name":$scope.new_sensor.name,
-                "description":$scope.new_sensor.description,
-                "type":"Type",
-                "uri_resource":sensor_data.data.uri,
-                "value_type":sensor_data.data.uom,
-                "gateway_id":1,
-                "area_id":$scope.selected_area.id,
-                "id":sensor_data.data.resourceId
-            };
-            console.log(data);
-            
-           var req = {
-                 method: 'POST',
-                 url: appConfig.main.apis.over_db+'utility/sensors',
-                 headers: {
-                   'Content-Type': 'application/json'
-                 },
-                 data: data
-            }
-
-            $http(req).then(function(d){
-                    /*var new_area = JSON.parse(d.data.area);                    
-                    
-                    $scope.details(new_area.id);*/
-
-                    $scope.cancel_new_sensor();
-                    $scope.getInitAreas();
-                    $scope.details($scope.selected_area.id);
-
-            }, function(e){
-                alert("This sensor exists. Please try to assign other sensor");
-            });
-
+                $scope.error_view = 1;
+                $scope.error_text +=e.statusText;
                
             });
 
 
+       }
+
+        $scope.details = function(area){
+            console.log(area);
+            $scope.error_view = 0;
+            $scope.error_text = "";
+
+            $scope.selected_area = area;
+            
+            var resources = Area.getResources(area.id);
+            resources.then(function(info){
+
+                $scope.selected_area.resources = info.data.resources;
+                $scope.selected_area.subareas = info.data.subsites;
+                $scope.selected_area.name = area.name;
+
+            }).catch(function(e){
+
+                $scope.error_view = 1;
+                $scope.error_text +="Sparkworks:"+e.data.message;
+                console.log(e);
+            });
+
+            var k = Area.getSiteInfo(area.id);
+            k.then(function(info){
+
+                console.log(info);
+                console.log(info);
+                console.log(info);
+                console.log(info);
+                $scope.selected_area_view=1;
+                $scope.selected_area.siteInfoId = info.data.siteInfoId;
+                $scope.selected_area.overObj = info.data;
+
+                var tjson = JSON.parse(info.data.json);
+
+                
+                $scope.selected_area.description    = (!$rootScope.isUndefined(tjson)?tjson.description:'');
+                $scope.selected_area.type           = (!$rootScope.isUndefined(info.data.type)?info.data.type:'');
+                $scope.selected_area.width          = (!$rootScope.isUndefined(tjson)?tjson.width:'');
+                $scope.selected_area.length         = (!$rootScope.isUndefined(tjson)?tjson.length:'');
+                $scope.selected_area.height         = (!$rootScope.isUndefined(tjson)?tjson.height:'');
+
+            }).catch(function(e){
+                console.log(e);
+                if(e.status==404){
+                    $scope.createSiteInfo(area);
+                }else if(e.status==500){
+                    $scope.error_view = 1;
+                    $scope.error_text +="Over: "+e.statusText;
+                }
+            });
 
         }
 
+    
+
+
+
+       
 
         $scope.addSubArea = function(){
             $scope.new_subarea={};
@@ -684,36 +556,16 @@
             $scope.add_a_subarea_form = 0;
             $scope.new_subarea={};
         }
-        $scope.save_new_subarea = function(){
-            console.log("NAI NAI");
-            console.log($scope.new_subarea);
-
+        
+        $scope.updateArea = function(){
+            console.log($scope.selected_area);
+            $scope.selected_area.overObj.json=JSON.stringify({width:$scope.selected_area.width,height:$scope.selected_area.height,length:$scope.selected_area.length,description:$scope.selected_area.description});
+            $scope.selected_area.overObj.type = $scope.selected_area.type
             
-
-            var data = {
-                    "area_parent_id":$scope.selected_area.id,
-                    "area_child_id":$scope.new_subarea.id
-                };
-
-
-            var req = {
-                 method: 'POST',
-                 url: appConfig.main.apis.over_db+appConfig.main.apis.subareas,
-                 headers: {
-                   'Content-Type': 'application/json'
-                 },
-                 data: data
-            };
-            $http(req).then(function(d){
-                   /* var new_area = JSON.parse(d.data.area);                    
-                    $scope.getInitAreas();
-                    $scope.details(new_area.id);*/
-                    console.log(d);
-                    $scope.details($scope.selected_area.id);
-                    $scope.cancel_new_subarea();
-            }, function(e){console.log(e)});
-
-
+            var k = Area.updateSiteInfo($scope.selected_area.siteInfoId,$scope.selected_area.overObj);
+            k.then(function(a){
+                console.log(a);
+            });
         }
 
         
@@ -974,20 +826,10 @@
 
               $('.draggable').each(function(){
                     
-                    var area_id = $(this).attr('data-area_id');
-                    
-                    /*var offset = $(this).offset();
-                    var xPos = offset.left;
-                    var yPos = offset.top;
-                    */
-                    /*localStorage.getItem('gaia_area_'+area_id+'_x');*/
-                    /*console.log("EEEE:"+localStorage.getItem('gaia_area_'+area_id+'_y'));*/
-                    $(this).offset({ top: localStorage.getItem('gaia_area_'+area_id+'_y'), left: localStorage.getItem('gaia_area_'+area_id+'_x') });
-
+                var area_id = $(this).attr('data-area_id');
+                $(this).offset({ top: localStorage.getItem('gaia_area_'+area_id+'_y'), left: localStorage.getItem('gaia_area_'+area_id+'_x') });
 
               });
-              
-
 
         });
         
@@ -1194,7 +1036,7 @@
                 console.log(thesensor.uri + " : " + thesensor.name);                            
                         if(thesensor.uri.startsWith("gaia-ps")){
                             $scope.virtual_sensors.push(thesensor);
-                            //manos
+                        
                         }                       
                
                     });
@@ -1263,18 +1105,17 @@
         $scope.sensor = {
             id:$stateParams.id
         };
-        var details = Sensor.getDetails($scope.sensor.id);
-            details.then(function(details){
-
-                $scope.sensor.details = details.data.item;
-            });
+      
 
         var chart_details = Sensor.getDetailsFromSparks($scope.sensor.id);
             chart_details.then(function(chartdetails){
                 $scope.measurementUnit = chartdetails.data.uom;
-            
-
-        
+                var available_uom = Sensor.getAvailableUoM(chartdetails.data.uom);
+                available_uom.then(function(av_uoms){
+                    console.log('AV UOMS');
+                    console.log(av_uoms);
+                });
+                
 
         $scope.granularity_values = [];
         $scope.granularity_values.push({'text':'5min','name':'Per 5 min'});
@@ -1288,12 +1129,9 @@
      
                 if(measurements.data.keyName.startsWith("gaia-ps")){
                     $scope.add_measurements_btn_view = true;
-
                 }
 
-
-                $scope.sensor.meatrics = measurements.data;  
-                
+                $scope.sensor.meatrics = measurements.data;                  
                 var the_data = measurements.data.day;                
 
                 the_data.forEach(function(d,index){
@@ -1368,9 +1206,7 @@
                  }
             }
             $http(req).then(function(d){
-                console.log("UOMSSSS");
-                console.log(d);
-                
+                console.log(d);                
             }); 
 
 
@@ -1379,9 +1215,9 @@
 
             var data = [];
             data.push({
-                    "resourceId": $scope.sensor.id,
-                  "time": $scope.virtual.time,
-                  "value": $scope.virtual.value
+                "resourceId": $scope.sensor.id,
+                "time": $scope.virtual.time,
+                "value": $scope.virtual.value
             });
             var x = {data:data};
 
@@ -1398,9 +1234,13 @@
                 console.log(d);
                 $scope.new_measurements_form = 0;
                 $scope.virtual = {};
-            });    
-
-
+                $scope.update();
+            }).catch(function(error){
+                    console.log("error");
+                    console.log(error);
+                    
+                }); 
+            
 
         }
 
@@ -1409,29 +1249,41 @@
             $scope.new_measurements_form = 0;
         }
 
-
+        
         $scope.update = function(){
             
             $scope.loading = 1;
+            
+
+            
 
 
+/*            var now = $scope.first_period_from_time.getTime();
+
+            var utcDate = new Date(Date.UTC(2017,7,1));
+
+            var startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            var timestamp = startOfDay / 1000;
+            console.log(timestamp);
+*/
+
+
+            console.log($scope.second_period_to_time);
             $scope.obj = {};
             $scope.obj.one = {};
-            $scope.obj.one.from = $scope.first_period_from_time.getTime();
-            $scope.obj.one.to = $scope.second_period_to_time.getTime();
+            $scope.obj.one.from = $rootScope.convertToMiliseconds($scope.first_period_from_time);
+            $scope.obj.one.to = $rootScope.convertToMiliseconds($scope.second_period_to_time)+((1000*60*60*24)-2000);
             $scope.obj.one.resourceID= $scope.sensor.id;
-            $scope.obj.one.targetUom= "kWh";
             $scope.obj.one.granularity = $scope.selected_granularity;
 
-            $scope.obj.one.string = $scope.first_period_from_time+" TO "+$scope.second_period_to_time;
+           /* $scope.obj.one.string = $scope.first_period_from_time+" TO "+$scope.second_period_to_time;*/
 
             console.log($scope.obj.one);           
 
             
             var first = Sensor.getComparingQueryTimeRange($scope.obj.one);
               first.then(function(vals){
-                console.log(vals);
-
+                
                 var obj     = vals.data.results;
                 var vals1   = obj[Object.keys(obj)[0]];
                     vals1 = vals1.data;
@@ -1443,10 +1295,11 @@
 
                 vals1.forEach(function(val,index){                            
                     $scope.vals1.push($rootScope.addCommas(parseFloat(val.reading).toFixed(2)));
-                    var m = new Date(val.timestamp);                            
+                    var m = new Date(val.timestamp);                        
                     $scope.tdates.push($rootScope.convertForTimeAxis(m,$scope.obj.one.granularity));
                 });
                 $scope.setChartValues();
+                $scope.loading = 0;
 
             });
 
@@ -1512,7 +1365,8 @@
 
         
         
-           
+     
+
 
     })
     .controller('SiteSensorsComparisonController',function($scope,$q,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor,buildings){
@@ -1743,7 +1597,96 @@
 
 
     })
-    .controller('SiteComparisonController',function($scope,$q,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor,buildings){
+
+.controller('SchoolCompareController',function($scope,$q,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor,buildings){
+
+    $scope.comp_site = 0;
+
+    $scope.getAllSites = function(){
+        var schools = site.getAllSites();
+        schools.then(function(respo){
+            console.log("All Sites");
+            console.log(respo);
+            $scope.allSites = respo.data.sites;
+        }).catch(function(e){
+            alert(e);
+        });
+    }
+
+
+    $scope.compare = function(){
+        $scope.error_view = 0;
+        
+        if(!$scope.comp_site>0){
+            
+            $scope.error_view = 1;
+            $scope.error_text = "You should select a school from the list";
+
+        }else{
+
+                var t_site = site.getDetails($scope.comp_site);
+                t_site.then(function(site) {
+                    console.log(site);
+                    if(site.data.error!=''){
+                        $scope.error_view=1;
+                        $scope.error_text = site.data.error;
+                    }
+                    if(angular.isUndefined(site.data.item.json) || site.data.item.json === null || site.data.item.json==null || site.data.item.json=="null" || site.data.item.json === " " || site.data.item.json === ""){
+                        $scope.error_view = 1;
+                        $scope.error_text = "The school you selected needs some configuration";
+                    }
+                    else{
+
+                        $scope.jjson = JSON.parse(site.data.item.json);
+                        console.log(jjson);
+                        switch($scope.type_of_measurement) {
+                            case 1:
+                                if($scope.jjson.energy_consumption_resource>0){
+
+                                }else{
+                                    $scope.error_view = 1;
+                                    $scope.error_text = "The school you selected needs some configuration";
+                                }
+                                break;
+                            case 2:
+                                console.log(2);
+                                break;
+                            default:
+                                console.log('Default');
+                        }
+                        
+                            
+                    }
+                });
+
+        }
+
+        
+    }
+    
+    $scope.comp_choices = $rootScope.compare_strings;
+    $scope.available_measurements = [];
+
+    $scope.comp_choices.forEach(function(choice,index){
+        $scope.available_measurements.push(choice);
+    });
+
+
+    $scope.granularity_values = [];
+    $scope.granularity_values.push({'text':'5mins','name':'Per 5 mins'});
+    $scope.granularity_values.push({'text':'hour','name':'Per Hour'});
+    $scope.granularity_values.push({'text':'day','name':'Per Day'});
+    $scope.granularity_values.push({'text':'month','name':'Month'});
+
+    
+    
+
+
+        
+
+        
+
+}).controller('SiteComparisonController',function($scope,$q,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor,buildings){
         var todate = new Date().getTime();
         $scope.right_side_visible = 0;
         $scope.line3 = {};
@@ -2554,6 +2497,7 @@
         $rootScope.recommendations = 0;
 
         
+       
 
          $rootScope.toolbox = {
             show : true,
@@ -2650,19 +2594,12 @@
                         chart.measurementUnit = chartdetails.data.uom;
 
                     });
-                }     
-                console.log(chart);
-                console.log(time_frame);
-
-                /*$scope.changeLineChartIn(time_frame,chart);*/
+                }
            });
-
-
-           
+          
            
            $scope.building.extra_charts.forEach(function(chart,index){
-                console.log("chart");
-                console.log(chart);
+
                 var chart_details = Sensor.getDetailsFromSparks(chart.resource_id);
                 chart_details.then(function(chartdetails){
                     chart.measurementUnit = chartdetails.data.uom;
@@ -4209,41 +4146,7 @@
 
         
         }
-        $rootScope.convertForTimeAxis = function(timest,granularity){
-            
-            var m = timest;
-            console.log(timest);
-
-            console.log(m.getDate()+"/"+parseInt(m.getUTCMonth()+1)+"/"+m.getUTCFullYear());
-
-            switch(granularity) {
-                case '5mins':
-                    return m.getHours()+":"+m.getMinutes()+":00";
-                break; 
-                case 'hour':                                        
-                    return m.getHours()+":00 - "+parseInt(m.getHours()+1)+":00";
-                break; 
-                case 'day':
-                    return m.getDate()+"/"+parseInt(m.getUTCMonth()+1)+"/"+m.getUTCFullYear();
-                break; 
-                case 'month':                                           
-                    return $rootScope.convertToTextMonth(parseInt(m.getUTCMonth()+1))+" "+m.getUTCFullYear();
-                break; 
-                default:                                            
-                    return m;
-            }
-        }
-
-        $rootScope.addCommas = function(n){
-            
-            var rx=  /(\d+)(\d{3})/;
-            return String(n).replace(/^\d+/, function(w){
-                while(rx.test(w)){
-                    w= w.replace(rx, '$1,$2');
-                }
-                return w;
-            });
-        }
+        
       
                      if(appConfig.main.auth_token==""){
                         $location.url('/page/signin');

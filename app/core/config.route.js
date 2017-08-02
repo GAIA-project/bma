@@ -2,9 +2,98 @@
     'use strict';
 
 angular.module('app').run(function($rootScope, $templateCache) {
-   $rootScope.$on('$viewContentLoaded', function() {
+ /*  $rootScope.$on('$viewContentLoaded', function() {
       // $templateCache.removeAll();
    });
+*/
+
+
+        $rootScope.compare_strings = [];
+        $rootScope.compare_strings.push({
+                'id':1,
+                'name':'temperature',
+                'gr':'Θερμοκρασία',
+                'it':'Temp',
+                'en':'Temperature'            
+        });
+
+        $rootScope.compare_strings.push({
+                'id':2,
+                'name':'luminosity',
+                'gr':'Φωτεινότητα',
+                'it':'luminosity',
+                'en':'Luminosity'            
+        });
+                
+    
+        $rootScope.isUndefined = function(val){
+
+            if(angular.isUndefined(val) || val === null || val==null || val=="null" || val === " " || val === "")
+                return true;
+            else
+                return false;                    
+       }
+
+        
+        
+        $rootScope.convertToMiliseconds = function(tdat){
+                tdat = new Date(tdat);
+                var day = tdat.getDate();
+                var month = tdat.getMonth();                
+                var year = tdat.getFullYear();
+                console.log("day:"+day);
+                console.log("month:"+month);
+                console.log("year:"+year);
+
+                var utcDate = new Date(Date.UTC(year,month,day));
+                var starttime = new Date(utcDate.getFullYear(),utcDate.getMonth(),utcDate.getDate())/1;
+                
+                return starttime;
+        }
+
+
+        $rootScope.convertForTimeAxis = function(timest,granularity){
+            
+            var m = timest;
+            console.log(timest);
+
+            console.log(m.getDate()+"/"+parseInt(m.getMonth()+1)+"/"+m.getUTCFullYear());
+
+            switch(granularity) {
+                case '5min':
+                    return m.getHours()+":"+m.getMinutes()+":00";
+                break;
+                case '5mins':
+                    return m.getHours()+":"+m.getMinutes()+":00";
+                break; 
+                case 'hour':                                        
+                    return m.getHours()+":00 - "+parseInt(m.getHours()+1)+":00";
+                break; 
+                case 'day':
+                    return m.getDate()+"/"+parseInt(m.getMonth()+1)+"/"+m.getUTCFullYear();
+                break; 
+                case 'month':                                           
+                    return $rootScope.convertToTextMonth(parseInt(m.getMonth())+1)+" "+m.getUTCFullYear();
+                break; 
+                default:                                            
+                    return m;
+            }
+        }
+
+        $rootScope.addCommas = function(n){
+            
+            var rx=  /(\d+)(\d{3})/;
+            return String(n).replace(/^\d+/, function(w){
+                while(rx.test(w)){
+                    w= w.replace(rx, '$1,$2');
+                }
+                return w;
+            });
+        }
+
+               
+
+
 });
 
     angular.module('app')
@@ -60,6 +149,10 @@ angular.module('app').run(function($rootScope, $templateCache) {
             $stateProvider.state('page/building/school_sensors', {
                 url: '/page/building/school_sensors/:id',
                 templateUrl: 'app/page/building_sensors_comparison.html'
+            });
+            $stateProvider.state('page/building/school_compare', {
+                url: '/page/building/school_compare/:id',
+                templateUrl: 'app/page/sites_comparison.html'
             });
              
              

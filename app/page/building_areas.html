@@ -29,7 +29,7 @@
                             <tbody>
                                 <tr ng-repeat="area in building.areas">
                                     <td>{{area.name}}</td>
-                                    <td><a ui-wave href="javascript:;" ng-click="details(area.id)" class="btn btn-sm btn-raised btn-primary"><span data-translate="DETAILS"></span></a>
+                                    <td><a ui-wave href="javascript:;" ng-click="details(area)" class="btn btn-sm btn-raised btn-primary"><span data-translate="DETAILS"></span></a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -40,24 +40,27 @@
                 </div>
             </div>
         </div>
-         <div class="col-md-8">
+         <div class="col-md-8" ng-show="selected_area">
 
             <div class="panel panel-default panel-minimal" >
                 <div class="panel-body">
                     <h3>{{selected_area.name}}</h3>
-
+                    <div class="alert alert-danger text-center" ng-show="error_view">{{error_text}}</div>
                     <uib-tabset active="activeJustified" justified="true">
                         <uib-tab index="0" heading="{{language.description}}" >
                                 <div class="text-right" style="margin:10px">
                                     <a ui-wave href="javascript:void(0);" ng-show="main.auth_role=='ROLE_GAIA_LOCAL_MANAGER' || main.auth_role=='ROLE_GAIA_GLOBAL_MANAGER' || main.auth_role=='ROLE_GAIA_ADMIN'" ng-click="edit()" class="btn btn-sm btn-raised btn-primary"><span data-translate="EDIT"></span></a>
                                 </div>
                             <div class="details_area" ng-show="selected_area_view">               
-                                <strong><span data-translate="Name"></span>:</strong> {{selected_area.name}}<br/>
-                                <strong><span data-translate="Description"></span>:</strong> {{selected_area.description}}<br/>
-                                <strong><span data-translate="Type"></span>:</strong> {{selected_area.type}}<br/>
-                                <strong><span data-translate="Width"></span>:</strong> {{selected_area.width}}<br/>
-                                <strong><span data-translate="Lenght"></span>:</strong> {{selected_area.length}}<br/>
-                                <strong><span data-translate="Height"></span>:</strong> {{selected_area.height}}<br/>
+                                
+                                    <strong><span data-translate="Name"></span>:</strong> {{selected_area.name}}<br/>
+                                    <strong><span data-translate="Description"></span>:</strong> {{selected_area.description}}<br/>
+                                    <strong><span data-translate="Type"></span>:</strong> {{selected_area.type}}<br/>
+                                
+                                    <strong><span data-translate="Width"></span>:</strong> {{selected_area.width}}<br/>
+                                    <strong><span data-translate="Lenght"></span>:</strong> {{selected_area.length}}<br/>
+                                    <strong><span data-translate="Height"></span>:</strong> {{selected_area.height}}
+                                
                             </div>
                             <div ng-show="selected_area_edit">
                                 <strong><span data-translate="Name"></span>:</strong>
@@ -78,7 +81,7 @@
                                  <strong><span data-translate="Height"></span> <span data-translate="cm"></span>:</strong>
                                 <input type="text" class="form-control" name="Height" ng-model="selected_area.height">
                                 <br/>      
-                                <md-button class="md-accent md-raised" ng-click="update()"><span data-translate="SAVE_FORM"></span></md-button>
+                                <md-button class="md-accent md-raised" ng-click="updateArea()"><span data-translate="SAVE_FORM"></span></md-button>
                                 <md-button class="md-default md-raised" ng-click="cancel_edit_area()"><span data-translate="CANCEL"></span></md-button>
                             </div>
 
@@ -96,88 +99,22 @@
                                             <th><span data-translate="Description"></span></th>
                                             <th><span data-translate="URI"></span></th>
                                             <th><span data-translate="Value_Type"></span></th>
-                                            <th><span data-translate="ACTIONS"></span></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr ng-repeat="sensor in selected_area_sensors" ng-show="selected_area_sensors.length">
+                                        <tr ng-repeat="sensor in selected_area.resources" ng-show="selected_area.resources.length">
                                             <td>{{sensor.name}}</td>
-                                            <td>{{sensor.description}}</td>
-                                            <td>{{sensor.uri_resource}}</td>
-                                            <td>{{sensor.value_type}}</td>
-                                            <td><span ng-show="main.auth_role=='ROLE_GAIA_LOCAL_MANAGER' || main.auth_role=='ROLE_GAIA_GLOBAL_MANAGER' || main.auth_role=='ROLE_GAIA_ADMIN'" data-translate="DELETE" class="delete_label" ng-click="deleteThis(sensor.id)"></span></td>
+                                            <td>{{sensor.property}}</td>
+                                            <td>{{sensor.uri}}</td>
+                                            <td>{{sensor.uom}}</td>
                                         </tr>
-                                        <tr ng-show="!selected_area_sensors.length">
+                                        <tr ng-show="!selected_area.resources.length">
                                             <td style="text-align: center;" colspan="4"><span data-translate="Therearenoassignedsensors"></span></td>
                                         </tr>
                                     </tbody>
                                     
                                 </table>
                             </div>
-                            <div class="panel panel-default panel-minimal" ng-show="add_a_sensor_form">
-                                <div class="divider divider-md"></div>
-                                <div class="panel-heading">
-                                    <span data-translate="DETAILS"></span>
-                                </div>
-                                <div class="panel-body">
-                                    <div class="form-group">
-                                        <strong><span data-translate="Name"></span></strong>
-                                        <input class="form-control" type="text" name="" ng-model="new_sensor.name">
-                                    </div>
-                                    <div class="form-group">
-                                        <strong><span data-translate="Description"></span></strong>
-                                        <input class="form-control" type="text" name="" ng-model="new_sensor.description">
-                                    </div>
-                                    <div class="form-group">
-                                        <strong><span data-translate="SENSOR"></span></strong>
-                                        <md-select ng-model="new_sensor.id">
-                                            <md-option ng-repeat="resource in available_resources" value="{{resource.id}}">
-                                                {{resource.uri}}
-                                            </md-option>
-                                        </md-select>
-                                    </div>                                    
-                                        <md-button class="md-accent md-raised" ng-click="save_new_sensor()"><span data-translate="SAVE_FORM"></span></md-button>
-                                        <md-button class="md-accent md-raised" ng-click="cancel_new_sensor()"><span data-translate="CANCEL"></span></md-button>
-                                </div>
-                            </div>
-
-
-                            <div class="panel panel-default panel-minimal" ng-show="add_a_virtual_sensor_form">
-                                <div class="divider divider-md"></div>
-                                <div class="panel-heading">
-                                    <span data-translate="DETAILS"></span>
-                                </div>
-                                <div class="panel-body">
-                                    
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <strong><span data-translate="Name"></span></strong>
-                                            <input class="form-control" type="text" name="" ng-model="new_virtual_sensor.name">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <strong><span data-translate="observes"></span></strong>
-                                            <md-select ng-model="new_virtual_sensor.observes">
-                                                <md-option option disabled="disabled" selected><span data-translate="SELECT_OBSERVE"></span></md-option>
-                                                <md-option ng-repeat="observe in available_observes" value="{{observe.name}}">
-                                                    {{observe.name}}
-                                                </md-option>
-                                            </md-select>
-                                        </div>
-                                    </div>
-                                        
-                                        
-                                        
-                                   
-                                    
-                                        <md-button class="md-accent md-raised right" ng-click="save_new_virtual_sensor()"><span data-translate="SAVE_FORM"></span></md-button>
-                                        <md-button class="md-default md-raised right" ng-click="cancel_new_virtual_sensor()"><span data-translate="CANCEL"></span></md-button>
-                                </div>
-                            </div>
-
-
-
                         </uib-tab>
                         <uib-tab index="2" heading="{{language.subareas}}">
                             <div class="text-right" style="margin:10px">
@@ -186,8 +123,7 @@
                                 <table class="table table-striped table-bordered no-margin">
                                     <thead>
                                         <tr>
-                                            <th><span data-translate="AREA"></span></th>
-                                            
+                                            <th><span data-translate="AREA"></span></th>                                            
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -200,25 +136,6 @@
                                     </tbody>
                                     
                                 </table>
-
-                                <div class="panel panel-default panel-minimal" ng-show="add_a_subarea_form">
-                                    <div class="panel-body">                    
-                                            <div class="form-group">
-                                                <strong><span data-translate="ADD_SUBAREA"></span></strong>
-                                                <md-select ng-model="new_subarea.id">
-                                                    <md-option ng-repeat="area in building.areas" value="{{area.id}}">
-                                                        {{area.name}}
-                                                    </md-option>
-                                                </md-select>
-                                            </div> 
-                                            <div class="text-right">
-                                                <md-button class="md-accent md-raised" ng-click="save_new_subarea()"><span data-translate="SAVE_FORM"></span></md-button>
-                                                <md-button class="md-default" ng-click="cancel_new_subarea()"><span data-translate="CANCEL"></span></md-button>
-                                            </div>
-                                    </div>
-                                </div>
-
-
                         </uib-tab>
                     </uib-tabset>
 
