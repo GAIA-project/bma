@@ -4,6 +4,10 @@
             <h2 class="section-header"><span data-translate="BUILDINGS"></span></h2>
         </div>
         <div class="col-md-12">
+        <div ng-show="loading" style="text-align: center;width:100%" class="chart_loading">
+                <h4>Loading</h4>
+                <md-progress-circular md-mode="indeterminate" style="margin:0 auto"></md-progress-circular>
+        </div>
         	   <div class="error_div" ng-show="error">{{error_text}}</div>
                 <div class="table-responsive" ng-hide="error">
                 <table class="table table-striped table-bordered no-margin">

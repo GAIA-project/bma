@@ -1,6 +1,13 @@
 angular.module('app').factory('site', function($http,appConfig){
     
         return{
+            getSparkDetails:function(site_id){
+                return $http({
+                    url:appConfig.main.apis.main+appConfig.main.apis.site+'/'+site_id,
+                    method:'GET',
+                    headers: {"Accept": "application/json","Authorization":"bearer "+appConfig.main.auth_token}
+                })
+            },
             getAllSites:function(){
                  return $http({
                     url:appConfig.main.apis.main+'gaia/site',

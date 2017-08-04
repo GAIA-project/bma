@@ -3,6 +3,7 @@
         <div class="col-sm-12">
             <h2 class="section-header">{{building.details.item.name}}</h2>
         </div>
+        <div class="alert alert-danger" ng-show="error_view">{{error_text}}</div>
         <div class="col-sm-12">
             <md-button class="md-raised btn-w-md" ng-click="saveTopView()"><span data-translate="SAVE"></span></md-button>
         </div>
@@ -16,18 +17,18 @@
         </div> -->
     </div>
 
-    <div class="row" id="widget">
+    <div class="row" id="widget" ng-init="getInitAreas()">
         <div class="col-md-12" style="width:100%;min-height:1000px">          
 
           	<div ng-repeat="area in building.areas" class="draggable class ui-widget-content" on-last-repeat 
                  ng-style="area.style" data-area_id="{{area.id}}">
-                            
+              <div class="class_name" style="position: relative!important;top:0%!important">{{area.name}}</div>
           		<div class="class_measurements">
       					<ul>
-      						<li ng-repeat="sensor in area.sensors">{{sensor.name+": "+sensor.metrics.latest+" "+sensor.value_type}}</li>
+      						<li ng-repeat="sensor in area.resources">{{sensor.name+": "+sensor.metrics.latest+" "+sensor.uom}}</li>
       					</ul>
           		</div>
-  				      <div class="class_name">{{area.name}}</div>  				
+  				      			
 			     </div>
 
 	

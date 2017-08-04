@@ -25,8 +25,8 @@
             <link rel="stylesheet" href="styles/main.css?v=<?php echo $version; ?>">
             <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css?v=<?php echo $version; ?>">
 
-              <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js?v=<?php echo $version; ?>"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js?v=<?php echo $version; ?>"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js?v=<?php echo $version; ?>"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js?v=<?php echo $version; ?>"></script>
             
 
     
@@ -96,6 +96,9 @@
         <!-- build:js scripts/vendor.js -->
         <script src="bower_components/jquery/dist/jquery.min.js?v=<?php echo $version; ?>"></script>
         <script src="bower_components/angular/angular.min.js?v=<?php echo $version; ?>"></script>
+
+
+        
         <script src="bower_components/angular-animate/angular-animate.min.js?v=<?php echo $version; ?>"></script>
         <script src="bower_components/angular-aria/angular-aria.min.js?v=<?php echo $version; ?>"></script>
         <script src="bower_components/angular-messages/angular-messages.min.js?v=<?php echo $version; ?>"></script>

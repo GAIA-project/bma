@@ -6,7 +6,12 @@ angular.module('app').run(function($rootScope, $templateCache) {
       // $templateCache.removeAll();
    });
 */
-
+    
+        $rootScope.saved = function(){
+            
+            $('.saved').show();
+            $('.saved').delay(3000).fadeOut('slow');
+        }
 
         $rootScope.compare_strings = [];
         $rootScope.compare_strings.push({
@@ -23,6 +28,22 @@ angular.module('app').run(function($rootScope, $templateCache) {
                 'gr':'Φωτεινότητα',
                 'it':'luminosity',
                 'en':'Luminosity'            
+        });
+
+        $rootScope.compare_strings.push({
+                'id':3,
+                'name':'relative_humidity',
+                'gr':'Υγρασία',
+                'it':'relative_humidity',
+                'en':'Ρelative Ηumidity'            
+        });
+
+        $rootScope.compare_strings.push({
+                'id':4,
+                'name':'energy',
+                'gr':'Κατανάλωση Ενέργειας',
+                'it':'energy',
+                'en':'energy'            
         });
                 
     

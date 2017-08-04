@@ -76,9 +76,8 @@
                 
             },
             buildings:[],
-            /*auth_token:'mm',*/
-            auth_token:'7b5b648e-826a-4f0d-9736-9339bcfe4cb8',
-            auth_role : ''
+            auth_token:'c323236d-1c17-4744-b09f-f72e3ff2c090',
+            auth_role : 'ROLE_GAIA_GLOBAL_MANAGER'
 
         };
         var color = {

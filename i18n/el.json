@@ -91,7 +91,8 @@
     "Type_of_heating_system_energy_source_used": "Είδος ενέργειας συστήματος θέρμανσης",
     "Serial_number_of_the_consumption_meter": "Σειριακός αριθμός μετρητή κατανάλωσης",
     "Aretheheatingandcoolingsystemtubesinsulated": "Υπάρχει μόνωση στα συστήματα ψύξης και θέρμανσης",
-    "Aretheheatingandcoolingsystemsservicedregularly": "Γίνεται συντήρηση στα συστήματα ψύξης και θέρμανσης τακτικά",
+    "Aretheheatingsystemsservicedregularly": "Γίνεται συντήρηση στο σύστημα θέρμανσης τακτικά",
+    "Arethecoolingsystemsservicedregularly": "Γίνεται συντήρηση στο σύστημα ψύξης τακτικά",
     "SchoolName": "Όνομα Σχολείου",
     "BuildingID": "ID Κτηρίου",
     "Petrol": "Πετρέλαιο",
@@ -144,7 +145,25 @@
     "observes":"Μετρούμενο μέγεθος",
     "Value":"Τιμή",
     "contact_us":"Επικοινωνήστε μαζί μας",
-    "ThereareNoRules":"Δεν υπάρχουν εγεγραμμένοι κανόνες"
+    "ThereareNoRules":"Δεν υπάρχουν εγεγραμμένοι κανόνες",
+    "englishLocalizedName":"Όνομα σχολείου - Αγγλικά",
+    "greekLocalizedName":"Όνομα σχολείου - Ελληνικά",
+    "italianLocalizedName":"Όνομα σχολείου - Ιταλικά",
+    "swedishLocalizedName":"Όνομα σχολείου - Σουηδικά",
+    "cubicMeters":"Κυβικά Μέτρα",
+    "squareMeters":"Τετραγωνικά Μέτρα",
+    "multiple_sensors":"Πολλαπλών αισθητήρων",
+    "with_other_schools":"Με άλλα σχολεία",
+    "in_the_same_school":"Στο σχολείο σας",
+    "AIR_CONDITIONERS":"Κλιματισμός",
+    "ROOM_AIR_CONDITIONERS":"Κλιματισμός Δωματίων",
+    "EVAPORATIVE_COOLERS":"Κλιματισμός με εξάτμιση νερού",
+    "Description":"Περιγραφή",
+    "Resource":"Αισθητήρας",
+    "Regularity":"Μεταβλητότητα",
+    "DefaultMeasUnit":"Προκαθορισμένη Μ.Μ",
+    "SelectedMeasUnit":"Επιλεγμένη Μ.Μ"
+
 
 }
  

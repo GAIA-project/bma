@@ -129,6 +129,10 @@
     "energy_consumption":"Energy Consumption",
     "VIRTUAL_SENSORS":"Virtual Sensors",
     "ThereareNoRules":"There are not rules",
-    "NEW_RULE":"New Rule"
+    "NEW_RULE":"New Rule",
+    "englishLocalizedName":"School Name in English",
+    "greekLocalizedName":"School Name in Greek",
+    "italianLocalizedName":"School Name in Italian",
+    "swedishLocalizedName":"School Name in Swedish"
 }
  
