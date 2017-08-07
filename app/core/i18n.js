@@ -61,6 +61,8 @@
             return $scope.lang = lang;
         };
 
+       
+
         function getFlag() {
             var lang;
             lang = $scope.lang;

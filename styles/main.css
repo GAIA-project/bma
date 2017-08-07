@@ -2302,3 +2302,6 @@ button.active {
     color: black;
     border: 2px solid #f98b02;
 }
+td{
+      vertical-align: middle!important;
+}

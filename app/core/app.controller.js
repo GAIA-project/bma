@@ -722,36 +722,20 @@
         }
 
 
-       /* var t_site = site.getDetails($stateParams.id);
-
+       var t_site = site.getDetails($stateParams.id);
         t_site.then(function(site) {
-
-           $scope.school = site.data.item;
-           $scope.save_method = "PUT";   
-            
-            if(angular.isUndefined(site.data.item.json) || site.data.item.json === null || site.data.item.json==null || site.data.item.json=="null" || site.data.item.json === " " || site.data.item.json === ""){
-
-                $scope.jjson = {};
-                $scope.jjson.extra_charts = [];
-            }
-            else{
-
-                $scope.jjson = JSON.parse(site.data.item.json);
-                if(angular.isUndefined($scope.jjson.extra_charts) || $scope.jjson.extra_charts === null || $scope.jjson.extra_charts==null || $scope.jjson.extra_charts=="null")
-                    $scope.jjson.extra_charts = [];
-            }
-        }, function(reason) {
-          console.log(reason);
+            $scope.sschool = site.data.item;         
+            $scope.school = site.data.item;          
           
+        }, function(reason) {
+
+          console.log(reason);          
           $scope.school.id = $stateParams.id;
-          $scope.is_new_site = 1;
-          $scope.save_method = "POST";
-        });*/
+          
+        });
 
 
-        /**/
-        
-        $scope.getUOMForResource = function(resource,where){
+          $scope.getUOMForResource = function(resource,where){
             console.log(resource);
             console.log(where);
             if(where=="energy"){
@@ -768,7 +752,7 @@
                         console.log(results);
                     }).catch(function(error){
                         $scope.error_view=1;
-                        $scope.error_text = err.statusText;    
+                        $scope.error_text = error.statusText;    
                     })
                 }).catch(function(err){
                     $scope.error_view=1;
@@ -792,7 +776,7 @@
                         console.log(results);
                     }).catch(function(error){
                         $scope.error_view=1;
-                        $scope.error_text = err.statusText;    
+                        $scope.error_text = error.statusText;    
                     })
                 }).catch(function(err){
                     $scope.error_view=1;
@@ -816,7 +800,7 @@
                         console.log(results);
                     }).catch(function(error){
                         $scope.error_view=1;
-                        $scope.error_text = err.statusText;    
+                        $scope.error_text = error.statusText;    
                     })
                 }).catch(function(err){
                     $scope.error_view=1;
@@ -840,7 +824,7 @@
                         console.log(results);
                     }).catch(function(error){
                         $scope.error_view=1;
-                        $scope.error_text = err.statusText;    
+                        $scope.error_text = error.statusText;    
                     })
                 }).catch(function(err){
                     $scope.error_view=1;
@@ -910,7 +894,11 @@
                 console.log(info);
                 $scope.info = info.data;
 
-                $scope.school.overObj = JSON.parse(info.data.json);
+                $scope.school.json = JSON.parse(info.data.json);
+                $scope.jjson = $scope.school.json;
+                if($rootScope.isUndefined($scope.jjson.extra_charts)){
+                    $scope.jjson.extra_charts = [];
+                }
                 $scope.school = info.data;
 
               /*  $scope.selected_area.description    = (!$rootScope.isUndefined(tjson)?tjson.description:'');
@@ -934,6 +922,7 @@
         
         $scope.saveBuilding = function(){
            $scope.loading = 1;
+           $scope.error_text ="";
            $scope.school.json = JSON.stringify($scope.jjson);
            $scope.school.siteId = $scope.site_id;
            $scope.school.siteInfoId = $scope.info.siteInfoId;
@@ -946,6 +935,7 @@
            area.then(function(dot){
             $scope.loading = 0;
             $scope.saved();
+            $scope.getInfo();
            }).catch(function(err){
 
                 console.log(err);
@@ -1177,6 +1167,60 @@
     })
     .controller('SiteSensorsController',function($scope,$q,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor){
 
+
+        $scope.building = {};
+        
+        $scope.getInitAreas = function(){
+            var spark_areas = site.getSparkAreas($stateParams.id);
+            spark_areas.then(function(areas){
+                $scope.building.areas = areas.data.sites;
+                console.log($scope.building.areas);
+
+                $scope.building.areas.forEach(function(area){
+                    $scope.details(area);
+                })
+            });
+        }
+
+       
+        $scope.details = function(area){
+            console.log(area);
+          
+            $scope.error_view = 0;
+            $scope.error_text = "";
+            var resources = Area.getResources(area.id);
+            resources.then(function(info){
+                area.resources = info.data.resources;
+                area.resources.forEach(function(sensor,index){
+                        var m = Sensor.getMeasurementsByResourceId(sensor.resourceId);
+                            m.then(function(datas){
+                                console.log(datas);
+                                sensor.metrics = datas.data;
+                            });                           
+                    });
+
+            }).catch(function(e){
+
+                $scope.error_view = 1;
+                $scope.error_text +="Sparkworks:"+e.data.message;
+                console.log(e);
+            });
+        }
+
+
+
+
+
+
+
+
+
+        
+       
+
+
+
+
         $scope.available_observes = [];
         $scope.available_observes.push({'name':'Light','encoded_name':'Light','uom':'lux'});
         $scope.available_observes.push({'name':'Energy','encoded_name':'Energy','uom':'mWh'});
@@ -1229,7 +1273,7 @@
                 console.log(d);
                 $scope.add_a_virtual_sensor_form = 0;
                 $scope.new_virtual_sensor = {};
-                $scope.getSiteResources();
+                $scope.getPSResources();
 
             }, function(e){
                 console.log(e);
@@ -1238,8 +1282,8 @@
         });
 
 }
-        $scope.building = {};
-       var t_areas = site.getAreas($stateParams.id);
+        /*$scope.building = {};
+       var t_areas = site.getAreas($stateParams.id);*/
        
 
        var t_site = site.getDetails($stateParams.id);
@@ -1248,7 +1292,8 @@
         });
 
 
-        $scope.getSiteResources = function(){
+        $scope.getPSResources = function(){
+
             var senss = site.getResources($stateParams.id);
                 senss.then(function(sites){
         
@@ -1266,13 +1311,11 @@
                 });
         }
 
-       $scope.getSiteResources();
-
         
 
 
 
-        t_areas.then(function(areas){
+     /*   t_areas.then(function(areas){
             $scope.building.areas = areas.data.items;
 
             $scope.building.areas.forEach(function(area,index){
@@ -1287,8 +1330,7 @@
                         area.sensors.forEach(function(thesensor,index){                            
                             var t = Sensor.getDetailsFromSparks(thesensor.id);
                             t.then(function(metrics){
-                                /*if(metrics.data.uom!="")
-                                    console.log("EEE:"+thesensor.id);*/
+                               
                             });
                             var meas = Sensor.getMeasurementsByResourceId(thesensor.id);
                                 meas.then(function(measurements){
@@ -1299,7 +1341,7 @@
                     });                  
                 });
             console.log($scope.building.areas);
-        });
+        });*/
 
 
 
@@ -1309,6 +1351,7 @@
 
 
         $scope.addVirtualSensor = function(){
+            console.log("Virtual Sensor");
             $scope.add_a_virtual_sensor_form = 1;
             $scope.new_virtual_sensor = {};
         }
@@ -1626,14 +1669,14 @@
             var json = JSON.parse(respo.data.item.json);
             console.log(json);
 
-            if(!angular.isUndefined(json.carbon_monoxide_concentration_resource)){
+            if(!$rootScope.isUndefined(json.carbon_monoxide_concentration_resource)){
                 $scope.available_sensors.push({
                     'resource_id':json.carbon_monoxide_concentration_resource,
                     'name':'Μονοξειδίου του Άνθρακα',
                     'uom':json.carbon_monoxide_concentration_resource_uom
                 });
             }
-            if(!angular.isUndefined(json.energy_consumption_resource)){
+            if(!rootScope.isUndefined(json.energy_consumption_resource)){
                 $scope.available_sensors.push({
                     'resource_id':json.energy_consumption_resource,
                     'name':'Κατανάλωση ενέργειας',
@@ -1641,7 +1684,7 @@
                 });
                 
             }
-            if(!angular.isUndefined(json.luminosity_resource)){
+            if(!rootScope.isUndefined(json.luminosity_resource)){
                 $scope.available_sensors.push({
                     'resource_id':json.luminosity_resource,
                     'name':'Φωτεινότητα',
@@ -1649,7 +1692,7 @@
                 });
                 
             }
-            if(!angular.isUndefined(json.relative_humidity_resource)){
+            if(!rootScope.isUndefined(json.relative_humidity_resource)){
                 $scope.available_sensors.push({
                     'resource_id':json.relative_humidity_resource,
                     'name':'Σχετική Υγρασία',
@@ -1657,7 +1700,7 @@
                 });
                 
             }
-            if(!angular.isUndefined(json.temperature_resource)){
+            if(!rootScope.isUndefined(json.temperature_resource)){
                 $scope.available_sensors.push({
                     'resource_id':json.temperature_resource,
                     'name':'Θερμοκρασία',
@@ -1790,7 +1833,7 @@
                         tooltip : {
                             trigger: 'axis'
                         },
-                        legends:{data:$scope.legends},
+                        legend:{data:$scope.legends},
                         toolbox:$rootScope.toolbox,
                         calculable : true,
                      
@@ -1821,48 +1864,199 @@
     })
 
 .controller('SchoolCompareController',function($scope,$q,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor,buildings){
-
+    
     $scope.comp_site = 0;
+    $scope.loading = 0;
+    $scope.line3 = {};
+
 
     $scope.getAllSites = function(){
         var schools = site.getAllSites();
         schools.then(function(respo){
-            console.log("All Sites");
-            console.log(respo);
             $scope.allSites = respo.data.sites;
         }).catch(function(e){
-            alert(e);
+            $scope.error_view = 1;
+            $scope.error_text = "We can not read the list of the other schools";
         });
     }
 
+    $scope.getChart = function(this_school,other_school){
+        $scope.loading = 1;
+        $scope.ress = [];
+        $scope.legends= {};
+        $scope.legends.data = [];
+        var x = 0;
+        
+        var chart_other_school = Sensor.getComparingQueryTimeRange(other_school);
+        var chart_this_school = Sensor.getComparingQueryTimeRange(this_school);
+
+                    
+
+        chart_this_school.then(function(vals){
+            console.log(vals);
+            $scope.loading = 1;
+            
+            var obj     = vals.data.results;
+            var thevals   = obj[Object.keys(obj)[0]];
+            $scope.ress.push({'sensor':'A','vals':thevals,'name':$scope.school_this_name});
+            $scope.legends.data.push($scope.school_this_name);
+
+            x++;
+
+            if(x==2)
+                $scope.drawchart();
+        }).catch(function(error){
+            $scope.error_view = 1;
+            $scope.error_text = error.statusText;
+        });
+
+        chart_other_school.then(function(vals){
+            console.log(vals);
+            var obj     = vals.data.results;
+            var thevals   = obj[Object.keys(obj)[0]];
+            $scope.ress.push({'sensor':'B','vals':thevals,'name':$scope.school_other_name});
+            $scope.legends.data.push($scope.school_other_name);
+
+            $scope.loading = 1;
+            x++;
+            
+            if(x==2)
+                $scope.drawchart();
+            
+
+        }).catch(function(error){
+            $scope.error_view = 1;
+            $scope.error_text = error.statusText;
+        });
+
+    }
+
+    $scope.drawchart=  function(){
+            
+            $scope.datas = [];
+            $scope.tdates = [];
+            $scope.time = [];
+
+            $scope.ress.forEach(function(res,index){
+                var d = []; 
+
+                res.vals.data.forEach(function(dat,index){
+                    d.push(parseFloat(dat.reading).toFixed(2));
+                    var m = new Date(dat.timestamp);
+                    if(res.sensor.resource_id==$scope.ress[0].sensor.resource_id){
+                        if($scope.time.indexOf($rootScope.convertForTimeAxis(m,$scope.granularity))<0)
+                            $scope.time.push($rootScope.convertForTimeAxis(m,$scope.granularity));                         
+                    }
+                });
+                $scope.datas.push({
+                    name:res.name,
+                    type:'line',
+                    smooth:true,
+                    itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                    data:d
+                });  
+            });
+            
+            
+            $scope.line3.options={
+                       title : {
+                            text: "",
+                        },
+                        tooltip : {
+                            trigger: 'axis'
+                        },
+                        legend:$scope.legends,
+                        toolbox:$rootScope.toolbox,
+                        calculable : true,
+                     
+                        xAxis : [
+                            {
+                                type : 'category',
+                                boundaryGap : false,
+                                scale : true,
+                                data : $scope.time
+                            }
+                        ],
+                        yAxis : [
+                            {
+                                type : 'value',
+                                scale : true,
+                                axisLabel : {
+                                    formatter: '{value} '
+                                }
+                            }
+                        ],
+                        series : $scope.datas
+                    };
+
+            console.log($scope.line3.options);
+            $scope.loading=0;
+        }
 
     $scope.compare = function(){
-        $scope.error_view = 0;
         
-        if(!$scope.comp_site>0){
+        $scope.error_view = 0;
+        $scope.loading = 1;
+        $scope.school_this_name = "AS";
+        $scope.school_other_name = "VS";
+
+        if(!$scope.type_of_measurement>0){
+            $scope.error_view = 1;
+            $scope.error_text = "You should select a measurement type from corresponding dropdown";
+            $scope.loading = 0;
+        }
+        else if($rootScope.isUndefined($scope.from_time) || $rootScope.isUndefined($scope.to_time)){
+            $scope.error_view = 1;
+            $scope.error_text = "You should set the time range";   
+            $scope.loading = 0;
+        }
+        else if(!$scope.comp_site>0){
             
             $scope.error_view = 1;
-            $scope.error_text = "You should select a school from the list";
+            $scope.error_text = "You should select a school from the site list";
+            $scope.loading = 0;
 
         }else{
-                var tsite =  Area.getSiteInfo($scope.comp_site);
                 
+                var tsite =  Area.getSiteInfo($scope.comp_site);
+                    
                     tsite.then(function(site) {
                     console.log(site);
+                    $scope.school_other_name = $rootScope.getTranslatedName(site);
+                    $scope.school_this_name = $rootScope.getTranslatedName(site); //TODO change the "site" inside parameter with the current one (where we are = id from url)
 
-                    if(site.data.error!=''){
-                        $scope.error_view=1;
-                        $scope.error_text = "Err"+site.data.error;
-                    }
-                    if(angular.isUndefined(site.data.item.json) || site.data.item.json === null || site.data.item.json==null || site.data.item.json=="null" || site.data.item.json === " " || site.data.item.json === ""){
+                    if($rootScope.isUndefined(site.data.json) || site.data.json === null || site.data.json==null || site.data.json=="null" || site.data.json === " " || site.data.json === ""){
                         $scope.error_view = 1;
                         $scope.error_text = "The school you selected needs some configuration";
                     }
                     else{
 
-                        $scope.jjson = JSON.parse(site.data.item.json);
+                        $scope.jjson = JSON.parse(site.data.json);
                         console.log($scope.jjson);
-                        switch($scope.type_of_measurement) {
+                        console.log($scope.type_of_measurement);
+                        switch(parseInt($scope.type_of_measurement)){ //manos
+                            case 4:
+                                
+                                if($scope.jjson.energy_consumption_resource>0){
+                                    var other_school = {
+                                        from:$scope.from_time.getTime(),
+                                        to:$scope.to_time.getTime(),
+                                        granularity:$scope.granularity,
+                                        resourceID:$scope.jjson.energy_consumption_resource
+                                    }; 
+                                    var this_school = {
+                                        from:$scope.from_time.getTime(),
+                                        to:$scope.to_time.getTime(),
+                                        granularity:$scope.granularity,
+                                        resourceID:$scope.jjson.energy_consumption_resource
+                                    };
+                                    $scope.getChart(this_school,other_school);
+                                    
+                                }else{
+                                    $scope.error_view = 1;
+                                    $scope.error_text = "The school you selected needs some configuration in order to set the energy Consumption resource";
+                                }
+                                break;
                             case 1:
                                 if($scope.jjson.energy_consumption_resource>0){
 
@@ -1876,10 +2070,14 @@
                                 break;
                             default:
                                 console.log('Default');
+                                console.log($scope.type_of_measurement);
                         }
                         
                             
                     }
+                }).catch(function(error){
+                    $scope.error_view = 1;
+                    $scope.error_text = error.statusText;
                 });
 
         }
@@ -1887,6 +2085,7 @@
         
     }
     
+
     $scope.comp_choices = $rootScope.compare_strings;
     $scope.available_measurements = [];
 
@@ -2207,7 +2406,66 @@
         $scope.additional_charts = [];        
         
         
-        var t_site = site.getDetails($stateParams.id);       
+
+
+            
+            var k = Area.getSiteInfo($stateParams.id);
+            k.then(function(info){
+                $scope.loading = 0;
+                console.log("Info");
+                console.log(info);
+                $scope.info = info.data;
+
+                $scope.building = info.data;
+                $scope.building.details = info.data;
+                $scope.sitename = info.data.greekLocalizedName;
+                var json = JSON.parse(info.data.json);
+
+                $scope.building.json = JSON.parse(info.data.json);
+                $scope.jjson = $scope.building.json;
+                if($rootScope.isUndefined($scope.jjson.extra_charts)){
+                    $scope.jjson.extra_charts = [];
+                }
+
+                $scope.energy_chart = {};
+                $scope.energy_chart.resource_id = json.energy_consumption_resource;
+                $scope.energy_chart.boptions = $scope.getbOptions();
+                $scope.energy_chart.uom = json.energy_consumption_resource_uom;
+                $scope.energy_chart.measurementUnit = json.energy_consumption_resource_uom;
+                $scope.energy_chart.step = json.energy_consumption_resource_step;
+                $scope.energy_chart.name = '';
+           
+                $scope.getCentralChart();
+
+
+
+                if(json.temperature_resource){            
+                    $scope.building.additional_charts.push({
+                        'resource_id':json.temperature_resource,
+                        'step':json.temperature_resource_step,
+                        'uom':json.temperature_resource_uom,
+                        'name':'Θερμοκρασία'
+                    });
+                }
+                
+
+
+
+            }).catch(function(e){
+                $scope.loading = 0;
+                if(e.status==404){
+                    $scope.createSiteInfo();
+                }else if(e.status==500){
+                    $scope.error_view = 1;
+                    $scope.error_text +="Over: "+e.statusText;                    
+                    $scope.createSiteInfo();
+                }
+            });
+        
+
+
+
+        /*var t_site = site.getDetails($stateParams.id);       
 
         t_site.then(function(site){
             
@@ -2216,18 +2474,14 @@
            $scope.sitename = site.data.item.name;
            var json = JSON.parse(site.data.item.json);
 
+
+            
+
+
            $scope.building.extra_charts = json.extra_charts;
            $scope.building.additional_charts = [];
            
-            if(json.temperature_resource){
             
-                $scope.building.additional_charts.push({
-                    'resource_id':json.temperature_resource,
-                    'step':json.temperature_resource_step,
-                    'uom':json.temperature_resource_uom,
-                    'name':'Θερμοκρασία'
-                });
-            }
 
 
            $scope.building.additional_charts.forEach(function(chart,index){
@@ -2277,25 +2531,14 @@
     
             
                 
-            $scope.energy_chart = {};
-            $scope.energy_chart.resource_id = json.energy_consumption_resource;
-            $scope.energy_chart.boptions = $scope.getbOptions();
-            $scope.energy_chart.uom = json.energy_consumption_resource_uom;
-            $scope.energy_chart.measurementUnit = json.energy_consumption_resource_uom;
-            $scope.energy_chart.step = json.energy_consumption_resource_step;
-            $scope.energy_chart.name = '';
-            
-            console.log(json);
-            
            
-                $scope.getCentralChart();
 
 
 
 
         }, function(reason) {
           console.log(reason);
-        });
+        });*/
 
         $scope.changeRegularity = function(button,chartt){
             var chart = chartt;
@@ -2755,6 +2998,7 @@
                                  {id:3,texts:"Gas"}];
 
         var t_site = site.getDetails($stateParams.id);
+
         var available_resources = site.getResources($stateParams.id);
         available_resources.then(function(resources,index){
             $scope.available_resources = [];
@@ -2786,6 +3030,10 @@
            $scope.building.details = site.data;
            $scope.sitename = site.data.item.name;
            var json = JSON.parse(site.data.item.json);
+           console.log("*******************DETAILS***********");
+           console.log(json);
+           console.log(json);
+           console.log(json);
            $scope.building.extra_charts = json.extra_charts;
            
 

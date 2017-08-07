@@ -1,14 +1,15 @@
 <div class="page" ng-controller="SiteEditController">
     <div class="saved"><span data-translate="UPDATED"></span></div>
     <div class="row">
-        <div class="col-sm-12">
-            <h2 class="section-header">{{school.name}}</h2>
-            
-        </div>
         <div class="alert alert-danger" ng-show="error_view">{{error_text}}</div>
     </div>
 
     <div class="row ui-section" style="margin-top:10px" ng-init="getInfo()">
+        <div class="col-sm-12">
+            
+            <h2 class="section-header">{{sschool.name}}</h2>            
+            
+        </div>
         
          <div class="row ui-section">
          <div ng-show="loading" style="text-align: center;width:100%" class="chart_loading">
@@ -192,13 +193,13 @@
                                         <label for="Orientation" class="col-sm-5 control-label"><span data-translate="Orientation"></span></label>
                                         <div class="col-sm-7">
                                             <md-radio-group class="ui-md-radio-group-inline"  ng-model="school.cardinalDirection">
-                                                <md-radio-button value="West"><span data-translate="West"></span></md-radio-button>
-                                                <md-radio-button value="Southweast"><span data-translate="Southweast"></span></md-radio-button>
-                                                <md-radio-button value="South"><span data-translate="South"></span></md-radio-button> 
-                                                <md-radio-button value="Southeast"><span data-translate="Southeast"></span></md-radio-button><md-radio-button value="East"><span data-translate="East"></span></md-radio-button>
-                                                <md-radio-button value="ΝorthEastern"><span data-translate="Νorth-eastern"></span></md-radio-button>
-                                                <md-radio-button value="North"><span data-translate="North"></span></md-radio-button>
-                                                <md-radio-button value="Νorthwest"><span data-translate="Νorthwest"></span></md-radio-button>
+                                                <md-radio-button value="WEST"><span data-translate="West"></span></md-radio-button>
+                                                <md-radio-button value="SOUTH_WEST"><span data-translate="Southweast"></span></md-radio-button>
+                                                <md-radio-button value="SOUTH"><span data-translate="South"></span></md-radio-button> 
+                                                <md-radio-button value="SOUTH_EAST"><span data-translate="Southeast"></span></md-radio-button><md-radio-button value="EAST"><span data-translate="East"></span></md-radio-button>
+                                                <md-radio-button value="NORTH_EAST"><span data-translate="Νorth-eastern"></span></md-radio-button>
+                                                <md-radio-button value="NORTH"><span data-translate="North"></span></md-radio-button>
+                                                <md-radio-button value="NORTH_WEST"><span data-translate="Νorthwest"></span></md-radio-button>
                                             </md-radio-group>
                                         </div>
                                     </div>
@@ -383,10 +384,14 @@
 
                                         <tr ng-repeat="ch in jjson.extra_charts">
                                             <td>
-                                                <label for="building_build_year" class="col-sm-12 col-md-2 control-label">
-                                                    <span data-translate="DELETE" ng-click="removeThisChart(ch)" class="delete_label"></span>
-                                                </label>
+                                                <span>
                                                 {{ch.name}}
+                                                </span>
+                                                <br/>
+                                                <span class="label label-danger" ng-click="removeThisChart(ch)" >
+                                                    <span data-translate="DELETE"></span>
+                                                </span>
+
                                             </td>
                                             <td>
                                                 <md-select ng-model="ch.resource_id">

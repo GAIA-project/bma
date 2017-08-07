@@ -76,7 +76,7 @@
                 
             },
             buildings:[],
-            auth_token:'c323236d-1c17-4744-b09f-f72e3ff2c090',
+            auth_token:'a23e7d09-9e4f-44ba-9920-a65e84fcd4d7',
             auth_role : 'ROLE_GAIA_GLOBAL_MANAGER'
 
         };

@@ -49,8 +49,9 @@ angular.module('app').factory('site', function($http,appConfig){
             },
             getDetails : function(site_id) {
                 return $http({
-                    url: appConfig.main.apis.over_db+appConfig.main.apis.building+site_id,
-                    method: 'GET'
+                    url: appConfig.main.apis.over_new_api+site_id+"/siteInfo",
+                    method: 'GET',
+                    headers: {"Accept": "application/json","Authorization":"bearer "+appConfig.main.auth_token}
                 })
             },
             syncCNIT:function(site_id){
