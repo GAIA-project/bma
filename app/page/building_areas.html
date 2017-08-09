@@ -71,7 +71,7 @@
                                         <strong><span data-translate="Type"></span>:</strong>
                                             <md-select ng-model="selected_area.type">
                                                 <md-option ng-repeat="type in available_types" value="{{type.name}}">
-                                                    {{type.name}}
+                                                    <span data-translate="{{type.name}}"></span>
                                                 </md-option>
                                             </md-select>
                                     </div>

@@ -220,24 +220,12 @@
                                 <div ng-show="add_a_chart_visible_form" class="new_chart_class">
                                     <div class="row">
                                         <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label for="new_chart_name" class="col-sm-5 control-label"><span data-translate="CHART_NAME"></span></label>
-                                            <div class="col-sm-7">
-                                                <input type="text" class="form-control" id="new_chart_name" ng-model="new_chart.name">
+                                            <div class="form-group">
+                                                <label for="new_chart_name" class="col-sm-5 control-label"><span data-translate="CHART_NAME"></span></label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control" id="new_chart_name" ng-model="new_chart.name">
+                                                </div>
                                             </div>
-                                        </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                         <div class="form-group">
-                                            <label for="Orientation" class="col-sm-5 control-label"><span data-translate="CHART_SENSOR"></span></label>
-                                            <div class="col-sm-7">
-                                                    <md-select ng-model="new_chart.resource_id">
-                                                        <md-option ng-repeat="resource in available_resources" value="{{resource.id}}">
-                                                            {{resource.uri}}
-                                                        </md-option>
-                                                    </md-select>
-                                            </div>
-                                        </div>
                                         </div>
                                     </div>
                                     <div class="row text-right">
@@ -271,8 +259,8 @@
                                             </td>
                                             <td>
                                                 <md-select ng-model="jjson.energy_consumption_resource_step">
-                                                    <md-option ng-repeat="step in available_steps" value="{{step.text}}">
-                                                        {{step.name}}
+                                                    <md-option ng-repeat="gran in granularity_values" value="{{gran.text}}">
+                                                        <span data-translate="{{gran.name}}"></span>
                                                     </md-option>
                                                 </md-select>
                                             </td>
@@ -343,7 +331,7 @@
                                             </td>
                                             <td>
                                                 <md-select ng-model="jjson.relative_humidity_resource_uom">
-                                                    <md-option ng-repeat="uom in available_relatice_humidity_uoms" value="{{uom.target}}">
+                                                    <md-option ng-repeat="uom in available_relative_humidity_uoms" value="{{uom.target}}">
                                                         {{uom.target}}
                                                     </md-option>
                                                 </md-select> 
@@ -394,7 +382,7 @@
 
                                             </td>
                                             <td>
-                                                <md-select ng-model="ch.resource_id">
+                                                <md-select ng-model="ch.resource_id" ng-change="getUOMForExtraResource(ch)">
                                                     <md-option ng-repeat="resource in available_resources" value="{{resource.id}}">
                                                         {{resource.uri}}
                                                     </md-option>
@@ -408,11 +396,11 @@
                                                 </md-select>
                                             </td>
                                             <td>
-                                                {{ch.uom}}
+                                                {{ch.default_uom}}
                                             </td>
                                             <td>
                                                 <md-select ng-model="ch.uom">
-                                                    <md-option ng-repeat="uom in available_uom" value="{{uom.target}}">
+                                                    <md-option ng-repeat="uom in ch.available_uoms" value="{{uom.target}}">
                                                         {{uom.target}}
                                                     </md-option>
                                                 </md-select> 

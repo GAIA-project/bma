@@ -50,12 +50,13 @@
     </div>
     <div class="row">
         
-        <div ng-repeat="chart in building.additional_charts" class="col-sm-6">
+        <div ng-repeat="chart in additional_charts" class="col-sm-6">
             <div class="panel panel-default panel-minimal">
                 <div class="divider divider-md"></div>
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-sm-12">
+                            <div class="text-left left" ng-show="chart.translated_name"><span data-translate="{{chart.translated_name}}"></span></div>
                             <div class="text-right right">
                                 <div class="btn-group" role="group" aria-label="Ex2">
                                     <button type="button" ng-repeat="boption in chart.boptions"  ng-class="boption.class" ng-click="changeRegularity(boption,chart)" data-attr="{{'btn_'+chart.resource_id}}"><span data-translate="{{boption.translate}}"></span></button>
@@ -64,9 +65,7 @@
 
                             <div ng-hide="chart.loading" data-echarts id="{{chart.resource_id}}" data-options="chart.options" 
                                 style="height: 350px;">
-                            </div>
-
-                            
+                            </div>                            
 
                         </div>
                     </div>
@@ -96,52 +95,5 @@
                 </div>
 
         </div>
-
-
-        <div ng-repeat="chart in building.extra_charts" class="col-xs-12 col-sm-6">
-            <div class="panel panel-default panel-minimal">
-                <div class="divider divider-md"></div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="text-right right">
-                                <div class="btn-group" role="group" aria-label="Ex2">
-                                <button type="button" ng-repeat="boption in chart.boptions"  ng-class="boption.class" ng-click="changeRegularity(boption,chart)" data-attr="{{'btn_'+chart.resource_id}}"><span data-translate="{{boption.translate}}"></span></button>
-                            </div>
-                            <div data-echarts id="{{chart.resource_id}}" data-options="chart.options" 
-                                style="height: 350px;">
-                            </div>
-                            
-
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <span class="col-sm-12 watt_count_small">{{chart.average_per_day+" "+chart.measurementUnit}}</span>
-                            <span class="col-sm-12 school_name"><span data-translate="average_per_day"></span></span>
-                        </div>
-                        <div class="col-sm-4">
-                            <span class="col-sm-12 watt_count_small">{{chart.average_per_month+" "+chart.measurementUnit}}</span>
-                            <span class="col-sm-12 school_name"><span data-translate="average_per_month"></span></span>
-                        </div>
-                        <div class="col-sm-4">
-                            <span class="col-sm-12 watt_count_small">{{chart.latest.val+" "+chart.measurementUnit}}</span>
-                            <span class="col-sm-12 school_name">{{chart.latest.time|date:short}}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-     
-        <div ng-show="chart.loading" style="text-align: center;width:100%" class="chart_loading">
-            <h4>Loading</h4>
-            <md-progress-circular md-mode="indeterminate" style="margin:0 auto"></md-progress-circular>
-        </div>
-        <div ng-show = "chart.error.view" style="text-align: center;width: 100%" class="chart_loading">
-                    {{chart.error.text}}
-        </div>
-    </div>
-
 
 </div>

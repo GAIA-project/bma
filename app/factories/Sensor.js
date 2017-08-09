@@ -109,23 +109,6 @@ angular.module('app').factory('Sensor', function($http,appConfig){
                         },
                         headers: {"Accept": "application/json","Authorization":"bearer "+appConfig.main.auth_token},
                     })
-            },
-            getDetailsFromTimeRange:function(resource_id,uri){
-                return $http({
-                        url:appConfig.main.apis.main+'resource/query/timerange',
-                        method:'POST',
-                        data:{
-                            "queries": [
-                                    {
-                                      "from": new Date(new Date().getTime() - (200 * 24 * 60 * 60 * 1000)).getTime(),
-                                      "granularity": "day",
-                                      "resourceID": 143440,
-                                      "targetUom": object.targetUom,
-                                      "to": new Date().getTime()
-                                    }
-                            ]},
-                        headers: {"Accept": "application/json","Authorization":"bearer "+appConfig.main.auth_token},
-                    })
             }
         }
        

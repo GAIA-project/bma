@@ -9,14 +9,14 @@
                         <div class="form-group">
                             <label for="building_build_year" class="col-sm-12 control-label"><span data-translate="FROM_TIME"></span></label>
                             <div class="col-sm-12" style="background: white">                                        
-                                <md-datepicker ng-model="from_time" md-placeholder="Enter date"></md-datepicker>
+                                <md-datepicker ng-model="from_time" md-placeholder=""></md-datepicker>
                             </div>
                         </div>                    
                     
                         <div class="form-group">
                             <label for="building_build_year" class="col-sm-12 control-label"><span data-translate="TO_TIME"></span></label>
                             <div class="col-sm-12" style="background: white">
-                                <md-datepicker ng-model="to_time" md-placeholder="Enter date"></md-datepicker>
+                                <md-datepicker ng-model="to_time" md-placeholder=""></md-datepicker>
                             </div>
                         </div>                    
                         
@@ -27,19 +27,19 @@
                                 <div class="col-sm-12">                                        
                                     <md-select ng-model="granularity">
                                         <md-option ng-repeat="gran in granularity_values" value="{{gran.text}}">
-                                            {{gran.name}}
+                                            <span data-translate="{{gran.name}}"></span>
                                         </md-option>
                                     </md-select>                              
                                 </div>
                             </div>
 
 
-                        <div class="form-group">
+                        <div class="form-group" ng-show="available_sensors.length>0">
                             <label for="s" class="col-sm-12 control-label"><span data-translate="sensors"></span></label>
                             <div class="col-sm-12">
                                 <div flex="100" ng-repeat="item in available_sensors">
                                     <md-checkbox ng-checked="exists(item, selected_sensors)" ng-click="toggle(item, selected_sensors)">
-                                        {{ item.name }}
+                                        <span data-translate="{{item.name}}"></span> ({{item.uom}})
                                     </md-checkbox>
                                 </div>
                             </div>                            
@@ -59,6 +59,10 @@
             <div class="panel panel-default panel-minimal">
                 <div class="panel-body">
                      <div class="row">
+                     <div ng-show="loading" style="text-align: center;width:100%" class="chart_loading">
+                            <h4>Loading</h4>
+                            <md-progress-circular md-mode="indeterminate" style="margin:0 auto"></md-progress-circular>
+                    </div>
                         
                         <div data-echarts id="line3" data-options="line3.options" style="height: 350px;"></div>
                         

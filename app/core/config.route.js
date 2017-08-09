@@ -1,12 +1,36 @@
 (function () {
     'use strict';
 
-angular.module('app').run(function($rootScope, $templateCache) {
+angular.module('app').run(function($rootScope, $templateCache,$translate,$log) {
  /*  $rootScope.$on('$viewContentLoaded', function() {
       // $templateCache.removeAll();
    });
 */
-    
+
+
+        $rootScope.getL = function(){
+        return $translate('Lang');
+            var l = "";
+            var x = $translate('Lang');
+            x.then(function(y){
+                l=y;
+            });
+            return x;
+        }
+        $rootScope.getLanguage = function(){
+            var x = $rootScope.getL();
+            x.then(function(oo){
+                return oo;
+            });
+        }
+
+        
+        $rootScope.granularity_values = [];
+        $rootScope.granularity_values.push({'text':'5min','name':'per_5min'});
+        $rootScope.granularity_values.push({'text':'hour','name':'per_hour'});
+        $rootScope.granularity_values.push({'text':'day','name':'per_day'});
+        $rootScope.granularity_values.push({'text':'month','name':'per_month'});
+
         $rootScope.saved = function(){
             
             $('.saved').show();

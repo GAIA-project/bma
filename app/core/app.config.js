@@ -15,10 +15,7 @@
     function appConfig($location) {
         var debug = true;
 
-                    
-
-
-
+                
         var pageTransitionOpts = [
             {
                 name: 'Fade up',
@@ -76,7 +73,7 @@
                 
             },
             buildings:[],
-            auth_token:'a23e7d09-9e4f-44ba-9920-a65e84fcd4d7',
+            auth_token:'d3625c13-017c-41fd-8b65-a26ef22c4a66',
             auth_role : 'ROLE_GAIA_GLOBAL_MANAGER'
 
         };

@@ -528,6 +528,7 @@
             var k = Area.getSiteInfo(area.id);
             k.then(function(info){
 
+
                 $scope.selected_area_view=1;
                 $scope.selected_area.siteInfoId = info.data.siteInfoId;
                 $scope.selected_area.overObj = info.data;
@@ -628,6 +629,9 @@
     })
     .controller('SiteEditController',function($scope,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Sensor,UoM,Area){
         
+
+
+
         $scope.add_a_chart_visible_form = 0;
         $scope.new_chart = {};
         $scope.extra_charts = [];       
@@ -673,14 +677,6 @@
         }
 
 
-
-        $scope.available_steps = [];
-        $scope.available_steps.push({'text':'5mins','name':'Per 5 mins'});
-        $scope.available_steps.push({'text':'hour','name':'Per Hour'});
-        $scope.available_steps.push({'text':'day','name':'Per Day'});
-        $scope.available_steps.push({'text':'month','name':'Month'});
-
-
         $scope.available_uom = [];
 
 
@@ -695,57 +691,54 @@
             });   
         }
 
-        
+             
 
-        $scope.addExtraChart = function(){
-            
-            $scope.add_a_chart_visible_form = 1;
+        $scope.getUOMForExtraResource = function(ch){
+            console.log(ch);
+
+            var deta = Sensor.getDetailsFromSparks(ch.resource_id);
+                deta.then(function(det){
+                    console.log(det);
+                    ch.default_uom = det.data.uom;
+                    ch.default_uom = ch.default_uom;
+                    var x = UoM.getAvailableTargets(ch.default_uom);
+                    x.then(function(results){
+                        console.log(results);
+                        ch.available_uoms = results.data.unitConversions;
+                        ch.available_uoms.push({'target':det.data.uom});
+                        
+                        console.log("RESULTS");
+                        console.log(results);
+                    }).catch(function(error){
+                        $scope.error_view=1;
+                        $scope.error_text = error.statusText;    
+                    })
+                }).catch(function(err){
+                    $scope.error_view=1;
+                    $scope.error_text = err.statusText;
+                })
         }
 
-        $scope.cancel_new_chart = function(){
-            $scope.add_a_chart_visible_form = 0;
-            $scope.new_chart = {};
-        }
-        
-        $scope.save_new_chart = function(){
-         
-            var chart = $scope.new_chart;
-            $scope.jjson.extra_charts.push(chart);
-            $scope.new_chart = {};
-            $scope.add_a_chart_visible_form = 0;
-
-        }
-        $scope.removeThisChart = function(chart){
-
-            var index = $scope.jjson.extra_charts.indexOf(chart);
-            $scope.jjson.extra_charts.splice(index, 1);    
-        }
-
-
-       var t_site = site.getDetails($stateParams.id);
-        t_site.then(function(site) {
-            $scope.sschool = site.data.item;         
-            $scope.school = site.data.item;          
-          
-        }, function(reason) {
-
-          console.log(reason);          
-          $scope.school.id = $stateParams.id;
-          
-        });
 
 
           $scope.getUOMForResource = function(resource,where){
             console.log(resource);
             console.log(where);
+            
             if(where=="energy"){
                 
                 var deta = Sensor.getDetailsFromSparks(resource);
                 deta.then(function(det){
+                    console.log("DET");
                     console.log(det);
                     $scope.jjson.energy_consumption_resource_default_uom = det.data.uom;
-                    var x = Sensor.getAvailableUoM(det.data.uom);
+                    console.log($scope.jjson.energy_consumption_resource_default_uom);
+                    console.log("DET UOM: "+det.data.uom);
+
+
+                    var x = UoM.getAvailableTargets(det.data.uom);
                     x.then(function(results){
+                        console.log(results);
                         $scope.available_energy_uoms = results.data.unitConversions;
                         $scope.available_energy_uoms.push({'target':det.data.uom});
                         console.log("RESULTS");
@@ -768,7 +761,7 @@
                 deta.then(function(det){
                     console.log(det);
                     $scope.jjson.temperature_resource_uom = det.data.uom;
-                    var x = Sensor.getAvailableUoM(det.data.uom);
+                    var x = UoM.getAvailableTargets(det.data.uom);
                     x.then(function(results){
                         $scope.temperature_resource_uoms = results.data.unitConversions;
                         $scope.temperature_resource_uoms.push({'target':det.data.uom});
@@ -792,7 +785,7 @@
                 deta.then(function(det){
                     console.log(det);
                     $scope.jjson.luminosity_resource_uom = det.data.uom;
-                    var x = Sensor.getAvailableUoM(det.data.uom);
+                    var x = UoM.getAvailableTargets(det.data.uom);
                     x.then(function(results){
                         $scope.available_luminosity_uoms = results.data.unitConversions;
                         $scope.available_luminosity_uoms.push({'target':det.data.uom});
@@ -816,10 +809,10 @@
                 deta.then(function(det){
                     console.log(det);
                     $scope.jjson.relative_humidity_resource_uom = det.data.uom;
-                    var x = Sensor.getAvailableUoM(det.data.uom);
+                    var x = UoM.getAvailableTargets(det.data.uom);
                     x.then(function(results){
-                        $scope.available_relatice_humidity_uoms = results.data.unitConversions;
-                        $scope.available_relatice_humidity_uoms.push({'target':det.data.uom});
+                        $scope.available_relative_humidity_uoms = results.data.unitConversions;
+                        $scope.available_relative_humidity_uoms.push({'target':det.data.uom});
                         console.log("RESULTS");
                         console.log(results);
                     }).catch(function(error){
@@ -894,18 +887,44 @@
                 console.log(info);
                 $scope.info = info.data;
 
-                $scope.school.json = JSON.parse(info.data.json);
-                $scope.jjson = $scope.school.json;
-                if($rootScope.isUndefined($scope.jjson.extra_charts)){
-                    $scope.jjson.extra_charts = [];
-                }
-                $scope.school = info.data;
+                
+                
+                if($rootScope.isUndefined(info.data.json))
+                    $scope.school.json = {};
+                else
+                    $scope.school.json = JSON.parse(info.data.json);
 
-              /*  $scope.selected_area.description    = (!$rootScope.isUndefined(tjson)?tjson.description:'');
-                $scope.selected_area.type           = (!$rootScope.isUndefined(info.data.type)?info.data.type:'');
-                $scope.selected_area.width          = (!$rootScope.isUndefined(tjson)?tjson.width:'');
-                $scope.selected_area.length         = (!$rootScope.isUndefined(tjson)?tjson.length:'');
-                $scope.selected_area.height         = (!$rootScope.isUndefined(tjson)?tjson.height:'');*/
+                $scope.jjson = $scope.school.json;
+                if(!$rootScope.isUndefined($scope.jjson)){
+                    console.log("JJJSON");
+                    console.log($scope.jjson);
+                    if(!$rootScope.isUndefined($scope.jjson.energy_consumption_resource)){
+                        $scope.getUOMForResource($scope.jjson.energy_consumption_resource,"energy");
+                    }
+                    if(!$rootScope.isUndefined($scope.jjson.luminosity_resource)){
+                        $scope.getUOMForResource($scope.jjson.luminosity_resource,"luminosity");
+                    }
+                    if(!$rootScope.isUndefined($scope.jjson.relative_humidity_resource)){
+                        $scope.getUOMForResource($scope.jjson.relative_humidity_resource,"relative_humidity");
+                    }
+                    if(!$rootScope.isUndefined($scope.jjson.temperature_resource)){
+                        $scope.getUOMForResource($scope.jjson.temperature_resource,"temperature");
+                    }
+                
+                        if($rootScope.isUndefined($scope.jjson.extra_charts)){
+                            
+                            $scope.jjson.extra_charts = [];
+                        
+                        }else{
+                            
+                            console.log($scope.jjson.extra_charts);
+                            $scope.jjson.extra_charts.forEach(function(ch,index){
+                                $scope.getUOMForExtraResource(ch);
+                            });
+                        }
+                }
+
+                $scope.school = info.data;
 
             }).catch(function(e){
                 $scope.loading = 0;
@@ -926,8 +945,6 @@
            $scope.school.json = JSON.stringify($scope.jjson);
            $scope.school.siteId = $scope.site_id;
            $scope.school.siteInfoId = $scope.info.siteInfoId;
-           /*$scope.school.heatingSystem = JSON.stringify($scope.school.heatingSystem);
-           $scope.school.coolingSystem = JSON.stringify($scope.school.coolingSystem);*/
            delete $scope.school.overObj;
            
            console.log($scope.school);
@@ -945,38 +962,29 @@
            })
         }
 
+        $scope.addExtraChart = function(){            
+            $scope.add_a_chart_visible_form = 1;
+        }
 
-        /*$scope.saveBuilding = function(){
-            
-            
-     
-            var data = {
-                        "json":JSON.stringify($scope.jjson),
-                        "id":$stateParams.id,
-                        "name":$scope.school.name,
-                        "people":$scope.school.people,
-                        "sqmt":$scope.school.sqmt,
-                        "country":$scope.school.country
-                    };
+        $scope.cancel_new_chart = function(){
+            $scope.add_a_chart_visible_form = 0;
+            $scope.new_chart = {};
+        }
         
-            var req = {
-                 method: $scope.save_method,
-                 url: appConfig.main.apis.over_db+appConfig.main.apis.buildings_post,
-                 headers: {
-                   'Content-Type': 'application/json'
-                 },
-                 data: data
-            };
+        $scope.save_new_chart = function(){
+         
+            var chart = $scope.new_chart;
+            $scope.jjson.extra_charts.push(chart);
+            $scope.new_chart = {};
+            $scope.add_a_chart_visible_form = 0;
 
-            $http(req).then(function(d){
-                    console.log(d);
-            if(d.statusText=="OK"){
-                    $scope.saved();
-                }
-                    
+        }
+        $scope.removeThisChart = function(chart){
 
-            }, function(e){console.log(e)});
-        };*/
+            var index = $scope.jjson.extra_charts.indexOf(chart);
+            $scope.jjson.extra_charts.splice(index, 1);    
+        }
+
 
        
         $scope.saved = function(){
@@ -989,6 +997,7 @@
     .controller('SiteTopViewController',function($scope,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor){
 
         $scope.building = {};
+        $scope.zoom = 1;
         $scope.$on('onRepeatLast', function(scope, element, attrs){
             
             $( ".draggable" ).draggable({
@@ -996,25 +1005,47 @@
                     var offset = $(this).offset();
                     var xPos = offset.left;
                     var yPos = offset.top;
+                    console.log($(this).attr('data-area_id')+":"+offset.top);
                 }
             });
 
               $('.draggable').each(function(){
                     
-                var area_id = $(this).attr('data-area_id');
+                var area_id = 'v2'+$(this).attr('data-area_id');
                 $(this).offset({ top: localStorage.getItem('gaia_area_'+area_id+'_y'), left: localStorage.getItem('gaia_area_'+area_id+'_x') });
 
               });
+
+              $scope.zoom = ($rootScope.isUndefined(localStorage.getItem('gaia_v4_zoom'))?1:localStorage.getItem('gaia_v4_zoom'));
 
         });
         
 
 
+        
+        $scope.zoomIn = function(){
+            $scope.zoom=parseFloat(Number(Number(parseFloat($scope.zoom).toFixed(1))+0.1)).toFixed(1);
+            console.log($scope.zoom);
+            $scope.refreshAreas();
+        }
+        $scope.zoomOut = function(){
+            $scope.zoom=parseFloat(Number(Number(parseFloat($scope.zoom).toFixed(1))-0.1)).toFixed(1);
+            console.log($scope.zoom);
+            $scope.refreshAreas();
+        }
+        $scope.refreshAreas = function(){
+            $scope.building.areas.forEach(function(area){
+                    
+                area.style={
+                    'width':area.element_width*$scope.zoom+'px',
+                    'height':area.element_length*$scope.zoom+'px'
+                };
 
-
+            })
+        }
 
         $scope.getInitAreas = function(){
-            var spark_areas = site.getSparkAreas($stateParams.id);
+            var spark_areas = site.getSparkAreas($stateParams.id); 
             spark_areas.then(function(areas){
                 $scope.building.areas = areas.data.sites;
                 $scope.building.areas.forEach(function(area){
@@ -1030,25 +1061,7 @@
             $scope.error_view = 0;
             $scope.error_text = "";
 
-            
-            var resources = Area.getResources(area.id);
-            resources.then(function(info){
-                area.resources = info.data.resources;
-
-                area.resources.forEach(function(sensor,index){
-                        var m = Sensor.getMeasurementsByResourceId(sensor.resourceId);
-                            m.then(function(datas){
-                                sensor.metrics = datas.data;
-                            });                           
-                    });
-
-            }).catch(function(e){
-
-                $scope.error_view = 1;
-                $scope.error_text +="Sparkworks:"+e.data.message;
-                console.log(e);
-            });
-
+           
             var k = Area.getSiteInfo(area.id);
             k.then(function(info){
 
@@ -1059,25 +1072,24 @@
                if(!$rootScope.isUndefined(area.info.json)){
                     var js = area.info.json; 
                         js = JSON.parse(js);
-                        console.log(js);
-                        area.element_width = (!$rootScope.isUndefined(js.width)?js.width:'200');
+                        console.log("AREA ID:"+area.id);
+                        console.log(js.length)
+                        area.element_width  = (!$rootScope.isUndefined(js.width)?js.width:'200');
                         area.element_length = (!$rootScope.isUndefined(js.length)?js.length:'200');
                         area.element_height = (!$rootScope.isUndefined(js.height)?js.height:'200');
                       
 
                 }else{
-                    area.element_width=200;
-                    area.element_height=200;
-                    area.element_height=300;
+                    area.element_width='200';
+                    area.element_height='200';
+                    area.element_length='300';
                 }
                 
                 area.style={
-                    'width':area.element_width*0.7+'px',
-                    'height':area.element_length*0.7+'px'
+                    'width':area.element_width*$scope.zoom+'px',
+                    'height':area.element_length*$scope.zoom+'px'
                 };
 
-
-               
 
 
 
@@ -1085,7 +1097,7 @@
                 console.log(e);
                 
                     $scope.error_view = 1;
-                    $scope.error_text +="Over: "+e.statusText;
+                    $scope.error_text +="Over: "+e.data.message+"\n";
                 
             });
 
@@ -1095,7 +1107,32 @@
 
 
 
+        $scope.openNav = function(area) {
+            
+            $scope.selected_area = area;
+            var resources = Area.getResources(area.id);
+            resources.then(function(info){
 
+                $scope.selected_area.resources = info.data.resources;
+                $scope.selected_area.resources.forEach(function(sensor,index){
+                        var m = Sensor.getMeasurementsByResourceId(sensor.resourceId);
+                            m.then(function(datas){
+                                sensor.metrics = datas.data;
+                            });                           
+                    });
+                document.getElementById("myNav").style.width = "100%";
+
+            }).catch(function(e){
+
+                $scope.error_view = 1;
+                $scope.error_text +="Sparkworks:"+e.data.message;
+                console.log(e);
+            });
+}
+
+        $scope.closeNav = function () {
+            document.getElementById("myNav").style.width = "0%";
+        }
 
 
 
@@ -1105,7 +1142,7 @@
         $scope.saveTopView = function(){
            
             $('.draggable').each(function(){
-                    var area_id = $(this).attr('data-area_id');
+                    var area_id = 'v2'+$(this).attr('data-area_id');
                     
                     var offset = $(this).offset();
                     var xPos = offset.left;
@@ -1113,6 +1150,8 @@
                     
                     localStorage.setItem('gaia_area_'+area_id+'_x', xPos);
                     localStorage.setItem('gaia_area_'+area_id+'_y', yPos);
+                    localStorage.setItem('gaia_v4_zoom',$scope.zoom);
+
             })
             alert('OK');
            
@@ -1363,9 +1402,10 @@
 
 
     })
-    .controller('SensorController',function($scope,$q,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor){
+    .controller('SensorController',function($scope,$q,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor,UoM){
         $scope.sensor_measurements = {};
         $scope.dates_one = [];
+        $scope.available_uoms = [];
 
         $scope.sensor = {
             id:$stateParams.id
@@ -1375,18 +1415,18 @@
         var chart_details = Sensor.getDetailsFromSparks($scope.sensor.id);
             chart_details.then(function(chartdetails){
                 $scope.measurementUnit = chartdetails.data.uom;
-                var available_uom = Sensor.getAvailableUoM(chartdetails.data.uom);
+                $scope.available_uoms.push(chartdetails.data.uom);
+                $scope.selected_uom = chartdetails.data.uom;
+                $scope.selected_granularity = 'day';
+                var available_uom = UoM.getAvailableTargets(chartdetails.data.uom);
                 available_uom.then(function(av_uoms){
-                    console.log('AV UOMS');
-                    console.log(av_uoms);
-                });
-                
+                    var avi = av_uoms.data.unitConversions;
+                    avi.forEach(function(uom){
 
-        $scope.granularity_values = [];
-        $scope.granularity_values.push({'text':'5min','name':'Per 5 min'});
-        $scope.granularity_values.push({'text':'hour','name':'Per Hour'});
-        $scope.granularity_values.push({'text':'day','name':'Per Day'});
-        $scope.granularity_values.push({'text':'month','name':'Month'});
+                        $scope.available_uoms.push(uom.target);
+                    })
+                });
+                        
 
         var meas = Sensor.getMeasurementsByResourceId($scope.sensor.id);
         meas.then(function(measurements){
@@ -1463,17 +1503,7 @@
         }
         
 
-         var req = {
-                 method: 'GET',
-                 url: appConfig.main.apis.main+'/uom',
-                 headers: {
-                   'Content-Type': 'application/json',"Authorization":"bearer "+appConfig.main.auth_token
-                 }
-            }
-            $http(req).then(function(d){
-                console.log(d);                
-            }); 
-
+        
 
         $scope.save_value_virtual = function(){
             console.log($scope.virtual);
@@ -1522,17 +1552,6 @@
 
             
 
-
-/*            var now = $scope.first_period_from_time.getTime();
-
-            var utcDate = new Date(Date.UTC(2017,7,1));
-
-            var startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-            var timestamp = startOfDay / 1000;
-            console.log(timestamp);
-*/
-
-
             console.log($scope.second_period_to_time);
             $scope.obj = {};
             $scope.obj.one = {};
@@ -1540,6 +1559,7 @@
             $scope.obj.one.to = $rootScope.convertToMiliseconds($scope.second_period_to_time)+((1000*60*60*24)-2000);
             $scope.obj.one.resourceID= $scope.sensor.id;
             $scope.obj.one.granularity = $scope.selected_granularity;
+            $scope.obj.one.targetUom = $scope.selected_uom;
 
            /* $scope.obj.one.string = $scope.first_period_from_time+" TO "+$scope.second_period_to_time;*/
 
@@ -1634,14 +1654,9 @@
 
 
     })
-    .controller('SiteSensorsComparisonController',function($scope,$q,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor,buildings){
+    .controller('SiteSensorsComparisonController',function($scope,$q,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor,buildings,$filter){
 
-        $scope.granularity_values = [];
-        $scope.granularity_values.push({    'text':'5mins', 'name':'Per 5 mins' });
-        $scope.granularity_values.push({    'text':'hour',  'name':'Per Hour'   });
-        $scope.granularity_values.push({    'text':'day',   'name':'Per Day'    });
-        $scope.granularity_values.push({    'text':'month', 'name':'Month'      });
-
+        
         $scope.selected_sensors = [];
         $scope.available_sensors = [];
         $scope.line3 = {};
@@ -1662,64 +1677,51 @@
 
 
 
+        var t_site = Area.getSiteInfo($stateParams.id);
+            t_site.then(function(respo){
+                
+             
+            if(!$rootScope.isUndefined(respo.data.json)){    
 
-        var t_site = site.getDetails($stateParams.id);
-        t_site.then(function(respo){
+                var json = JSON.parse(respo.data.json);
+                
+                if(!$rootScope.isUndefined(json.energy_consumption_resource)){
+                    $scope.available_sensors.push({'name':'energy','resource_id':json.energy_consumption_resource,'uom':json.energy_consumption_resource_uom});
+                }
+                if(!$rootScope.isUndefined(json.luminosity_resource)){
+                    $scope.available_sensors.push({'name':'luminosity','resource_id':json.luminosity_resource,'uom':json.luminosity_resource_uom});
+                }
+                if(!$rootScope.isUndefined(json.relative_humidity_resource)){
+                    $scope.available_sensors.push({'name':'relative_humidity','resource_id':json.relative_humidity_resource,'uom':json.relative_humidity_resource_uom});
+                }
+                if(!$rootScope.isUndefined(json.temperature_resource)){
+                    $scope.available_sensors.push({'name':'temperature','resource_id':json.temperature_resource,'uom':json.temperature_resource_uom});
+                }
 
-            var json = JSON.parse(respo.data.item.json);
-            console.log(json);
-
-            if(!$rootScope.isUndefined(json.carbon_monoxide_concentration_resource)){
-                $scope.available_sensors.push({
-                    'resource_id':json.carbon_monoxide_concentration_resource,
-                    'name':'Μονοξειδίου του Άνθρακα',
-                    'uom':json.carbon_monoxide_concentration_resource_uom
-                });
-            }
-            if(!rootScope.isUndefined(json.energy_consumption_resource)){
-                $scope.available_sensors.push({
-                    'resource_id':json.energy_consumption_resource,
-                    'name':'Κατανάλωση ενέργειας',
-                    'uom':json.energy_consumption_resource_uom
-                });
-                
-            }
-            if(!rootScope.isUndefined(json.luminosity_resource)){
-                $scope.available_sensors.push({
-                    'resource_id':json.luminosity_resource,
-                    'name':'Φωτεινότητα',
-                    'uom':json.luminosity_resource_uom
-                });
-                
-            }
-            if(!rootScope.isUndefined(json.relative_humidity_resource)){
-                $scope.available_sensors.push({
-                    'resource_id':json.relative_humidity_resource,
-                    'name':'Σχετική Υγρασία',
-                    'uom':json.relative_humidity_resource_uom
-                });
-                
-            }
-            if(!rootScope.isUndefined(json.temperature_resource)){
-                $scope.available_sensors.push({
-                    'resource_id':json.temperature_resource,
-                    'name':'Θερμοκρασία',
-                    'uom':json.temperature_resource_uom
-                });
-                
+            
+                if(!$rootScope.isUndefined(json) && !$rootScope.isUndefined(json.extra_charts)){
+                    
+                    json.extra_charts.forEach(function(chart,index){            
+                        $scope.available_sensors.push({'name':chart.name,'resource_id':chart.resource_id,'uom':chart.uom});
+                    });    
+                }
+            
             }
             
-            
-            
+
         });
+
+       
 
 
         $scope.getChart = function(){
+            $scope.loading=1;
+
             $scope.counter = 0;
             var date_from = $scope.from_time.getTime();
             var date_to = $scope.to_time.getTime();
 
-            var granularity  =granularity;
+            var granularity  = $scope.granularity;
             var varseries = [];
             $scope.chart_times = [];
             var legends = [];            
@@ -1749,7 +1751,7 @@
 
             $scope.selected_sensors.forEach(function(sensor,index){
                 console.log(sensor);
-                if(sensor.uom=="kWh")
+                
                     sensor.chart = Sensor.getComparingQueryTimeRange({
                       "from": date_from,
                       "granularity": $scope.granularity,
@@ -1757,24 +1759,14 @@
                       "targetUom": sensor.uom,
                       "to": date_to
                     });
-                else{
-                    sensor.chart = Sensor.getComparingQueryTimeRange({
-                      "from": date_from,
-                      "granularity": $scope.granularity,
-                      "resourceID": sensor.resource_id,
-                      "to": date_to
-                    });
-                    console.log("ELSE");
-                }
-                
+                               
 
                 
                 sensor.chart.then(function(vals){
                     var obj     = vals.data.results;
                     var thevals   = obj[Object.keys(obj)[0]];
                     $scope.ress.push({'sensor':sensor,'vals':thevals});
-                    $scope.counter++;
-                    
+                    $scope.counter++;                    
 
                     if($scope.counter===($scope.selected_sensors.length)){
                         $scope.drawchart();
@@ -1807,7 +1799,7 @@
             $scope.time = [];
 
             $scope.ress.forEach(function(res,index){
-                $scope.legends.push(res.sensor.name);
+                $scope.legends.push($filter('translate')(res.sensor.name));
                 var d = [];
 
                 res.vals.data.forEach(function(dat,index){ 
@@ -1817,7 +1809,7 @@
                         $scope.time.push($rootScope.convertForTimeAxis(m,$scope.granularity));                         
                 });
                 $scope.datas.push({
-                    name:res.sensor.name,
+                    name:$filter('translate')(res.sensor.name),
                     type:'line',
                     smooth:true,
                     itemStyle: {normal: {areaStyle: {type: 'default'}}},
@@ -1857,7 +1849,7 @@
                         series : $scope.datas
                     };
 
-            console.log($scope.line3.options);
+            $scope.loading=0;
         }
 
 
@@ -2034,7 +2026,7 @@
                         $scope.jjson = JSON.parse(site.data.json);
                         console.log($scope.jjson);
                         console.log($scope.type_of_measurement);
-                        switch(parseInt($scope.type_of_measurement)){ //manos
+                        switch(parseInt($scope.type_of_measurement)){ 
                             case 4:
                                 
                                 if($scope.jjson.energy_consumption_resource>0){
@@ -2094,22 +2086,13 @@
     });
 
 
-    $scope.granularity_values = [];
-    $scope.granularity_values.push({'text':'5mins','name':'Per 5 mins'});
-    $scope.granularity_values.push({'text':'hour','name':'Per Hour'});
-    $scope.granularity_values.push({'text':'day','name':'Per Day'});
-    $scope.granularity_values.push({'text':'month','name':'Month'});
-
-    
-    
-
+          
 
         
 
+}).controller('SiteComparisonController',function($scope,$q,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor,buildings,$filter){
         
-
-}).controller('SiteComparisonController',function($scope,$q,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor,buildings){
-        var todate = new Date().getTime();
+    var todate = new Date().getTime();
         $scope.right_side_visible = 0;
         $scope.line3 = {};
         $scope.line4 = {};
@@ -2125,60 +2108,40 @@
 
         $scope.measurementUnit = "";
 
-
         var vals    = [];      
         $scope.metrics = [];
         $scope.schools = [];
 
-
         
-        var t_site = site.getDetails($stateParams.id);
-        t_site.then(function(respo){
+        var t_site = Area.getSiteInfo($stateParams.id);
+            t_site.then(function(respo){
+                
+             var json = JSON.parse(respo.data.json);
+                console.log(json);
+                $scope.schools.push({"id":$stateParams.id,"name":respo.data.name});
+                $scope.school_two = $stateParams.id;
+                $scope.school_one = $stateParams.id;
 
-             var json = JSON.parse(respo.data.item.json);
+            if(!$rootScope.isUndefined(json.energy_consumption_resource)){
+                $scope.metrics.push({'name':'energy','resource_id':json.energy_consumption_resource,'uom':json.energy_consumption_resource_uom});
+            }
+            if(!$rootScope.isUndefined(json.luminosity_resource)){
+                $scope.metrics.push({'name':'luminosity','resource_id':json.luminosity_resource,'uom':json.luminosity_resource_uom});
+            }
+            if(!$rootScope.isUndefined(json.relative_humidity_resource)){
+                $scope.metrics.push({'name':'relative_humidity','resource_id':json.relative_humidity_resource,'uom':json.relative_humidity_resource_uom});
+            }
+            if(!$rootScope.isUndefined(json.temperature_resource)){
+                $scope.metrics.push({'name':'temperature','resource_id':json.temperature_resource,'uom':json.temperature_resource_uom});
+            }
 
-                     $scope.schools.push({"id":$stateParams.id,"name":respo.data.item.name});
-                     $scope.school_two = $stateParams.id;
-                     $scope.school_one = $stateParams.id;
-
-
-            $scope.energy_consumption_resource = json.energy_consumption_resource;
-            $scope.metrics.push({'name':'Energy','resource_id':json.energy_consumption_resource});
-             
-            $scope.metric = json.energy_consumption_resource;
-            $scope.added = [];
-            $scope.added.push(json.energy_consumption_resource);
             
             
-            json.extra_charts.forEach(function(chart,index){
-            
-                if($scope.added.indexOf(chart.resource_id)<0){
-                    $scope.metrics.push({'name':chart.name,'resource_id':chart.resource_id});
-                    $scope.added.push(chart.resource_id);
-                }
-
+            json.extra_charts.forEach(function(chart,index){            
+                    $scope.metrics.push({'name':chart.name,'resource_id':chart.resource_id,'uom':chart.uom});
             });
-
-             
-
-
 
         });
-
-        if($scope.energy_consumption_resource>0){
-
-            var chart_details = Sensor.getDetailsFromSparks($scope.energy_consumption_resource);
-            chart_details.then(function(chartdetails){
-                $scope.measurementUnit = chartdetails.data.uom;
-            });
-        }
-
-        $scope.granularity_values = [];
-        $scope.granularity_values.push({'text':'5mins','name':'Per 5 mins'});
-        $scope.granularity_values.push({'text':'hour','name':'Per Hour'});
-        $scope.granularity_values.push({'text':'day','name':'Per Day'});
-        $scope.granularity_values.push({'text':'month','name':'Month'});
-
 
         
         $scope.from = function(){
@@ -2192,23 +2155,28 @@
             $scope.tdates2 = [];
             $scope.loading = 1;            
 
-            if($scope.metric>0){
+
+           
+            var result = $filter('filter')($scope.metrics, {'resource_id':$scope.metric});             
+            if(result.length>0)
+                result = result[0];
+
+            if(!$rootScope.isUndefined(result)){
 
 
-                    var chart_details = Sensor.getDetailsFromSparks($scope.metric);
-                        chart_details.then(function(chartdetails){
-                            $scope.measurementUnit = chartdetails.data.uom;
-                        });
+                 
 
-                var sensor = $scope.metric; 
+                var sensor = result;
+                $scope.measurementUnit = sensor.uom;
                 $scope.obj = {};
                 $scope.obj.one = {};
                 $scope.obj.one.from = $scope.first_period_from_time.getTime();
                 $scope.obj.one.to = $scope.first_period_to_time.getTime();
-                $scope.obj.one.resourceID= sensor;
+                $scope.obj.one.resourceID= sensor.resource_id;
                 $scope.obj.one.granularity = $scope.granularity; 
+                $scope.obj.one.targetUom = sensor.uom;
 
-                var month = $scope.first_period_from_time.getUTCMonth() + 1; //months from 1-12
+                /*var month = $scope.first_period_from_time.getUTCMonth() + 1; //months from 1-12
                 var day = $scope.first_period_from_time.getDate();
                 var year = $scope.first_period_from_time.getUTCFullYear();
                 var newdate = day + "/" + month + "/" + year;
@@ -2217,17 +2185,20 @@
                 var day2 = $scope.first_period_to_time.getDate();
                 var year2 = $scope.first_period_to_time.getUTCFullYear();
                 var newdate2 = day2 + "/" + month2 + "/" + year2;
-                $scope.obj.one.string = newdate+" to "+newdate2;  
+                $scope.obj.one.string = newdate+" to "+newdate2;  */
 
+                /*$scope.obj.one.string = new Date($scope.first_period_from_time.getTime()).toLocaleDateString('en-US');*/
+                $scope.obj.one.string = $filter('date')($scope.first_period_from_time.getTime(), 'dd/MM/yyyy')+'-'+$filter('date')($scope.first_period_to_time.getTime(), 'dd/MM/yyyy');
 
 
                 $scope.obj.two = {};
                 $scope.obj.two.to = $scope.second_period_to_time.getTime();
                 $scope.obj.two.from = $scope.second_period_from_time.getTime();
-                $scope.obj.two.resourceID = sensor;
+                $scope.obj.two.resourceID = sensor.resource_id;
                 $scope.obj.two.granularity = $scope.granularity;
+                $scope.obj.two.targetUom = sensor.uom;
 
-                var month = $scope.second_period_from_time.getUTCMonth() + 1; //months from 1-12
+               /* var month = $scope.second_period_from_time.getUTCMonth() + 1; //months from 1-12
                 var day = $scope.second_period_from_time.getDate();
                 var year = $scope.second_period_from_time.getUTCFullYear();
                 var newdate = day + "/" + month + "/" + year;
@@ -2238,15 +2209,16 @@
                 var newdate2 = day + "/" + month + "/" + year;
 
 
-            $scope.obj.two.string = newdate+" to "+newdate2;          
+            $scope.obj.two.string = newdate+" to "+newdate2;  */        
+                        $scope.obj.two.string = $filter('date')($scope.second_period_to_time.getTime(), 'dd/MM/yyyy')+'-'+$filter('date')($scope.second_period_to_time.getTime(), 'dd/MM/yyyy');
 
             
             $scope.obj.resourceID = sensor;
-
+            
 
 
             var first = Sensor.getComparingQueryTimeRange($scope.obj.one);
-
+            console.log($scope.obj.one);
             first.then(function(vals){
                 console.log("VALS");
                 console.log(vals);
@@ -2272,6 +2244,9 @@
                         tooltip : {
                             trigger: 'axis'
                         },
+                        legend: {
+                                data:[$scope.obj.one.string]
+                            },
                         toolbox:$rootScope.toolbox,
                         calculable : true,
                         xAxis : [
@@ -2363,7 +2338,7 @@
             
             }else{
                 $scope.loading = 0;
-                alert("Please assign Energy Consumption Meter");
+                alert("Please select metric");
             }
         }
 
@@ -2439,13 +2414,69 @@
 
 
 
-                if(json.temperature_resource){            
-                    $scope.building.additional_charts.push({
-                        'resource_id':json.temperature_resource,
-                        'step':json.temperature_resource_step,
-                        'uom':json.temperature_resource_uom,
-                        'name':'Θερμοκρασία'
-                    });
+                if(!$rootScope.isUndefined(json.luminosity_resource)){            
+                    
+                     var vchart = {
+                            'resource_id':json.luminosity_resource,
+                            'step':json.luminosity_resource_step,
+                            'uom':json.luminosity_resource_uom,
+                            'name':'luminosity',
+                            'translated_name':'luminosity',
+                            'boptions':$scope.getbOptions(),
+                            'loading':1,
+                            'measurementUnit':json.luminosity_resource_uom                    
+                        };
+                        $scope.additional_charts.push(vchart);
+                        $scope.changeLineChartIn(vchart.step,vchart);
+                }
+                if(!$rootScope.isUndefined(json.relative_humidity_resource)){            
+                    
+                     var vchart = {
+                            'resource_id':json.relative_humidity_resource,
+                            'step':json.relative_humidity_resource_step,
+                            'uom':json.relative_humidity_resource_uom,
+                            'name':'relative_humidity',
+                            'translated_name':'relative_humidity',
+                            'boptions':$scope.getbOptions(),
+                            'loading':1,
+                            'measurementUnit':json.relative_humidity_resource_uom                    
+                        };
+                        $scope.additional_charts.push(vchart);
+                        $scope.changeLineChartIn(vchart.step,vchart);
+                }
+                if(!$rootScope.isUndefined(json.temperature_resource)){            
+                    
+                     var vchart = {
+                            'resource_id':json.temperature_resource,
+                            'step':json.temperature_resource_step,
+                            'uom':json.temperature_resource_uom,
+                            'name':'temperature',
+                            'translated_name':'temperature',
+                            'boptions':$scope.getbOptions(),
+                            'loading':1,
+                            'measurementUnit':json.temperature_resource_uom                    
+                        };
+                        $scope.additional_charts.push(vchart);
+                        $scope.changeLineChartIn(vchart.step,vchart);
+                }
+
+
+                if(!$rootScope.isUndefined(json.extra_charts)){
+
+                    json.extra_charts.forEach(function(chart){
+                         var vchart = {
+                            'resource_id':chart.resource_id,
+                            'step':chart.step,
+                            'uom':chart.uom,
+                            'name':chart.name,
+                            'boptions':$scope.getbOptions(),
+                            'loading':1,
+                            'measurementUnit':chart.uom
+                    
+                        };
+                        $scope.additional_charts.push(vchart);
+                        $scope.changeLineChartIn(vchart.step,vchart);
+                    });                    
                 }
                 
 
@@ -2554,9 +2585,9 @@
             console.log(chart);
             console.log("Chart MeasUnit:"+chart.measurementUnit);
 
-            if(chart.uom=='' || angular.isUndefined(chart.uom))
+           /* if(chart.uom=='' || angular.isUndefined(chart.uom))
                 var latest = Sensor.getMeasurementsByResourceId(chart.resource_id);
-            else
+            else*/
                 var latest = Sensor.getMeasurementsByResourceIdAndUOM(chart.resource_id,chart.uom);
 
             
@@ -2587,7 +2618,7 @@
 
                     case '5mins':                        
                         metrics_of_this = metrics.data.minutes5.reverse();
-                        var i = 1;
+                        var i = 0;
                         while(i<metrics.data.minutes5.length){
                             
                             var m = new Date(d-i*1000*60*5);
@@ -2597,7 +2628,7 @@
                         break; 
                     case 'hour':
                          metrics_of_this = metrics.data.minutes60.reverse();  
-                        var i = 1;
+                        var i = 0;
                         while(i<metrics.data.minutes60.length){
                             var m = new Date(d-i*1000*60*60);
                             dates.push(m.getHours()+":00 - "+parseInt(m.getHours()+1)+":00");
@@ -2608,7 +2639,7 @@
                     case 'day':
                          metrics_of_this = metrics.data.day.reverse();
 
-                         var i = 1;
+                         var i = 0;
                         while(i<metrics.data.day.length){
                             var m = new Date(d-i*1000*60*60*24);
                             dates.push(m.getDate()+"/"+parseInt(m.getUTCMonth()+1)+"/"+m.getUTCFullYear());
@@ -2618,7 +2649,7 @@
                         break; 
                     case 'month':
                          metrics_of_this = metrics.data.month.reverse(); 
-                         var i = 1;
+                         var i = 0;
                         while(i<metrics.data.month.length){
                             var m = new Date(d-i*1000*60*60*24*30);
                             dates.push($rootScope.convertToTextMonth(parseInt(m.getUTCMonth()+1))+" "+m.getUTCFullYear());
@@ -2626,7 +2657,7 @@
                         }            
                         break; 
                     default: 
-                        var i = 1;
+                        var i = 0;
                         while(i<metrics.data.day.length){
                             var m = new Date(d-i*1000*60*60*24);
                             dates.push(m);
@@ -2639,7 +2670,7 @@
                  chart.options ={
                 
                    title : {
-                        text: chart.name+" ("+chart.measurementUnit+")",
+                        text: ($rootScope.isUndefined(chart.translated_name)?chart.name:"")+" ("+chart.measurementUnit+")",
                     },
                     legend : {
                         data:[chart.name]
@@ -2687,21 +2718,16 @@
                     });
         }
          $scope.changeLineChartIn = function(timeperiod,chart){
+            console.log("Change Line Chart");
             console.log(chart);
             chart.loading = 1;
             chart.step = timeperiod;
-            /*var latest = Sensor.getMeasurementsByResourceId(chart.resource_id);*/
-            console.log(chart);
-            console.log("Chart MeasUnit:"+chart.measurementUnit);
 
-            if(chart.uom=='' || angular.isUndefined(chart.uom))
-                var latest = Sensor.getMeasurementsByResourceId(chart.resource_id);
-            else
-                var latest = Sensor.getMeasurementsByResourceIdAndUOM(chart.resource_id,chart.uom);
-                
-
-            
+            var latest = Sensor.getMeasurementsByResourceIdAndUOM(chart.resource_id,chart.uom);
                 latest.then(function(metrics){               
+                console.log("METRICS");
+                console.log(chart.name);
+                console.log(metrics);
 
                 var dates = [];
                 var metrics_of_this = [];
@@ -2710,7 +2736,7 @@
                 chart.average_per_month = $rootScope.addCommas(parseFloat(metrics.data.average.month).toFixed(2));
                 
                 var dateObj = new Date(metrics.data.latestTime);
-                var month = dateObj.getUTCMonth() + 1; //months from 1-12
+                var month = dateObj.getUTCMonth() + 1;
                 var day = dateObj.getUTCDate();
                 var year = dateObj.getUTCFullYear();
                 var newdate = day + "/" + month + "/" + year;                
@@ -2726,7 +2752,7 @@
                 switch (chart.step) {
                     case '5mins':                        
                         metrics_of_this = metrics.data.minutes5.reverse();
-                        var i = 1;
+                        var i = 0;
                         while(i<metrics.data.minutes5.length){
                             
                             var m = new Date(d-i*1000*60*5);
@@ -2736,7 +2762,7 @@
                         break; 
                     case 'hour':
                          metrics_of_this = metrics.data.minutes60.reverse();  
-                        var i = 1;
+                        var i = 0;
                         while(i<metrics.data.minutes60.length){
                             var m = new Date(d-i*1000*60*60);
                             dates.push(m.getHours()+":00 - "+parseInt(m.getHours()+1)+":00");
@@ -2747,7 +2773,7 @@
                     case 'day':
                          metrics_of_this = metrics.data.day.reverse();
 
-                         var i = 1;
+                         var i = 0;
                         while(i<metrics.data.day.length){
                             var m = new Date(d-i*1000*60*60*24);
                             dates.push(m.getDate()+"/"+parseInt(m.getUTCMonth()+1)+"/"+m.getUTCFullYear());
@@ -2757,7 +2783,7 @@
                         break; 
                     case 'month':
                          metrics_of_this = metrics.data.month.reverse(); 
-                         var i = 1;
+                         var i = 0;
                         while(i<metrics.data.month.length){
                             var m = new Date(d-i*1000*60*60*24*30);
                             dates.push($rootScope.convertToTextMonth(parseInt(m.getUTCMonth()+1))+" "+m.getUTCFullYear());
@@ -2765,7 +2791,7 @@
                         }            
                         break; 
                     default: 
-                        var i = 1;
+                        var i = 0;
                         while(i<metrics.data.day.length){
                             var m = new Date(d-i*1000*60*60*24);
                             dates.push(m);
@@ -2777,7 +2803,7 @@
                  chart.options ={
                 
                    title : {
-                        text: chart.name+" ("+chart.measurementUnit+")",
+                        text: ($rootScope.isUndefined(chart.translated_name)?chart.name:"")+" ("+chart.measurementUnit+")",
                     },
                     legend : {
                         data:[chart.name]
@@ -4568,6 +4594,7 @@
         };
     })
     .controller('AppCtrl',function($scope, $rootScope, $state, $document, appConfig,$http,buildings,$location){
+        
         $rootScope.recommendations=0;
         $rootScope.toolbox = {
             show : true,

@@ -1,4 +1,5 @@
 {
+    "Lang":"GR",
     "DASHBOARD": "Αρχική Σελίδα",
     "BUILDINGS": "Κτήρια",
     "RECOMMENDATIONS": "Προτάσεις",
@@ -162,8 +163,29 @@
     "Resource":"Αισθητήρας",
     "Regularity":"Μεταβλητότητα",
     "DefaultMeasUnit":"Προκαθορισμένη Μ.Μ",
-    "SelectedMeasUnit":"Επιλεγμένη Μ.Μ"
-
+    "SelectedMeasUnit":"Επιλεγμένη Μ.Μ",
+    "per_5min":"Ανα 5 λεπτά",
+    "per_hour":"Ανα ώρα",
+    "per_day":"Ανα ημέρα",
+    "per_month":"Ανα μήνα",
+    "enter_date":"Ημερομηνία",
+    "uom":"Μονάδα μέτρησης",
+    "relative_humidity":"Σχετική Υγρασία",
+    "luminosity":"Φωτεινότητα",
+    "temperature":"θερμοκρασία",
+    "energy":"Ενέργεια",
+    "sensors":"Αισθητήρες",
+    "FLOOR":"Όροφος",
+    "ROOM":"Δωμάτιο",
+    "LAB":"Εργαστήριο",
+    "CLASSROOM":"Τάξη",
+    "GYM":"Γυμναστήριο",
+    "HALL":"Προθάλαμος",
+    "CORRIDOR":"Διάδρομος",
+    "ELEVATOR":"Ανελκυστήρας",
+    "OTHER":"Άλλο",
+    "zoomIn":"Μεγένθυνση",
+    "zoomOut":"Σμίκρυνση"
 
 }
  

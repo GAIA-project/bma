@@ -21,25 +21,26 @@
                         <div class="form-group">
                             <label class="col-sm-12 control-label"><span data-translate="FROM_TIME"></span></label>
                             <div class="col-sm-12" style="background: white">                                        
-                                <md-datepicker ng-model="from_time" md-placeholder="Enter date"></md-datepicker>
+                                <md-datepicker ng-model="from_time" md-placeholder=""></md-datepicker>
                             </div>
                         </div>                    
                     
                         <div class="form-group">
                             <label class="col-sm-12 control-label"><span data-translate="TO_TIME"></span></label>
                             <div class="col-sm-12" style="background: white">
-                                <md-datepicker ng-model="to_time" md-placeholder="Enter date"></md-datepicker>
+                                <md-datepicker ng-model="to_time" md-placeholder=""></md-datepicker>
                             </div>
-                        </div>                    
+                        </div>     
+                        <br/>               
                         
 
 
                         <div class="form-group">
                             <label for="" class="col-sm-12 control-label"><span data-translate="GRANULARITY"></span></label>
                             <div class="col-sm-12">                                        
-                                <md-select ng-model="granularity">
+                                <md-select ng-model="selected_granularity">
                                     <md-option ng-repeat="gran in granularity_values" value="{{gran.text}}">
-                                        {{gran.name}}
+                                        <span data-translate="{{gran.name}}"></span>
                                     </md-option>
                                 </md-select>                              
                             </div>
@@ -51,7 +52,7 @@
                             <div class="col-sm-12">                                        
                                 <md-select ng-model="type_of_measurement">
                                     <md-option ng-repeat="measurement in available_measurements" value="{{measurement.id}}">
-                                        {{measurement.name}}
+                                        <span data-translate="{{measurement.name}}"></span>
                                     </md-option>
                                 </md-select>                              
                             </div>
