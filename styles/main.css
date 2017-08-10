@@ -2373,3 +2373,25 @@ td{
   max-width: 410px;
   margin: 38px auto;
 }
+.social_images{
+  width: 100%;
+  height: 100px;
+  z-index: 99999;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  text-align: center;
+}
+img.social_1 {
+    position: relative;
+    width: 70px;
+    max-width: 100%;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+img.social_2 {
+    position: relative;
+    width: 43px;
+    margin-bottom: 5px;
+    cursor: pointer;
+}

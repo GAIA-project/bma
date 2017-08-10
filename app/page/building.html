@@ -48,6 +48,7 @@
                                             <input type="text" class="form-control" id="inputEmail3" ng-model="school.swedishLocalizedName">
                                         </div>
                                     </div>
+
                                     <div class="form-group">
                                         <label for="" class="col-sm-5 control-label"><span data-translate="Country"></span></label>
                                         <div class="col-sm-7">
@@ -66,8 +67,9 @@
                                             <input type="text" class="form-control" id="inputEmail3" ng-model="school.squareMeters">
                                         </div>
                                     </div>
-
-                                     <div class="form-group">
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="form-group">
                                         <label for="" class="col-sm-5 control-label">
                                             <span data-translate="Energy_types_available"></span>
                                         </label>
@@ -76,7 +78,31 @@
                                             <md-checkbox  ng-model="jjson.available_gas" class="md-primary" aria-label="Gas"> <span data-translate="Gas"></span> </md-checkbox>
                                             <md-checkbox  ng-model="jjson.available_petrol" class="md-warn" aria-label="Petrol"> <span data-translate="Petrol"></span> </md-checkbox>
                                         </div>
-                                    </div>                              
+                                    </div> 
+                                    <div class="form-group" ng-show="jjson.available_electricity">
+                                        <label for="cost_for_electricity" class="col-sm-5 control-label"><span data-translate="yearly_cost_for_electricity"></span></label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" id="cost_for_electricity"  ng-model="school.yearly_cost_for_electricity">
+                                        </div>
+                                    </div>
+                                    <div class="form-group" ng-show="jjson.available_gas">
+                                        <label for="yearly_cost_for_gas" class="col-sm-5 control-label"><span data-translate="yearly_cost_for_gas"></span></label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" id="yearly_cost_for_gas"  ng-model="school.yearly_cost_for_gas">
+                                        </div>
+                                    </div>
+                                    <div class="form-group" ng-show="jjson.available_petrol">
+                                        <label for="yearly_cost_for_petrol" class="col-sm-5 control-label"><span data-translate="yearly_cost_for_petrol"></span></label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" id="yearly_cost_for_petrol"  ng-model="school.yearly_cost_for_petrol">
+                                        </div>
+                                    </div> 
+                                    <div class="form-group">
+                                        <label for="Responsible_person_for_consumption_monitoring" class="col-sm-5 control-label"><span data-translate="Responsible_person_for_consumption_monitoring"></span></label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" id="Responsible_person_for_consumption_monitoring"  ng-model="jjson.Responsible_person_for_consumption_monitoring">
+                                        </div>
+                                    </div>                            
                                 
                                     
 
@@ -98,7 +124,13 @@
                                     <div class="col-sm-7">
                                         <input type="text" class="form-control" id="Threshold" ng-model="school.heatingSystem.temperatureThreshold" placeholder="20">
                                     </div>
-                                </div>  
+                                </div> 
+                                <div class="form-group" ng-show="school.heatingSystem.automatedThermostatInstalled">
+                                        <label for="date_of_heating_system_installation" class="col-sm-5 control-label"><span data-translate="date_of_heating_system_installation"></span></label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" id="date_of_heating_system_installation"  ng-model="jjson.date_of_heating_system_installation">
+                                        </div>
+                                </div> 
                                 <div class="form-group">
                                     <label for="ConsumptionMeter" class="col-sm-5 control-label"><span data-translate="Aretheheatingsystemsservicedregularly"></span></label>
                                     <div class="col-sm-7">
@@ -151,6 +183,12 @@
                                         <input type="text" class="form-control" id="Threshold" placeholder="20" ng-model="school.coolingSystem.temperatureThreshold">
                                     </div>
                                 </div>
+                                <div class="form-group" ng-show="school.coolingSystem.automatedThermostatInstalled">
+                                        <label for="date_of_cooling_system_installation" class="col-sm-5 control-label"><span data-translate="date_of_cooling_system_installation"></span></label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" id="date_of_cooling_system_installation"  ng-model="jjson.date_of_cooling_system_installation">
+                                        </div>
+                                </div>
                                 <div class="form-group">
                                     <label for="ConsumptionMeter" class="col-sm-5 control-label"><span data-translate="Arethecoolingsystemsservicedregularly"></span></label>
                                     <div class="col-sm-7">
@@ -167,7 +205,13 @@
                                             <md-radio-button value="EVAPORATIVE_COOLERS"><span data-translate="EVAPORATIVE_COOLERS"></span></md-radio-button>
                                         </md-radio-group>
                                     </div>
-                                </div>                               
+                                </div> 
+                                 <div class="form-group">
+                                    <label for="b" class="col-sm-5 control-label"><span data-translate="are_there_fans_installed"></span></label>
+                                    <div class="col-sm-7">
+                                        <md-switch  aria-label="b" ng-model="jjson.are_there_fans_installed"> <span data-translate="Yes"></span> </md-switch>
+                                    </div>
+                                </div>                              
                             </div>
                             </div>
 
@@ -179,9 +223,30 @@
                                     <div class="form-group">
                                         <label for="building_build_year" class="col-sm-5 control-label"><span data-translate="Which_year_was_the_building_built"></span></label>
                                         <div class="col-sm-7">
-                                            <input type="text" class="form-control" id="age"  ng-model="school.dateOfConstruction">
+                                            <input type="text" class="form-control" id="age"  ng-model="jjson.dateOfConstruction">
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <label for="building_intervened_year" class="col-sm-5 control-label"><span data-translate="Which_year_was_the_building_intervented"></span></label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" id="age"  ng-model="jjson.dateOfIntervention">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="yearly_energy_cost" class="col-sm-5 control-label"><span data-translate="yearly_energy_cost"></span></label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" id="yearly_energy_cost"  ng-model="jjson.yearly_energy_cost">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                    <label for="b" class="col-sm-5 control-label"><span data-translate="does_cover_student_transfer"></span></label>
+                                    <div class="col-sm-7">
+                                        <md-switch  aria-label="b" ng-model="jjson.does_cover_student_transfer"> <span data-translate="Yes"></span> </md-switch>
+                                    </div>
+                                </div>
+                                    
+
+
                                     <div class="form-group">
                                         <label for="People" class="col-sm-5 control-label"><span data-translate="People"></span></label>
                                         <div class="col-sm-7">
@@ -203,6 +268,67 @@
                                             </md-radio-group>
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <label for="" class="col-sm-5 control-label">
+                                            <span data-translate="Type_of_windows"></span>
+                                        </label>
+                                        <div class="col-sm-7">                                            
+                                            <md-radio-group class="ui-md-radio-group-inline"  ng-model="jjson.type_of_windows">
+                                                <md-radio-button value="Single_Glass"><span data-translate="Single_Glass"></span></md-radio-button>
+                                                <md-radio-button value="Double_Glass"><span data-translate="Double_Glass"></span></md-radio-button>
+                                            </md-radio-group>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="People" class="col-sm-5 control-label"><span data-translate="average_hours_school_is_occupied_per_day"></span></label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" id="People"  ng-model="jjson.average_hours_school_is_occupied_per_day">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="form-group">
+                                        <label for="kind_of_bulbs_is_used_for_indoor_lightning" class="col-sm-5 control-label"><span data-translate="kind_of_bulbs_is_used_for_indoor_lightning"></span></label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" id="kind_of_bulbs_is_used_for_indoor_lightning"  ng-model="jjson.kind_of_bulbs_is_used_for_indoor_lightning">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="kind_of_bulbs_is_used_for_outdoor_lightning" class="col-sm-5 control-label"><span data-translate="kind_of_bulbs_is_used_for_outdoor_lightning"></span></label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" id="kind_of_bulbs_is_used_for_outdoor_lightning"  ng-model="jjson.kind_of_bulbs_is_used_for_outdoor_lightning">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="b" class="col-sm-5 control-label"><span data-translate="are_bulbs_cleaned_regularly"></span></label>
+                                        <div class="col-sm-7">
+                                            <md-switch  aria-label="b" ng-model="jjson.are_bulbs_cleaned_regularly"> <span data-translate="Yes"></span> </md-switch>
+                                        </div>
+                                    </div> 
+                                    <div class="form-group">
+                                        <label for="date_of_cooling_system_installation" class="col-sm-5 control-label"><span data-translate="number_of_operating_devices"></span></label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" id="number_of_operating_devices"  ng-model="jjson.number_of_operating_devices">
+                                        </div>
+                                    </div>
+
+                                    
+                                    <div class="form-group">
+                                        <label for="Switch 15" class="col-sm-5 control-label"><span data-translate="Is_the_natural_light_exploited_to_the_extent_possible"></span></label>
+                                        <div class="col-sm-7">
+                                            <md-switch  aria-label="Switch 15" ng-model="jjson.Is_the_natural_light_exploited_to_the_extent_possible"> <span data-translate="Yes"></span> </md-switch>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Switch 16" class="col-sm-5 control-label"><span data-translate="Are_there_timers_for_the_lightning_systems"></span></label>
+                                        <div class="col-sm-7">
+                                            <md-switch  aria-label="Switch 167" ng-model="jjson.Are_there_timers_for_the_lightning_systems"> <span data-translate="Yes"></span> </md-switch>
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                    
+
                                 </div>
                             </div>
                         </uib-tab>

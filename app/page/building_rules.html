@@ -6,28 +6,34 @@
     </div>
     <div class="row">
         <div class="col-sm-12 col-md-4">
+            <div class="panel panel-default panel-minimal">
+                <div class="divider divider-md"></div>
+                <div class="panel-heading">
+                    <span class="card-title"  data-translate="AREAS"></span>
+                </div>
                 <div class="panel-body" ng-init="getInitAreas()">
-                   <div class="table-responsive">
+                    <div class="table-responsive">
                         <table class="table table-striped table-bordered no-margin">
                             <thead>
                                 <tr>
                                     <th><span data-translate="Name"></span></th>
-                                    <th></th>
+                                    <th><span data-translate="Actions"></span></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr ng-repeat="area in building.areas">
                                     <td>{{area.name}}</td>
-                                    <td><a ui-wave href="javascript:;" ng-click="getRules(area)" class="btn btn-sm btn-raised btn-primary"><span data-translate="RULES"></span> <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+                                    <td><a ui-wave href="javascript:;" ng-click="getRules(area)" class="btn btn-sm btn-raised btn-primary"><span data-translate="DETAILS"></span></a>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                </div>
+                </div>                    
+            </div>
         </div>
         <div class="col-sm-12 col-md-4">
-            <div class="panel-body">
+            <div class="panel-body" ng-show="sel_area">
                 <div class="text-right">
                     <a ui-wave href="javascript:;" ng-click="addRule()" class="btn btn-sm btn-raised btn-primary"><span data-translate="NEW_RULE"></span> <i class="fa fa-plus" aria-hidden="true"></i></a>
                 </div>

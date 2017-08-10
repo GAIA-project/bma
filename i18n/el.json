@@ -147,6 +147,7 @@
     "Value":"Τιμή",
     "contact_us":"Επικοινωνήστε μαζί μας",
     "ThereareNoRules":"Δεν υπάρχουν εγεγραμμένοι κανόνες",
+	"NEW_RULE":"Νέος Κανόνας",
     "englishLocalizedName":"Όνομα σχολείου - Αγγλικά",
     "greekLocalizedName":"Όνομα σχολείου - Ελληνικά",
     "italianLocalizedName":"Όνομα σχολείου - Ιταλικά",
@@ -185,7 +186,27 @@
     "ELEVATOR":"Ανελκυστήρας",
     "OTHER":"Άλλο",
     "zoomIn":"Μεγένθυνση",
-    "zoomOut":"Σμίκρυνση"
+    "zoomOut":"Σμίκρυνση",
+    "Type_of_windows":"Τύπος παραθύρων",
+    "Single_Glass":"Μονό Τζάμι",
+    "Double_Glass":"Διπλό Τζάμι",
+    "average_hours_school_is_occupied_per_day":"Πόσες ώρες ανα ημέρα (κατα μέσο όρο) το σχολείο είναι ανοιχτό",
+    "are_there_fans_installed":"Υπάρχουν ανεμιστήρες;",
+    "kind_of_bulbs_is_used_for_outdoor_lightning":"Τι είδους λάμπες χρησιμοποιούνται για τον εξωτερικό φωτισμό;",
+    "kind_of_bulbs_is_used_for_indoor_lightning":"Τι Είδος λάμπες χρησιμοποιούνται για τον Εσωτερικό φωτισμό;",
+    "are_bulbs_cleaned_regularly":"Καθαρίζονται συχνά;",
+    "date_of_heating_system_installation":"Πότε εγκαταστάθηκε το σύστημα θέρμανσης",
+    "date_of_cooling_system_installation":"Πότε εγκαταστάθηκε το σύστημα ψύξης",
+    "Which_year_was_the_building_intervented":"Έτος Ανακαίνισης σχολείου",
+    "yearly_energy_cost":"Ετήσιο κόστος ενέργειας",
+    "does_cover_student_transfer":"Καλύπτει το σχολείο τα έξοδα μετακίνησης μαθητών/καθηγητών;",
+    "yearly_cost_for_gas":"Ετήσιο κόστος για Φυσικό Αέριο",
+    "yearly_cost_for_petrol":"Ετήσιο κόστος πετρελαίου",
+    "yearly_cost_for_electricity":"Ετήσιο κόστος ηλεκτρικού ρεύματος",
+    "number_of_operating_devices":"Αριθμός Συσκευών (Φωτοτυπικά, Υπολογιστές κτλ)",
+    "Is_the_natural_light_exploited_to_the_extent_possible":"Χρησιμοποιείται το φυσικό φώς το δυνατό καλύτερα;",
+    "Are_there_timers_for_the_lightning_systems":"Υπάρχει αυτοματισμός που κλείνει τα φώτα;",
+    "Responsible_person_for_consumption_monitoring":"Όνομα υπευθύνου παρακολούθησης κατανάλωσης"
 
 }
  

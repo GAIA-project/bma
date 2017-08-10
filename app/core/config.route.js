@@ -1,13 +1,32 @@
 (function () {
     'use strict';
 
-angular.module('app').run(function($rootScope, $templateCache,$translate,$log) {
- /*  $rootScope.$on('$viewContentLoaded', function() {
-      // $templateCache.removeAll();
-   });
-*/
+angular.module('app').run(function($rootScope, $templateCache,$translate,$log,appConfig,$filter,$state,$location) {
+ 
+        $rootScope.actions = [];
+        $rootScope.actions.push({'name':'edit_building','permission':['ROLE_GAIA_LOCAL_MANAGER','ROLE_GAIA_GLOBAL_MANAGER','ROLE_GAIA_ADMIN','ROLE_GAIA_TEACHER']});
+        $rootScope.actions.push({'name':'edit_area','permission':['ROLE_GAIA_LOCAL_MANAGER','ROLE_GAIA_GLOBAL_MANAGER','ROLE_GAIA_ADMIN','ROLE_GAIA_TEACHER']});
+        $rootScope.actions.push({'name':'addVirtualSensor','permission':['ROLE_GAIA_LOCAL_MANAGER','ROLE_GAIA_GLOBAL_MANAGER','ROLE_GAIA_ADMIN','ROLE_GAIA_TEACHER']});
+        
+        $rootScope.hasPermission = function(action){
+
+            var result = $filter('filter')($rootScope.actions, {'name':action});
+            
+            if(result.length==0)
+                console.error("There is non set permission:"+action);
+            else{
+                result=result[0];
+                
+                if(result.permission.indexOf(appConfig.main.auth_role)>-1){
+                    return true;
+                }else
+                return false;
+            }
+
+        }
 
 
+        
         $rootScope.getL = function(){
         return $translate('Lang');
             var l = "";
@@ -144,8 +163,18 @@ angular.module('app').run(function($rootScope, $templateCache,$translate,$log) {
             });
         }
 
-               
+        $rootScope.$on('$viewContentLoaded', function() {
+    
+           
+            console.log("TOKEN:"+appConfig.main.auth_token);
+            if(appConfig.main.debug==false){
+            
+                if(appConfig.main.auth_token=='none' || $rootScope.isUndefined(appConfig.main.auth_token)){
+                    $state.go('page/signin');
+                }
+            }
 
+        });
 
 });
 
@@ -255,14 +284,17 @@ angular.module('app').run(function($rootScope, $templateCache,$translate,$log) {
             });
 
             $urlRouterProvider
-                .when('/', '/page/buildings')
-                .otherwise('/page/buildings');
+                .when('/', '/page/signin')
+                .otherwise('/page/signin');
 
 
             $stateProvider.state('dashboard', {
                 url: '/dashboard',
                 templateUrl: 'app/dashboard/dashboard.html'
             });
+
+
+           
 
         }]
     );

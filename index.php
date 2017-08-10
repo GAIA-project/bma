@@ -2,7 +2,7 @@
 <html class="no-js">
     <head>
     <?php 
-        $version = rand(5, 150000)*1934;
+        $version = 7500;
     ?>
         <meta charset="utf-8">
         <meta http-equiv='X-UA-Compatible' content='IE=edge'>
@@ -10,8 +10,7 @@
         <meta name="description" content="GAIA - Building Manager Application">
         <meta name="keywords" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-        
-        <!-- Needs images, font... therefore can not be part of main.css -->
+        <link rel="icon" type="image/png" href="favicon.png" />
         <link rel="stylesheet" href="styles/loader.css?v=<?php echo $version; ?>">
         <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,500,700,300,300italic,500italic|Roboto+Condensed:400,300' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css?v=<?php echo $version; ?>">

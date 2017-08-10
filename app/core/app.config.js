@@ -12,9 +12,7 @@
         .config(['$mdThemingProvider', mdConfig]);
 
 
-    function appConfig($location) {
-        var debug = true;
-
+    function appConfig($location,$state) {
                 
         var pageTransitionOpts = [
             {
@@ -34,10 +32,11 @@
         var date = new Date();
         var year = date.getFullYear();
         var main = {
+            debug:false,
             selected_building:0,
             logo:'images/logo.png',
             brand: 'Gaia',
-            username:'greenmindset20',    //used in sparkworks
+            username:'greenmindset20',    //false in sparkworks
             password:'16A321368Ca',       //used in sparkworks
             name: 'Lisa',
             year: year,
@@ -73,8 +72,8 @@
                 
             },
             buildings:[],
-            auth_token:'d3625c13-017c-41fd-8b65-a26ef22c4a66',
-            auth_role : 'ROLE_GAIA_GLOBAL_MANAGER'
+            auth_token:'none',
+            auth_role : ''
 
         };
         var color = {
@@ -88,17 +87,6 @@
             gray:       '#EDF0F1'
         };
 
-            if(debug==false){
-                console.log("EEE");
-                if(main.auth_token!='mm')
-                    window.location='/#/page/buildings';
-                else
-                    window.location='/#/page/signin'; 
-            }
-              /*  if(debug==false){
-                   
-                }*/
-                   
 
         return {
             pageTransitionOpts: pageTransitionOpts,

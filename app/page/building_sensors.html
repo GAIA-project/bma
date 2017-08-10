@@ -6,8 +6,7 @@
     </div>
     <div class="row" style="margin-top: 10px"  ng-init="getInitAreas()">
             <div class="text-right" style="margin:10px">
-                <a ui-wave href="javascript:;" ng-show="main.auth_role=='ROLE_GAIA_LOCAL_MANAGER' || main.auth_role=='ROLE_GAIA_GLOBAL_MANAGER' || main.auth_role=='ROLE_GAIA_ADMIN' || 
-                main.auth_role=='ROLE_GAIA_TEACHER" ng-click="addVirtualSensor()" class="btn btn-sm btn-raised btn-primary"><span data-translate="ADD_A_VIRTUAL_SENSOR"></span></a>
+                <a ui-wave href="javascript:;" ng-show="hasPermission('addVirtualSensor')" ng-click="addVirtualSensor()" class="btn btn-sm btn-raised btn-primary"><span data-translate="ADD_A_VIRTUAL_SENSOR"></span></a>
             </div>
         <div class="col-sm-12">
 

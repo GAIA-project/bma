@@ -14,8 +14,7 @@
                     <span class="card-title"  data-translate="AREAS"></span>
                 </div>
                 <div class="panel-body" ng-init="getInitAreas()">
-                	
-                     <div class="table-responsive">
+                    <div class="table-responsive">
                         <table class="table table-striped table-bordered no-margin">
                             <thead>
                                 <tr>
@@ -31,10 +30,8 @@
                                 </tr>
                             </tbody>
                         </table>
-
-
-            </div>
-                </div>
+                    </div>
+                </div>                    
             </div>
         </div>
          <div class="col-md-8" ng-show="selected_area">
@@ -46,7 +43,7 @@
                     <uib-tabset active="activeJustified" justified="true">
                         <uib-tab index="0" heading="{{language.description}}" >
                                 <div class="text-right" style="margin:10px">
-                                    <a ui-wave href="javascript:void(0);" ng-show="main.auth_role=='ROLE_GAIA_LOCAL_MANAGER' || main.auth_role=='ROLE_GAIA_GLOBAL_MANAGER' || main.auth_role=='ROLE_GAIA_ADMIN'" ng-click="edit()" class="btn btn-sm btn-raised btn-primary"><span data-translate="EDIT"></span></a>
+                                    <a ui-wave href="javascript:void(0);" ng-show="hasPermission('edit_area')" ng-click="edit()" class="btn btn-sm btn-raised btn-primary"><span data-translate="EDIT"></span></a>
                                 </div>
                             <div class="details_area" ng-show="selected_area_view">               
                                 

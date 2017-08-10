@@ -12,7 +12,7 @@
         <li ng-show="main.selected_building>0"><a md-button aria-label="meanu" href="#/page/building/view/{{main.selected_building}}"><span data-translate="VIEW_BUILDING"></span> </a></li>
         
 
-        <li ng-show="main.selected_building>0">
+        <li ng-show="main.selected_building>0 && hasPermission('edit_building')">
           <a md-button aria-label="meanu" href="#/page/building/edit/{{main.selected_building}}">
             <span data-translate="EDIT_BUILDING"></span> 
           </a>
@@ -24,14 +24,14 @@
         <li ng-show="main.selected_building>0"><a md-button aria-label="meanu" href="#/page/building/sensors/{{main.selected_building}}"><span data-translate="SENSORS"></span> </a></li>
         <!-- 
         <li ng-show="main.selected_building>0"><a md-button aria-label="meanu" href="#/page/building/comparison/{{main.selected_building}}"><span data-translate="COMPARISON"></span> </a></li> -->
-        <li ng-show="main.selected_building>0"><a md-button aria-label="meanu" href="#/page/building/rules/{{main.selected_building}}"><span data-translate="RULE_ENGINE"></span> </a></li>
+        <!-- <li ng-show="main.selected_building>0"><a md-button aria-label="meanu" href="#/page/building/rules/{{main.selected_building}}"><span data-translate="RULE_ENGINE"></span> </a></li>
 
         <li ng-show="main.selected_building>0">
           <a md-button aria-label="meanu" href="#/page/building/notifications/{{main.selected_building}}">
             <span data-translate="NOTIFICATIONS"></span> 
             <span class="badge badge-info" ng-show="recommendations>0">{{recommendations}}</span>
           </a>
-        </li>
+        </li> -->
 
         <!-- <li ng-show="main.selected_building>0"><a md-button aria-label="meanu" href="#/page/anomaly/view/5"><i class="fa fa-exclamation-circle"></i><span data-translate="ANOMALIES"></span> </a></li> -->
 
@@ -126,5 +126,8 @@
                <li class="li-small"><a href="#/form/elements"><i class="fa fa-circle color-success"></i> <span data-translate="MATERIAL_ELEMENTS"></span></a></li>
                <li class="li-small"><a href="#/ui/icons"><i class="fa fa-circle color-danger"></i> <span data-translate="MATERIAL_ICONS"></span></a></li> -->
     </ul>
-    <img src="images/facebook_group.png" class="facebookgroup" onclick="window.location='https://www.facebook.com/groups/430658993982993'"/>
+    <div class="social_images">
+      <img src="images/facebook_group_image.png" class="social_1" onclick="window.location='https://www.facebook.com/groups/430658993982993'"/>
+      <img src="images/facebook_icon.png" class="social_2" onclick="window.location='https://www.facebook.com/EUGAIAProject/'"/>
+    </div>
 </div>

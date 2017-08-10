@@ -103,6 +103,7 @@
         
         appConfig.main.auth_token = '';
         $scope.user = {};
+        /**/
 
         $scope.authenticate= function(){
             $scope.login_error = 0;
@@ -189,7 +190,16 @@
             $scope.getSensors();
         }
 
+
+      
+
+
+
+
+
         $scope.getRules = function(area){
+            
+
             $scope.sel_area = area;
             var area_id = area.id;
             $scope.selected_area_name = area.name;
@@ -292,7 +302,7 @@
     })
     .controller('SitesController',function($scope, $rootScope, $state, $document, appConfig,$http,buildings,$location,site,Area){
         
-      
+          
         $scope.loading = 0;
         var init = function(){
             $scope.loading = 1;
@@ -2162,8 +2172,6 @@
                 result = result[0];
 
             if(!$rootScope.isUndefined(result)){
-
-
                  
 
                 var sensor = result;
