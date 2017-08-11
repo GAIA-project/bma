@@ -1888,6 +1888,10 @@
         $scope.legends= {};
         $scope.legends.data = [];
         var x = 0;
+        console.log("This School");
+        console.log(this_school);
+        console.log("Other School");
+        console.log(other_school);
         
         var chart_other_school = Sensor.getComparingQueryTimeRange(other_school);
         var chart_this_school = Sensor.getComparingQueryTimeRange(this_school);
@@ -2019,13 +2023,17 @@
             $scope.loading = 0;
 
         }else{
-                
-                var tsite =  Area.getSiteInfo($scope.comp_site);
+                var this_school = Area.getSiteInfo($stateParams.id);
+                    this_school.then(function(th){
+                        $scope.school_this_name = $rootScope.getTranslatedName(th);
+                        $scope.this_jjson = JSON.parse(th.data.json);
+                    
+                    var tsite =  Area.getSiteInfo($scope.comp_site);
                     
                     tsite.then(function(site) {
                     console.log(site);
                     $scope.school_other_name = $rootScope.getTranslatedName(site);
-                    $scope.school_this_name = $rootScope.getTranslatedName(site); //TODO change the "site" inside parameter with the current one (where we are = id from url)
+                    
 
                     if($rootScope.isUndefined(site.data.json) || site.data.json === null || site.data.json==null || site.data.json=="null" || site.data.json === " " || site.data.json === ""){
                         $scope.error_view = 1;
@@ -2050,7 +2058,7 @@
                                         from:$scope.from_time.getTime(),
                                         to:$scope.to_time.getTime(),
                                         granularity:$scope.granularity,
-                                        resourceID:$scope.jjson.energy_consumption_resource
+                                        resourceID:$scope.this_jjson.energy_consumption_resource
                                     };
                                     $scope.getChart(this_school,other_school);
                                     
@@ -2082,8 +2090,9 @@
                     $scope.error_text = error.statusText;
                 });
 
-        }
-
+        });
+    
+                }
         
     }
     
@@ -2218,7 +2227,7 @@
 
 
             $scope.obj.two.string = newdate+" to "+newdate2;  */        
-                        $scope.obj.two.string = $filter('date')($scope.second_period_to_time.getTime(), 'dd/MM/yyyy')+'-'+$filter('date')($scope.second_period_to_time.getTime(), 'dd/MM/yyyy');
+            $scope.obj.two.string = $filter('date')($scope.second_period_from_time.getTime(), 'dd/MM/yyyy')+'-'+$filter('date')($scope.second_period_to_time.getTime(), 'dd/MM/yyyy');
 
             
             $scope.obj.resourceID = sensor;

@@ -417,8 +417,8 @@
                                             </td>
                                             <td>
                                                 <md-select ng-model="jjson.temperature_resource_step">
-                                                    <md-option ng-repeat="step in available_steps" value="{{step.text}}">
-                                                        {{step.name}}
+                                                    <md-option ng-repeat="gran in granularity_values" value="{{gran.text}}">
+                                                        <span data-translate="{{gran.name}}"></span>
                                                     </md-option>
                                                 </md-select>
                                             </td>
@@ -447,8 +447,8 @@
                                             </td>
                                             <td>
                                                 <md-select ng-model="jjson.relative_humidity_resource_step">
-                                                    <md-option ng-repeat="step in available_steps" value="{{step.text}}">
-                                                        {{step.name}}
+                                                    <md-option ng-repeat="gran in granularity_values" value="{{gran.text}}">
+                                                        <span data-translate="{{gran.name}}"></span>
                                                     </md-option>
                                                 </md-select>
                                             </td>
@@ -476,8 +476,8 @@
                                             </td>
                                             <td>
                                                 <md-select ng-model="jjson.luminosity_resource_step">
-                                                    <md-option ng-repeat="step in available_steps" value="{{step.text}}">
-                                                        {{step.name}}
+                                                    <md-option ng-repeat="gran in granularity_values" value="{{gran.text}}">
+                                                        <span data-translate="{{gran.name}}"></span>
                                                     </md-option>
                                                 </md-select>
                                             </td>
@@ -516,8 +516,8 @@
                                             </td>
                                             <td>
                                                 <md-select ng-model="ch.step">
-                                                    <md-option ng-repeat="step in available_steps" value="{{step.text}}">
-                                                        {{step.name}}
+                                                    <md-option ng-repeat="gran in granularity_values" value="{{gran.text}}">
+                                                        <span data-translate="{{gran.name}}"></span>
                                                     </md-option>
                                                 </md-select>
                                             </td>

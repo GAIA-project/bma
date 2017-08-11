@@ -173,7 +173,7 @@
     "uom":"Μονάδα μέτρησης",
     "relative_humidity":"Σχετική Υγρασία",
     "luminosity":"Φωτεινότητα",
-    "temperature":"θερμοκρασία",
+    "temperature":"Θερμοκρασία",
     "energy":"Ενέργεια",
     "sensors":"Αισθητήρες",
     "FLOOR":"Όροφος",
@@ -206,7 +206,8 @@
     "number_of_operating_devices":"Αριθμός Συσκευών (Φωτοτυπικά, Υπολογιστές κτλ)",
     "Is_the_natural_light_exploited_to_the_extent_possible":"Χρησιμοποιείται το φυσικό φώς το δυνατό καλύτερα;",
     "Are_there_timers_for_the_lightning_systems":"Υπάρχει αυτοματισμός που κλείνει τα φώτα;",
-    "Responsible_person_for_consumption_monitoring":"Όνομα υπευθύνου παρακολούθησης κατανάλωσης"
+    "Responsible_person_for_consumption_monitoring":"Όνομα υπευθύνου παρακολούθησης κατανάλωσης",
+    "Sites":"Σχολεία"
 
 }
  

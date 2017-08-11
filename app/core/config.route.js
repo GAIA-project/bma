@@ -91,9 +91,6 @@ angular.module('app').run(function($rootScope, $templateCache,$translate,$log,ap
                 
         
         $rootScope.getTranslatedName = function(the_obj,the_lang){
-            console.log("THE OBJ");
-            console.log(the_obj);
-            console.log(the_lang);
             return the_obj.data.greekLocalizedName;
         }
 
