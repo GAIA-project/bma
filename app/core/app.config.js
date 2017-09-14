@@ -1,7 +1,6 @@
 (function() {
     'use strict';
 
-
     angular.module('app.core').directive('onLastRepeat', function() {
         return function(scope, element, attrs) {
             if (scope.$last) setTimeout(function(){
@@ -35,7 +34,8 @@
             debug:false,
             selected_building:0,
             logo:'images/logo.png',
-            brand: 'Gaia',
+            brand: 'Gaia',            
+            TheUserName:'',
             username:'greenmindset20',    //false in sparkworks
             password:'16A321368Ca',       //used in sparkworks
             name: 'Lisa',
@@ -73,9 +73,14 @@
             },
             buildings:[],
             auth_token:'none',
-            auth_role : ''
-
+            auth_role : ''            
         };
+
+        if(main.debug==true){
+            main.TheUserName='mpoufard';
+            main.auth_token = '746117df-b445-4722-953e-f204c8424e1f';
+            main.auth_role = 'ROLE_GAIA_GLOBAL_MANAGER';
+        }
         var color = {
             primary:    '#009688',
             success:    '#8BC34A',

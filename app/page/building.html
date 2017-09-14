@@ -1,4 +1,5 @@
 <div class="page" ng-controller="SiteEditController">
+<ngp-piwik ngp-set-js-url="http://analytics.gaia-project.eu/piwik.js" ngp-set-tracker-url="http://analytics.gaia-project.eu/piwik.php" ngp-set-site-id="1"> </ngp-piwik>
     <div class="saved"><span data-translate="UPDATED"></span></div>
     <div class="row">
         <div class="alert alert-danger" ng-show="error_view">{{error_text}}</div>
@@ -82,19 +83,19 @@
                                     <div class="form-group" ng-show="jjson.available_electricity">
                                         <label for="cost_for_electricity" class="col-sm-5 control-label"><span data-translate="yearly_cost_for_electricity"></span></label>
                                         <div class="col-sm-7">
-                                            <input type="text" class="form-control" id="cost_for_electricity"  ng-model="school.yearly_cost_for_electricity">
+                                            <input type="text" class="form-control" id="cost_for_electricity"  ng-model="jjson.yearly_cost_for_electricity">
                                         </div>
                                     </div>
                                     <div class="form-group" ng-show="jjson.available_gas">
                                         <label for="yearly_cost_for_gas" class="col-sm-5 control-label"><span data-translate="yearly_cost_for_gas"></span></label>
                                         <div class="col-sm-7">
-                                            <input type="text" class="form-control" id="yearly_cost_for_gas"  ng-model="school.yearly_cost_for_gas">
+                                            <input type="text" class="form-control" id="yearly_cost_for_gas"  ng-model="jjson.yearly_cost_for_gas">
                                         </div>
                                     </div>
                                     <div class="form-group" ng-show="jjson.available_petrol">
                                         <label for="yearly_cost_for_petrol" class="col-sm-5 control-label"><span data-translate="yearly_cost_for_petrol"></span></label>
                                         <div class="col-sm-7">
-                                            <input type="text" class="form-control" id="yearly_cost_for_petrol"  ng-model="school.yearly_cost_for_petrol">
+                                            <input type="text" class="form-control" id="yearly_cost_for_petrol"  ng-model="jjson.yearly_cost_for_petrol">
                                         </div>
                                     </div> 
                                     <div class="form-group">
@@ -510,7 +511,7 @@
                                             <td>
                                                 <md-select ng-model="ch.resource_id" ng-change="getUOMForExtraResource(ch)">
                                                     <md-option ng-repeat="resource in available_resources" value="{{resource.id}}">
-                                                        {{resource.uri}}
+                                                        {{resource.uri + " " + resource.name}}
                                                     </md-option>
                                                 </md-select>
                                             </td>

@@ -163,7 +163,7 @@
     "EVAPORATIVE_COOLERS":"Evaporative Coolers",
     "Description":"Description",
     "Resource":"Sensor",
-    "Regularity":"Regularity",
+    "Regularity":"Granularity",
     "DefaultMeasUnit":"Default Measurement Unit",
     "SelectedMeasUnit":"Selected Measurement Unit",
     "per_5min":"Per 5 min",

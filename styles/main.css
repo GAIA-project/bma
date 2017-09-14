@@ -800,7 +800,9 @@ md-toast {
   top: 42%;
   width: 100%;
   text-align: center;
-  font-size: 23px; }
+  font-size: 23px; 
+  word-wrap: break-word;
+}
 
 .page-top-view .edit_button {
   position: absolute;
@@ -2164,9 +2166,10 @@ body {
 }
 
 .sensorbox{
-  background: #262b33;
-  min-height: 125px;
-  color: white;
+    background: #262b33;
+    min-height: 138px;
+    color: white;
+    word-wrap: break-word;
 }
 .area_box{
     background: white;
@@ -2391,7 +2394,39 @@ img.social_1 {
 }
 img.social_2 {
     position: relative;
-    width: 43px;
+    width: 42px;
     margin-bottom: 5px;
     cursor: pointer;
+}
+img.social_3 {
+    position: relative;
+    width: 50px;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+.custom_alert_fixed {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    height: 100%;
+    left: 0;
+    z-index: 999999999999999;
+    background: black;
+}
+.message_box_alert{
+    background: white;
+    border-radius: 5px;
+    width: 400px;
+    max-width: 100%;
+    position: absolute;
+    top: 300px;
+    left: 50%;
+    margin-left: -200px;
+    padding: 10px 12px 0px 16px;
+}
+.rowbtns{
+    width: 100%;
+    margin:10px 0px;
+    padding: 5px 15px;
 }

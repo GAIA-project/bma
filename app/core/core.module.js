@@ -6,10 +6,12 @@
          'ngAnimate'
         ,'ngAria'
         ,'ngMessages'
+        ,'piwik'
 
         // Custom modules
         ,'app.layout'
         ,'app.i18n'
+        ,'app.chart'
         
         // 3rd Party Modules
         ,'ngMaterial'

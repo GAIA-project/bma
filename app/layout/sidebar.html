@@ -1,4 +1,4 @@
-<div class="nav-wrapper">
+<div class="nav-wrapper" ng-controller="AppCtrl">
     <ul id="nav"
         class="nav"
         data-slim-scroll
@@ -22,16 +22,19 @@
 
         <li ng-show="main.selected_building>0"><a md-button aria-label="meanu" href="#/page/building/topview/{{main.selected_building}}"><span data-translate="TOPVIEW"></span> </a></li>
         <li ng-show="main.selected_building>0"><a md-button aria-label="meanu" href="#/page/building/sensors/{{main.selected_building}}"><span data-translate="SENSORS"></span> </a></li>
-        <!-- 
-        <li ng-show="main.selected_building>0"><a md-button aria-label="meanu" href="#/page/building/comparison/{{main.selected_building}}"><span data-translate="COMPARISON"></span> </a></li> -->
-        <!-- <li ng-show="main.selected_building>0"><a md-button aria-label="meanu" href="#/page/building/rules/{{main.selected_building}}"><span data-translate="RULE_ENGINE"></span> </a></li>
-
+        
+        <li ng-show="main.selected_building>0 && hasPermission('edit_rule_engine')"><a md-button aria-label="meanu" href="#/page/building/rules/{{main.selected_building}}"><span data-translate="RULE_ENGINE"></span> </a></li>
         <li ng-show="main.selected_building>0">
           <a md-button aria-label="meanu" href="#/page/building/notifications/{{main.selected_building}}">
             <span data-translate="NOTIFICATIONS"></span> 
-            <span class="badge badge-info" ng-show="recommendations>0">{{recommendations}}</span>
+            <span class="badge badge-info">{{recommendations}}</span>
           </a>
-        </li> -->
+        </li>
+        <!-- 
+        <li ng-show="main.selected_building>0"><a md-button aria-label="meanu" href="#/page/building/comparison/{{main.selected_building}}"><span data-translate="COMPARISON"></span> </a></li> -->
+        <!-- 
+
+         -->
 
         <!-- <li ng-show="main.selected_building>0"><a md-button aria-label="meanu" href="#/page/anomaly/view/5"><i class="fa fa-exclamation-circle"></i><span data-translate="ANOMALIES"></span> </a></li> -->
 
@@ -53,6 +56,8 @@
         <!-- <li ng-show="main.selected_building>0"><a md-button aria-label="meanu" href="#/page/building/add_measurements/{{main.selected_building}}"><span data-translate="AddMeasurements"></span> </a></li> -->
         
         <li><a md-button aria-label="meanu" href="https://gaia-project.atlassian.net/servicedesk/customer/portal/2/" target="_blank"><i class="fa fa-info"></i><span data-translate="contact_us"></span> </a></li>
+       <li>
+       <li><a md-button aria-label="meanu" href="http://www.synelixis.com" target="_blank"><i class="fa fa-question-circle"></i><span data-translate="help"></span> </a></li>
        <li>
 
 
@@ -129,5 +134,8 @@
     <div class="social_images">
       <img src="images/facebook_group_image.png" class="social_1" onclick="window.location='https://www.facebook.com/groups/430658993982993'"/>
       <img src="images/facebook_icon.png" class="social_2" onclick="window.location='https://www.facebook.com/EUGAIAProject/'"/>
+      <img src="images/youtube_icon.png" class="social_3" onclick="window.location='https://www.youtube.com/watch?v=IiN2nITSpGw&list=PLUMQocOUND_4rL1wga9q7wj69Am61KePv'"/>
     </div>
+
+    
 </div>

@@ -1,6 +1,16 @@
 angular.module('app').factory('Sensor', function($http,appConfig){
     
         return{
+            rename:function(sensor){
+                return $http({
+                    url:appConfig.main.apis.main+'resource/'+sensor.resourceId+'/name',
+                    method:'POST',
+                    data:{
+                            "name": sensor.name
+                    },
+                    headers: {"Accept": "application/json","Authorization":"bearer "+appConfig.main.auth_token},
+                })
+            },
             getAvailableUoM:function(resource_uom){
                 return $http({
                     url:appConfig.main.apis.main+'uom/source/'+resource_uom,
@@ -73,8 +83,11 @@ angular.module('app').factory('Sensor', function($http,appConfig){
             getMeasurementsByResourceId:function(resource_id){
             	if(resource_id>10)
 	            	return $http({
-	                    url:appConfig.main.apis.main+'resource/'+resource_id+'/summary',
-	                    method:'GET',
+	                    url:appConfig.main.apis.main+'resource/query/summary',
+	                    method:'POST',
+                        data:{
+                            'resourceID':resource_id
+                        },
 	                    headers: {"Accept": "application/json","Authorization":"bearer "+appConfig.main.auth_token},
 	                })
             	else
@@ -83,8 +96,30 @@ angular.module('app').factory('Sensor', function($http,appConfig){
             getMeasurementsByResourceIdAndUOM:function(resource_id,uom){
                 if(resource_id>10)
                     return $http({
-                        url:appConfig.main.apis.main+'resource/'+resource_id+'/summary/'+uom,
+                        url:appConfig.main.apis.main+'resource/'+resource_id+'/summary',
                         method:'GET',
+                        data:{
+                            "queries": [
+                                        {
+                                          "resourceID": resource_id,
+                                          "targetUom": uom
+                                        }
+                                      ]
+                        },
+                        headers: {"Accept": "application/json","Authorization":"bearer "+appConfig.main.auth_token},
+                    })
+                else
+                    return "resource with resource_id="+resource_id+" is in wrong database";
+            },
+            getLatestMeasurementsByResourceIdAndUOM:function(resource_id,uom){
+                if(resource_id>10)
+                    return $http({
+                        url:appConfig.main.apis.main+'resource/query/summary',
+                        method:'POST',
+                        data:{
+                              "resourceID": resource_id,
+                              "targetUom": uom
+                        },
                         headers: {"Accept": "application/json","Authorization":"bearer "+appConfig.main.auth_token},
                     })
                 else

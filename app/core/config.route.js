@@ -7,7 +7,9 @@ angular.module('app').run(function($rootScope, $templateCache,$translate,$log,ap
         $rootScope.actions.push({'name':'edit_building','permission':['ROLE_GAIA_LOCAL_MANAGER','ROLE_GAIA_GLOBAL_MANAGER','ROLE_GAIA_ADMIN','ROLE_GAIA_TEACHER']});
         $rootScope.actions.push({'name':'edit_area','permission':['ROLE_GAIA_LOCAL_MANAGER','ROLE_GAIA_GLOBAL_MANAGER','ROLE_GAIA_ADMIN','ROLE_GAIA_TEACHER']});
         $rootScope.actions.push({'name':'addVirtualSensor','permission':['ROLE_GAIA_LOCAL_MANAGER','ROLE_GAIA_GLOBAL_MANAGER','ROLE_GAIA_ADMIN','ROLE_GAIA_TEACHER']});
-        
+        $rootScope.actions.push({'name':'edit_sensor_name','permission':['ROLE_GAIA_LOCAL_MANAGER','ROLE_GAIA_GLOBAL_MANAGER','ROLE_GAIA_ADMIN']});
+        $rootScope.actions.push({'name':'edit_rule_engine','permission':['ROLE_GAIA_ADMIN','ROLE_GAIA_GLOBAL_MANAGER','ROLE_GAIA_LOCAL_MANAGER']});
+
         $rootScope.hasPermission = function(action){
 
             var result = $filter('filter')($rootScope.actions, {'name':action});
@@ -206,8 +208,16 @@ angular.module('app').run(function($rootScope, $templateCache,$translate,$log,ap
                             
             });
 
-
             
+            $stateProvider.state('page/transportation', {
+                url: '/page/transportation/:id',
+                templateUrl: 'app/page/transportation.html'
+            });
+            $stateProvider.state('page/area/rules', {
+                url: '/page/area/rules/:id',
+                templateUrl: 'app/page/area_rules.html'
+            });
+
             $stateProvider.state('page/anomaly/view', {
                 url: '/page/anomaly/view/:id',
                 templateUrl: 'app/page/anomaly.html'

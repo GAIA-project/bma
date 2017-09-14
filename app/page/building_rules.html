@@ -1,9 +1,11 @@
 <div class="page" ng-controller="BuildingRulesController" >
+<ngp-piwik ngp-set-js-url="http://analytics.gaia-project.eu/piwik.js" ngp-set-tracker-url="http://analytics.gaia-project.eu/piwik.php" ngp-set-site-id="1"> </ngp-piwik>
     <div class="row" >
         <div class="col-sm-12">
             <h2 class="section-header">{{building.details.item.name}}</h2>
         </div>
     </div>
+    <div class="alert alert-danger" ng-show="error">{{error_text}}</div>
     <div class="row">
         <div class="col-sm-12 col-md-4">
             <div class="panel panel-default panel-minimal">
@@ -33,30 +35,33 @@
             </div>
         </div>
         <div class="col-sm-12 col-md-4">
-            <div class="panel-body" ng-show="sel_area">
-                <div class="text-right">
-                    <a ui-wave href="javascript:;" ng-click="addRule()" class="btn btn-sm btn-raised btn-primary"><span data-translate="NEW_RULE"></span> <i class="fa fa-plus" aria-hidden="true"></i></a>
-                </div>
-                 <ul class="brules" ng-hide="rulesList.length">
-                    <li>
-                    
-                    <span data-translate="ThereareNoRules"></span>
-                    </li>
-                </ul>
-               
-                     <div class="table-responsive" ng-show="rulesList.length">
-                        <ul class="brules">
-                            <li ng-repeat="rule in rulesList">
-                                <strong>{{rule.fields.name}}</strong><br/>
-                                {{rule.fields.path}}<br/>
-                                {{rule.fields.uri+" "+rule.fields.operator+" "+rule.fields.threshold}}<br/>
-                                <a ui-wave href="javascript:;" ng-click="editRule(rule)" class="btn btn-sm btn-raised btn-primary"><span data-translate="edit"></span> <i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                <a ui-wave href="javascript:;" ng-click="deleteRule(rule)" class="btn btn-sm btn-raised btn-primary m-l m-r"><span data-translate="delete"></span> <i class="fa fa-trash-o" aria-hidden="true"></i></a>
-                                
-
-                            </li>
-                        </ul>
+            <div class="panel panel-default panel-minimal">
+                <div class="panel-body" ng-show="selected_area">
+                    <div class="text-left">{{selected_area.name}}</div>
+                    <div class="text-right">
+                        <a ui-wave href="javascript:;" ng-click="addRule()" class="btn btn-sm btn-raised btn-primary"><span data-translate="NEW_RULE"></span> <i class="fa fa-plus" aria-hidden="true"></i></a>
                     </div>
+                     <ul class="brules" ng-hide="rulesList.length">
+                        <li>
+                        
+                        <span data-translate="ThereareNoRules"></span>
+                        </li>
+                    </ul>
+                   
+                         <div class="table-responsive" ng-show="rulesList.length">
+                            <ul class="brules">
+                                <li ng-repeat="rule in rulesList">
+                                    <strong>{{rule.fields.name}}</strong><br/>
+                                    {{rule.fields.path}}<br/>
+                                    {{rule.fields.uri+" "+rule.fields.operator+" "+rule.fields.threshold}}<br/>
+                                    <a ui-wave href="javascript:;" ng-click="editRule(rule)" class="btn btn-sm btn-raised btn-primary"><span data-translate="EDIT"></span> <i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                    <a ui-wave href="javascript:;" ng-click="deleteRule(rule)" class="btn btn-sm btn-raised btn-primary m-l m-r"><span data-translate="DELETE"></span> <i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                    
+
+                                </li>
+                            </ul>
+                        </div>
+                </div>
             </div>
         </div>
         <div class="col-sm-12 col-md-4">
@@ -65,7 +70,7 @@
                 <div class="panel-body">
                     <div class="form-group">
                         <strong><span data-translate="AREA"></span></strong>
-                        <input class="form-control" disabled="disabled" type="text" ng-model="selected_area_name">
+                        <input class="form-control" disabled="disabled" type="text" ng-model="selected_area.name">
                     </div>
                     <div class="form-group">
                         <strong><span data-translate="Name"></span></strong>
@@ -84,8 +89,8 @@
                             <div class="form-group">
                             <strong><span data-translate="SENSOR"></span></strong>
                             <md-select ng-model="rule.uri">
-                                <md-option ng-repeat="resource in selected_area_sensors" value="{{resource.uri_resource}}">
-                                    {{resource.uri_resource}}
+                                <md-option ng-repeat="resource in selected_area_sensors" value="{{resource.uri}}">
+                                    {{resource.name + " ("+resource.uom+")"}}
                                 </md-option>
                             </md-select>
                             </div> 

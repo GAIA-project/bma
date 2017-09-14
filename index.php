@@ -37,24 +37,8 @@
             <script src="vendors/canvas2image.js?v=<?php echo $version; ?>"></script>
             <script src="vendors/base64.js?v=<?php echo $version; ?>"></script>
             <script src="vendors/html2canvas.js?v=<?php echo $version; ?>"></script>
+            
 
-
-
-            <!-- Piwik -->
-<script type="text/javascript">
-  var _paq = _paq || [];
-  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-  _paq.push(['trackPageView']);
-  _paq.push(['enableLinkTracking']);
-  (function() {
-    var u="//analytics.gaia-project.eu/";
-    _paq.push(['setTrackerUrl', u+'piwik.php']);
-    _paq.push(['setSiteId', '1']);
-    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-  })();
-</script>
-<!-- End Piwik Code -->
 
     </head>
     <body data-ng-app="app"
@@ -74,6 +58,7 @@
 
         <div id="loader-container"></div>
 
+       
 
         <header data-ng-include=" 'app/layout/header.html' "
                  id="header"
@@ -172,6 +157,8 @@
         <script src="app/factories/site.js?v=<?php echo $version; ?>"></script>
         <script src="app/factories/Anomaly.js?v=<?php echo $version; ?>"></script>
         <script src="app/factories/Sensor.js?v=<?php echo $version; ?>"></script>
+        <script src="app/factories/Commuting.js?v=<?php echo $version; ?>"></script>
+        
         <script src="app/factories/uom.js?v=<?php echo $version; ?>"></script>
         <script src="app/factories/area.js?v=<?php echo $version; ?>"></script>
         <script src="app/factories/sites.js?v=<?php echo $version; ?>"></script>
@@ -196,6 +183,7 @@
         <script src="app/core/config.route.js?v=<?php echo $version; ?>"></script>
         <script src="app/core/i18n.js?v=<?php echo $version; ?>"></script>
         <script src="app/table/table.controller.js?v=<?php echo $version; ?>"></script>
+        <script src="vendors/angular-piwik.js?v=<?php echo $version; ?>"></script>
 
         
         <!-- endinject -->

@@ -1,4 +1,5 @@
 <div class="page" ng-controller="SiteNotificationsController" >
+<ngp-piwik ngp-set-js-url="http://analytics.gaia-project.eu/piwik.js" ngp-set-tracker-url="http://analytics.gaia-project.eu/piwik.php" ngp-set-site-id="1"> </ngp-piwik>
      <div class="row">
         <div class="col-sm-12">
             <h2 class="section-header">{{building.details.item.name}}</h2>
@@ -6,20 +7,20 @@
     </div>           
 
 
-    <div class="row" style="margin-top: 10px">
+    <div class="row" style="margin-top: 10px" ng-init="getNotifications()">
         <div class="panel panel-default panel-minimal">
             <div class="panel-body">
                 <table class="table table-striped table-bordered no-margin">
                     <tr>
-                        <th>Timestamp</th>
-                        <th>Name</th>
-                        <th>Threshold</th>
-                        <th>Suggestion</th>
-                        <th>Current Value</th>
+                        <th><span data-translate="TIMESTAMP"></span></th>
+                        <th><span data-translate="Name"></span></th>
+                        <th><span data-translate="threshold"></span></th>
+                        <th><span data-translate="suggestion"></span></th>
+                        <th><span data-translate="CURRENT_VALUE"></span></th>
                     </tr>
                     <tbody>
-                        <tr ng-repeat="notification in events">
-                            <td>{{notification.timestamp | date}}</td>
+                        <tr ng-repeat="notification in notifications">
+                            <td>{{notification.timestamp | date:'yyyy-MM-dd HH:mm:ss Z'}}</td>
                             <td>{{notification.rule.fields.name}}</td>
                             <td>{{notification.rule.fields.operator}}{{notification.rule.fields.threshold}}</td>
                             <td>{{notification.values.suggestion}}</td>

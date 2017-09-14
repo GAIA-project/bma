@@ -1,0 +1,57 @@
+<div class="page" ng-controller="TransportationController">
+<ngp-piwik ngp-set-js-url="http://analytics.gaia-project.eu/piwik.js" ngp-set-tracker-url="http://analytics.gaia-project.eu/piwik.php" ngp-set-site-id="1"> </ngp-piwik>
+    <div class="saved"><span data-translate="UPDATED"></span></div>
+    <div class="row">
+        <div class="alert alert-danger" ng-show="error_view">{{error_text}}</div>
+    </div>
+
+    <div class="row ui-section" style="margin-top:10px" ng-init="getInfo()">
+        <div class="col-sm-12">            
+            <h2 class="section-header"><span data-translate="MEANS_OF_TRANSPORT"></span></label></h2>                        
+        </div>
+        
+         <div class="row ui-section">
+             <div ng-show="loading" style="text-align: center;width:100%" class="chart_loading">
+                    <h4>Loading</h4>
+                    <md-progress-circular md-mode="indeterminate" style="margin:0 auto"></md-progress-circular>
+            </div>
+            <div class="col-md-12">
+            <form class="form-horizontal" role="form">
+                <section class="panel panel-default">
+                    <div class="panel-body padding-xl">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="form-group">
+                                        <label for="inputEmail3" class="col-sm-5 control-label"><span data-translate="DINSTANCE_IN_METERS"></span></label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" id="inputEmail3" ng-model="commuting.distance">
+                                        </div>
+                                    </div>                                       
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="form-group">
+                                        <label for="inputEmail3" class="col-sm-5 control-label"><span data-translate="MEANS_OF_TRANSPORT"></span></label>
+                                        <md-select ng-model="commuting.mean">
+                                            <md-option ng-repeat="type in available_types" value="{{type.name}}">
+                                                <span data-translate="{{type.name}}"></span>
+                                            </md-option>
+                                        </md-select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12" style="margin-top:20px">
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 text-right col-sm-10">
+                                <md-button type="submit" class="md-raised md-primary btn-w-md" ng-click="save_commuting()"><span data-translate="SAVE"></span></md-button><div class="divider"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>

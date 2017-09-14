@@ -27,6 +27,37 @@ angular.module('app').factory('site', function($http,appConfig){
                     headers: {"Accept": "application/json","Authorization":"bearer "+appConfig.main.auth_token}
                 })
             },
+            getNotificationsCNIT:function(site_id,from,to,limit){
+                return $http({
+                    url:appConfig.main.apis.cnit+'building/'+site_id+'/events',
+                    params:{'from':from,
+                        'to':to,
+                        'limit':limit},
+                    method:'GET',
+                    headers: {"Accept": "application/json","Authorization":"bearer "+appConfig.main.auth_token}
+                })
+            },
+            setCNITBuilding:function(site_id){
+                return $http({
+                    url:appConfig.main.apis.cnit+'building/'+site_id,
+                    method:'PUT',
+                    headers: {"Accept": "application/json","Authorization":"bearer "+appConfig.main.auth_token}
+                })
+            },
+            getCNITBuilding:function(site_id){
+                return $http({
+                    url:appConfig.main.apis.cnit+'building/'+site_id,
+                    method:'GET',
+                    headers: {"Accept": "application/json","Authorization":"bearer "+appConfig.main.auth_token}
+                })
+            },
+            getCNITAreas:function(site_id){
+                return $http({
+                    url:appConfig.main.apis.cnit+'building/'+site_id+'/areas',
+                    method:'GET',
+                    headers: {"Accept": "application/json","Authorization":"bearer "+appConfig.main.auth_token}
+                })
+            },
             getGateways:function(site_id){
                 return $http({
                     url:appConfig.main.apis.over_db+appConfig.main.apis.gatewaysByBuilding+site_id,
