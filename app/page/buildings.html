@@ -20,8 +20,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="site in abuildings">
-                            <td>{{site.name}}</td>
+                        <tr ng-repeat="site in buildings">
+                            <td>{{site.display_name}}</td>
                             <td><a ui-wave href="javascript:;" ng-click="details(site.id)" class="btn btn-raised btn-primary"><span data-translate="DETAILS"></span></a></td>                            
                         </tr>
                     </tbody>

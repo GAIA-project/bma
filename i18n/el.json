@@ -127,7 +127,6 @@
     "PROFILE":"Ρυθμίσεις",
     "NOTIFICATIONS":"Ειδοποιήσεις",
     "info_box_1":"Όταν οι αισθητήρες είναι εκτός λειτουργίας, στο γράφημα η έλειψη τιμών παριστάνεται με μηδέν",
-    "energy_consumption":"Συνολική Κατανάλωση Ενέργειας Σχολείου",
     "per_day":"Ανα Ημέρα",
     "per_5mins":"Ανα 5 λεπτά",
     "per_hour":"Ανα Ώρα",
@@ -207,13 +206,20 @@
     "Is_the_natural_light_exploited_to_the_extent_possible":"Χρησιμοποιείται το φυσικό φώς το δυνατό καλύτερα;",
     "Are_there_timers_for_the_lightning_systems":"Υπάρχει αυτοματισμός που κλείνει τα φώτα;",
     "Responsible_person_for_consumption_monitoring":"Όνομα υπευθύνου παρακολούθησης κατανάλωσης",
-    "Sites":"Σχολεία",
+    "energy_consumption":"Συνολική Κατανάλωση Ενέργειας Σχολείου",
+	"Sites":"Σχολεία",
     "TRANSPORTATION":"Μεταφορά",
     "MEANS_OF_TRANSPORT":"Τρόπος μετακίνησης",
     "DINSTANCE_IN_METERS":"Απόσταση σε μέτρα",
     "TIMESTAMP":"Χρονική στιγμή",
     "CURRENT_VALUE":"Τωρινή Τιμή",
-    "help":"Βοήθεια"
+	"contact_us":"Επικοινωνήστε μαζί μας",
+    "help":"Βοήθεια",
+	"LIGHT":"Φωτεινότητα",
+	"ENERGY":"Ενέργεια",
+	"TEMPERATURE":"Θερμοκρασία",
+	"COMFORT_LEVEL":"Επίπεδο άνεσης",
+	"SHARED_RESOURCE":"Άλλο"
 
 }
  

@@ -207,6 +207,19 @@
     "number_of_operating_devices": "Numero di dispositivi (computer ecc.)",
     "Is_the_natural_light_exploited_to_the_extent_possible": "La luce naturale viene usata il più possibile",
     "Are_there_timers_for_the_lightning_systems": "Sono presenti dei timer collegati all'impiano di illuminazione",
-    "Responsible_person_for_consumption_monitoring": "Nome del responsabile per il monitoraggio dei consumi"
-
+    "Responsible_person_for_consumption_monitoring": "Nome del responsabile per il monitoraggio dei consumi",
+    "energy_consumption":"Consumo Energetico Totale Scuola",				
+	"Sites":"Scuole",
+    "TRANSPORTATION":"Trasporti",
+    "MEANS_OF_TRANSPORT":"Mezzi di trasporto",
+    "DINSTANCE_IN_METERS":"Distanza in metri",
+    "TIMESTAMP":"Tempo",
+    "CURRENT_VALUE":"Valore corrente",
+	"contact_us":"Contattaci",
+    "help":"Assistenza",
+	"LIGHT":"Luminosità",
+	"ENERGY":"Energia",
+	"TEMPERATURE":"Temperatura",
+	"COMFORT_LEVEL":"Livello di comodità",
+	"SHARED_RESOURCE":":Altro"
 }

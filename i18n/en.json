@@ -128,7 +128,7 @@
     "PROFILE":"Profile",
     "NOTIFICATIONS":"Notifications",
     "info_box_1":"When the sensors are off-line, the lack of values is represented by zero in the graph",
-    "contact_us":"Contact Us",
+    
     "per_day":"Per Day",
     "per_5mins":"Per 5 mins",
     "per_hour":"Per Hour",
@@ -207,6 +207,19 @@
     "number_of_operating_devices":"Number of operating Devices (pcs etc)",
     "Is_the_natural_light_exploited_to_the_extent_possible":"Is the natural light exploited to the extent possible?",
     "Are_there_timers_for_the_lightning_systems":"Are there timers for the lighting systems?",
-    "Responsible_person_for_consumption_monitoring":"Name of the responsible person for the monitoring of energy consumption"										
+    "Responsible_person_for_consumption_monitoring":"Name of the responsible person for the monitoring of energy consumption",									
+	"energy_consumption":"Total School Energy Consumption",				
+	"Sites":"Schools",
+    "TRANSPORTATION":"Transportation",
+    "MEANS_OF_TRANSPORT":"Means of transport",
+    "DINSTANCE_IN_METERS":"Distance in meters",
+    "TIMESTAMP":"Timestamp",
+    "CURRENT_VALUE":"Current value",
+	"contact_us":"Contact Us",
+    "help":"Help",
+	"LIGHT":"Luminosity",
+	"ENERGY":"Energy",
+	"TEMPERATURE":"Temperature",
+	"COMFORT_LEVEL":"Comfort level",
+	"SHARED_RESOURCE":":Other"
 }
- 

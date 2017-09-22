@@ -78,7 +78,7 @@
 
         if(main.debug==true){
             main.TheUserName='mpoufard';
-            main.auth_token = '746117df-b445-4722-953e-f204c8424e1f';
+            main.auth_token = 'dc4ed779-07f1-4e1b-9e50-34664d3832a6';
             main.auth_role = 'ROLE_GAIA_GLOBAL_MANAGER';
         }
         var color = {

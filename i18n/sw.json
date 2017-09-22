@@ -200,5 +200,19 @@
     "number_of_operating_devices": "Antal operativa enheter (datorer etc)",
     "Is_the_natural_light_exploited_to_the_extent_possible": "Används det naturliga ljuset så långt det är möjligt?",
     "Are_there_timers_for_the_lightning_systems": "Finns det timers för belysningssystemen?",
-    "Responsible_person_for_consumption_monitoring": "Namn på ansvarig person för övervakning av energiförbrukning"
+    "Responsible_person_for_consumption_monitoring": "Namn på ansvarig person för övervakning av energiförbrukning",
+    "energy_consumption":"Totalt skolanergiforbruk",             
+    "Sites":"Skolor",
+    "TRANSPORTATION":"Transport",
+    "MEANS_OF_TRANSPORT":"Transportmedel",
+    "DINSTANCE_IN_METERS":"Avstånd i meter",
+    "TIMESTAMP":"Tidsstämpel",
+    "CURRENT_VALUE":"Nuvarande värde",
+    "contact_us":"Kontakta oss",
+    "help":"Hjälpa",
+    "LIGHT":"Ljusstyrka",
+    "ENERGY":"Energi",
+    "TEMPERATURE":"Temperatur",
+    "COMFORT_LEVEL":"Komfortnivå",
+    "SHARED_RESOURCE":":Andra"
 }

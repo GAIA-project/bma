@@ -30,7 +30,7 @@
                             <md-select ng-model="new_virtual_sensor.observes">
                                 <md-option option disabled="disabled" selected><span data-translate="SELECT_OBSERVE"></span></md-option>
                                 <md-option ng-repeat="observe in available_observes" value="{{observe.name}}">
-                                    {{observe.name}}
+                                    <span data-translate="{{observe.translated_name}}"></span>
                                 </md-option>
                             </md-select>
                         </div>

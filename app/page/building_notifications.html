@@ -24,7 +24,7 @@
                             <td>{{notification.rule.fields.name}}</td>
                             <td>{{notification.rule.fields.operator}}{{notification.rule.fields.threshold}}</td>
                             <td>{{notification.values.suggestion}}</td>
-                            <td>{{notification.values.value}}</td>
+                            <td>{{notification.values.value | number:2}}</td>
                         </tr>
                     </tbody>
                 </table>        

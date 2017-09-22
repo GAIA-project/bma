@@ -79,10 +79,15 @@ angular.module('app').factory('site', function($http,appConfig){
                 })
             },
             getDetails : function(site_id) {
+
+         /*       url:'http://150.140.5.64:8080/gaia-building-knowledge-base/sites/'+site_id+'/siteInfo',
+                    method:'GET',
+                    headers: {"Accept": "application/hal+json","Authorization":appConfig.main.auth_token}
+                    */
                 return $http({
-                    url: appConfig.main.apis.over_new_api+site_id+"/siteInfo",
+                    url: 'http://150.140.5.64:8080/gaia-building-knowledge-base/sites/'+site_id+"/siteInfo",
                     method: 'GET',
-                    headers: {"Accept": "application/json","Authorization":"bearer "+appConfig.main.auth_token}
+                    headers: {"Accept": "application/hal+json","Authorization":appConfig.main.auth_token}
                 })
             },
             syncCNIT:function(site_id){

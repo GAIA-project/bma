@@ -328,29 +328,79 @@
     })
     .controller('SitesController',function($scope, $rootScope, $state, $document, appConfig,$http,buildings,$location,site,Area){
         
-          
+          $scope.abuildings = [];
         $scope.loading = 0;
         var init = function(){
             $scope.loading = 1;
+            $scope.buildings = [];
 
             appConfig.main.selected_building = 0;
-            var x = buildings.getAllBuildings();
             var m = buildings.getSites();
             m.then(function(bs){
                $scope.loading = 0;
-                $scope.abuildings = [];
+                
                 bs.data.sites.forEach(function(ssite,index){
-                    if(ssite.master){                    
-                        $scope.abuildings.push(ssite);
+                    if(ssite.master){
+                        ssite.display_name = ssite.name;
+                        $scope.buildings.push(ssite);                        
+                        var details = site.getDetails(ssite.id);                        
+                        details.then(function(details,index){                            
+                            ssite.details = details.data;                            
+                            ssite.sw_name = details.data.swedishLocalizedName;
+                            ssite.it_name = details.data.italianLocalizedName;
+                            ssite.en_name = details.data.englishLocalizedName;
+                            ssite.el_name = details.data.greekLocalizedName;
+                            
+                        })
                     }
                 });
+                $scope.changeSchoolsName($rootScope.lang);
+                console.log("Language:"+$rootScope.lang);
             }).catch(function(error){
                 $scope.loading = 0;
                 $scope.error = 1;
                 $scope.error_text = "Currently there is an error with the database connection. Please try it later";
             });
         }
+        $scope.changeSchoolsName = function(lang){
+            console.log("Change Scoohl Name called:"+lang);
+            $scope.buildings.forEach(function(site,index){
 
+                if(lang=='en')
+                    site.display_name  = ($rootScope.isUndefined(site.en_name)?site.name:site.en_name);
+                else if(lang=='el')
+                    site.display_name = ($rootScope.isUndefined(site.el_name)?site.name:site.el_name);
+                else if(lang=='sw')
+                    site.display_name = ($rootScope.isUndefined(site.sw_name)?site.name:site.sw_name);
+                else if(lang=='it')
+                    site.display_name = ($rootScope.isUndefined(site.it_name)?site.name:site.it_name);
+            });
+        }
+        var langChanged = $scope.$watch('lang', function (newValue, oldValue,$rootScope) {
+            console.log(newValue);
+            switch (newValue) {
+                case 'en':
+                    $scope.changeSchoolsName('en');
+                    break; 
+                case 'el':
+                    $scope.changeSchoolsName('el');
+                    break; 
+                case 'sw':
+                    $scope.changeSchoolsName('sw');
+                    break; 
+                case 'it':
+                    $scope.changeSchoolsName('it');                    
+                    break; 
+                default: 
+                    $scope.changeSchoolsName('el');
+            }
+        });
+
+        $scope.$on('$destroy', function() {
+            langChanged();
+        });
+
+      
         $scope.details = function(id){
             appConfig.main.selected_building = id;
             $rootScope.connectToRuleEngine(id);
@@ -453,25 +503,13 @@
         $scope.add_the_rule = function(){
             console.log('Add the rule');
 
-            //$scope.selected_area = $stateParams.id;
+         
             $scope.selected_area = '143456';
 
-         /*   if($scope.rule.edit==1){
-                var method = "PUT";
-                var url = appConfig.main.apis.cnit+'rules/'+$scope.rule.rid.replace('#','');
-            }
-            else{*/
+         
                 var url = appConfig.main.apis.cnit+'area/'+$scope.selected_area+'/rules';
                 var method = "POST";
-            /*}*/
-            /*$scope.fields = {
-                    "name":             $scope.rule.name,
-                    "description":      $scope.rule.description,
-                    "operator":         $scope.rule.operator,
-                    "suggestion":       $scope.rule.suggestion,
-                    "threshold":        $scope.rule.threshold,
-                    "uri":              $scope.rule.uri
-                };*/
+            
                 $scope.fields = {
                     "name":             "Manos Test",
                     "description":      "Manos description",
@@ -1364,8 +1402,6 @@
             var spark_areas = site.getSparkAreas($stateParams.id);
             spark_areas.then(function(areas){
                 $scope.building.areas = areas.data.sites;
-                console.log($scope.building.areas);
-
                 $scope.building.areas.forEach(function(area){
                     $scope.details(area);
                 })
@@ -1410,13 +1446,13 @@
 
 
 
-
+        
         $scope.available_observes = [];
-        $scope.available_observes.push({'name':'Light','encoded_name':'Light','uom':'lux'});
-        $scope.available_observes.push({'name':'Energy','encoded_name':'Energy','uom':'mWh'});
-        $scope.available_observes.push({'name':'Temperature','encoded_name':'Temperature','uom':'C'});
-        $scope.available_observes.push({'name':'ComfortLevel','encoded_name':'comfort level','uom':'Raw'});
-        $scope.available_observes.push({'name':'SharedResource','encoded_name':'shared resource','uom':'Raw'});
+        $scope.available_observes.push({'name':'Light','encoded_name':'Light','uom':'lux','translated_name':'LIGHT'});
+        $scope.available_observes.push({'name':'Energy','encoded_name':'Energy','uom':'mWh','translated_name':'ENERGY'});
+        $scope.available_observes.push({'name':'Temperature','encoded_name':'Temperature','uom':'Centigrade','translated_name':'TEMPERATURE'});
+        $scope.available_observes.push({'name':'ComfortLevel','encoded_name':'comfort level','uom':'Raw','translated_name':'COMFORT_LEVEL'});
+        $scope.available_observes.push({'name':'SharedResource','encoded_name':'shared resource','uom':'Raw','translated_name':'SHARED_RESOURCE'});
         $scope.virtual_sensors = [];
 
         $scope.save_new_virtual_sensor = function(){
@@ -1533,6 +1569,9 @@
 
         var chart_details = Sensor.getDetailsFromSparks($scope.sensor.id);
             chart_details.then(function(chartdetails){
+                console.log(chartdetails);
+                $scope.t_sensor = chartdetails.data;
+
                 $scope.measurementUnit = chartdetails.data.uom;
                 $scope.available_uoms.push(chartdetails.data.uom);
                 $scope.selected_uom = chartdetails.data.uom;
@@ -2067,16 +2106,86 @@
     $scope.comp_site = 0;
     $scope.loading = 0;
     $scope.line3 = {};
+    $scope.allSites = [];
   
     $scope.getAllSites = function(){
         var schools = site.getAllSites();
+
         schools.then(function(respo){
-            $scope.allSites = respo.data.sites;
+
+            respo.data.sites.forEach(function(ssite,index){
+                    
+                        ssite.display_name = ssite.name;
+                        $scope.allSites.push(ssite);                        
+                        var details = site.getDetails(ssite.id);                        
+                        details.then(function(details,index){                            
+                            ssite.details = details.data;                            
+                            ssite.sw_name = details.data.swedishLocalizedName;
+                            ssite.it_name = details.data.italianLocalizedName;
+                            ssite.en_name = details.data.englishLocalizedName;
+                            ssite.el_name = details.data.greekLocalizedName;
+                            
+                        })
+                    
+                });
+                $scope.changeSchoolsName($rootScope.lang);
+
+
+
         }).catch(function(e){
             $scope.error_view = 1;
             $scope.error_text = "We can not read the list of the other schools";
         });
     }
+
+
+        $scope.changeSchoolsName = function(lang){
+
+            $scope.allSites.forEach(function(site,index){
+
+                if(lang=='en')
+                    site.display_name  = ($rootScope.isUndefined(site.en_name)?site.name:site.en_name);
+                else if(lang=='el')
+                    site.display_name = ($rootScope.isUndefined(site.el_name)?site.name:site.el_name);
+                else if(lang=='sw')
+                    site.display_name = ($rootScope.isUndefined(site.sw_name)?site.name:site.sw_name);
+                else if(lang=='it')
+                    site.display_name = ($rootScope.isUndefined(site.it_name)?site.name:site.it_name);
+            });
+        }
+
+        var langChanged = $scope.$watch('lang', function (newValue, oldValue,$rootScope) {
+            console.log(newValue);
+            switch (newValue) {
+                case 'en':
+                    $scope.changeSchoolsName('en');
+                    break; 
+                case 'el':
+                    $scope.changeSchoolsName('el');
+                    break; 
+                case 'sw':
+                    $scope.changeSchoolsName('sw');
+                    break; 
+                case 'it':
+                    $scope.changeSchoolsName('it');                    
+                    break; 
+                default: 
+                    $scope.changeSchoolsName('el');
+            }
+        });
+
+        $scope.$on('$destroy', function() {
+            langChanged();
+        });
+
+
+
+
+
+
+
+
+
 
     $scope.getChart = function(this_school,other_school){
         $scope.loading = 1;
@@ -2226,6 +2335,7 @@
                     
                     tsite.then(function(site) {
                     $scope.school_other_name = $rootScope.getTranslatedName(site);                   
+                    console.log("Other School Translated:"+$scope.school_other_name);
                     
 
                     if($rootScope.isUndefined(site.data.json) || site.data.json === null || site.data.json==null || site.data.json=="null" || site.data.json === " " || site.data.json === ""){
@@ -2754,7 +2864,7 @@
 
         $scope.changeRegularity = function(button,chartt){
             console.log('Change Regularity');
-            //manos
+            
             var chart = chartt;
             chart.step = button.action;
             chart.loading = 1;
@@ -4781,6 +4891,9 @@
             $scope.recommendation_alert = 0;
         }
 
+        $scope.openNewWindow = function(new_url){
+            window.open(new_url,'_blank');
+        }
         $rootScope.recommendations=0;
         $rootScope.toolbox = {
             show : true,
