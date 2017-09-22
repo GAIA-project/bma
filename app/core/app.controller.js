@@ -2084,6 +2084,7 @@
         $scope.legends= {};
         $scope.legends.data = [];
         var x = 0;
+        $scope.final_measurement_unit=this_school.targetUom;
           
         var chart_other_school = Sensor.getComparingQueryTimeRange(other_school);
         var chart_this_school  = Sensor.getComparingQueryTimeRange(this_school);
@@ -2179,7 +2180,7 @@
                                 type : 'value',
                                 scale : true,
                                 axisLabel : {
-                                    formatter: '{value} '+$scope.this_jjson.energy_consumption_resource_uom
+                                    formatter: '{value} '+$scope.final_measurement_unit
                                 }
                             }
                         ],
@@ -2370,7 +2371,7 @@
         
 
 }).controller('SiteComparisonController',function($scope,$q,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor,buildings,$filter){
-        
+        console.log("SITE COMPARISON");
     var todate = new Date().getTime();
         $scope.right_side_visible = 0;
         $scope.line3 = {};
@@ -2441,6 +2442,11 @@
                 result = result[0];
 
             if(!$rootScope.isUndefined(result)){
+                console.log("result");
+                console.log(result);
+                console.log(result);
+                console.log(result);
+                console.log(result);
                  
 
                 var sensor = result;
