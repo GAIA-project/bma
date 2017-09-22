@@ -31,7 +31,7 @@
         var date = new Date();
         var year = date.getFullYear();
         var main = {
-            debug:true,
+            debug:false,
             selected_building:0,
             logo:'images/logo.png',
             brand: 'Gaia',            
