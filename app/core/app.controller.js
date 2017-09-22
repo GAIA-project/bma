@@ -1920,14 +1920,14 @@
             $scope.line3.options.yAxis =[{
                 type : 'value',
                 axisLabel : {
-                    formatter: '{value} '+$scope.measurementUnit
+                    formatter: '{value} '+sensor.uom
                 }
             }];
 
             $scope.line3.options.series = [];                        
 
             $scope.selected_sensors_to_show.forEach(function(sensor,index){
-                
+                    $scope.measurementUnit = sensor.uom;
                     sensor.chart = Sensor.getComparingQueryTimeRange({
                       "from": date_from,
                       "granularity": $scope.granularity,
@@ -2026,7 +2026,7 @@
                                 type : 'value',
                                 scale : true,
                                 axisLabel : {
-                                    formatter: '{value} '
+                                    formatter: '{value} '+$scope.measurementUnit
                                 }
                             }
                         ],
