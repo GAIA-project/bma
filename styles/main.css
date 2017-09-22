@@ -1824,8 +1824,8 @@ html {
       .header-container > .top-header .top-nav .nav-right > li ul.dropdown-menu .glyphicon {
         margin-right: 10px; }
   .header-container > .top-header .top-nav .search-box {
-    max-width: 180px;
-    padding: 12px 0; }
+    max-width: 300px;
+    padding: 16px 0; }
     .header-container > .top-header .top-nav .search-box i {
       font-size: 18px;
       line-height: 20px; }

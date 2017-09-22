@@ -82,7 +82,15 @@
                         <h4>Loading</h4>
                         <md-progress-circular md-mode="indeterminate" style="margin:0 auto"></md-progress-circular>
                     </div>
-                    <div data-echarts data-options="sensor_measurements.options" style="height: 350px;"></div>
+                    <div class="col-sm-12 col-md-2" ng-hide="loading">
+                        <table class="table">
+                            <tr><td><strong><span data-translate="average"></span></strong></td><td>{{average}}</td></tr> 
+                            <tr><td><strong><span data-translate="sum"></span></strong></td><td>{{summary}}</td></tr> 
+                        </table>                         
+                    </div>
+                    <div class="col-sm-12 col-md-10">
+                        <div data-echarts data-options="sensor_measurements.options" style="height: 350px;"></div>
+                    </div>
             	</div>
             </div>
         </div>

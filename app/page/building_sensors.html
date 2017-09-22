@@ -8,6 +8,9 @@
     <div class="row" style="margin-top: 10px"  ng-init="getInitAreas()">
             <div class="text-right" style="margin:10px">
                 <a ui-wave href="javascript:;" ng-show="hasPermission('addVirtualSensor')" ng-click="addVirtualSensor()" class="btn btn-sm btn-raised btn-primary"><span data-translate="ADD_A_VIRTUAL_SENSOR"></span></a>
+                <a ui-wave href="javascript:;" ng-show="general_resources.length && !view_general_resources" ng-click="viewGeneralResources()" class="btn btn-sm btn-raised btn-primary"><span data-translate="VIEW_GENERAL_RESOURCES"></span></a>
+                <a ui-wave href="javascript:;" ng-show="view_general_resources" ng-click="hideGeneralResources()" class="btn btn-sm btn-raised btn-primary"><span data-translate="HIDE_GENERAL_RESOURCES"></span></a>
+                
             </div>
         <div class="col-sm-12">
 
@@ -42,7 +45,19 @@
             </div>
              
 
+            <div class="row area_box" ng-show="view_general_resources" ng-init="getGeneralResources()">
 
+                <h2 class="area_title"><span data-translate="GENERAL_RESOURCES"></span></h2>
+                    <div class="col-sm-6 col-md-3 col-lg-2" style="margin-bottom: 5px" ng-repeat="sensor in general_resources" ng-click="goToSensor(sensor.resourceId)">
+                        <div class="sensorbox" style="min-height: 170px">
+                        <div class="panel-heading">{{sensor.name}} - {{sensor.property}}</div>
+                            <div class="panel-body">
+                                <h5 class="latest_value"><span data-translate="Latestvalue"></span></h5>
+                                <h4>{{sensor.metrics.latest+" "+sensor.uom}}</h4>
+                            </div>
+                        </div>
+                    </div>
+            </div>
             <div class="row area_box" ng-show="virtual_sensors.length" ng-init="getPSResources()">
 
                 <h2 class="area_title"><span data-translate="VIRTUAL_SENSORS"></span></h2>
@@ -51,12 +66,13 @@
                         <div class="panel-heading">{{sensor.name}} - {{sensor.property}}</div>
                             <div class="panel-body">
                                 <h5 class="latest_value"><span data-translate="Latestvalue"></span></h5>
-                                <h4>{{sensor.meatrics.latest+" "+sensor.uom}}</h4>
+                                <h4>{{sensor.metrics.latest+" "+sensor.uom}}</h4>
                             </div>
                         </div>
                     </div>
             </div>
-
+            
+            
 
 
             <div class="row area_box" ng-repeat="area in building.areas">

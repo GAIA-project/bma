@@ -219,7 +219,10 @@
 	"ENERGY":"Ενέργεια",
 	"TEMPERATURE":"Θερμοκρασία",
 	"COMFORT_LEVEL":"Επίπεδο άνεσης",
-	"SHARED_RESOURCE":"Άλλο"
+	"SHARED_RESOURCE":"Άλλο",
+    "GENERAL_RESOURCES":"Αισθητήρες Κτηρίου",
+    "VIEW_GENERAL_RESOURCES":"Προβολή Αισθητήρων σχολείου",
+    "HIDE_GENERAL_RESOURCES":"Απόκρυψη Αισθητήρων σχολείου"
 
 }
  

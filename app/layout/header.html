@@ -306,7 +306,14 @@
         </ul> 
 
         <ul class="nav-right pull-right list-unstyled">
-
+          <li class="search-box visible-md visible-lg">
+                <div class="input-group">
+                    <span class="input-group-addon">{{selected_school_name}}</span>
+                    
+                    <span class="input-bar"></span>
+                </div>
+            </li>
+          
             <li class="dropdown text-normal nav-profile" uib-dropdown is-open="status.isopenProfile">
                 <a href="javascript:;" class="dropdown-toggle" uib-dropdown-toggle ng-disabled="disabled" md-button aria-label="profile">
                     <span class="hidden-xs">

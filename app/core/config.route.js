@@ -112,10 +112,7 @@ angular.module('app').run(function($rootScope, $templateCache,$translate,$log,ap
                 var day = tdat.getDate();
                 var month = tdat.getMonth();                
                 var year = tdat.getFullYear();
-                console.log("day:"+day);
-                console.log("month:"+month);
-                console.log("year:"+year);
-
+               
                 var utcDate = new Date(Date.UTC(year,month,day));
                 var starttime = new Date(utcDate.getFullYear(),utcDate.getMonth(),utcDate.getDate())/1;
                 
@@ -126,10 +123,6 @@ angular.module('app').run(function($rootScope, $templateCache,$translate,$log,ap
         $rootScope.convertForTimeAxis = function(timest,granularity){
             
             var m = timest;
-            console.log(timest);
-
-            console.log(m.getDate()+"/"+parseInt(m.getMonth()+1)+"/"+m.getUTCFullYear());
-
             switch(granularity) {
                 case '5min':
                     return m.getHours()+":"+m.getMinutes()+":00";

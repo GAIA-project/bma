@@ -401,10 +401,11 @@
         });
 
       
-        $scope.details = function(id){
-            appConfig.main.selected_building = id;
-            $rootScope.connectToRuleEngine(id);
-            $location.path('page/building/view/'+id);
+        $scope.details = function(site){
+            $rootScope.selected_school_name = site.display_name;
+            appConfig.main.selected_building = site.id;
+            $rootScope.connectToRuleEngine(site.id);
+            $location.path('page/building/view/'+site.id);
         }
         
         $scope.add_new = function(){
@@ -487,7 +488,8 @@
                     name:'kWh',
                     type:'line',
                     smooth:true,
-                    itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                    /*itemStyle: {normal: {areaStyle: {type: 'default'}}},*/
+                    itemStyle: $rootScope.itemStyle,
                     data:[10, 11, 12, 54, 12,10.5, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9]
                 },
               
@@ -1397,10 +1399,12 @@
 
 
         $scope.building = {};
+        $scope.view_general_resources = 0;
         
         $scope.getInitAreas = function(){
             var spark_areas = site.getSparkAreas($stateParams.id);
             spark_areas.then(function(areas){
+
                 $scope.building.areas = areas.data.sites;
                 $scope.building.areas.forEach(function(area){
                     $scope.details(area);
@@ -1408,7 +1412,38 @@
             });
         }
 
-       
+        $scope.viewGeneralResources = function(){
+            $scope.view_general_resources = 1;
+        }
+        $scope.hideGeneralResources = function(){
+            $scope.view_general_resources = 0;
+        }
+        $scope.getGeneralResources = function(){
+
+          
+            $scope.error_view = 0;
+            $scope.error_text = "";
+            $scope.general_resources = [];
+            var resources = Area.getResources($stateParams.id);
+            resources.then(function(info){
+                console.log(info)
+                $scope.general_resources = info.data.resources;
+                $scope.general_resources.forEach(function(sensor,index){
+                        var m = Sensor.getMeasurementsByResourceId(sensor.resourceId);
+                            m.then(function(datas){
+                                
+                                sensor.metrics = datas.data;
+                                sensor.metrics.latest = parseFloat(sensor.metrics.latest).toFixed(2);
+                            });                           
+                    });
+
+            }).catch(function(e){
+
+                $scope.error_view = 1;
+                $scope.error_text +="Sparkworks:"+e.data.message;
+                console.log(e);
+            });
+        }
         $scope.details = function(area){
             console.log(area);
           
@@ -1416,6 +1451,7 @@
             $scope.error_text = "";
             var resources = Area.getResources(area.id);
             resources.then(function(info){
+
                 area.resources = info.data.resources;
                 area.resources.forEach(function(sensor,index){
                         var m = Sensor.getMeasurementsByResourceId(sensor.resourceId);
@@ -1431,21 +1467,7 @@
                 $scope.error_text +="Sparkworks:"+e.data.message;
                 console.log(e);
             });
-        }
-
-
-
-
-
-
-
-
-
-        
-       
-
-
-
+        }  
         
         $scope.available_observes = [];
         $scope.available_observes.push({'name':'Light','encoded_name':'Light','uom':'lux','translated_name':'LIGHT'});
@@ -1518,15 +1540,17 @@
         $scope.getPSResources = function(){
 
             var senss = site.getResources($stateParams.id);
-                senss.then(function(sites){
-        
+                senss.then(function(sites){        
                 $scope.virtual_sensors = [];
-
                 sites.data.resources.forEach(function(thesensor,index){
                 console.log(thesensor.uri + " : " + thesensor.name);                            
                         if(thesensor.uri.startsWith("gaia-ps")){
                             $scope.virtual_sensors.push(thesensor);
-                        
+                            var m = Sensor.getMeasurementsByResourceId(thesensor.resourceId);
+                            m.then(function(datas){
+                                thesensor.metrics = datas.data;
+                                thesensor.metrics.latest = parseFloat(thesensor.metrics.latest).toFixed(2);
+                            }); 
                         }                       
                
                     });
@@ -1569,8 +1593,9 @@
 
         var chart_details = Sensor.getDetailsFromSparks($scope.sensor.id);
             chart_details.then(function(chartdetails){
-                console.log(chartdetails);
+             
                 $scope.t_sensor = chartdetails.data;
+                $scope.t_sensor.name = ($rootScope.isUndefined($scope.t_sensor.name)?$scope.t_sensor.uri:$scope.t_sensor.name);
 
                 $scope.measurementUnit = chartdetails.data.uom;
                 $scope.available_uoms.push(chartdetails.data.uom);
@@ -1580,7 +1605,6 @@
                 available_uom.then(function(av_uoms){
                     var avi = av_uoms.data.unitConversions;
                     avi.forEach(function(uom){
-
                         $scope.available_uoms.push(uom.target);
                     })
                 });
@@ -1588,75 +1612,20 @@
 
         var meas = Sensor.getMeasurementsByResourceId($scope.sensor.id);
         meas.then(function(measurements){
+                console.log("RESOURCE Measurements");
+                console.log(measurements);
 
-     
                 if(measurements.data.keyName.startsWith("gaia-ps")){
                     $scope.add_measurements_btn_view = true;
                 }
+                
+                
+                $scope.second_period_to_time = new Date(measurements.data.latestTime);
+                $scope.first_period_from_time = new Date($scope.second_period_to_time-47*24*60*60*1000);
+                $scope.update();                
 
                 $scope.sensor.meatrics = measurements.data;                  
-                var the_data = measurements.data.day;                
-
-                the_data.forEach(function(d,index){
-
-                    
-                    //TODO latest date = today
-                    $scope.second_period_to_time = new Date(measurements.data.latestTime);
-                    $scope.first_period_from_time = new Date($scope.second_period_to_time-47*24*60*60*1000);
-                    
-
-                    the_data[index] = $rootScope.addCommas(parseFloat(d).toFixed(2));
-                    var m= new Date(measurements.data.latestTime-index*1000*3600*24);
-                    $scope.dates_one[index] = $rootScope.convertForTimeAxis(m,'day');
-                });
-             
-            $q.all(the_data).then(function(){
-                $scope.dates_one.reverse();
-                the_data.reverse();
-                console.log($scope.dates_one);
-              
-
-              $scope.sensor_measurements.options = {
-                    title : {
-                        text: '',
-                    },
-                    tooltip : {
-                        trigger: 'axis',
-                        formatter: "{b} <br/> {c} "+$scope.measurementUnit
-                    },
-                    legend: {
-                        data:['Mesurements']
-                    },
-                    toolbox:$rootScope.toolbox,
-                    calculable : true,
-                    xAxis : [
-                        {
-                            type : 'category',
-                            boundaryGap : false,
-                            data : $scope.dates_one
-                        }
-                    ],
-                    yAxis : [
-                        {
-                            type : 'value',
-                            axisLabel : {
-                                formatter: '{value} '+$scope.measurementUnit
-                            }
-                        }
-                    ],
-                    series : [
-                        {
-                            name:'Measurements',
-                            type:'line',
-                            smooth:true,
-                            itemStyle: {normal: {areaStyle: {type: 'default'}}},
-                            data:the_data
-                        }
-                    ]
-                    };
-
-                
-            });
+                var the_data = measurements.data.day;                             
                
             }); 
          });
@@ -1714,10 +1683,6 @@
             
             $scope.loading = 1;
             
-
-            
-
-            console.log($scope.second_period_to_time);
             $scope.obj = {};
             $scope.obj.one = {};
             $scope.obj.one.from = $rootScope.convertToMiliseconds($scope.first_period_from_time);
@@ -1725,11 +1690,6 @@
             $scope.obj.one.resourceID= $scope.sensor.id;
             $scope.obj.one.granularity = $scope.selected_granularity;
             $scope.obj.one.targetUom = $scope.selected_uom;
-
-           /* $scope.obj.one.string = $scope.first_period_from_time+" TO "+$scope.second_period_to_time;*/
-
-            console.log($scope.obj.one);           
-
             
             var first = Sensor.getComparingQueryTimeRange($scope.obj.one);
               first.then(function(vals){
@@ -1760,10 +1720,6 @@
             
             $scope.loading = 1;
             
-
-            
-
-            console.log($scope.second_period_to_time);
             $scope.obj = {};
             $scope.obj.one = {};
             $scope.obj.one.from = $rootScope.convertToMiliseconds($scope.first_period_from_time);
@@ -1771,28 +1727,29 @@
             $scope.obj.one.resourceID= $scope.sensor.id;
             $scope.obj.one.granularity = $scope.selected_granularity;
             $scope.obj.one.targetUom = $scope.selected_uom;
+            $scope.measurementUnit      = $scope.selected_uom;
 
-           /* $scope.obj.one.string = $scope.first_period_from_time+" TO "+$scope.second_period_to_time;*/
-
-            console.log($scope.obj.one);           
-
-            
             var first = Sensor.getComparingQueryTimeRange($scope.obj.one);
               first.then(function(vals){
-                
+                console.log("VALS");
+                console.log(vals);
                 var obj     = vals.data.results;
                 var vals1   = obj[Object.keys(obj)[0]];
-                    vals1 = vals1.data;
+                    
+
+                $scope.average = $rootScope.addCommas(parseFloat(vals1.average).toFixed(2))+" "+$scope.selected_uom;
+                $scope.summary = $rootScope.addCommas(parseFloat(vals1.summary).toFixed(2))+" "+$scope.selected_uom;
+                vals1 = vals1.data;
 
                 var vals    = [];
-                $scope.vals1 = [];
-                
+                $scope.vals1 = [];                
                 $scope.tdates   = [];             
 
                 vals1.forEach(function(val,index){                            
-                    $scope.vals1.push($rootScope.addCommas(parseFloat(val.reading).toFixed(2)));
+                    $scope.vals1.push(parseFloat(val.reading).toFixed(2));
                     var m = new Date(val.timestamp);                        
                     $scope.tdates.push($rootScope.convertForTimeAxis(m,$scope.obj.one.granularity));
+                    console.log(val.timestamp+":"+val.reading+":"+$rootScope.addCommas(parseFloat(val.reading).toFixed(2)));
                 });
                 $scope.setChartValues();
                 $scope.loading = 0;
@@ -1803,6 +1760,7 @@
         }
 
 
+
         $scope.setChartValues = function(){
 
                     $scope.sensor_measurements.options = {
@@ -1811,8 +1769,12 @@
                     },
                     tooltip : {
                         trigger: 'axis',
-                        formatter: "{b} <br/> {c} "+$scope.measurementUnit
+                        formatter : function (params) {
+                            console.log(params);
+                            return params[0].name+'<br/>'+$rootScope.addCommas(params[0].value)+ ' '+$scope.measurementUnit
+                        }
                     },
+
                     legend: {
                         data:['Mesurements']
                     },
@@ -1852,7 +1814,7 @@
                             name:'Measurements',
                             type:'line',
                             smooth:true,
-                            itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                            itemStyle: $rootScope.itemStyle,
                             data:$scope.vals1
                         }
                     ]
@@ -1991,8 +1953,7 @@
                     $scope.error = "error";
                     $scope.counter++;
 
-                    if($scope.counter===($scope.selected_sensors_to_show.length)){
-                       
+                    if($scope.counter===($scope.selected_sensors_to_show.length)){                       
                         $scope.drawchart();
                     }
                 });           
@@ -2034,7 +1995,7 @@
                     name:$filter('translate')(res.sensor.name),
                     type:'line',
                     smooth:true,
-                    itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                    itemStyle:   {normal: {areaStyle: {type: 'default'}}},
                     data:d
                 });  
 
@@ -2260,6 +2221,7 @@
                     type:'line',
                     smooth:true,
                     itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                    /*itemStyle: $rootScope.itemStyle,*/
                     data:d
                 });  
             });
@@ -2638,7 +2600,8 @@
                                 name:$scope.obj.one.string,
                                 type:'line',
                                 smooth:true,
-                                itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                                /*itemStyle: {normal: {areaStyle: {type: 'default'}}},*/
+                                itemStyle: $rootScope.itemStyle,
                                 data:$scope.vals1
                             }                            
                         ]
@@ -2696,7 +2659,8 @@
                                     name:$scope.obj.two.string,
                                     type:'line',
                                     smooth:true,
-                                    itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                                    /*itemStyle: {normal: {areaStyle: {type: 'default'}}},*/
+                                    itemStyle: $rootScope.itemStyle,
                                     data:$scope.vals2
                                 }
                             ]
@@ -2990,7 +2954,8 @@
                             name:$scope.sitename,
                             type:'line',
                             smooth:true,
-                            itemStyle: {normal: {areaStyle: {type: 'default'},color:'rgba(38,43,51,1)'}},
+                            /*itemStyle: {normal: {areaStyle: {type: 'default'},color:'#98b13a'}},*/
+                            itemStyle: $rootScope.itemStyle,
                             data:metrics_of_this
                         }
                     ]
@@ -3127,7 +3092,8 @@
                             name:$scope.sitename,
                             type:'line',
                             smooth:true,
-                            itemStyle: {normal: {areaStyle: {type: 'default'},color:'rgba(38,43,51,1)'}},
+                            /*itemStyle: {normal: {areaStyle: {type: 'default'},color:'#98b13a'}},*/
+                            itemStyle: $rootScope.itemStyle,
                             data:metrics_of_this
                         }
                     ]
@@ -3253,7 +3219,7 @@
                                         name:$scope.sitename,
                                         type:'line',
                                         smooth:true,
-                                        itemStyle: {normal: {areaStyle: {type: 'default'},color:'rgba(38,43,51,1)'}},
+                                        itemStyle: $rootScope.itemStyle,
                                         data:metrics_of_this
                                     }
                                 ]
@@ -3346,10 +3312,6 @@
            $scope.building.details = site.data;
            $scope.sitename = site.data.item.name;
            var json = JSON.parse(site.data.item.json);
-           console.log("*******************DETAILS***********");
-           console.log(json);
-           console.log(json);
-           console.log(json);
            $scope.building.extra_charts = json.extra_charts;
            
 
@@ -3403,12 +3365,11 @@
             k.then(function(sensor_details){
                 
                 $scope.measurementUnit = 'kWh';
-                $scope.getCentralChart();
-               
+                $scope.getCentralChart();               
             });
 
         }, function(reason) {
-          console.log(reason);
+            console.log(reason);
         });
 
 
@@ -3421,7 +3382,7 @@
                 var dates = [];
                 var metrics_of_this = [];
 
-                chart.average_per_day = $rootScope.addCommas(parseFloat(metrics.data.average.day).toFixed(2));
+                chart.average_per_day   = $rootScope.addCommas(parseFloat(metrics.data.average.day).toFixed(2));
                 chart.average_per_month = $rootScope.addCommas(parseFloat(metrics.data.average.month).toFixed(2));
                 
                 var dateObj = new Date(metrics.data.latestTime);
@@ -3523,7 +3484,8 @@
                             name:$scope.sitename,
                             type:'line',
                             smooth:true,
-                            itemStyle: {normal: {areaStyle: {type: 'default'},color:'rgba(38,43,51,1)'}},
+                            /*itemStyle: {normal: {areaStyle: {type: 'default'},color:'#98b13a'}},*/
+                            itemStyle: $rootScope.itemStyle,
                             data:metrics_of_this
                         }
                     ]
@@ -3638,7 +3600,8 @@
                                         name:$scope.sitename,
                                         type:'line',
                                         smooth:true,
-                                        itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                                        /*itemStyle: {normal: {areaStyle: {type: 'default'}}},*/
+                                        itemStyle: $rootScope.itemStyle,
                                         data:metrics_of_this
                                     }
                                 ]
@@ -4895,6 +4858,8 @@
             window.open(new_url,'_blank');
         }
         $rootScope.recommendations=0;
+        $rootScope.itemStyle = {normal: {areaStyle: {type: 'default'},color:'#98b13a'}};
+        //$rootScope.itemStyle = {normal: {areaStyle: {type: 'default'},color:'red'}};
         $rootScope.toolbox = {
             show : true,
             feature : {
@@ -4916,13 +4881,8 @@
                 
                 $rootScope.recommendations = 0;
                 $scope.$watch('$rootScope.recommendations', function(newValue, oldValue) {
-                    console.log(newValue);
-                    console.log("WATCH WORKS");
                     $rootScope.recommendation_alert = 1;
-                    // angular copy will preserve the reference of $scope.someVar
-                    // so it will not trigger another digest 
                     angular.copy($rootScope.recommendations, $scope.someVar);
-
                 });
 
 
@@ -4950,7 +4910,7 @@
                      }
                 };
                     $http(req).then(function(d){
-                          console.log("TRIGGERRRR");
+                          console.log("ALERT");
                           console.log(d);
                           
                     }, function(e){
