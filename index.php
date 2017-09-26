@@ -2,7 +2,7 @@
 <html class="no-js">
     <head>
     <?php 
-        $version = 7500;
+        $version = 7502;
     ?>
         <meta charset="utf-8">
         <meta http-equiv='X-UA-Compatible' content='IE=edge'>

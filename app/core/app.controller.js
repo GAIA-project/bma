@@ -402,6 +402,10 @@
 
       
         $scope.details = function(site){
+            console.log("SITE SITE");
+            console.log("SITE SITE");
+            console.log("SITE SITE");
+            console.log(site);
             $rootScope.selected_school_name = site.display_name;
             appConfig.main.selected_building = site.id;
             $rootScope.connectToRuleEngine(site.id);
@@ -1412,6 +1416,25 @@
             });
         }
 
+        $scope.editSensorName = function(sensor){
+            console.log(sensor);
+            sensor.editing = true;
+        }
+
+        $scope.saveSensor = function(sensor){
+            sensor.editing = false;
+            console.log("SAVED");
+            console.log(sensor);
+            var k = Sensor.rename(sensor);
+            k.then(function(t){
+                console.log(t);
+            }).catch(function(e){
+                $scope.error_view = 1;
+                $scope.error_text +=e.statusText;               
+            });
+            
+        }
+
         $scope.viewGeneralResources = function(){
             $scope.view_general_resources = 1;
         }
@@ -1920,7 +1943,7 @@
             $scope.line3.options.yAxis =[{
                 type : 'value',
                 axisLabel : {
-                    formatter: '{value} '+sensor.uom
+                    formatter: '{value} '
                 }
             }];
 
@@ -2026,7 +2049,7 @@
                                 type : 'value',
                                 scale : true,
                                 axisLabel : {
-                                    formatter: '{value} '+$scope.measurementUnit
+                                    formatter: '{value} '
                                 }
                             }
                         ],
@@ -2929,7 +2952,12 @@
                     },
                     tooltip : {
                         trigger: 'axis',
-                        formatter: "{a} <br/>{b} : {c} "+chart.measurementUnit
+                        //formatter: "{a} <br/>{b} : {c} "+chart.measurementUnit
+                        formatter:function (params) {
+                            console.log(params);
+                            let rez = params[0].name+": "+parseFloat(params[0].data).toFixed(2)+" "+chart.measurementUnit;
+                            return rez;
+                        }
                     },
                     toolbox: $rootScope.toolbox,
                     calculable : true,
@@ -4866,7 +4894,7 @@
                 restore : {show: true, title: "Restore"},
                 saveAsImage : {show: true, title: "Save as image"},
                 dataZoom : {show: true,title:{zoom:"Zoom",back:"Reset Zoom"}},
-                dataView : {show: false,title:"DataView",lang: ['Data View', 'Back','Close']},
+                dataView : {show: true,title:"DataView",lang: ['Data View', 'Back','Close']},
                 magicType : {show: true, type: ['line', 'bar'],title:{
                     line: 'Line',
                     bar: 'Bar',
