@@ -2430,3 +2430,8 @@ img.social_3 {
     margin:10px 0px;
     padding: 5px 15px;
 }
+tr.alert {
+    
+    background: #ca8f8f!important;
+    color: #8f0909;
+}

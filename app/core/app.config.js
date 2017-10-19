@@ -52,7 +52,8 @@
                 main                    :'https://api.sparkworks.net/v1/',
                 getRole                 :'https://sso.sparkworks.net/aa/user',
                 myresource              :'myresource',
-                over_db                 :'http://150.140.5.64:8080/GaiaAnalytics/gaia/',
+                over_url                :'https://buildings.gaia-project.eu',
+                over_db                 :'https://buildings.gaia-project.eu/GaiaAnalytics/gaia/',
                 over_new_api            :'https://buildings.gaia-project.eu/gaia-building-knowledge-base/',
                 getAnomalies            :'anomaly/events/getall',
                 buildings               :'utility/buildings/getall',
@@ -78,7 +79,7 @@
 
         if(main.debug==true){
             main.TheUserName='mpoufard';
-            main.auth_token = 'dc4ed779-07f1-4e1b-9e50-34664d3832a6';
+            main.auth_token = '9081d43a-83a6-4770-91b3-20e7190b72e2';
             main.auth_role = 'ROLE_GAIA_GLOBAL_MANAGER';
         }
         var color = {

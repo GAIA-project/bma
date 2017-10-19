@@ -214,5 +214,6 @@
     "ENERGY":"Energi",
     "TEMPERATURE":"Temperatur",
     "COMFORT_LEVEL":"Komfortnivå",
-    "SHARED_RESOURCE":":Andra"
+    "SHARED_RESOURCE":":Andra",
+    "USERS_REQUESTS":"Användarbegäran"
 }

@@ -1,0 +1,162 @@
+<div class="page" ng-controller="SiteAreasController" >
+<div class="saved"><span data-translate="UPDATED"></span></div>
+    <div class="row" >
+        <div class="col-sm-12">
+            <h2 class="section-header">{{building.details.item.name}}</h2>
+        </div>
+    </div>
+ 
+<div class="row" style="margin-top: 10px">    
+        <div class="col-md-4">
+            <div class="panel panel-default panel-minimal">
+                <div class="divider divider-md"></div>
+                <div class="panel-heading">
+                    <span class="card-title"  data-translate="AREAS"></span>
+                </div>
+                <div class="panel-body" ng-init="getInitAreas()">
+                	
+                     <div class="table-responsive">
+                        <table class="table table-striped table-bordered no-margin">
+                            <thead>
+                                <tr>
+                                    <th><span data-translate="Name"></span></th>
+                                    <th><span data-translate="Actions"></span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="area in building.areas">
+                                    <td>{{area.name}}</td>
+                                    <td><a ui-wave href="javascript:;" ng-click="details(area)" class="btn btn-sm btn-raised btn-primary"><span data-translate="DETAILS"></span></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+
+            </div>
+                </div>
+            </div>
+        </div>
+         <div class="col-md-8" ng-show="selected_area">
+
+            <div class="panel panel-default panel-minimal" >
+                <div class="panel-body">
+                    <h3>{{selected_area.name}}</h3>
+                    <div class="alert alert-danger text-center" ng-show="error_view">{{error_text}}</div>
+                    <uib-tabset active="activeJustified" justified="true">
+                        <uib-tab index="0" heading="{{language.description}}" >
+                                <div class="text-right" style="margin:10px">
+                                    <a ui-wave href="javascript:void(0);" ng-show="main.auth_role=='ROLE_GAIA_LOCAL_MANAGER' || main.auth_role=='ROLE_GAIA_GLOBAL_MANAGER' || main.auth_role=='ROLE_GAIA_ADMIN'" ng-click="edit()" class="btn btn-sm btn-raised btn-primary"><span data-translate="EDIT"></span></a>
+                                </div>
+                            <div class="details_area" ng-show="selected_area_view">               
+                                
+                                    <strong><span data-translate="Name"></span>:</strong> {{selected_area.name}}<br/>
+                                    <strong><span data-translate="Description"></span>:</strong> {{selected_area.description}}<br/>
+                                    <strong><span data-translate="Type"></span>:</strong> {{selected_area.type}}<br/>
+                                
+                                    <strong><span data-translate="Width"></span>:</strong> {{selected_area.width}}<br/>
+                                    <strong><span data-translate="Lenght"></span>:</strong> {{selected_area.length}}<br/>
+                                    <strong><span data-translate="Height"></span>:</strong> {{selected_area.height}}
+                                
+                            </div>
+                            <div ng-show="selected_area_edit">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-6">
+                                        <strong><span data-translate="Name"></span>:</strong>
+                                        <input type="text" class="form-control" name="name" ng-model="selected_area.name">
+                                        <br/>
+                                        <strong><span data-translate="Description"></span>:</strong>
+                                        <input type="text" class="form-control" name="description" ng-model="selected_area.description">
+                                        <br/>
+                                        <strong><span data-translate="Type"></span>:</strong>
+                                            <md-select ng-model="selected_area.type">
+                                                <md-option ng-repeat="type in available_types" value="{{type.name}}">
+                                                    <span data-translate="{{type.name}}"></span>
+                                                </md-option>
+                                            </md-select>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6">
+                                        <strong><span data-translate="Width"></span> <span data-translate="cm"></span>:</strong>
+                                        <input type="text" class="form-control" name="Width" ng-model="selected_area.width">
+                                        <br/> 
+                                         <strong><span data-translate="Length"></span> <span data-translate="cm"></span>:</strong>
+                                        <input type="text" class="form-control" name="Length" ng-model="selected_area.length">
+                                        <br/> 
+                                         <strong><span data-translate="Height"></span> <span data-translate="cm"></span>:</strong>
+                                        <input type="text" class="form-control" name="Height" ng-model="selected_area.height">
+                                    </div>
+                                    <div class="col-sm-12 text-right">
+                                        <md-button class="md-accent md-raised" ng-click="updateArea()"><span data-translate="SAVE_FORM"></span></md-button>
+                                        <md-button class="md-default md-raised" ng-click="cancel_edit_area()"><span data-translate="CANCEL"></span></md-button>
+                                    </div>
+                                </div>                                
+                            </div>
+
+                        </uib-tab>
+                        <uib-tab index="1" heading="{{language.sensors}}">
+                            <div class="table-responsive">                        
+                                <table class="table table-striped table-bordered no-margin">
+                                    <thead>
+                                        <tr>
+                                            <th><span data-translate="SensorName"></span></th>
+                                            <th><span data-translate="Description"></span></th>
+                                            <th><span data-translate="URI"></span></th>
+                                            <th><span data-translate="Value_Type"></span></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="sensor in selected_area.resources" ng-show="selected_area.resources.length">
+                                            <td>{{sensor.name}}</td>
+                                            <td>{{sensor.property}}</td>
+                                            <td>{{sensor.uri}}</td>
+                                            <td>{{sensor.uom}}</td>
+                                        </tr>
+                                        <tr ng-show="!selected_area.resources.length">
+                                            <td style="text-align: center;" colspan="4"><span data-translate="Therearenoassignedsensors"></span></td>
+                                        </tr>
+                                    </tbody>
+                                    
+                                </table>
+                            </div>
+                        </uib-tab>
+                        <uib-tab index="2" heading="{{language.subareas}}">
+                                <table class="table table-striped table-bordered no-margin">
+                                    <thead>
+                                        <tr>
+                                            <th><span data-translate="AREA"></span></th>                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="area in selected_area.subareas" ng-show="selected_area.subareas.length">
+                                            <td>{{area.name}}</td>
+                                        </tr>
+                                        <tr ng-show="!selected_area.subareas.length">
+                                            <td style="text-align: center;" colspan="4"><span data-translate="Therearenoassignedareas"></span></td>
+                                        </tr>
+                                    </tbody>
+                                    
+                                </table>
+                        </uib-tab>
+                    </uib-tabset>               	
+                        
+                </div>
+            </div>
+
+
+            
+
+            
+
+        </div>
+
+
+
+     
+
+
+           
+
+
+
+       
+</div>

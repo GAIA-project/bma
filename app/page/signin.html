@@ -1,5 +1,4 @@
 <div class="page-signin" ng-controller="authCtrl">
-<ngp-piwik ngp-set-js-url="http://piwic.gaia-project.eu/piwik.js" ngp-set-tracker-url="http://piwic.gaia-project.eu/piwik.php" ngp-set-site-id="1"> </ngp-piwik>
     <div class="wrapper">
         <div class="main-body">
             <div class="body-inner">
@@ -31,7 +30,8 @@
                         </form>
                     </div>
                     <div class="card-action no-border text-right">
-                        <a href="javascript:void(0)" ng-click="authenticate()" class="color-primary">Sign in</a>
+                        <a href="javascript:void(0)" ng-click="authenticate()" class="color-primary">Sign in</a> - OR -
+                        <a href="https://sso.sparkworks.net/aa/gaia/registration?domain=gaia" target="_blank" ng-click="authenticate()" class="color-primary">Register</a>
                     </div>
                 </div>
 

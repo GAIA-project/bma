@@ -85,7 +85,7 @@ angular.module('app').factory('site', function($http,appConfig){
                     headers: {"Accept": "application/hal+json","Authorization":appConfig.main.auth_token}
                     */
                 return $http({
-                    url: 'http://150.140.5.64:8080/gaia-building-knowledge-base/sites/'+site_id+"/siteInfo",
+                    url: appConfig.main.apis.over_url+'/gaia-building-knowledge-base/sites/'+site_id+"/siteInfo",
                     method: 'GET',
                     headers: {"Accept": "application/hal+json","Authorization":appConfig.main.auth_token}
                 })

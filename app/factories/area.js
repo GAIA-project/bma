@@ -5,7 +5,7 @@ angular.module('app').factory('Area', function($http,appConfig){
             createSiteInfo:function(area){
                 console.log(area);
                 return $http({
-                    url:'http://150.140.5.64:8080/gaia-building-knowledge-base/sites/'+area.id+'/siteInfo',
+                    url:appConfig.main.apis.over_url+'/gaia-building-knowledge-base/sites/'+area.id+'/siteInfo',
                     method:'POST',
                     headers: {"Accept": "application/hal+json","Authorization":appConfig.main.auth_token},
                     data:{
@@ -37,7 +37,7 @@ angular.module('app').factory('Area', function($http,appConfig){
             updateSiteInfo:function(area_id,tdata){
                 
                 return $http({
-                    url:'http://150.140.5.64:8080/gaia-building-knowledge-base/siteInfo/'+area_id,
+                    url:appConfig.main.apis.over_url+'/gaia-building-knowledge-base/siteInfo/'+area_id,
                     method:'PUT',
                     headers: {"Accept": "application/hal+json","Authorization":appConfig.main.auth_token},
                     data:tdata
@@ -46,7 +46,7 @@ angular.module('app').factory('Area', function($http,appConfig){
             getSiteInfo:function(site_id){
                 console.log("Get Site Info:"+site_id);
                 return $http({
-                    url:'http://150.140.5.64:8080/gaia-building-knowledge-base/sites/'+site_id+'/siteInfo',
+                    url:appConfig.main.apis.over_url+'/gaia-building-knowledge-base/sites/'+site_id+'/siteInfo',
                     method:'GET',
                     headers: {"Accept": "application/hal+json","Authorization":appConfig.main.auth_token}
                 })

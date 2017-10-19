@@ -1,0 +1,124 @@
+<div class="page" ng-controller="SiteComparisonController" >
+  
+    <div class="row" style="margin-top:60px">    
+ 		<div class="col-sm-12 col-md-3">
+ 			<div class="panel panel-default panel-minimal" style="background-color:#009688;">
+                <div class="divider divider-md"></div>
+                <div class="panel-body">
+                	<div class="row">
+                        <div class="fp">
+                     		<h2 style="font-size: 18px;text-align: center;margin: 0"><span data-translate="first_period"></span></h2>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="building_build_year" class="col-sm-12 control-label"><span data-translate="FROM_TIME"></span></label>
+                                    <div class="col-sm-12" style="background: white">                                        
+                                        <md-datepicker ng-model="first_period_from_time" md-placeholder=""></md-datepicker>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="building_build_year" class="col-sm-12 control-label"><span data-translate="TO_TIME"></span></label>
+                                    <div class="col-sm-12" style="background: white">
+                                        <md-datepicker ng-model="first_period_to_time" md-placeholder=""></md-datepicker>                           
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="fp">
+                        <h2 style="font-size: 18px;text-align: center;margin: 0"><span data-translate="second_period"></span></h2>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="building_build_year" class="col-sm-12 control-label"><span data-translate="FROM_TIME"></span></label>
+                                <div class="col-sm-12" style="background: white">
+                                    <md-datepicker ng-model="second_period_from_time" md-placeholder=""></md-datepicker>                                                             
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="building_build_year" class="col-sm-12 control-label"><span data-translate="TO_TIME"></span></label>
+                                <div class="col-sm-12" style="background: white">                                        
+                                    
+                                    <md-datepicker ng-model="second_period_to_time" md-placeholder=""></md-datepicker>                              
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="building_build_year" class="col-sm-12 control-label"><span data-translate="MEASUREMENT"></span></label>
+                                <div class="col-sm-12">                                        
+                                    <md-select ng-model="metric">
+                                        <md-option ng-repeat="gran in metrics" value="{{gran.resource_id}}">
+                                            <span data-translate="{{gran.name}}"></span>
+                                        </md-option>
+                                    </md-select>                              
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="building_build_year" class="col-sm-12 control-label"><span data-translate="GRANULARITY"></span></label>
+                                <div class="col-sm-12">                                        
+                                    <md-select ng-model="granularity" style="color:white">
+                                        <md-option ng-repeat="gran in granularity_values" value="{{gran.text}}">
+                                            <span data-translate="{{gran.name}}"></span>
+                                        </md-option>
+                                    </md-select>                              
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <md-button class="md-accent md-raised" ng-click="update()"><span data-translate="UPDATE"></span></md-button>
+                        </div>
+                 	</div>
+                 	
+                </div>
+            </div>
+ 		</div>
+        <div class="col-sm-12 col-md-9" ng-show="right_side_visible">
+            <div class="panel panel-default panel-minimal">
+                <div class="panel-body">
+                    <div ng-show="loading" style="text-align: center;width:100%">
+                        <h4>Loading</h4>
+                        <md-progress-circular md-mode="indeterminate" style="margin:0 auto"></md-progress-circular>     
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-hover">
+                                <thead>
+                                    <th></th>
+                                    <th><span data-translate="sum"></span></th>
+                                    <th><span data-translate="average"></span></th>
+                                </thead>
+                                <tr>
+                                    <td><span data-translate="first_period"></span></td>
+                                    <td>{{obj.one.sum}}{{' '+measurementUnit}}</td>
+                                    <td>{{obj.one.average}}{{' '+measurementUnit}}</td>
+                                </tr>
+                                <tr>
+                                    <td><span data-translate="second_period"></span></td>
+                                    <td>{{obj.two.sum}}{{' '+measurementUnit}}</td>
+                                    <td>{{obj.two.average}}{{' '+measurementUnit}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div data-echarts id="diagram" data-options="line3.options" style="height: 350px;"></div>
+                            </div>
+                            <div class="row">
+                                <div data-echarts id="diagram" data-options="line4.options" style="height: 350px;"></div>    
+                            </div>
+                        </div>                        
+                    </div>
+                </div>                
+            </div>            
+        </div>    
+    </div> 
+</div>

@@ -221,5 +221,8 @@
 	"ENERGY":"Energia",
 	"TEMPERATURE":"Temperatura",
 	"COMFORT_LEVEL":"Livello di comodità",
-	"SHARED_RESOURCE":":Altro"
+	"SHARED_RESOURCE":":Altro",
+    "USERS_REQUESTS":"Richieste degli utenti",
+    "MY_PROFILE":"il mio profilo",
+    "SETTINGS":"Impostazioni"
 }

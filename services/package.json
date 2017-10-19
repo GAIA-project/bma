@@ -1,0 +1,22 @@
+{
+  "name": "gaia-bms",
+  "version": "1.0.0",
+  "description": "The Gaia BMS application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://mzacharioudakis@git.synelixis.com/mzacharioudakis/dashboard-client.git"
+  },
+  "keywords": [
+    "gaia",
+    "bms"
+  ],
+  "author": "manos zacharioudakis",
+  "license": "MIT",
+  "dependencies": {
+    "angular-oidc": "^1.1.2"
+  }
+}

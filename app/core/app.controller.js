@@ -99,31 +99,44 @@
             );
         };
     })
-    .controller('authCtrl',function($scope,$window,$location,appConfig,authentication){
+    .controller('authCtrl',function($scope,$window,$location,appConfig,authentication,$rootScope){
         
         appConfig.main.auth_token = '';
         $scope.user = {};
         /**/
-
+        _paq.push(['setDocumentTitle', "Authorization"]);
+        _paq.push(['trackPageView']);
         $scope.authenticate= function(){
             $scope.login_error = 0;
+
             if($scope.user.username!='' && $scope.user.password!=''){
+                $rootScope.TheUserName = $scope.user.username;
                 appConfig.main.TheUserName = $scope.user.username;
                 appConfig.main.username = $scope.user.username;
                 appConfig.main.password = $scope.user.password;
                 var auth  = authentication.authenticate();
                 
                 auth.then(function(auth) {
+                    console.log(auth);
                     console.log(auth.data);
                     console.log(auth.data.access_token);
                     appConfig.main.auth_token = auth.data.access_token;                
                     var role = authentication.getRole();
                     role.then(function(a){
-
+                        console.log(a);
                         if(a.data.authenticated){
-                            appConfig.main.auth_role = a.data.authorities[0].authority;
-                            console.log("Authority: "+appConfig.main.auth_role);
-                            $location.url('/page/buildings');
+                            var authorities = a.data.authorities;
+                            angular.forEach(authorities,function(role,index){
+                                console.log(role.authority);
+                                if(role.authority.startsWith("ROLE_GAIA")){
+                                    appConfig.main.auth_role = role.authority;
+                                    console.log("Authority: "+appConfig.main.auth_role);
+                                    $location.url('/page/buildings');
+                                }else{
+                                    console.log("Does Not Start"+role.authority);
+                                }
+                            })
+                            
                         }
                     });
                     
@@ -286,10 +299,12 @@
             if($scope.rule.edit==1){
                 var method = "PUT";
                 var url = appConfig.main.apis.cnit+'rules/'+$scope.rule.rid.replace('#','');
+                _paq.push(['trackEvent', 'RuleEngine', 'Edit Rule', 'Rule id:'+$scope.rule.rid]); 
             }
             else{
                 var url = appConfig.main.apis.cnit+'area/'+$scope.selected_area.aid+'/rules';
                 var method = "POST";
+                _paq.push(['trackEvent', 'RuleEngine', 'Add Rule', 'Area:'+$stateParams.id]); 
             }
 
             var data = {
@@ -327,7 +342,9 @@
 
     })
     .controller('SitesController',function($scope, $rootScope, $state, $document, appConfig,$http,buildings,$location,site,Area){
-        
+        _paq.push(['setUserId', $rootScope.TheUserName]);
+        _paq.push(['setDocumentTitle', "Buildings"]);
+        _paq.push(['trackPageView']);
           $scope.abuildings = [];
         $scope.loading = 0;
         var init = function(){
@@ -406,6 +423,7 @@
             console.log("SITE SITE");
             console.log("SITE SITE");
             console.log(site);
+            _paq.push(['trackEvent', 'Building', 'Select', site.display_name]);
             $rootScope.selected_school_name = site.display_name;
             appConfig.main.selected_building = site.id;
             $rootScope.connectToRuleEngine(site.id);
@@ -552,6 +570,10 @@
     })
     .controller('SiteAreasController',function($scope,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor,$filter){
         
+        _paq.push(['setUserId', $rootScope.TheUserName]);
+        _paq.push(['setDocumentTitle', "Areas"]);
+        _paq.push(['trackPageView']);
+
         $scope.building = {};
         $scope.new_virtual_sensor = {};
         
@@ -659,6 +681,7 @@
             console.log(sensor);
             var k = Sensor.rename(sensor);
             k.then(function(t){
+                _paq.push(['trackEvent', 'Sensor', 'Rename', sensor.name]);
                 console.log(t);
             }).catch(function(e){
                 $scope.error_view = 1;
@@ -754,6 +777,7 @@
             
             var k = Area.updateSiteInfo($scope.selected_area.siteInfoId,$scope.selected_area.overObj);
             k.then(function(a){
+                _paq.push(['trackEvent', 'Area', 'Update', $scope.selected_area.id]);
                 $rootScope.saved();
                 $scope.details($scope.selected_area);
 
@@ -819,7 +843,8 @@
     
     })
     .controller('SiteEditController',function($scope,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Sensor,UoM,Area){
-        
+        $scope.error_view=0;
+        $scope.error_text = "";
 
 
 
@@ -1173,7 +1198,7 @@
            var area = Area.updateSiteInfo($scope.info.siteInfoId,$scope.school);
            area.then(function(dot){
             $scope.loading = 0;
-            $scope.saved();
+            $rootScope.saved();
             $scope.getInfo();
            }).catch(function(err){
 
@@ -1209,14 +1234,14 @@
 
 
        
-        $scope.saved = function(){
-            
-            $('.saved').show();
-            $('.saved').delay(3000).fadeOut('slow');
-        }
+     
       
     })
     .controller('SiteTopViewController',function($scope,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor){
+        
+        _paq.push(['setUserId', $rootScope.TheUserName]);
+        _paq.push(['setDocumentTitle', "TopView"]);
+        _paq.push(['trackPageView']);
 
         $scope.building = {};
         $scope.zoom = 1;
@@ -1357,21 +1382,73 @@
 
         $scope.saveTopView = function(){
            
+           $scope.jjson.topview = [];
             $('.draggable').each(function(){
-                    var area_id = 'v2'+$(this).attr('data-area_id');
+
+                    var area_id = $(this).attr('data-area_id');
                     
                     var offset = $(this).offset();
-                    var xPos = offset.left;
-                    var yPos = offset.top;
-                    
-                    localStorage.setItem('gaia_area_'+area_id+'_x', xPos);
-                    localStorage.setItem('gaia_area_'+area_id+'_y', yPos);
-                    localStorage.setItem('gaia_v4_zoom',$scope.zoom);
+/*                    var xPos = offset.left;
+                    var yPos = offset.top;*/
 
-            })
-            alert('OK');
+                    var ar_js = {};
+                    ar_js.area_id = area_id;
+                    ar_js.xPos = offset.left;
+                    ar_js.yPos = offset.top;
+                    $scope.jjson.topview.push(ar_js);
+                    
+/*                    localStorage.setItem('gaia_area_'+area_id+'_x', xPos);
+                    localStorage.setItem('gaia_area_'+area_id+'_y', yPos);
+                    localStorage.setItem('gaia_v4_zoom',$scope.zoom);*/
+
+            });
+
+           
+        
+            $scope.saveInfo();
+            
            
         }
+
+    $scope.getInfo = function(){
+        
+        var school = Area.getSiteInfo($stateParams.id);
+            school.then(function(info){
+                
+                $scope.school = info.data;
+                
+                if($rootScope.isUndefined(info.data.json))
+                    $scope.school.json = {};
+                else
+                    $scope.school.json = JSON.parse(info.data.json);
+
+                $scope.jjson = $scope.school.json;   
+                console.log($scope.jjson);
+
+            });
+    }
+    $scope.getInfo()
+    
+    $scope.saveInfo = function(){
+
+           $scope.loading = 1;
+           $scope.error_text ="";
+           $scope.school.json = JSON.stringify($scope.jjson);
+           $scope.school.siteInfoId = $scope.school.siteInfoId;
+           
+           var area = Area.updateSiteInfo($scope.school.siteInfoId,$scope.school);
+           area.then(function(dot){
+            $scope.loading = 0;
+            $scope.getInfo();
+            $rootScope.saved();
+           }).catch(function(err){
+
+                console.log(err);
+                $scope.loading = 0;
+                $scope.error_view = 1;
+                $scope.error_text +=err.statusText;
+           })
+    }
 
         
 
@@ -1379,20 +1456,43 @@
 
     })
     .controller('SiteNotificationsController',function($scope,$q,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor){
+        
+        _paq.push(['setUserId', $rootScope.TheUserName]);
+        _paq.push(['setDocumentTitle', "Notifications"]);
+        _paq.push(['trackPageView']);
+        
+        $scope.loading = 1;
+        /*$scope.second_period_to_time = new Date().getTime();
+        $scope.first_period_from_time = new Date($scope.second_period_to_time - 1000*60*60*24*20).getTime();        
 
+            */
+        $scope.to_date = new Date();
+        $scope.from_date = new Date($scope.to_date-1000*60*60*24*5);
 
+        $scope.update = function(){
+            
+            $scope.getNotifications();
+        }
         $scope.getNotifications = function(){
-            $scope.current_time = new Date().getTime();
-            $scope.three_days_before = new Date($scope.current_time - 1000*60*60*24*20).getTime();
-            $scope.limit = 2500;
+            $scope.first_period_from_time = new Date($scope.from_date).getTime();
+            $scope.second_period_to_time = new Date($scope.to_date).getTime();
 
-            var notifications = site.getNotificationsCNIT($stateParams.id,$scope.three_days_before,$scope.current_time,$scope.limit);
+            $scope.loading = 1;
+            $scope.limit = 2500;
+            var notifications = site.getNotificationsCNIT($stateParams.id,$scope.first_period_from_time,$scope.second_period_to_time,$scope.limit);
                 notifications.then(function(notification_list){
                     console.log(notification_list);
                     $scope.notifications = notification_list.data;
-
+                    var i=0;
+                    while(i<$rootScope.recommendations){
+                        $scope.notifications[i].class = 'alert';
+                        i++;
+                    }
+                    $rootScope.recommendations = 0;
+                    $scope.loading = 0;
                 },function(error){
                     console.log(error);
+                    $scope.loading = 0;
                 })
         }
 
@@ -1401,6 +1501,9 @@
     })
     .controller('SiteSensorsController',function($scope,$q,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor){
 
+        _paq.push(['setUserId', $rootScope.TheUserName]);
+        _paq.push(['setDocumentTitle', "Sensors"]);
+        _paq.push(['trackPageView']);
 
         $scope.building = {};
         $scope.view_general_resources = 0;
@@ -1427,6 +1530,7 @@
             console.log(sensor);
             var k = Sensor.rename(sensor);
             k.then(function(t){
+                _paq.push(['trackEvent', 'Sensor', 'Rename', sensor.name]);
                 console.log(t);
             }).catch(function(e){
                 $scope.error_view = 1;
@@ -1685,6 +1789,7 @@
             }
             $http(req).then(function(d){
                 console.log(d);
+                _paq.push(['trackEvent', 'VirtualSensor', $scope.sensor.id, $scope.virtual.value]);
                 $scope.new_measurements_form = 0;
                 $scope.virtual = {};
                 $scope.afterPSPost();
@@ -1853,6 +1958,9 @@
     })
     .controller('SiteSensorsComparisonController',function($scope,$q,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor,buildings,$filter){
 
+        _paq.push(['setUserId', $rootScope.TheUserName]);
+        _paq.push(['setDocumentTitle', "Multiple Sensors Comparison"]);
+        _paq.push(['trackPageView']);
         
         $scope.selected_sensors = [];
         $scope.available_sensors = [];
@@ -2002,7 +2110,7 @@
 
            
             $scope.ress.forEach(function(res,index){
-                
+                _paq.push(['trackEvent', 'Compare', 'OurBulding', '1']);
                 
                 $scope.legends.push($filter('translate')(res.sensor.name));
                 var d = [];
@@ -2087,6 +2195,12 @@
 })
 .controller('SchoolCompareController',function($scope,$q,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor,buildings){
     
+
+        _paq.push(['setUserId', $rootScope.TheUserName]);
+        _paq.push(['setDocumentTitle', "Different Schools Comparison"]);
+        _paq.push(['trackPageView']);
+
+
     $scope.comp_site = 0;
     $scope.loading = 0;
     $scope.line3 = {};
@@ -2172,6 +2286,7 @@
 
 
     $scope.getChart = function(this_school,other_school){
+        _paq.push(['trackEvent', 'Different Schools comparison', 'Select', '1']); 
         $scope.loading = 1;
         $scope.ress = [];
         $scope.legends= {};
@@ -2466,7 +2581,11 @@
         
 
 }).controller('SiteComparisonController',function($scope,$q,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor,buildings,$filter){
-        console.log("SITE COMPARISON");
+        
+        _paq.push(['setUserId', $rootScope.TheUserName]);
+        _paq.push(['setDocumentTitle', "Site Comparison"]);
+        _paq.push(['trackPageView']);
+
     var todate = new Date().getTime();
         $scope.right_side_visible = 0;
         $scope.line3 = {};
@@ -2702,6 +2821,9 @@
     })
     .controller('SiteViewController',function($scope,$q,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor){
         
+        _paq.push(['setUserId', $rootScope.TheUserName]);
+        _paq.push(['setDocumentTitle', "Building View"]);
+        _paq.push(['trackPageView']);
 
         $scope.getbOptions = function(){
             
@@ -3145,9 +3267,18 @@
            $scope.getCentralChart = function(){
                 
                 $scope.energy_chart.loading = 1;
+                console.log("************************************************");
+                    console.log($scope.energy_chart.resource_id);
+                    console.log($scope.energy_chart.uom)
+                console.log("************************************************");
+                if($rootScope.isUndefined($scope.energy_chart.resource_id) || $rootScope.isUndefined($scope.energy_chart.uom)){
+                    $scope.energy_chart.loading = 0;
+                    $scope.energy_chart.visibility = false;
+                }else{
                 var latest = Sensor.getLatestMeasurementsByResourceIdAndUOM($scope.energy_chart.resource_id,$scope.energy_chart.uom);
                 latest.then(function(metrics){
                         console.log(metrics);
+                        $scope.energy_chart.visibility = true;
                         $scope.average_per_day   = $rootScope.addCommas(parseFloat(metrics.data.average.day).toFixed(2));
                         $scope.average_per_month = $rootScope.addCommas(parseFloat(metrics.data.average.month).toFixed(2));
 
@@ -3157,7 +3288,7 @@
                         switch ($scope.energy_chart.step) {
                                 case '5mins':                        
                                     metrics_of_this = metrics.data.minutes5.reverse();
-                                    var i = 1;
+                                    var i = 0;
                                     while(i<metrics.data.minutes5.length){
                                         
                                         var m = new Date(d-i*1000*60*5);
@@ -3168,7 +3299,7 @@
                                     break; 
                                 case 'hour':
                                      metrics_of_this = metrics.data.minutes60.reverse();  
-                                    var i = 1;
+                                    var i = 0;
                                     while(i<metrics.data.minutes60.length){
                                         var m = new Date(d-i*1000*60*60);
                                         dates.push(m.getHours()+":00 - "+parseInt(m.getHours()+1)+":00");
@@ -3180,7 +3311,7 @@
                                 case 'day':
                                      metrics_of_this = metrics.data.day.reverse();
 
-                                     var i = 1;
+                                     var i = 0;
                                     while(i<metrics.data.day.length){
                                         var m = new Date(d-i*1000*60*60*24);
                                         dates.push(m.getDate()+"/"+parseInt(m.getUTCMonth()+1)+"/"+m.getUTCFullYear());
@@ -3190,7 +3321,7 @@
                                     break; 
                                 case 'month':
                                      metrics_of_this = metrics.data.month.reverse(); 
-                                     var i = 1;
+                                     var i = 0;
                                     while(i<metrics.data.month.length){
                                         var m = new Date(d-i*1000*60*60*24*30);
 
@@ -3200,7 +3331,7 @@
                                     }            
                                     break; 
                                 default: 
-                                    var i = 1;
+                                    var i = 0;
                                     while(i<metrics.data.day.length){
                                         var m = new Date(d-i*1000*60*60*24);
                                         dates.push(m);
@@ -3266,6 +3397,7 @@
                         $scope.energy_chart.error.text = error.status+" "+error.statusText;
 
                     });
+            }
            }
 
 
@@ -3387,18 +3519,28 @@
            });
     
             $scope.building.energy_consumtion_meter = json.energy_consumption_resource;
-            var k = Sensor.getDetailsFromSparks($scope.building.energy_consumtion_meter);   
-            $scope.central_chart_step = json.energy_consumption_resource_step;
-           
-            k.then(function(sensor_details){
                 
-                $scope.measurementUnit = 'kWh';
-                $scope.getCentralChart();               
-            });
+                $scope.central_chart_step       = json.energy_consumption_resource_step;
+                $scope.central_chart_resource   = json.energy_consumption_resource;
+                $scope.central_chart_uom        = json.energy_consumption_resource_uom;
 
-        }, function(reason) {
-            console.log(reason);
-        });
+            if(!$rootScope.isUndefined($scope.central_chart_resource)){
+                
+                var k = Sensor.getDetailsFromSparks($scope.central_chart_resource);   
+
+                k.then(function(sensor_details){
+
+                    $scope.measurementUnit = $scope.central_chart_uom;
+                    $scope.getCentralChart();               
+                });
+            }
+                
+
+            }, function(reason) {
+                console.log(reason);
+            });    
+            
+            
 
 
          $scope.changeLineChartIn = function(timeperiod,chart){
@@ -3529,7 +3671,10 @@
 
            $scope.getCentralChart = function(){
 
-                var latest = Sensor.getMeasurementsByResourceIdAndUOM($scope.building.energy_consumtion_meter,'kWh');
+
+
+                var latest = Sensor.getLatestMeasurementsByResourceIdAndUOM($scope.central_chart_resource,$scope.central_chart_uom);
+                
                 latest.then(function(metrics){
                         console.log(metrics);
                         $scope.average_per_day   = $rootScope.addCommas(parseFloat(metrics.data.average.day).toFixed(2));
@@ -3596,14 +3741,14 @@
                         $scope.energy_chart.options={
                 
                                title : {
-                                    text: "("+$scope.measurementUnit+")",
+                                    text: "("+$scope.central_chart_uom+")",
                                 },
                                 legend : {
                                     data:[$scope.sitename]
                                 },
                                 tooltip : {
                                     trigger: 'axis',
-                                    formatter: "{a} <br/>{b} : {c} "+$scope.measurementUnit
+                                    formatter: "{a} <br/>{b} : {c} "+$scope.central_chart_uom
                                 },
                                 toolbox: $rootScope.toolbox,
                                 calculable : true,
@@ -3619,7 +3764,7 @@
                                     {
                                         type : 'value',
                                         axisLabel : {
-                                            formatter: '{value} '+$scope.measurementUnit
+                                            formatter: '{value} '+$scope.central_chart_uom
                                         }                                        
                                     }
                                 ],

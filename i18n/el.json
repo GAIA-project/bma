@@ -124,7 +124,7 @@
     "GRANULARITY":"Αναλυτικότητα",
     "second_period":"Δεύτερη Περίοδος",
     "first_period":"Πρώτη Περίοδος",
-    "PROFILE":"Ρυθμίσεις",
+    "PROFILE":"Προφιλ",
     "NOTIFICATIONS":"Ειδοποιήσεις",
     "info_box_1":"Όταν οι αισθητήρες είναι εκτός λειτουργίας, στο γράφημα η έλειψη τιμών παριστάνεται με μηδέν",
     "per_day":"Ανα Ημέρα",
@@ -222,7 +222,10 @@
 	"SHARED_RESOURCE":"Άλλο",
     "GENERAL_RESOURCES":"Αισθητήρες Κτηρίου",
     "VIEW_GENERAL_RESOURCES":"Προβολή Αισθητήρων σχολείου",
-    "HIDE_GENERAL_RESOURCES":"Απόκρυψη Αισθητήρων σχολείου"
+    "HIDE_GENERAL_RESOURCES":"Απόκρυψη Αισθητήρων σχολείου",
+    "USERS_REQUESTS":"Αιτήματα χρηστών",
+    "MY_PROFILE":"Το προφίλ μου",
+    "SETTINGS":"Ρυθμίσεις"
 
 }
  

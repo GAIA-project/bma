@@ -1,5 +1,5 @@
 <div class="page page-top-view" data-ng-controller="SiteTopViewController">
-<ngp-piwik ngp-set-js-url="http://piwic.gaia-project.eu/piwik.js" ngp-set-tracker-url="http://piwic.gaia-project.eu/piwik.php" ngp-set-site-id="1"> </ngp-piwik>
+ <div class="saved"><span data-translate="UPDATED"></span></div>
     <div class="row">
         <div class="col-sm-12">
             <h2 class="section-header">{{building.details.item.name}}</h2>
@@ -22,13 +22,14 @@
         </div> -->
     </div>
 
-    <div class="row" id="widget" ng-init="getInitAreas()">
-        <div class="col-md-12" style="width:100%;min-height:1000px;position: absolute;">
-          	<div ng-repeat="area in building.areas" class="draggable class ui-widget-content" on-last-repeat  ng-dblclick="openNav(area)"
+    <div class="row" id="widget" ng-init="getInitAreas()" style="min-height:1000px;position: relative;">
+       
+          	
+            <div ng-repeat="area in building.areas" class="draggable class ui-widget-content" on-last-repeat  ng-dblclick="openNav(area)"
                  ng-style="area.style" data-area_id="{{area.id}}" style="position: absolute!important">
               <div class="class_name" style="position: relative!important;top:0%!important">{{area.name}}</div>
           		<div class="class_measurements">
-
+                
       					<!-- <ul>
       						<li ng-repeat="sensor in area.resources">{{sensor.name+": "+sensor.metrics.latest+" "+sensor.uom}}</li>
       					</ul> -->
@@ -38,7 +39,7 @@
 
 	
 		
-        </div>
+        
     </div>
 
 
