@@ -7,6 +7,8 @@
         ,'ngAria'
         ,'ngMessages'
         ,'piwik'
+        ,'oauth'
+        ,'ngRoute'
 
         // Custom modules
         ,'app.layout'

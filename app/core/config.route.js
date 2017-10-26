@@ -158,21 +158,24 @@ angular.module('app').run(function($rootScope, $templateCache,$translate,$log,ap
         $rootScope.$on('$viewContentLoaded', function() {
     
            
-            console.log("TOKEN:"+appConfig.main.auth_token);
+            /*console.log("TOKEN:"+appConfig.main.auth_token);
             if(appConfig.main.debug==false){
             
                 if(appConfig.main.auth_token=='none' || $rootScope.isUndefined(appConfig.main.auth_token)){
                     $state.go('page/signin');
                 }
-            }
+            }*/
 
         });
 
 });
 
     angular.module('app')
-        .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+        .config(['$locationProvider','$stateProvider', '$urlRouterProvider','$routeProvider', function($locationProvider,$stateProvider, $urlRouterProvider,$routeProvider) {
+            
             var routes, setRoutes;
+            
+      
 
             routes = [
                 'ui/cards', 'ui/typography', 'ui/buttons', 'ui/icons', 'ui/grids', 'ui/widgets', 'ui/components', 'ui/timeline', 'ui/lists', 'ui/pricing-tables',
@@ -181,7 +184,7 @@ angular.module('app').run(function($rootScope, $templateCache,$translate,$log,ap
                 'form/elements', 'form/layouts', 'form/validation', 'form/wizard',
                 'chart/echarts', 'chart/echarts-line', 'chart/echarts-bar', 'chart/echarts-pie', 'chart/echarts-scatter', 'chart/echarts-more',
                 'page/404', 'page/500', 'page/blank', 'page/forgot-password', 'page/invoice', 'page/lock-screen', 'page/profile', 'page/signin', 'page/signup',
-                'app/calendar'
+                'app/calendar','page/logout'
             ]
 
             setRoutes = function(route) {
@@ -196,9 +199,8 @@ angular.module('app').run(function($rootScope, $templateCache,$translate,$log,ap
             };
 
             routes.forEach(function(route) {
-            
-                    return setRoutes(route);    
-                            
+
+                return setRoutes(route);                            
             });
 
             
@@ -283,15 +285,56 @@ angular.module('app').run(function($rootScope, $templateCache,$translate,$log,ap
                 templateUrl: 'app/page/sensor_view.html'
             });
 
-            $urlRouterProvider
-                .when('/', '/page/signin')
-                .otherwise('/page/signin');
 
 
             $stateProvider.state('dashboard', {
                 url: '/dashboard',
                 templateUrl: 'app/dashboard/dashboard.html'
             });
+
+            $stateProvider.state('access_token',{
+                url:'/access_token=:access_token',
+                controller:function($location, AccessToken) {
+                    var hash = $location.path().substr(1);
+                    AccessToken.setTokenFromString(hash);
+                    $location.path('/page/buildings');
+                    $location.replace();
+                  }
+            })
+
+           /* $routeProvider
+                .when('/access_token=:accessToken', {
+                  template: '',
+                  controller: function ($location, AccessToken) {
+                    var hash = $location.path().substr(1);
+                    AccessToken.setTokenFromString(hash);
+                    alert(0);
+                    $location.path('/');
+                    $location.replace();
+                  }
+            });*/
+
+
+
+           /* console.log($routeProvider);
+            $routeProvider
+                .when('/access_token=:accessToken', {
+                  template: '',
+                  controller: function ($location, AccessToken) {
+                    var hash = $location.path().substr(1);
+                    AccessToken.setTokenFromString(hash);
+                    alert(0);
+                    $location.path('/');
+                    $location.replace();
+                  }
+            });
+                 $routeProvider
+    .when("/", { templateUrl: "app/page/buildings.html", controller: "SitesController" })
+    .when("/Dashboard", { templateUrl: "DashboardForm/dfTemplate.html", controller: "dfController" })
+    .when("/Analysis",  { templateUrl: "AnalysisForm/afTemplate.html", controller: "afController" })
+    .otherwise({ redirectTo: "/Reporting" })*/
+            
+                     
 
 
            

@@ -1,11 +1,11 @@
-angular.module('app').factory('site', function($http,appConfig){
+angular.module('app').factory('site', function($http,appConfig,AccessToken){
     
         return{
             getSparkDetails:function(site_id){
                 return $http({
                     url:appConfig.main.apis.main+appConfig.main.apis.site+'/'+site_id,
                     method:'GET',
-                    headers: {"Accept": "application/json","Authorization":"bearer "+appConfig.main.auth_token}
+                    headers: {"Accept": "application/json","Authorization":"bearer "+AccessToken.get().access_token}
                 })
             },
             getAllSites:function(){
@@ -24,7 +24,7 @@ angular.module('app').factory('site', function($http,appConfig){
                 return $http({
                     url:appConfig.main.apis.main+appConfig.main.apis.site+'/'+site_id+'/subsite',
                     method:'GET',
-                    headers: {"Accept": "application/json","Authorization":"bearer "+appConfig.main.auth_token}
+                    headers: {"Accept": "application/json","Authorization":"bearer "+AccessToken.get().access_token}
                 })
             },
             getNotificationsCNIT:function(site_id,from,to,limit){
@@ -34,28 +34,28 @@ angular.module('app').factory('site', function($http,appConfig){
                         'to':to,
                         'limit':limit},
                     method:'GET',
-                    headers: {"Accept": "application/json","Authorization":"bearer "+appConfig.main.auth_token}
+                    headers: {"Accept": "application/json","Authorization":"bearer "+AccessToken.get().access_token}
                 })
             },
             setCNITBuilding:function(site_id){
                 return $http({
                     url:appConfig.main.apis.cnit+'building/'+site_id,
                     method:'PUT',
-                    headers: {"Accept": "application/json","Authorization":"bearer "+appConfig.main.auth_token}
+                    headers: {"Accept": "application/json","Authorization":"bearer "+AccessToken.get().access_token}
                 })
             },
             getCNITBuilding:function(site_id){
                 return $http({
                     url:appConfig.main.apis.cnit+'building/'+site_id,
                     method:'GET',
-                    headers: {"Accept": "application/json","Authorization":"bearer "+appConfig.main.auth_token}
+                    headers: {"Accept": "application/json","Authorization":"bearer "+AccessToken.get().access_token}
                 })
             },
             getCNITAreas:function(site_id){
                 return $http({
                     url:appConfig.main.apis.cnit+'building/'+site_id+'/areas',
                     method:'GET',
-                    headers: {"Accept": "application/json","Authorization":"bearer "+appConfig.main.auth_token}
+                    headers: {"Accept": "application/json","Authorization":"bearer "+AccessToken.get().access_token}
                 })
             },
             getGateways:function(site_id){
@@ -68,40 +68,40 @@ angular.module('app').factory('site', function($http,appConfig){
                 return $http({
                     url:'https://api.sparkworks.net/v1/resource',
                     method:'GET',
-                    headers: {"Accept": "application/json","Authorization":"bearer "+appConfig.main.auth_token}
+                    headers: {"Accept": "application/json","Authorization":"bearer "+AccessToken.get().access_token}
                 })
             },
             getResources: function(site_id){
                 return $http({
                     url:appConfig.main.apis.main+appConfig.main.apis.site+'/'+site_id+'/resource',
                     method:'GET',
-                    headers: {"Accept": "application/json","Authorization":"bearer "+appConfig.main.auth_token}                    
+                    headers: {"Accept": "application/json","Authorization":"bearer "+AccessToken.get().access_token}                    
                 })
             },
             getDetails : function(site_id) {
 
          /*       url:'http://150.140.5.64:8080/gaia-building-knowledge-base/sites/'+site_id+'/siteInfo',
                     method:'GET',
-                    headers: {"Accept": "application/hal+json","Authorization":appConfig.main.auth_token}
+                    headers: {"Accept": "application/hal+json","Authorization":AccessToken.get().access_token}
                     */
                 return $http({
                     url: appConfig.main.apis.over_url+'/gaia-building-knowledge-base/sites/'+site_id+"/siteInfo",
                     method: 'GET',
-                    headers: {"Accept": "application/hal+json","Authorization":appConfig.main.auth_token}
+                    headers: {"Accept": "application/hal+json","Authorization":AccessToken.get().access_token}
                 })
             },
             syncCNIT:function(site_id){
               return $http({
                     url: appConfig.main.apis.cnit+'building/'+site_id,
                     method: 'PUT',
-                    headers: {"Accept": "application/json","Authorization":"bearer "+appConfig.main.auth_token}
+                    headers: {"Accept": "application/json","Authorization":"bearer "+AccessToken.get().access_token}
                 })  
             },
             getRules:function(site_id){
                 return $http({
                     url: appConfig.main.apis.cnit+'building/'+site_id+'/events',
                     method: 'GET',
-                    headers: {"Accept": "application/json","Authorization":"bearer "+appConfig.main.auth_token}
+                    headers: {"Accept": "application/json","Authorization":"bearer "+AccessToken.get().access_token}
                 })    
             }                        
         }

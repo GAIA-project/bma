@@ -1,4 +1,4 @@
-angular.module('app').factory('Area', function($http,appConfig){
+angular.module('app').factory('Area', function($http,appConfig,AccessToken){
     
         return{
             
@@ -7,7 +7,7 @@ angular.module('app').factory('Area', function($http,appConfig){
                 return $http({
                     url:appConfig.main.apis.over_url+'/gaia-building-knowledge-base/sites/'+area.id+'/siteInfo',
                     method:'POST',
-                    headers: {"Accept": "application/hal+json","Authorization":appConfig.main.auth_token},
+                    headers: {"Accept": "application/hal+json","Authorization":AccessToken.get().access_token},
                     data:{
                       "cardinalDirection": null,
                       "coolingSystem": null,
@@ -39,7 +39,7 @@ angular.module('app').factory('Area', function($http,appConfig){
                 return $http({
                     url:appConfig.main.apis.over_url+'/gaia-building-knowledge-base/siteInfo/'+area_id,
                     method:'PUT',
-                    headers: {"Accept": "application/hal+json","Authorization":appConfig.main.auth_token},
+                    headers: {"Accept": "application/hal+json","Authorization":AccessToken.get().access_token},
                     data:tdata
                 })
             },
@@ -48,7 +48,7 @@ angular.module('app').factory('Area', function($http,appConfig){
                 return $http({
                     url:appConfig.main.apis.over_url+'/gaia-building-knowledge-base/sites/'+site_id+'/siteInfo',
                     method:'GET',
-                    headers: {"Accept": "application/hal+json","Authorization":appConfig.main.auth_token}
+                    headers: {"Accept": "application/hal+json","Authorization":AccessToken.get().access_token}
                 })
             },
             getDetails : function(area_id) {
@@ -61,7 +61,7 @@ angular.module('app').factory('Area', function($http,appConfig){
                  return $http({
                     url:appConfig.main.apis.main+appConfig.main.apis.site+'/'+area_id+'/resource',
                     method:'GET',
-                    headers: {"Accept": "application/json","Authorization":"bearer "+appConfig.main.auth_token}
+                    headers: {"Accept": "application/json","Authorization":"bearer "+AccessToken.get().access_token}
                 })
             },
             getSensors : function(area_id) {

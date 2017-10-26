@@ -11,7 +11,7 @@
         .config(['$mdThemingProvider', mdConfig]);
 
 
-    function appConfig($location,$state) {
+    function appConfig($location,$state,AccessToken) {
                 
         var pageTransitionOpts = [
             {
@@ -74,7 +74,7 @@
             },
             buildings:[],
             auth_token:'none',
-            auth_role : ''            
+            auth_role : '' 
         };
 
         if(main.debug==true){

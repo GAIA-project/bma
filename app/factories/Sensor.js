@@ -1,4 +1,4 @@
-angular.module('app').factory('Sensor', function($http,appConfig){
+angular.module('app').factory('Sensor', function($http,appConfig,AccessToken){
     
         return{
             rename:function(sensor){
@@ -8,28 +8,28 @@ angular.module('app').factory('Sensor', function($http,appConfig){
                     data:{
                             "name": sensor.name
                     },
-                    headers: {"Accept": "application/json","Authorization":"bearer "+appConfig.main.auth_token},
+                    headers: {"Accept": "application/json","Authorization":"bearer "+AccessToken.get().access_token},
                 })
             },
             getAvailableUoM:function(resource_uom){
                 return $http({
                     url:appConfig.main.apis.main+'uom/source/'+resource_uom,
                     method:'GET',
-                    headers: {"Accept": "application/json","Authorization":"bearer "+appConfig.main.auth_token},
+                    headers: {"Accept": "application/json","Authorization":"bearer "+AccessToken.get().access_token},
                 })
             },
             getMeasurementsByURI:function(uri){
                 return $http({
                     url:appConfig.main.apis.main+'resource/uri/'+uri,
                     method:'GET',
-                    headers: {"Accept": "application/json","Authorization":"bearer "+appConfig.main.auth_token},
+                    headers: {"Accept": "application/json","Authorization":"bearer "+AccessToken.get().access_token},
                 })
             },
             getLatest:function(resource_id){
                 return $http({
                     url:appConfig.main.apis.main+'resource/'+resource_id+'/summary',
                     method:'GET',
-                    headers: {"Accept": "application/json","Authorization":"bearer "+appConfig.main.auth_token},
+                    headers: {"Accept": "application/json","Authorization":"bearer "+AccessToken.get().access_token},
                 })  
             },
             getDetails:function(sensor_id){
@@ -52,7 +52,7 @@ angular.module('app').factory('Sensor', function($http,appConfig){
                 return $http({
                     url:appConfig.main.apis.main+'resource/'+sensor_id,
                     method:'GET',
-                    headers: {"Accept": "application/json","Authorization":"bearer "+appConfig.main.auth_token},
+                    headers: {"Accept": "application/json","Authorization":"bearer "+AccessToken.get().access_token},
                 })  
             },
             getMeasurementsBySearch:function(uri,id){
@@ -74,7 +74,7 @@ angular.module('app').factory('Sensor', function($http,appConfig){
                                     }
                             ]},
                         method:'POST',
-                        headers: {"Accept": "application/json","Authorization":"bearer "+appConfig.main.auth_token},
+                        headers: {"Accept": "application/json","Authorization":"bearer "+AccessToken.get().access_token},
                     })
                 }
                 else
@@ -88,7 +88,7 @@ angular.module('app').factory('Sensor', function($http,appConfig){
                         data:{
                             'resourceID':resource_id
                         },
-	                    headers: {"Accept": "application/json","Authorization":"bearer "+appConfig.main.auth_token},
+	                    headers: {"Accept": "application/json","Authorization":"bearer "+AccessToken.get().access_token},
 	                })
             	else
             		return "resource with resource_id="+resource_id+" is in wrong database";
@@ -106,7 +106,7 @@ angular.module('app').factory('Sensor', function($http,appConfig){
                                         }
                                       ]
                         },
-                        headers: {"Accept": "application/json","Authorization":"bearer "+appConfig.main.auth_token},
+                        headers: {"Accept": "application/json","Authorization":"bearer "+AccessToken.get().access_token},
                     })
                 else
                     return "resource with resource_id="+resource_id+" is in wrong database";
@@ -120,7 +120,7 @@ angular.module('app').factory('Sensor', function($http,appConfig){
                               "resourceID": resource_id,
                               "targetUom": uom
                         },
-                        headers: {"Accept": "application/json","Authorization":"bearer "+appConfig.main.auth_token},
+                        headers: {"Accept": "application/json","Authorization":"bearer "+AccessToken.get().access_token},
                     })
                 else
                     return "resource with resource_id="+resource_id+" is in wrong database";
@@ -132,7 +132,7 @@ angular.module('app').factory('Sensor', function($http,appConfig){
                         data:{
                             "queries": [object]
                         },
-                        headers: {"Accept": "application/json","Authorization":"bearer "+appConfig.main.auth_token},
+                        headers: {"Accept": "application/json","Authorization":"bearer "+AccessToken.get().access_token},
                     })
             },
             getComparingQueryTimeRangeBulk:function(queries){
@@ -142,7 +142,7 @@ angular.module('app').factory('Sensor', function($http,appConfig){
                         data:{
                             "queries": queries
                         },
-                        headers: {"Accept": "application/json","Authorization":"bearer "+appConfig.main.auth_token},
+                        headers: {"Accept": "application/json","Authorization":"bearer "+AccessToken.get().access_token},
                     })
             }
         }

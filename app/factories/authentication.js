@@ -1,4 +1,4 @@
-angular.module('app').factory('authentication', function($http,appConfig){
+angular.module('app').factory('authentication', function($http,appConfig,AccessToken){
     
         return{
             authenticate : function() {                
@@ -12,7 +12,7 @@ angular.module('app').factory('authentication', function($http,appConfig){
             	 
             	 return $http({
                     url: 'https://sso.sparkworks.net/aa/user',
-                    headers: {'Authorization': 'Bearer '+appConfig.main.auth_token},
+                    headers: {'Authorization': 'Bearer '+AccessToken.get().access_token},
                     method:'GET',
                     contentType: 'application/json'
                 })

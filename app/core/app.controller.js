@@ -341,12 +341,18 @@
 
 
     })
-    .controller('SitesController',function($scope, $rootScope, $state, $document, appConfig,$http,buildings,$location,site,Area){
+    .controller('SitesController',function($scope, $rootScope, $state, $document, appConfig,$http,buildings,$location,site,Area,AccessToken){
         _paq.push(['setUserId', $rootScope.TheUserName]);
         _paq.push(['setDocumentTitle', "Buildings"]);
         _paq.push(['trackPageView']);
           $scope.abuildings = [];
         $scope.loading = 0;
+        console.log(AccessToken.get());
+        console.log(AccessToken.get());
+        console.log(AccessToken.get());
+        console.log(AccessToken.get());
+        console.log(AccessToken.get());
+
         var init = function(){
             $scope.loading = 1;
             $scope.buildings = [];

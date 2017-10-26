@@ -5,6 +5,7 @@
         $version = 7505;
     ?>
         <meta charset="utf-8">
+        <base href="/">
         <meta http-equiv='X-UA-Compatible' content='IE=edge'>
         <title>GAIA - Building Manager</title>
         <meta name="description" content="GAIA - Building Manager Application">
@@ -72,6 +73,16 @@
 
         <div id="loader-container"></div>
 
+         <div style="display:none">
+    <oauth
+    site="https://sso.sparkworks.net/aa"
+    client-id="testone"
+    redirect-uri="http://bms.gaia-project.eu/"
+    profile-uri="#/page/buildings"
+    scope="read"
+    storage="localstorage">
+    </oauth>
+    </div>
        
 
         <header data-ng-include=" 'app/layout/header.html' "
@@ -106,7 +117,7 @@
             </div>
         </div>
 
-
+        
 
 
 
@@ -194,6 +205,7 @@
         <script src="app/form/wizard.controller.js?v=<?php echo $version; ?>"></script>
         <script src="app/core/app.config.js?v=<?php echo $version; ?>"></script>
         <script src="app/core/app.controller.js?v=<?php echo $version; ?>"></script>
+        <script src="app/bower_components/angular-route.js"></script>
 
         
         
@@ -214,6 +226,27 @@
         <script src="app/factories/authentication.js?v=1"></script>
         <script src="app/factories/sites.js?v=1"></script>
         <script src="app/factories/site.js?v=1"></script>
+
+
+
+       
+
+    <!-- bower:js -->
+    <script src="bower_components/ngstorage/ngStorage.js"></script>
+    <script src="bower_components/jsrsasign/jsrsasign-latest-all-min.js"></script>
+    <!-- endbower -->
+
+    <!-- build:js({.tmp,app}) oauth-ng.js -->
+    <script src="scripts/app.js"></script>
+    <script src="scripts/services/id-token.js"></script>
+    <script src="scripts/services/oidc-config.js"></script>
+    <script src="scripts/services/access-token.js"></script>
+    <script src="scripts/services/endpoint.js"></script>
+    <script src="scripts/services/profile.js"></script>
+    <script src="scripts/services/storage.js"></script>
+    <script src="scripts/services/oauth-configuration.js"></script>
+    <script src="scripts/interceptors/oauth-interceptor.js"></script>
+    <script src="scripts/directives/oauth.js"></script>
 
 
 
