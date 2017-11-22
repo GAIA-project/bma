@@ -1,7 +1,8 @@
 'use strict';
 var App = angular.module('app');
 App.controller('SensorController',function($scope,$q,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor,UoM,AccessToken){
-        
+        $scope.add_measurements_btn_view = false;
+
         $scope.sensor_measurements = {};
         $scope.dates_one = [];
         $scope.available_uoms = [];
@@ -40,11 +41,12 @@ App.controller('SensorController',function($scope,$q,$rootScope,appConfig,$state
 
         var meas = Sensor.getMeasurementsByResourceId($scope.sensor.id);
         meas.then(function(measurements){
-                
+                console.log("**********")
+                console.log(measurements.data.keyName);
                 if(measurements.data.keyName.startsWith("gaia-ps")){
+                    console.log("STARTS WITH GAIA-PS");
                     $scope.add_measurements_btn_view = true;
                 }
-                
                 
                 $scope.second_period_to_time = new Date(measurements.data.latestTime);
                 $scope.first_period_from_time = new Date($scope.second_period_to_time-47*24*60*60*1000);

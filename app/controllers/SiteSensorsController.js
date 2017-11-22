@@ -81,6 +81,7 @@ App.controller('SiteSensorsController',function($scope,$q,$rootScope,appConfig,$
 
                 area.resources = info.data.resources;
                 area.resources.forEach(function(sensor,index){
+                    console.log(sensor);
                         var m = Sensor.getMeasurementsByResourceId(sensor.resourceId);
                             m.then(function(datas){
                                 sensor.metrics = datas.data;

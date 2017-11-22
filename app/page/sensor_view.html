@@ -23,12 +23,6 @@
                 </div>
             </div>
 
-
-
-
-
-
-
             <div class="col-sm-6">
                 <div class="form-group">
                     <strong><span data-translate="Value"></span></strong>
@@ -45,9 +39,9 @@
     </div>
 </div>
 
-<div class="row" ng-init="initLoaded()">
+<div class="row" ng-init="initLoaded()"  ng-show="add_measurements_btn_view">
     <div class="col-sm-12 text-right">
-         <md-button ng-click="open_new_measurements()" ng-show="hasPermission('modifyPermission')" class="md-raised btn-w-md md-primary" ng-show="add_measurements_btn_view"><span data-translate="add_virtual_values"></span></md-button>
+         <md-button ng-click="open_new_measurements()" ng-show="hasPermission('modifyPermission')" class="md-raised btn-w-md md-primary"><span data-translate="add_virtual_values"></span></md-button>
     </div>
 </div>
 <div layout="row" layout-align="end center" class="layout-align-end-center layout-row" style="background: white;padding: 16px">
