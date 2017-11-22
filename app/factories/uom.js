@@ -1,4 +1,4 @@
-angular.module('app').factory('UoM', function($http,appConfig){
+angular.module('app').factory('UoM', function($http,appConfig,AccessToken){
     
         return{
             getUoMs:function(){

@@ -12,36 +12,63 @@
             suffix: '.json'
         });
 
-        $translateProvider.preferredLanguage('el');
+        $translateProvider.preferredLanguage('en');
+        if(localStorage.getItem('GAIA-Selected-Language')!='null'){
+            $translateProvider.preferredLanguage(localStorage.getItem('GAIA-Selected-Language'));
+        }
         $translateProvider.useSanitizeValueStrategy(null);
     }
 
     function LangCtrl($scope, $translate,$rootScope) {
-        $scope.lang = 'Greek';
+        $scope.lang = 'English';
+        if(localStorage.getItem('GAIA-Selected-Language')!='null'){
+            switch (localStorage.getItem('GAIA-Selected-Language')) {
+                case 'en':
+                    $scope.lang = 'English';
+                    break;
+                case 'el':
+                    $scope.lang = 'Greek';
+                    
+                    break;
+                case 'sw':
+                    $scope.lang = 'Swidian';
+                    
+                    break;
+                case 'it':
+                    $scope.lang = 'Italy';
+                    break;
+                
+            }
+        }
         $scope.setLang = setLang;
         $scope.getFlag = getFlag;
 
 
         function setLang (lang) {
+
             switch (lang) {
                 case 'English':
                     $translate.use('en');
                     $rootScope.lang = 'en';
+                    localStorage.setItem('GAIA-Selected-Language',$rootScope.lang);
                     
                     break;
                 case 'Greek':
                     $translate.use('el');
                     $rootScope.lang = 'el';
+                    localStorage.setItem('GAIA-Selected-Language',$rootScope.lang);
                     
                     break;
                 case 'Swidian':
                     $translate.use('sw');
                     $rootScope.lang = 'sw';
+                    localStorage.setItem('GAIA-Selected-Language',$rootScope.lang);
                     
                     break;
                 case 'Italy':
                     $translate.use('it');
                     $rootScope.lang = 'it';
+                    localStorage.setItem('GAIA-Selected-Language',$rootScope.lang);
                     
                     break;
                 

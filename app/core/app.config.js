@@ -38,7 +38,7 @@
             TheUserName:'',
             username:'greenmindset20',    //false in sparkworks
             password:'16A321368Ca',       //used in sparkworks
-            name: 'Lisa',
+            name: '',
             year: year,
             layout: 'wide',                                 // String: 'boxed', 'wide'
             menu: 'vertical',                               // String: 'horizontal', 'vertical'

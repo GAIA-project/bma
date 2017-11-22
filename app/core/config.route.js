@@ -10,20 +10,33 @@ angular.module('app').run(function($rootScope, $templateCache,$translate,$log,ap
         $rootScope.actions.push({'name':'edit_sensor_name','permission':['ROLE_GAIA_LOCAL_MANAGER','ROLE_GAIA_GLOBAL_MANAGER','ROLE_GAIA_ADMIN']});
         $rootScope.actions.push({'name':'edit_rule_engine','permission':['ROLE_GAIA_ADMIN','ROLE_GAIA_GLOBAL_MANAGER','ROLE_GAIA_LOCAL_MANAGER']});
 
+        // $rootScope.hasPermission = function(action){
+
+        //     var result = $filter('filter')($rootScope.actions, {'name':action});
+            
+        //     if(result.length==0)
+        //         console.error("There is non set permission:"+action);
+        //     else{
+        //         result=result[0];
+                
+        //         if(result.permission.indexOf(appConfig.main.auth_role)>-1){
+        //             return true;
+        //         }else
+        //         return false;
+        //     }
+
+        // }
+
         $rootScope.hasPermission = function(action){
 
-            var result = $filter('filter')($rootScope.actions, {'name':action});
-            
-            if(result.length==0)
-                console.error("There is non set permission:"+action);
-            else{
-                result=result[0];
-                
-                if(result.permission.indexOf(appConfig.main.auth_role)>-1){
+            if(localStorage.getItem('GAIA-'+action)){
+
+                if(localStorage.getItem('GAIA-'+action)=='false')
+                    return false
+                else 
                     return true;
-                }else
+            }else
                 return false;
-            }
 
         }
 
@@ -95,7 +108,6 @@ angular.module('app').run(function($rootScope, $templateCache,$translate,$log,ap
         $rootScope.getTranslatedName = function(the_obj,the_lang){
             return the_obj.data.greekLocalizedName;
         }
-
 
         $rootScope.isUndefined = function(val){
 
@@ -192,7 +204,7 @@ angular.module('app').run(function($rootScope, $templateCache,$translate,$log,ap
                 url = '/' + route;
                 config = {
                     url: url,
-                    templateUrl: 'app/' + route + '.html'
+                    templateUrl: 'app/' + route + '.html?v=1'
                 };
                 $stateProvider.state(route, config);
                 return $stateProvider;
@@ -232,7 +244,7 @@ angular.module('app').run(function($rootScope, $templateCache,$translate,$log,ap
             });
             $stateProvider.state('page/building/school_sensors', {
                 url: '/page/building/school_sensors/:id',
-                templateUrl: 'app/page/building_sensors_comparison.html'
+                templateUrl: 'app/page/SiteSensorsComparison.html'
             });
             $stateProvider.state('page/building/school_compare', {
                 url: '/page/building/school_compare/:id',

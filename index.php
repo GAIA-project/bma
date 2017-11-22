@@ -2,14 +2,15 @@
 <html class="no-js">
     <head>
     <?php 
-        $version = 7505;
+        $version = 7517;
     ?>
+
         <meta charset="utf-8">
         <base href="/">
         <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-        <title>GAIA - Building Manager</title>
+        <title><?php //echo $version; ?>GAIA - Building Manager </title>
         <meta name="description" content="GAIA - Building Manager Application">
-        <meta name="keywords" content="">
+        <meta name="keywords" content="Gaia,project,eu,building,manager,application,energy">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
         <link rel="icon" type="image/png" href="favicon.png" />
         <link rel="stylesheet" href="styles/loader.css?v=<?php echo $version; ?>">
@@ -29,10 +30,8 @@
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js?v=<?php echo $version; ?>"></script>
             
 
-    
 
             <!-- endbuild -->
-
             <script src="https://cdn.jsdelivr.net/sockjs/1/sockjs.min.js"></script>
             <script src="vendors/stomp.js?v=<?php echo $version; ?>"></script>
             <script src="vendors/canvas2image.js?v=<?php echo $version; ?>"></script>
@@ -162,6 +161,12 @@
         <script src="vendors/ngecharts.js?v=1"></script>
 
 
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+
+
         <!-- endbuild -->
 <!--Controllers-->
         
@@ -204,7 +209,7 @@
         <script src="app/form/formValidation.controller.js?v=<?php echo $version; ?>"></script>
         <script src="app/form/wizard.controller.js?v=<?php echo $version; ?>"></script>
         <script src="app/core/app.config.js?v=<?php echo $version; ?>"></script>
-        <script src="app/core/app.controller.js?v=<?php echo $version; ?>"></script>
+        <script src="app/core/app.controller.js?v=13<?php echo $version; ?>"></script>
         <script src="app/bower_components/angular-route.js"></script>
 
         
@@ -223,7 +228,6 @@
         
         <!--Factories-->
         
-        <script src="app/factories/authentication.js?v=1"></script>
         <script src="app/factories/sites.js?v=1"></script>
         <script src="app/factories/site.js?v=1"></script>
 
@@ -248,6 +252,15 @@
     <script src="scripts/interceptors/oauth-interceptor.js"></script>
     <script src="scripts/directives/oauth.js"></script>
 
+
+        <script src="app/controllers/sitesController.js?v=<?php echo $version; ?>"></script>
+        <script src="app/controllers/LogoutController.js?v=<?php echo $version; ?>"></script>
+        <script src="app/controllers/SiteSensorsController.js?v=<?php echo $version; ?>"></script>
+        <script src="app/controllers/SensorController.js?v=<?php echo $version; ?>"></script>
+        <script src="app/controllers/BuildingRulesController.js?v=<?php echo $version; ?>"></script>
+        <script src="app/controllers/SiteAreasController.js?v=<?php echo $version; ?>"></script>
+        <script src="app/controllers/SiteSensorsComparisonController.js?v=<?php echo $version; ?>"></script>
+        
 
 
 

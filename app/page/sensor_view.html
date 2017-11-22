@@ -14,28 +14,45 @@
     <div class="panel-heading">
         <span data-translate="DETAILS"></span>
     </div>
-            <div class="panel-body">
-                
-                <div class="col-sm-6" ng-hide="1">
-                    <div class="form-group">
-                        <strong><span data-translate="Time"></span></strong>
-                        <input class="form-control" type="text" name="" ng-model="virtual.time">
-                    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <strong><span data-translate="Time"></span></strong>
+                    <input class="form-control date_time" type="text" name="" ng-model="virtual.time">
                 </div>
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <strong><span data-translate="Value"></span></strong>
-                        <input class="form-control" type="text" name="" ng-model="virtual.value">
-                    </div>
+            </div>
+
+
+
+
+
+
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <strong><span data-translate="Value"></span></strong>
+                    <input class="form-control" type="text" name="" ng-model="virtual.value">
                 </div>
-                <md-button class="md-accent md-raised right" ng-click="save_value_virtual()"><span data-translate="SAVE_FORM"></span></md-button>
-                    <md-button class="md-default md-raised right" ng-click="cancel_virtual_value()"><span data-translate="CANCEL"></span></md-button>
             </div>
         </div>
+        <div class="row">
+            <div class="col-sm-12 text-right">
+                <md-button class="md-accent md-raised right" ng-click="save_value_virtual()"><span data-translate="SAVE_FORM"></span></md-button>
+                <md-button class="md-default md-raised right" ng-click="cancel_virtual_value()"><span data-translate="CANCEL"></span></md-button>
+            </div>
+        </div>
+    </div>
+</div>
 
-
+<div class="row" ng-init="initLoaded()">
+    <div class="col-sm-12 text-right">
+         <md-button ng-click="open_new_measurements()" ng-show="hasPermission('modifyPermission')" class="md-raised btn-w-md md-primary" ng-show="add_measurements_btn_view"><span data-translate="add_virtual_values"></span></md-button>
+    </div>
+</div>
 <div layout="row" layout-align="end center" class="layout-align-end-center layout-row" style="background: white;padding: 16px">
-    <md-button ng-click="open_new_measurements()" class="md-raised btn-w-md md-primary" ng-show="add_measurements_btn_view"><span data-translate="add_virtual_values"></span></md-button>
+    
+   
 
     <div class="form-group">
         <label for="building_build_year" class="col-sm-12 control-label"><span data-translate="FROM_TIME"></span></label>

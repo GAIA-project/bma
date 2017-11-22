@@ -44,7 +44,7 @@
                     <uib-tabset active="activeJustified" justified="true">
                         <uib-tab index="0" heading="{{language.description}}" >
                                 <div class="text-right" style="margin:10px">
-                                    <a ui-wave href="javascript:void(0);" ng-show="hasPermission('edit_area')" ng-click="edit()" class="btn btn-sm btn-raised btn-primary"><span data-translate="EDIT"></span></a>
+                                    <a ui-wave href="javascript:void(0);" ng-show="hasPermission('modifyPermission')" ng-click="edit()" class="btn btn-sm btn-raised btn-primary"><span data-translate="EDIT"></span></a>
                                 </div>
                             <div class="details_area" ng-show="selected_area_view">               
                                 
@@ -105,7 +105,7 @@
                                     <tbody>
                                         <tr ng-repeat="sensor in selected_area.resources" ng-show="selected_area.resources.length">
                                             <td>
-                                                <span ng-hide="sensor.editing"><i ng-show="hasPermission('edit_sensor_name')" class="fa fa-pencil-square" aria-hidden="true" ng-click="editSensorName(sensor)"></i> {{sensor.name}}</span>
+                                                <span ng-hide="sensor.editing"><i ng-show="hasPermission('modifyPermission')" class="fa fa-pencil-square" aria-hidden="true" ng-click="editSensorName(sensor)"></i> {{sensor.name}}</span>
                                                 <div class="input-group" ng-show="sensor.editing" >
                                                     <input type="text" ng-model="sensor.name" class="form-control">
                                                     <span class="input-group-btn">

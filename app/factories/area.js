@@ -43,6 +43,15 @@ angular.module('app').factory('Area', function($http,appConfig,AccessToken){
                     data:tdata
                 })
             },
+            updateSiteInfoSparkworks:function(area_id,tdata){
+                return $http({
+                    url:appConfig.main.apis.main+appConfig.main.apis.site+'/'+area_id,
+                    method:'POST',
+                    headers: {"Accept": "application/json","Authorization":"bearer "+AccessToken.get().access_token},
+                    data:tdata
+                })
+                
+            },
             getSiteInfo:function(site_id){
                 console.log("Get Site Info:"+site_id);
                 return $http({
