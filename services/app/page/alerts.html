@@ -1,0 +1,18 @@
+<div class="page page-dashboard" data-ng-controller="AlertCtrl">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default panel-minimal">                
+                <div class="panel-body">
+         			<md-list>
+                        <md-list-item ng-repeat="alert in alerts">
+                            <i class="zmdi zmdi-alert-circle img-circle img40_40 md-avatar" style="font-size: 40px;"></i>
+                            <p>{{ alert.name }}</p>                           
+                        </md-list-item>
+                    </md-list> 
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    

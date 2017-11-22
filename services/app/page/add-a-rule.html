@@ -1,0 +1,80 @@
+<div class="page page-dashboard" data-ng-controller="RuleCtrl">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default panel-minimal">                
+                <div class="panel-body">
+         			
+                  <div layout="column" ng-cloak class="md-inline-form inputdemoBasicUsage">
+                                <div layout-padding>
+                                    <form name="userForm">
+                                        <div layout layout-sm="column">
+                                            <md-input-container flex>
+                                                <label><span data-translate="RULE_NAME"></span></label>
+                                                <input ng-model="rule.name">
+                                            </md-input-container>
+
+                                             <md-input-container flex>
+                                                <label>Alert Text</label>
+                                                <input ng-model="rule.text">
+                                            </md-input-container>
+                                        </div>
+                                        <span class="label label-primary" ng-click="add_condition()">
+                                        	<span data-translate="ADD_CONDITION"></span>
+                                        </span>
+                                        
+                                        
+                                        
+
+
+
+                                        
+                                        <div layout layout-sm="column" ng-repeat="rule in rules">                                        
+
+                                          <md-input-container flex>
+                                              <label>Sensor</label>
+                                              <md-select ng-model="rule.sensor">
+                                                  <md-option ng-repeat="sensor in sensors" value="{{sensor.name}}">
+                                                      {{sensor.name}}
+                                                  </md-option>
+                                              </md-select>
+                                          </md-input-container>
+											
+											<md-input-container flex>
+                                                <label>What</label>
+                                                <md-select ng-model="rule.verb">
+                                                    <md-option ng-repeat="verb in verbs" value="{{verb.verbname}}">
+                                                        {{verb.verbname}}
+                                                    </md-option>
+                                                </md-select>
+                                            </md-input-container>                                            
+
+                                            <div layout layout-sm="column">
+	                                            <md-input-container flex>
+	                                                <label>Value</label>
+	                                                <input ng-model="rule.value">
+	                                            </md-input-container>
+                                        	</div>
+
+                                           
+                                        </div>
+                                        
+                                       
+                                        
+                                     
+                                    </form>
+                                </div>
+                            </div>
+						<div class="row">
+							<div class="col-sm-12 text-right">
+								<md-button class="md-raised btn-sm md-primary"><span data-translate="SAVE_FORM"></span></md-button>
+							</div>
+						</div>
+
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    

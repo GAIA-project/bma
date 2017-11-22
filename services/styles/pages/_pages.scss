@@ -1,0 +1,71 @@
+
+// Old browsers
+.lt-ie9-bg {
+    z-index: 11111;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #333;
+    color: #999;
+    padding: 100px 20px;
+    text-align: center;
+    font-size: 26px;
+
+    a {
+        color: #f5f5f5;
+        border-bottom: 2px solid #fff;
+        &:hover {
+            text-decoration: none;
+        }
+    }
+}
+
+
+// 
+.non-display {
+    display: none;
+}
+
+.page {
+    padding: 15px 30px;
+
+    > .ui-section:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.page-form-ele {
+    h3 {
+        margin: 0;
+    }
+}
+
+.page-top-view .class{
+    background-color:white;
+    border: 1px solid #DFDFDF;
+}
+.page-top-view .class_name{
+    position: absolute;
+    top: 42%;
+    width: 100%;
+    text-align: center;
+    font-size: 23px;
+}
+
+.page-top-view .edit_button {
+    position: absolute;
+    right: 0;
+    bottom: 0px;
+    background: rgb(239, 239, 239);
+    padding: 10px;
+    color: #676666;
+    font-size: 13px;
+}
+.page-top-view .class_measurements ul{
+    list-style-type: none;
+    background: #f9f1cb;
+    margin: 5px;
+    padding: 10px 16px;
+}

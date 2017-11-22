@@ -1,0 +1,432 @@
+<div class="page" ng-controller="SiteEditController">
+    <div class="saved"><span data-translate="UPDATED"></span></div>
+    <div class="row">
+        <div class="alert alert-danger" ng-show="error_view">{{error_text}}</div>
+    </div>
+
+    <div class="row ui-section" style="margin-top:10px" ng-init="getInfo()">
+        <div class="col-sm-12">
+            
+            <h2 class="section-header">{{sschool.name}}</h2>            
+            
+        </div>
+        
+         <div class="row ui-section">
+         <div ng-show="loading" style="text-align: center;width:100%" class="chart_loading">
+                <h4>Loading</h4>
+                <md-progress-circular md-mode="indeterminate" style="margin:0 auto"></md-progress-circular>
+        </div>
+        <div class="col-md-12">
+        <form class="form-horizontal" role="form">
+            <section class="panel panel-default">
+                <div class="panel-body padding-xl">
+                    <uib-tabset class="ui-tab">
+                        <uib-tab heading="{{language.general_characteristic}}">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="form-group">
+                                        <label for="inputEmail3" class="col-sm-5 control-label"><span data-translate="englishLocalizedName"></span></label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" id="inputEmail3" ng-model="school.englishLocalizedName">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputEmail3" class="col-sm-5 control-label"><span data-translate="greekLocalizedName"></span></label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" id="inputEmail3" ng-model="school.greekLocalizedName">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputEmail3" class="col-sm-5 control-label"><span data-translate="italianLocalizedName"></span></label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" id="inputEmail3" ng-model="school.italianLocalizedName">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputEmail3" class="col-sm-5 control-label"><span data-translate="swedishLocalizedName"></span></label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" id="inputEmail3" ng-model="school.swedishLocalizedName">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="" class="col-sm-5 control-label"><span data-translate="Country"></span></label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" id="inputEmail3" ng-model="school.country">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="" class="col-sm-5 control-label"><span data-translate="cubicMeters"></span></label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" id="inputEmail3" ng-model="school.cubicMeters">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="" class="col-sm-5 control-label"><span data-translate="squareMeters"></span></label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" id="inputEmail3" ng-model="school.squareMeters">
+                                        </div>
+                                    </div>
+
+                                     <div class="form-group">
+                                        <label for="" class="col-sm-5 control-label">
+                                            <span data-translate="Energy_types_available"></span>
+                                        </label>
+                                        <div class="col-sm-7">
+                                            <md-checkbox  ng-model="jjson.available_electricity" aria-label="Electricity"> <span data-translate="Electricity"></span> </md-checkbox>
+                                            <md-checkbox  ng-model="jjson.available_gas" class="md-primary" aria-label="Gas"> <span data-translate="Gas"></span> </md-checkbox>
+                                            <md-checkbox  ng-model="jjson.available_petrol" class="md-warn" aria-label="Petrol"> <span data-translate="Petrol"></span> </md-checkbox>
+                                        </div>
+                                    </div>                              
+                                
+                                    
+
+                                </div>
+                                
+                            </div>
+                        </uib-tab>
+                        <uib-tab heading="{{language.thermansi}}">
+                            <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label for="ConsumptionMeterSerialNumber" class="col-sm-5 control-label"><span data-translate="Is_there_an_automated_thermostat_installed"></span></label>
+                                    <div class="col-sm-7">
+                                        <md-switch  aria-label="Switch 1" ng-model="school.heatingSystem.automatedThermostatInstalled"> <span data-translate="Yes"></span> </md-switch>
+                                    </div>
+                                </div>
+                                <div class="form-group" ng-show="school.heatingSystem.automatedThermostatInstalled">
+                                    <label for="Threshold" class="col-sm-5 control-label"><span data-translate="Which_is_the_threshold_value"></span></label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control" id="Threshold" ng-model="school.heatingSystem.temperatureThreshold" placeholder="20">
+                                    </div>
+                                </div>  
+                                <div class="form-group">
+                                    <label for="ConsumptionMeter" class="col-sm-5 control-label"><span data-translate="Aretheheatingsystemsservicedregularly"></span></label>
+                                    <div class="col-sm-7">
+                                        <md-switch  aria-label="Switch 12" ng-model="school.heatingSystem.regularlyMaintained"> <span data-translate="Yes"></span> </md-switch>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-5 control-label"><span data-translate="Serial_number_of_the_consumption_meter"></span></label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control" id="inputPassword3" ng-model="school.heatingSystem.heatingSystemId" placeholder="" />
+                                </div>
+                            </div>
+                                <div class="form-group">
+                                    <label for="Orientation" class="col-sm-5 control-label"><span data-translate="Type_of_heating_system_energy_source_used"></span></label>
+                                    <div class="col-sm-7">
+                                        <md-radio-group class="ui-md-radio-group-inline" ng-model="school.heatingSystem.type">
+                                            <md-radio-button value="FURNACES"><span data-translate="Furnaces"></span></md-radio-button><br/>
+                                            <md-radio-button value="BOILERS"><span data-translate="Boilers"></span></md-radio-button><br/>
+                                            <md-radio-button value="HEAT_PUMPS"><span data-translate="Heat_Pumps"></span></md-radio-button>    <br/>                                        
+                                            <md-radio-button value="GAS_FIRED_SPACE_HEATERS"><span data-translate="Gas_Fired_Space_Heaters"></span></md-radio-button><br/>
+                                            <md-radio-button value="ELECTRIC_SPACE_HEATERS"><span data-translate="Electric_Space_Heaters"></span></md-radio-button><br/>
+                                            <md-radio-button value="WOOD_BURNING_AND_PELLET_STOVES"><span data-translate="Wood_Burning_and_Pellet_Stoves"></span></md-radio-button>
+                                        </md-radio-group>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                            
+<!--                                      <div class="form-group">
+                                <label for="ConsumptionMeter" class="col-sm-5 control-label"><span data-translate="Aretheheatingandcoolingsystemtubesinsulated"></span></label>
+                                <div class="col-sm-7">
+                                    <md-switch  aria-label="Switch 12" ng-model="jjson.tubes_insulated"> <span data-translate="Yes"></span></md-switch>
+                                </div>
+                            </div> -->
+                            
+                        </uib-tab>
+                        <uib-tab heading="{{language.psiksi}}">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                                                
+                                <div class="form-group">
+                                    <label for="ConsumptionMeterSerialNumber" class="col-sm-5 control-label"><span data-translate="Is_there_an_automated_thermostat_installed_for_the_cooling_system"></span></label>
+                                    <div class="col-sm-7">
+                                        <md-switch  aria-label="Switch 12" ng-model="school.coolingSystem.automatedThermostatInstalled"> <span data-translate="Yes"></span> </md-switch>
+                                    </div>
+                                </div>
+                                <div class="form-group" ng-show="school.coolingSystem.automatedThermostatInstalled">
+                                    <label for="Threshold" class="col-sm-5 control-label"><span data-translate="Which_is_the_threshold_value"></span></label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control" id="Threshold" placeholder="20" ng-model="school.coolingSystem.temperatureThreshold">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="ConsumptionMeter" class="col-sm-5 control-label"><span data-translate="Arethecoolingsystemsservicedregularly"></span></label>
+                                    <div class="col-sm-7">
+                                        <md-switch  aria-label="Switch 12" ng-model="school.coolingSystem.regularlyMaintained"> <span data-translate="Yes"></span> </md-switch>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="" class="col-sm-5 control-label"><span data-translate="Type_of_cooling_system_energy_source_used"></span></label>
+                                    <div class="col-sm-7">
+                                        <md-radio-group class="ui-md-radio-group-inline radio2" ng-model="school.coolingSystem.type" >
+                                            <md-radio-button value="CENTRAL_AIR"><span data-translate="Central_Air_Conditioners"></span></md-radio-button><br/>
+                                            <md-radio-button value="AIR_CONDITIONERS"><span data-translate="AIR_CONDITIONERS"></span></md-radio-button><br/>
+                                            <md-radio-button value="ROOM_AIR_CONDITIONERS"><span data-translate="ROOM_AIR_CONDITIONERS"></span></md-radio-button><br/>
+                                            <md-radio-button value="EVAPORATIVE_COOLERS"><span data-translate="EVAPORATIVE_COOLERS"></span></md-radio-button>
+                                        </md-radio-group>
+                                    </div>
+                                </div>                               
+                            </div>
+                            </div>
+
+
+                        </uib-tab>
+                        <uib-tab heading="{{language.construction_characteristics}}">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="form-group">
+                                        <label for="building_build_year" class="col-sm-5 control-label"><span data-translate="Which_year_was_the_building_built"></span></label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" id="age"  ng-model="school.dateOfConstruction">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="People" class="col-sm-5 control-label"><span data-translate="People"></span></label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" id="People"  ng-model="school.maximumNumberOfPeople">
+                                        </div>
+                                    </div>
+                                   
+                                     <div class="form-group">
+                                        <label for="Orientation" class="col-sm-5 control-label"><span data-translate="Orientation"></span></label>
+                                        <div class="col-sm-7">
+                                            <md-radio-group class="ui-md-radio-group-inline"  ng-model="school.cardinalDirection">
+                                                <md-radio-button value="WEST"><span data-translate="West"></span></md-radio-button>
+                                                <md-radio-button value="SOUTH_WEST"><span data-translate="Southweast"></span></md-radio-button>
+                                                <md-radio-button value="SOUTH"><span data-translate="South"></span></md-radio-button> 
+                                                <md-radio-button value="SOUTH_EAST"><span data-translate="Southeast"></span></md-radio-button><md-radio-button value="EAST"><span data-translate="East"></span></md-radio-button>
+                                                <md-radio-button value="NORTH_EAST"><span data-translate="Νorth-eastern"></span></md-radio-button>
+                                                <md-radio-button value="NORTH"><span data-translate="North"></span></md-radio-button>
+                                                <md-radio-button value="NORTH_WEST"><span data-translate="Νorthwest"></span></md-radio-button>
+                                            </md-radio-group>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </uib-tab>
+                    
+
+                    <uib-tab heading="{{language.resources}}" ng-init="getResources()">
+                        <div class="row" ng-init="getAvailableUoM()">
+                            <div class="col-sm-12">
+                                <div layout="row" layout-align="end center">
+                                    <md-button class="md-accent md-raised" ng-click="addExtraChart()"><span data-translate="ADD_EXTRA_CHART"></span></md-button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                                <div ng-show="add_a_chart_visible_form" class="new_chart_class">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="new_chart_name" class="col-sm-5 control-label"><span data-translate="CHART_NAME"></span></label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control" id="new_chart_name" ng-model="new_chart.name">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row text-right">
+                                        <md-button class="md-accent md-raised" ng-click="cancel_new_chart()"><span data-translate="CANCEL"></span></md-button>
+                                        <md-button class="md-accent md-raised" ng-click="save_new_chart()"><span data-translate="SAVE"></span></md-button>
+                                    </div>
+                                </div>
+                            
+
+
+                            <div class="col-sm-12">
+                                <table class="table table-striped table-bordered no-margin">
+                                    <thead>
+                                        <tr>
+                                            <th><span data-translate="Description"></span></th>
+                                            <th><span data-translate="Resource"></span></th>
+                                            <th><span data-translate="Regularity"></span></th>
+                                            <th><span data-translate="DefaultMeasUnit"></span></th>
+                                            <th><span data-translate="SelectedMeasUnit"></span></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><span data-translate="Resource_for_Energy_Consumption"></span></td>
+                                            <td>
+                                                <md-select ng-model="jjson.energy_consumption_resource"  ng-change="getUOMForResource(jjson.energy_consumption_resource,'energy')">
+                                                    <md-option ng-repeat="resource in available_resources" value="{{resource.id}}">
+                                                        {{resource.uri}}
+                                                    </md-option>
+                                                </md-select>
+                                            </td>
+                                            <td>
+                                                <md-select ng-model="jjson.energy_consumption_resource_step">
+                                                    <md-option ng-repeat="gran in granularity_values" value="{{gran.text}}">
+                                                        <span data-translate="{{gran.name}}"></span>
+                                                    </md-option>
+                                                </md-select>
+                                            </td>
+                                            <td>
+                                                {{jjson.energy_consumption_resource_default_uom}}
+                                            </td>
+                                            <td>
+                                                <md-select ng-model="jjson.energy_consumption_resource_uom">
+                                                    <md-option ng-repeat="uom in available_energy_uoms" value="{{uom.target}}">
+                                                        {{uom.target}}
+                                                    </md-option>
+                                                </md-select> 
+                                            </td>
+                                        </tr>
+
+
+
+
+                                        <tr>
+                                            <td><span data-translate="Resource_for_Temperature"></span></td>
+                                            <td>
+                                                <md-select ng-model="jjson.temperature_resource" ng-change="getUOMForResource(jjson.temperature_resource,'temperature')">
+                                                    <md-option ng-repeat="resource in available_resources" value="{{resource.id}}">
+                                                        {{resource.uri}}
+                                                    </md-option>
+                                                </md-select>                                            
+                                                
+                                            </td>
+                                            <td>
+                                                <md-select ng-model="jjson.temperature_resource_step">
+                                                    <md-option ng-repeat="step in available_steps" value="{{step.text}}">
+                                                        {{step.name}}
+                                                    </md-option>
+                                                </md-select>
+                                            </td>
+                                            <td>
+                                                {{jjson.temperature_resource_uom}}
+                                            </td>
+                                            <td>
+                                                <md-select ng-model="jjson.temperature_resource_uom">
+                                                    <md-option ng-repeat="uom in temperature_resource_uoms" value="{{uom.target}}">
+                                                        {{uom.target}}
+                                                    </md-option>
+                                                </md-select> 
+                                            </td>
+                                        </tr>
+
+
+                                        <tr>
+                                            <td><span data-translate="Resource_for_Relative_Humidity"></span></td>
+                                            <td>
+                                                <md-select ng-model="jjson.relative_humidity_resource" ng-change="getUOMForResource(jjson.relative_humidity_resource,'relative_humidity')">
+                                                    <md-option ng-repeat="resource in available_resources" value="{{resource.id}}">
+                                                        {{resource.uri}}
+                                                    </md-option>
+                                                </md-select>                                            
+                                                
+                                            </td>
+                                            <td>
+                                                <md-select ng-model="jjson.relative_humidity_resource_step">
+                                                    <md-option ng-repeat="step in available_steps" value="{{step.text}}">
+                                                        {{step.name}}
+                                                    </md-option>
+                                                </md-select>
+                                            </td>
+                                            <td>
+                                                {{jjson.relative_humidity_resource_uom}}
+                                            </td>
+                                            <td>
+                                                <md-select ng-model="jjson.relative_humidity_resource_uom">
+                                                    <md-option ng-repeat="uom in available_relative_humidity_uoms" value="{{uom.target}}">
+                                                        {{uom.target}}
+                                                    </md-option>
+                                                </md-select> 
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td><span data-translate="Resource_for_Luminosity"></span></td>
+                                            <td>
+                                                <md-select ng-model="jjson.luminosity_resource" ng-change="getUOMForResource(jjson.luminosity_resource,'luminosity')">
+                                                    <md-option ng-repeat="resource in available_resources" value="{{resource.id}}">
+                                                        {{resource.uri}}
+                                                    </md-option>
+                                                </md-select>                                            
+                                                
+                                            </td>
+                                            <td>
+                                                <md-select ng-model="jjson.luminosity_resource_step">
+                                                    <md-option ng-repeat="step in available_steps" value="{{step.text}}">
+                                                        {{step.name}}
+                                                    </md-option>
+                                                </md-select>
+                                            </td>
+                                            <td>
+                                                {{jjson.luminosity_resource_uom}}
+                                            </td>
+                                            <td>
+                                                <md-select ng-model="jjson.luminosity_resource_uom">
+                                                    <md-option ng-repeat="uom in available_luminosity_uoms" value="{{uom.target}}">
+                                                        {{uom.target}}
+                                                    </md-option>
+                                                </md-select> 
+                                            </td>
+                                        </tr>
+
+
+
+
+                                        <tr ng-repeat="ch in jjson.extra_charts">
+                                            <td>
+                                                <span>
+                                                {{ch.name}}
+                                                </span>
+                                                <br/>
+                                                <span class="label label-danger" ng-click="removeThisChart(ch)" >
+                                                    <span data-translate="DELETE"></span>
+                                                </span>
+
+                                            </td>
+                                            <td>
+                                                <md-select ng-model="ch.resource_id" ng-change="getUOMForExtraResource(ch)">
+                                                    <md-option ng-repeat="resource in available_resources" value="{{resource.id}}">
+                                                        {{resource.uri}}
+                                                    </md-option>
+                                                </md-select>
+                                            </td>
+                                            <td>
+                                                <md-select ng-model="ch.step">
+                                                    <md-option ng-repeat="step in available_steps" value="{{step.text}}">
+                                                        {{step.name}}
+                                                    </md-option>
+                                                </md-select>
+                                            </td>
+                                            <td>
+                                                {{ch.default_uom}}
+                                            </td>
+                                            <td>
+                                                <md-select ng-model="ch.uom">
+                                                    <md-option ng-repeat="uom in ch.available_uoms" value="{{uom.target}}">
+                                                        {{uom.target}}
+                                                    </md-option>
+                                                </md-select> 
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                  
+                            </div>
+                           
+                        </div>
+                        </uib-tab>
+                    </uib-tabset>
+                </div>
+
+                    <div class="col-sm-12" style="margin-top:20px">
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 text-right col-sm-10">
+                                <md-button type="submit" class="md-raised md-primary btn-w-md" ng-click="saveBuilding()"><span data-translate="SAVE"></span></md-button><div class="divider"></div>
+                            </div>
+                        </div>
+                    </div>
+            </section>
+        </form>
+                    
+        </div>
+    </div>
+    </div>
+</div>

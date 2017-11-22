@@ -1,0 +1,78 @@
+<div class="page" ng-controller="SiteSensorsController" >
+     <div class="row">
+        <div class="col-sm-12">
+            <h2 class="section-header">{{building.details.item.name}}</h2>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 10px"  ng-init="getInitAreas()">
+            <div class="text-right" style="margin:10px">
+                <a ui-wave href="javascript:;" ng-show="main.auth_role=='ROLE_GAIA_LOCAL_MANAGER' || main.auth_role=='ROLE_GAIA_GLOBAL_MANAGER' || main.auth_role=='ROLE_GAIA_ADMIN' || 
+                main.auth_role=='ROLE_GAIA_TEACHER" ng-click="addVirtualSensor()" class="btn btn-sm btn-raised btn-primary"><span data-translate="ADD_A_VIRTUAL_SENSOR"></span></a>
+            </div>
+        <div class="col-sm-12">
+
+            <div class="panel panel-default panel-minimal" ng-show="add_a_virtual_sensor_form">
+                <div class="divider divider-md"></div>
+                <div class="panel-heading">
+                    <span data-translate="DETAILS"></span>
+                </div>
+                <div class="panel-body">
+                    
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <strong><span data-translate="Name"></span></strong>
+                            <input class="form-control" type="text" name="" ng-model="new_virtual_sensor.name">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <strong><span data-translate="observes"></span></strong>
+                            <md-select ng-model="new_virtual_sensor.observes">
+                                <md-option option disabled="disabled" selected><span data-translate="SELECT_OBSERVE"></span></md-option>
+                                <md-option ng-repeat="observe in available_observes" value="{{observe.name}}">
+                                    {{observe.name}}
+                                </md-option>
+                            </md-select>
+                        </div>
+                    </div>
+                    
+                        <md-button class="md-accent md-raised right" ng-click="save_new_virtual_sensor()"><span data-translate="SAVE_FORM"></span></md-button>
+                        <md-button class="md-default md-raised right" ng-click="cancel_new_virtual_sensor()"><span data-translate="CANCEL"></span></md-button>
+                </div>
+            </div>
+             
+
+
+            <div class="row area_box" ng-show="virtual_sensors.length" ng-init="getPSResources()">
+
+                <h2 class="area_title"><span data-translate="VIRTUAL_SENSORS"></span></h2>
+                    <div class="col-sm-6 col-md-3 col-lg-2" style="margin-bottom: 5px" ng-repeat="sensor in virtual_sensors" ng-click="goToSensor(sensor.resourceId)">
+                        <div class="sensorbox">
+                        <div class="panel-heading">{{sensor.name}} - {{sensor.property}}</div>
+                            <div class="panel-body">
+                                <h5 class="latest_value"><span data-translate="Latestvalue"></span></h5>
+                                <h4>{{sensor.meatrics.latest+" "+sensor.uom}}</h4>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+
+
+
+            <div class="row area_box" ng-repeat="area in building.areas">
+            <h2 class="area_title">{{area.name}}</h2>
+            <div style="text-align: center;margin-bottom: 10px" ng-show="area.resources==0"><span data-translate="Therearenoassignedsensors"></span></div>
+            <div class="col-sm-6 col-md-3 col-lg-2" style="margin-bottom: 5px" ng-repeat="sensor in area.resources" ng-click="goToSensor(sensor.resourceId)">
+                <div class="sensorbox">
+                    <div class="panel-heading">{{sensor.name}}</div>
+                        <div class="panel-body">
+                            <h5 class="latest_value"><span data-translate="Latestvalue"></span></h5>
+                            <h4>{{sensor.metrics.latest+" "+sensor.uom}}</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>  
+</div>

@@ -1,0 +1,54 @@
+<div class="page" ng-controller="AnomalyCtrl">
+
+    <div class="row" style="margin-bottom:10px">
+        <div class="col-md-8">
+            <h2 class="section-header">{{site.name}}</h2>
+        </div>
+        <div class="col-md-4">
+            <div layout="row" layout-align="end center">
+                <md-button class="md-accent md-raised" ng-click="goToAnomalies()"><span data-translate="ANOMALIES"></span></md-button> &nbsp;
+            </div>
+        </div>
+    </div> 
+ 
+
+    <div class="row">
+        <div class="col-md-6">
+
+            <div class="panel panel-default panel-minimal">
+                <div class="divider divider-md"></div>
+                <div class="panel-heading">Graph</div>
+                <div class="panel-body">
+                    <div data-echarts data-options="line3.options" style="height: 350px;"></div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="col-md-6">
+
+        <div class="panel panel-default panel-minimal">
+                <div class="divider divider-md"></div>
+                <div class="panel-heading">Tags</div>
+                <div class="panel-body">
+                    <div class="row" style="margin-bottom: 10px">
+                        <div class="col-sm-12 col-md-9">
+                            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter tag" ng-model="new_tag" name="new_tag" />
+                        </div>
+                        <div class="col-sm-12 col-md-3">
+                            <button class="btn" ng-click="addTag()"><span data-translate="SAVE_FORM"></span></button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-9">
+                            <span class="label label-default" ng-repeat="tag in atags" style="margin-right:3px">{{tag.value}}</span> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+          
+
+        </div>
+    </div>
+
+</div>

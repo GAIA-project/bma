@@ -1,0 +1,68 @@
+<div class="page page-top-view" data-ng-controller="SiteTopViewController">
+    <div class="row">
+        <div class="col-sm-12">
+            <h2 class="section-header">{{building.details.item.name}}</h2>
+        </div>
+        <div class="alert alert-danger" ng-show="error_view">{{error_text}}</div>
+        <div class="col-sm-12">
+            <md-button class="md-raised btn-w-md" ng-click="saveTopView()"><span data-translate="SAVE"></span></md-button>
+
+            <md-button class="md-raised btn-w-md" ng-click="zoomIn()"><span data-translate="zoomIn"></span></md-button>
+
+            <md-button class="md-raised btn-w-md" ng-click="zoomOut()"><span data-translate="zoomOut"></span></md-button>
+        </div>
+        <!-- <div class="col-sm-12">
+            <div layout="row" layout-align="end center">                
+                <button class="md-accent md-raised md-button md-ink-ripple" type="button" ng-transclude="" id="btnSave">
+                    <span class="fa fa-file-image-o ng-scope"></span> 
+                    <span data-translate="SAVE" class="ng-scope"><span data-translate="SAVE"></span></span><div class="md-ripple-container"></div></button>
+                
+            </div>
+        </div> -->
+    </div>
+
+    <div class="row" id="widget" ng-init="getInitAreas()">
+        <div class="col-md-12" style="width:100%;min-height:1000px;position: absolute;">
+          	<div ng-repeat="area in building.areas" class="draggable class ui-widget-content" on-last-repeat  ng-click="openNav(area)"
+                 ng-style="area.style" data-area_id="{{area.id}}" style="position: absolute!important">
+              <div class="class_name" style="position: relative!important;top:0%!important">{{area.name}}</div>
+          		<div class="class_measurements">
+
+      					<!-- <ul>
+      						<li ng-repeat="sensor in area.resources">{{sensor.name+": "+sensor.metrics.latest+" "+sensor.uom}}</li>
+      					</ul> -->
+          		</div>
+  				      			
+			     </div>
+
+	
+		
+        </div>
+    </div>
+
+
+
+<div id="myNav" class="overlay">
+
+  <!-- Button to close the overlay navigation -->
+  <a href="javascript:void(0)" class="closebtn" ng-click="closeNav()">&times;</a>
+
+  <!-- Overlay content -->
+  <div class="overlay-content">
+    <h2 class="area_name">{{selected_area.name}}</h2>
+    <div class="container">
+    <table class="table sensor_table">
+      <tr ng-repeat="sensor in selected_area.resources">
+        <td>{{sensor.name}}</td>
+        <td>{{sensor.metrics.latest+" "+sensor.uom}}</td>
+      </tr>
+    </table>
+    </div>
+    
+    
+  </div>
+
+</div>
+
+
+</div>

@@ -1,0 +1,159 @@
+<div class="page" ng-controller="SiteController" >
+    <div class="row">
+        <div class="col-sm-12">
+            <h2 class="section-header">{{building.details.item.name}}</h2>
+        </div>
+    </div>
+
+  
+    
+    <div class="row ui-section" style="margin-top:10px">    
+    	<section class="panel panel-default">
+            <div class="panel-body" >
+        
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Energy</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                     
+                                    		<div class="col-sm-6">
+		                                         <p>Please add the current energy meter reading</p>
+		                                         <div class="form-group">
+				                                    <label for="ConsumptionMeterSerialNumber" class="col-sm-12 col-md-6 control-label">Energy Consumption Meter Value</label>
+				                                    <div class="col-sm-12 col-md-6">
+				                                       	<md-select ng-model="jjson.energy_consumption_resource">
+		                                                    <md-option ng-repeat="resource in visual_sources" value="{{resource.id}}">
+		                                                        {{resource.texts}}
+		                                                    </md-option>
+		                                                </md-select>  
+				                                    </div>
+				                                    <div class="col-sm-12 col-md-6">
+				                                        <input type="text" class="form-control" id="ConsumptionMeterSerialNumber" placeholder="Consumption Meter Value">
+				                                    </div>
+				                                </div>
+		                                	</div>
+		                                	<div class="col-sm-6">
+		                                         <p>Or you can upload the file which incorporates the readings</p>
+		                                         
+				                                    <label for="ConsumptionMeterSerialNumber" class="col-sm-12 col-md-6 control-label">Energy Consumption File (xls,csv)</label>
+				                                    <div class="col-sm-12 col-md-6">
+				                                        <input type="file" class="form-control" id="ConsumptionMeterSerialNumber" >
+				                                    </div>
+				                                
+		                                	</div>
+		                                	
+		                                	<div class="form-group">
+			                                <div class="col-sm-offset-9 col-sm-3">
+			                                        <md-button type="submit" class="md-raised md-primary btn-w-md">Save</md-button>
+			                                        <div class="divider"></div>
+			                                    </div>
+			                                </div>
+		                                </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Luminosity</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                        	<div class="col-sm-6">
+		                                         <p>Please add the current Lumicosity value</p>
+		                                         <div class="form-group">
+				                                    <label for="ConsumptionMeterSerialNumber" class="col-sm-2 control-label">Lumicosity value in Lux</label>
+				                                    <div class="col-sm-10">
+				                                        <input type="text" class="form-control" id="ConsumptionMeterSerialNumber" placeholder="Lumicosity value">
+				                                    </div>
+				                                </div>
+		                                	</div>
+		                                	
+		                                	
+		                                	<div class="form-group">
+			                                <div class="col-sm-offset-9 col-sm-3">
+			                                        <md-button type="submit" class="md-raised md-primary btn-w-md">Save</md-button>
+			                                        <div class="divider"></div>
+			                                    </div>
+			                                </div>
+			                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Temperature</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                        	<div class="col-sm-6">
+		                                         <p>Please add the current Indoor Temperature</p>
+		                                         <div class="form-group">
+				                                    <label for="ConsumptionMeterSerialNumber" class="col-sm-2 control-label">Indoor Temperature in Celsius</label>
+				                                    <div class="col-sm-10">
+				                                        <input type="text" class="form-control" id="ConsumptionMeterSerialNumber" placeholder="Indoor Temperature in Celsius">
+				                                    </div>
+				                                </div>
+		                                	</div>
+		                                	<div class="col-sm-6">
+		                                         <p>Please add the current Outdoor Temperature</p>
+		                                         <div class="form-group">
+				                                    <label for="ConsumptionMeterSerialNumber" class="col-sm-2 control-label">Outdoor Temperature in Celsius</label>
+				                                    <div class="col-sm-10">
+				                                        <input type="text" class="form-control" id="ConsumptionMeterSerialNumber" placeholder="Outdoor Temperature in Celsius">
+				                                    </div>
+				                                </div>
+		                                	</div>
+		                                	
+		                                	
+		                                	<div class="form-group">
+			                                <div class="col-sm-offset-9 col-sm-3">
+			                                        <md-button type="submit" class="md-raised md-primary btn-w-md">Save</md-button>
+			                                        <div class="divider"></div>
+			                                    </div>
+			                                </div>
+			                            </div>
+                        </div>
+                    </div>
+<div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Comfort level</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                    		<div class="col-sm-12">
+                                    			<p>Please specify your comfort level</p>
+                                        			<div layout>
+							                            <div flex="10" layout layout-align="center center">
+							                                <span>Comfort Level</span>
+							                            </div>
+							                            <md-slider flex class="md-primary" md-discrete ng-model="rating3" step="0.5" min="1" max="5" aria-label="rating"></md-slider>
+							                        </div> 
+						                           	<div class="col-sm-offset-9 col-sm-3">
+			                                        	<md-button type="submit" class="md-raised md-primary btn-w-md">Save</md-button>
+			                                        	<div class="divider"></div>
+			                                    	</div>
+			                                </div>
+			                                <div class="col-sm-12">
+			                                		<div style="text-align:center">
+			                                        	<md-button type="submit"  class="md-raised md-primary btn-w-md">Ask Students for their comfort level</md-button>
+			                                    	</div>
+			                                </div>
+			                            </div>
+
+
+                        </div>
+                    </div>
+                                                 
+                        </div>
+    </div>
+        </div>
+    	</section>
+
+   
+
+  
+
+</div>

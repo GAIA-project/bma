@@ -1,0 +1,46 @@
+<div class="page" ng-controller="AnomaliesController" >
+    <div class="row" style="margin-bottom:10px">
+        <div class="col-md-8">
+            <h2 class="section-header">{{site.name}}</h2>
+        </div>
+        <div class="col-md-4">
+            <div layout="row" layout-align="end center">
+                <md-button class="md-accent md-raised" ng-click="goToDashboard()"><span data-translate="DASHBOARD"></span></md-button> &nbsp;
+                <md-button class="md-accent md-raised" ng-click="goToEdit()"><span data-translate="EDIT_BUILDING"></span></md-button>
+            </div>
+        </div>
+    </div>   
+
+    <div class="row" ng-init="getAnomalies()">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <section class="table-flip-scroll">
+                        <table class="table table-bordered table-striped cf no-margin">
+                            <thead class="cf">
+                                <tr>
+                                    <th>Id</th>
+                                    <th class="numeric"><span data-translate="AREA"></span></th>
+                                    <th class="numeric"><span data-translate="TAGS"></span></th>
+                                    <th class="numeric"><span data-translate="ACTIONS"></span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="anomaly in anomalies">
+                                    <td>{{anomaly.id}}</td>                                    
+                                    <td class="numeric">{{anomaly.area}}</td>
+                                    <td class="numeric"> 
+                                        <span class="label label-default" ng-repeat="tag in anomaly.tags" style="margin-right:3px">{{tag}}</span> 
+                                    </td>
+                                    <td>
+                                        <span class="label label-default" data-translate="VIEW" ng-click="openAnomaly(anomaly.id)"></span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
