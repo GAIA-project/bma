@@ -134,14 +134,13 @@ var App = angular.module('app');
                     localStorage.setItem('GAIA-modifyPermission',tuser.modifyPermission);
                     localStorage.setItem('GAIA-reusePermission',tuser.reusePermission);
 
-                    $rootScope.connectToRuleEngine(site.id);
+
                     $location.path('page/building/view/'+site.id);
+                    $rootScope.connectToRuleEngine(site.id);
 
                 }
             });
 
-
-            
         }
        
         init();

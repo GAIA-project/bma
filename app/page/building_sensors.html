@@ -44,7 +44,7 @@
             </div>
              
 
-            <div class="row area_box" ng-show="view_general_resources" ng-init="getGeneralResources()">
+            <div class="row area_box" ng-show="view_general_resources">
 
                 <h2 class="area_title"><span data-translate="GENERAL_RESOURCES"></span></h2>
                     <div class="col-sm-6 col-md-3 col-lg-2" style="margin-bottom: 5px" ng-repeat="sensor in general_resources">
@@ -66,8 +66,8 @@
                         </div>
                     </div>
             </div>
-            <div class="row area_box" ng-show="virtual_sensors.length" ng-init="getPSResources()">
 
+            <div class="row area_box" ng-show="virtual_sensors.length" ng-init="getPSResources()">
                 <h2 class="area_title"><span data-translate="VIRTUAL_SENSORS"></span></h2>
                     <div class="col-sm-6 col-md-3 col-lg-2" style="margin-bottom: 5px" ng-repeat="sensor in virtual_sensors">
                         <div class="sensorbox">
@@ -95,7 +95,7 @@
             <div style="text-align: center;margin-bottom: 10px" ng-show="area.resources==0">
                 <span data-translate="Therearenoassignedsensors"></span>
             </div>
-            <div class="col-sm-6 col-md-3 col-lg-2" style="margin-bottom: 5px" ng-repeat="sensor in area.resources">
+            <div class="col-sm-6 col-md-3 col-lg-2" style="margin-bottom: 5px" ng-repeat="sensor in area.site_resources">
                 <div class="sensorbox">
                     <div class="panel-heading"> <span><i ng-show="hasPermission('modifyPermission')" class="fa fa-pencil-square" aria-hidden="true" ng-click="editSensorName(sensor)"></i> {{sensor.name}}</span>
                                 <div class="input-group" ng-show="sensor.editing" >

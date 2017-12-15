@@ -1,6 +1,6 @@
 'use strict';
 var App = angular.module('app');
-App.controller('SiteSensorsController',function($scope,$q,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor){
+App.controller('SiteSensorsController',function($scope,$q,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor,AccessToken){
 
         _paq.push(['setUserId', $rootScope.TheUserName]);
         _paq.push(['setDocumentTitle', "Sensors"]);
@@ -14,11 +14,34 @@ App.controller('SiteSensorsController',function($scope,$q,$rootScope,appConfig,$
             spark_areas.then(function(areas){
 
                 $scope.building.areas = areas.data.sites;
+
+                angular.forEach($scope.building.areas,function(area){
+
+                    var k = Area.getSiteInfo(area.id);
+                    k.then(function(info){
+                        area.greekLocalizedName     = (!$rootScope.isUndefined(info.data.greekLocalizedName)?info.data.greekLocalizedName:area.name);
+                        area.italianLocalizedName   = (!$rootScope.isUndefined(info.data.italianLocalizedName)?info.data.italianLocalizedName:area.name);
+                        area.swedishLocalizedName   = (!$rootScope.isUndefined(info.data.swedishLocalizedName)?info.data.swedishLocalizedName:area.name);
+                        area.englishLocalizedName   = (!$rootScope.isUndefined(info.data.englishLocalizedName)?info.data.englishLocalizedName:area.name);
+                        if($rootScope.lang=='el')
+                            area.name = area.greekLocalizedName;
+                        else if ($rootScope.lang=='sw')
+                            area.name = area.englishLocalizedName;
+                        else if ($rootScope.lang=='it')
+                            area.name = area.italianLocalizedName;
+                        else
+                            area.name = area.englishLocalizedName;
+                    });
+
+                });
+
                 $scope.building.areas.forEach(function(area){
                     $scope.details(area);
                 })
             });
         }
+
+
 
         $scope.editSensorName = function(sensor){
             
@@ -41,13 +64,13 @@ App.controller('SiteSensorsController',function($scope,$q,$rootScope,appConfig,$
 
         $scope.viewGeneralResources = function(){
             $scope.view_general_resources = 1;
+            $scope.getGeneralResources();
         }
         $scope.hideGeneralResources = function(){
             $scope.view_general_resources = 0;
         }
         $scope.getGeneralResources = function(){
 
-          
             $scope.error_view = 0;
             $scope.error_text = "";
             $scope.general_resources = [];
@@ -73,22 +96,31 @@ App.controller('SiteSensorsController',function($scope,$q,$rootScope,appConfig,$
         }
         $scope.details = function(area){
             
-          
+            area.site_resources = [];
+            area.rest_resources = [];
             $scope.error_view = 0;
             $scope.error_text = "";
+
             var resources = Area.getResources(area.id);
             resources.then(function(info){
 
                 area.resources = info.data.resources;
                 area.resources.forEach(function(sensor,index){
-                    console.log(sensor);
-                        var m = Sensor.getMeasurementsByResourceId(sensor.resourceId);
-                            m.then(function(datas){
-                                sensor.metrics = datas.data;
-                                sensor.metrics.latest = parseFloat(sensor.metrics.latest).toFixed(2);
 
-                            });                           
-                    });
+                    if(sensor.uri.startsWith('site-')){
+                        console.log(sensor.id+" :Starts With site-");
+                        area.site_resources.push(sensor);
+                        var m = Sensor.getMeasurementsByResourceId(sensor.resourceId);
+                        m.then(function(datas){
+
+                            sensor.metrics = datas.data;
+                            sensor.metrics.latest = parseFloat(sensor.metrics.latest).toFixed(2);
+
+                        });
+                    }else{
+                        area.rest_resources.push(sensor);
+                    }
+                });
 
             }).catch(function(e){
 
@@ -107,12 +139,10 @@ App.controller('SiteSensorsController',function($scope,$q,$rootScope,appConfig,$
         $scope.virtual_sensors = [];
 
         $scope.save_new_virtual_sensor = function(){
-            
+
             var obs = $scope.available_observes.filter(function(item) {
                         return item.name === $scope.new_virtual_sensor.observes;
                         })[0];
-             
-             
              
              var data = {
                 "name":         $scope.new_virtual_sensor.name,
@@ -123,7 +153,7 @@ App.controller('SiteSensorsController',function($scope,$q,$rootScope,appConfig,$
                  method: 'POST',
                  url: appConfig.main.apis.main+'ps/resource',
                  headers: {
-                   'Content-Type': 'application/json',"Authorization":"bearer "+appConfig.main.auth_token
+                   'Content-Type': 'application/json',"Authorization":"bearer "+AccessToken.get().access_token
                  },
                  data: data
             }
@@ -138,7 +168,7 @@ App.controller('SiteSensorsController',function($scope,$q,$rootScope,appConfig,$
                  method: 'POST',
                  url: appConfig.main.apis.main+'location/site/'+$stateParams.id+'/resource/add',
                  headers: {
-                   'Content-Type': 'application/json',"Authorization":"bearer "+appConfig.main.auth_token
+                   'Content-Type': 'application/json',"Authorization":"bearer "+AccessToken.get().access_token
                  },
                  data: nj
             }
@@ -168,7 +198,7 @@ App.controller('SiteSensorsController',function($scope,$q,$rootScope,appConfig,$
                 senss.then(function(sites){        
                 $scope.virtual_sensors = [];
                 sites.data.resources.forEach(function(thesensor,index){
-                console.log(thesensor.uri + " : " + thesensor.name);                            
+
                         if(thesensor.uri.startsWith("gaia-ps")){
                             $scope.virtual_sensors.push(thesensor);
                             var m = Sensor.getMeasurementsByResourceId(thesensor.resourceId);
@@ -191,9 +221,13 @@ App.controller('SiteSensorsController',function($scope,$q,$rootScope,appConfig,$
             $location.path('page/sensor/view/'+sensor_id);   
         }
 
+        $scope.cancel_new_virtual_sensor = function(){
+            $scope.add_a_virtual_sensor_form = 0;
+            $scope.new_virtual_sensor = {};
+        }
 
         $scope.addVirtualSensor = function(){
-            console.log("Virtual Sensor");
+
             $scope.add_a_virtual_sensor_form = 1;
             $scope.new_virtual_sensor = {};
         }

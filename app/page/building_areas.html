@@ -25,7 +25,7 @@
                             </thead>
                             <tbody>
                                 <tr ng-repeat="area in building.areas">
-                                    <td>{{area.name}}</td>
+                                    <td>{{area.name}}{{area.manos}}</td>
                                     <td><a ui-wave href="javascript:;" ng-click="details(area)" class="btn btn-sm btn-raised btn-primary"><span data-translate="DETAILS"></span></a>
                                     </td>
                                 </tr>
@@ -48,10 +48,12 @@
                                 </div>
                             <div class="details_area" ng-show="selected_area_view">               
                                 
-                                    <strong><span data-translate="Name"></span>:</strong> {{selected_area.name}}<br/>
+                                    <strong><span data-translate="Name_in_English"></span>:</strong> {{selected_area.englishLocalizedName}}<br/>
+                                    <strong><span data-translate="Name_in_Greek"></span>:</strong> {{selected_area.greekLocalizedName}}<br/>
+                                    <strong><span data-translate="Name_in_Italian"></span>:</strong> {{selected_area.italianLocalizedName}}<br/>
+                                    <strong><span data-translate="Name_in_Swedish"></span>:</strong> {{selected_area.swedishLocalizedName}}<br/>
                                     <strong><span data-translate="Description"></span>:</strong> {{selected_area.description}}<br/>
                                     <strong><span data-translate="Type"></span>:</strong> {{selected_area.type}}<br/>
-                                
                                     <strong><span data-translate="Width"></span>:</strong> {{selected_area.width}}<br/>
                                     <strong><span data-translate="Lenght"></span>:</strong> {{selected_area.length}}<br/>
                                     <strong><span data-translate="Height"></span>:</strong> {{selected_area.height}}
@@ -60,8 +62,20 @@
                             <div ng-show="selected_area_edit">
                                 <div class="row">
                                     <div class="col-sm-12 col-md-6">
-                                        <strong><span data-translate="Name"></span>:</strong>
-                                        <input type="text" class="form-control" name="name" ng-model="selected_area.name">
+
+                                        <strong><span data-translate="Name_in_English"></span>:</strong>
+                                        <input type="text" class="form-control" name="name" ng-model="selected_area.englishLocalizedName">
+
+                                        <strong><span data-translate="Name_in_Greek"></span>:</strong>
+                                        <input type="text" class="form-control" name="name" ng-model="selected_area.greekLocalizedName">
+
+                                        <strong><span data-translate="Name_in_Italian"></span>:</strong>
+                                        <input type="text" class="form-control" name="name" ng-model="selected_area.italianLocalizedName">
+
+                                        <strong><span data-translate="Name_in_Swedish"></span>:</strong>
+                                        <input type="text" class="form-control" name="name" ng-model="selected_area.swedishLocalizedName">
+
+
                                         <br/>
                                         <strong><span data-translate="Description"></span>:</strong>
                                         <input type="text" class="form-control" name="description" ng-model="selected_area.description">

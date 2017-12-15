@@ -2,7 +2,7 @@
 <html class="no-js">
     <head>
     <?php 
-        $version = 7518;
+        $version = 7519;
     ?>
 
         <meta charset="utf-8">
@@ -226,14 +226,11 @@
         
         
         
-        <!--Factories-->
+    <!--Factories-->
         
-        <script src="app/factories/sites.js?v=1"></script>
-        <script src="app/factories/site.js?v=1"></script>
+    <script src="app/factories/sites.js?v=1"></script>
+    <script src="app/factories/site.js?v=1"></script>
 
-
-
-       
 
     <!-- bower:js -->
     <script src="bower_components/ngstorage/ngStorage.js"></script>

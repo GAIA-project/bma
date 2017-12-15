@@ -25,9 +25,6 @@ App.controller('SiteAreasController',function($scope,$rootScope,appConfig,$state
         $scope.available_types.push({'name':'ELEVATOR','id':'1'});
         $scope.available_types.push({'name':'OTHER','id':'1'});
 
-
-
-
         $scope.translations = {};
         $scope.translations.el = {};
         $scope.translations.en = {};
@@ -103,7 +100,7 @@ App.controller('SiteAreasController',function($scope,$rootScope,appConfig,$state
 
         
         $scope.editSensorName = function(sensor){
-            console.log(sensor);
+
             sensor.editing = true;
         }
 
@@ -127,34 +124,49 @@ App.controller('SiteAreasController',function($scope,$rootScope,appConfig,$state
             var spark_areas = site.getSparkAreas($stateParams.id);
             spark_areas.then(function(areas){
                 $scope.building.areas = areas.data.sites;
+                angular.forEach($scope.building.areas,function(area){
+
+                    var k = Area.getSiteInfo(area.id);
+                    k.then(function(info){
+                        area.greekLocalizedName     = (!$rootScope.isUndefined(info.data.greekLocalizedName)?info.data.greekLocalizedName:area.name);
+                        area.italianLocalizedName   = (!$rootScope.isUndefined(info.data.italianLocalizedName)?info.data.italianLocalizedName:area.name);
+                        area.swedishLocalizedName   = (!$rootScope.isUndefined(info.data.swedishLocalizedName)?info.data.swedishLocalizedName:area.name);
+                        area.englishLocalizedName   = (!$rootScope.isUndefined(info.data.englishLocalizedName)?info.data.englishLocalizedName:area.name);
+                        if($rootScope.lang=='el')
+                            area.name = area.greekLocalizedName;
+                        else if ($rootScope.lang=='sw')
+                            area.name = area.englishLocalizedName;
+                        else if ($rootScope.lang=='it')
+                            area.name = area.italianLocalizedName;
+                        else
+                            area.name = area.englishLocalizedName;
+                    });
+
+                });
             });
         }
 
        $scope.createSiteInfo = function(area){
-        
-        
-        var k = Area.createSiteInfo(area);
-            k.then(function(info){
-                console.log(info);
-            }).catch(function(e){
-                console.log(e);
-                $scope.error_view = 1;
-                $scope.error_text +=e.statusText;
-               
-            });
 
+            var k = Area.createSiteInfo(area);
+                k.then(function(info){
+                    console.log(info);
+                }).catch(function(e){
+                    console.log(e);
+                    $scope.error_view = 1;
+                    $scope.error_text +=e.statusText;
 
+                });
        }
 
         $scope.details = function(area){
+
             console.log(area);
             $scope.selected_area_view = 1;
             $scope.add_an_area_form = 0;  
             $scope.selected_area_edit = 0;
-
             $scope.error_view = 0;
             $scope.error_text = "";
-
             $scope.selected_area = area;
             
             var resources = Area.getResources(area.id);
@@ -173,7 +185,13 @@ App.controller('SiteAreasController',function($scope,$rootScope,appConfig,$state
 
             var k = Area.getSiteInfo(area.id);
             k.then(function(info){
+                console.log("Info***");
+                console.log(info);
 
+                $scope.selected_area.greekLocalizedName     = (!$rootScope.isUndefined(info.data.greekLocalizedName)?info.data.greekLocalizedName:$scope.selected_area.name);
+                $scope.selected_area.italianLocalizedName   = (!$rootScope.isUndefined(info.data.italianLocalizedName)?info.data.italianLocalizedName:$scope.selected_area.name);
+                $scope.selected_area.swedishLocalizedName   = (!$rootScope.isUndefined(info.data.swedishLocalizedName)?info.data.swedishLocalizedName:$scope.selected_area.name);
+                $scope.selected_area.englishLocalizedName   = (!$rootScope.isUndefined(info.data.englishLocalizedName)?info.data.englishLocalizedName:$scope.selected_area.name);
 
                 $scope.selected_area_view=1;
                 $scope.selected_area.siteInfoId = info.data.siteInfoId;
@@ -181,7 +199,6 @@ App.controller('SiteAreasController',function($scope,$rootScope,appConfig,$state
 
                 var tjson = JSON.parse(info.data.json);
 
-                
                 $scope.selected_area.description    = (!$rootScope.isUndefined(tjson)?tjson.description:'');
                 $scope.selected_area.type           = (!$rootScope.isUndefined(info.data.type)?info.data.type:'');
                 $scope.selected_area.width          = (!$rootScope.isUndefined(tjson)?tjson.width:'');
@@ -206,6 +223,11 @@ App.controller('SiteAreasController',function($scope,$rootScope,appConfig,$state
             console.log($scope.selected_area);
             $scope.selected_area.overObj.json=JSON.stringify({width:$scope.selected_area.width,height:$scope.selected_area.height,length:$scope.selected_area.length,description:$scope.selected_area.description});
             $scope.selected_area.overObj.type = $scope.selected_area.type;
+
+            $scope.selected_area.overObj.greekLocalizedName = $scope.selected_area.greekLocalizedName;
+            $scope.selected_area.overObj.englishLocalizedName = $scope.selected_area.englishLocalizedName;
+            $scope.selected_area.overObj.italianLocalizedName = $scope.selected_area.italianLocalizedName;
+            $scope.selected_area.overObj.swedishLocalizedName = $scope.selected_area.swedishLocalizedName;
             
             var k = Area.updateSiteInfo($scope.selected_area.siteInfoId,$scope.selected_area.overObj);
             k.then(function(a){

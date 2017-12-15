@@ -1,6 +1,7 @@
 angular.module('app').factory('site', function($http,appConfig,AccessToken){
     
         return{
+
             getSparkDetails:function(site_id){
                 return $http({
                     url:appConfig.main.apis.main+appConfig.main.apis.site+'/'+site_id,
