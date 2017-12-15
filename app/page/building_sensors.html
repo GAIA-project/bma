@@ -7,7 +7,7 @@
     <div class="row" style="margin-top: 10px"  ng-init="getInitAreas()">
             <div class="text-right" style="margin:10px">
                 <a ui-wave href="javascript:;" ng-show="hasPermission('controlPermission')" ng-click="addVirtualSensor()" class="btn btn-sm btn-raised btn-primary"><span data-translate="ADD_A_VIRTUAL_SENSOR"></span></a>
-                <a ui-wave href="javascript:;" ng-show="general_resources.length && !view_general_resources" ng-click="viewGeneralResources()" class="btn btn-sm btn-raised btn-primary"><span data-translate="VIEW_GENERAL_RESOURCES"></span></a>
+                <a ui-wave href="javascript:;" ng-hide="view_general_resources" ng-click="viewGeneralResources()" class="btn btn-sm btn-raised btn-primary"><span data-translate="VIEW_GENERAL_RESOURCES"></span></a>
                 <a ui-wave href="javascript:;" ng-show="view_general_resources" ng-click="hideGeneralResources()" class="btn btn-sm btn-raised btn-primary"><span data-translate="HIDE_GENERAL_RESOURCES"></span></a>
                 
             </div>
@@ -95,7 +95,7 @@
             <div style="text-align: center;margin-bottom: 10px" ng-show="area.resources==0">
                 <span data-translate="Therearenoassignedsensors"></span>
             </div>
-            <div class="col-sm-6 col-md-3 col-lg-2" style="margin-bottom: 5px" ng-repeat="sensor in area.site_resources">
+            <div class="col-sm-6 col-md-3 col-lg-2" style="margin-bottom: 5px" ng-repeat="sensor in area.resources">
                 <div class="sensorbox">
                     <div class="panel-heading"> <span><i ng-show="hasPermission('modifyPermission')" class="fa fa-pencil-square" aria-hidden="true" ng-click="editSensorName(sensor)"></i> {{sensor.name}}</span>
                                 <div class="input-group" ng-show="sensor.editing" >

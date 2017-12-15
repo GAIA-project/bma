@@ -62,6 +62,7 @@ App.controller('SiteSensorsController',function($scope,$q,$rootScope,appConfig,$
             
         }
 
+
         $scope.viewGeneralResources = function(){
             $scope.view_general_resources = 1;
             $scope.getGeneralResources();
