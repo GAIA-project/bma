@@ -120,7 +120,7 @@
     "UPDATE": "Uppdatering",
     "FROM_TIME": "Från",
     "TO_TIME": "Till",
-    "GRANULARITY": "Kornighet",
+    "GRANULARITY": "Frekvens",
     "second_period": "Andra perioden",
     "first_period": "Första perioden",
     "PROFILE": "Profil",

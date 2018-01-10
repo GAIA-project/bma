@@ -113,17 +113,11 @@ var App = angular.module('app');
 
       
         $scope.details = function(site){
-            console.log("SITE SITE");
-            console.log("SITE SITE");
-            console.log("SITE SITE");
-            console.log(site);
+
 
             site.sharedUsers.forEach(function(tuser){                        
                 if(tuser.username==appConfig.main.TheUserName){
-                    console.log(tuser);
-                    console.log(tuser);
-                    console.log(tuser);
-                    console.log(tuser);
+
                     _paq.push(['trackEvent', 'Building', 'Select', site.display_name]);
                     $rootScope.selected_school_name = site.display_name;
                     appConfig.main.selected_building = site.id;
