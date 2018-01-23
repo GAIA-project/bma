@@ -998,6 +998,9 @@
         _paq.push(['setDocumentTitle', "Different Schools Comparison"]);
         _paq.push(['trackPageView']);
 
+    $scope.av_granularities = $rootScope.granularity_values;
+    $scope.av_granularities[0].gran_selected = true;
+
 
     $scope.comp_site = 0;
     $scope.loading = 0;
@@ -1383,6 +1386,11 @@
         _paq.push(['setUserId', $rootScope.TheUserName]);
         _paq.push(['setDocumentTitle', "Site Comparison"]);
         _paq.push(['trackPageView']);
+
+
+        $scope.av_granularities = $rootScope.granularity_values;
+        $scope.av_granularities[0].gran_selected = true;
+
 
     var todate = new Date().getTime();
         $scope.right_side_visible = 0;

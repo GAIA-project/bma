@@ -8,6 +8,10 @@ App.controller('SiteSensorsController',function($scope,$q,$rootScope,appConfig,$
 
         $scope.building = {};
         $scope.view_general_resources = 0;
+
+
+    $scope.av_granularities = $rootScope.granularity_values;
+    $scope.av_granularities[0].gran_selected = true;
         
         $scope.getInitAreas = function(){
             var spark_areas = site.getSparkAreas($stateParams.id);

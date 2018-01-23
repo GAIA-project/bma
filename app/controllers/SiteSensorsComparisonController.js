@@ -9,7 +9,8 @@ App.controller('SiteSensorsComparisonController',function($scope,$q,$rootScope,a
         $scope.selected_sensors = [];
         $scope.available_sensors = [];
         $scope.line3 = {};
-
+    $scope.av_granularities = $rootScope.granularity_values;
+    $scope.av_granularities[0].gran_selected = true;
  
         
 

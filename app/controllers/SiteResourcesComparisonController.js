@@ -3,13 +3,20 @@ var App = angular.module('app');
 App.controller('SiteResourcesComparisonController',function($scope,$q,$rootScope,appConfig,$state,$stateParams,$timeout,site,Sensor,$filter) {
 
     _paq.push(['setUserId', $rootScope.TheUserName]);
-    _paq.push(['setDocumentTitle', "Multiple Sensors Comparison"]);
+    _paq.push(['setDocumentTitle', "Multiple Resources Chart"]);
     _paq.push(['trackPageView']);
 
     $scope.available_measurements = [];
     $scope.selected_sensors = [];
     $scope.available_sensors = [];
     $scope.line3 = {};
+    $scope.av_granularities = $rootScope.granularity_values;
+    $scope.av_granularities[0].gran_selected = true;
+
+
+
+    console.log("GRANULARITY");
+    console.log($scope.granularity);
 
     var senss = site.getResources($stateParams.id);
     senss.then(function(sites) {
@@ -23,6 +30,7 @@ App.controller('SiteResourcesComparisonController',function($scope,$q,$rootScope
             console.log($scope.states);
         });
     });
+
 
 
     $scope.toggle = function (item, list) {
@@ -117,6 +125,7 @@ App.controller('SiteResourcesComparisonController',function($scope,$q,$rootScope
 
 
     $scope.drawchart=  function(){
+
         $scope.legends = [];
         var datas = [];
         $scope.tdates = [];
@@ -129,6 +138,7 @@ App.controller('SiteResourcesComparisonController',function($scope,$q,$rootScope
         $scope.line3.options = {};
         $scope.line3.options.legend = {};
         $scope.line3.options.series = [];
+        $scope.yAxis = [];
         _paq.push(['trackEvent', 'Compare', 'MultipleResources', '1']);
 
         $scope.ress.forEach(function(res,index){
@@ -148,10 +158,17 @@ App.controller('SiteResourcesComparisonController',function($scope,$q,$rootScope
                 name:$filter('translate')(res.sensor.name)+" ("+res.sensor.uom+")",
                 type:'line',
                 smooth:true,
+                yAxisIndex:index,
                 itemStyle:   {normal: {areaStyle: {type: 'default'}}},
                 data:d
             });
-
+            $scope.yAxis.push({
+                    type : 'value',
+                    scale : true,
+                    axisLabel : {
+                        formatter: '{value} '
+                    }
+                });
         });
 
 
@@ -174,21 +191,13 @@ App.controller('SiteResourcesComparisonController',function($scope,$q,$rootScope
                     data : $scope.time
                 }
             ],
-            yAxis : [
-                {
-                    type : 'value',
-                    scale : true,
-                    axisLabel : {
-                        formatter: '{value} '
-                    }
-                }
-            ],
+            yAxis : $scope.yAxis,
             series : datas
         };
         $scope.loading=0;
     }
 
 
-
+    $scope.granularity = $scope.av_granularities[0];
 
 });
