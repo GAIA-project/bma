@@ -1,120 +1,79 @@
 <div class="page" ng-controller="SiteResourcesComparisonController" >
-    <div class="row">
-        <div class="col-sm-12">
-            <h2 class="section-header">{{building.details.item.name}}</h2>
-        </div>
-    </div>
-    <div class="row" style="margin-top: 10px"  ng-init="getInitAreas()">
-        <div class="text-right" style="margin:10px">
-            <a ui-wave href="javascript:;" ng-show="hasPermission('controlPermission')" ng-click="addVirtualSensor()" class="btn btn-sm btn-raised btn-primary"><span data-translate="ADD_A_VIRTUAL_SENSOR"></span></a>
-            <a ui-wave href="javascript:;" ng-hide="view_general_resources" ng-click="viewGeneralResources()" class="btn btn-sm btn-raised btn-primary"><span data-translate="VIEW_GENERAL_RESOURCES"></span></a>
-            <a ui-wave href="javascript:;" ng-show="view_general_resources" ng-click="hideGeneralResources()" class="btn btn-sm btn-raised btn-primary"><span data-translate="HIDE_GENERAL_RESOURCES"></span></a>
-
-        </div>
-        <div class="col-sm-12">
-
-            <div class="panel panel-default panel-minimal" ng-show="add_a_virtual_sensor_form">
+    <ngp-piwik ngp-set-js-url="http://piwic.gaia-project.eu/piwik.js" ngp-set-tracker-url="http://piwic.gaia-project.eu/piwik.php" ngp-set-site-id="1"> </ngp-piwik>
+    <div class="row" style="margin-top:60px">
+        <div class="col-sm-12 col-xs-12 col-md-3 col-lg-3">
+            <div class="panel panel-default panel-minimal" style="background-color:#ffffff;">
                 <div class="divider divider-md"></div>
-                <div class="panel-heading">
-                    <span data-translate="DETAILS"></span>
-                </div>
                 <div class="panel-body">
 
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <strong><span data-translate="Name"></span></strong>
-                            <input class="form-control" type="text" name="" ng-model="new_virtual_sensor.name">
+                    <div class="form-group">
+                        <label class="col-sm-12 control-label"><span data-translate="FROM_TIME"></span></label>
+                        <div class="col-sm-12" style="background: white">
+                            <md-datepicker ng-model="from_time" md-placeholder=""></md-datepicker>
                         </div>
                     </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <strong><span data-translate="observes"></span></strong>
-                            <md-select ng-model="new_virtual_sensor.observes">
-                                <md-option option disabled="disabled" selected><span data-translate="SELECT_OBSERVE"></span></md-option>
-                                <md-option ng-repeat="observe in available_observes" value="{{observe.name}}">
-                                    <span data-translate="{{observe.translated_name}}"></span>
+
+                    <div class="form-group">
+                        <label class="col-sm-12 control-label"><span data-translate="TO_TIME"></span></label>
+                        <div class="col-sm-12" style="background: white">
+                            <md-datepicker ng-model="to_time" md-placeholder=""></md-datepicker>
+                        </div>
+                    </div>
+                    <br/>
+
+
+
+                    <div class="form-group">
+                        <label for="" class="col-sm-12 control-label"><span data-translate="GRANULARITY"></span></label>
+                        <div class="col-sm-12">
+                            <md-select ng-model="granularity">
+                                <md-option ng-repeat="gran in granularity_values" value="{{gran.text}}">
+                                    <span data-translate="{{gran.name}}"></span>
                                 </md-option>
                             </md-select>
                         </div>
                     </div>
 
-                    <md-button class="md-accent md-raised right" ng-click="save_new_virtual_sensor()"><span data-translate="SAVE_FORM"></span></md-button>
-                    <md-button class="md-default md-raised right" ng-click="cancel_new_virtual_sensor()"><span data-translate="CANCEL"></span></md-button>
-                </div>
-            </div>
-
-
-            <div class="row area_box" ng-show="view_general_resources">
-
-                <h2 class="area_title"><span data-translate="GENERAL_RESOURCES"></span></h2>
-                <div class="col-sm-6 col-md-3 col-lg-2" style="margin-bottom: 5px" ng-repeat="sensor in general_resources">
-                    <div class="sensorbox" style="min-height: 170px">
-                        <div class="panel-heading">
-                            <span><i ng-show="hasPermission('modifyPermission')" class="fa fa-pencil-square" aria-hidden="true" ng-click="editSensorName(sensor)"></i> {{sensor.name}}</span>
-                            <div class="input-group" ng-show="sensor.editing" >
-                                <input type="text" ng-model="sensor.name" class="form-control">
-                                <span class="input-group-btn">
-                                        <button class="btn btn-secondary" type="button" ng-click="saveSensor(sensor)">Save</button>
-                                    </span>
-                            </div>
-                            - {{sensor.property}}</div>
-                        <div class="panel-body" ng-click="goToSensor(sensor.resourceId)">
-                            <h5 class="latest_value"><span data-translate="Latestvalue"></span></h5>
-                            <h4>{{sensor.metrics.latest+" "+sensor.uom}}</h4>
-                            <h5 class="latest_value" style="font-size:12px!important">{{sensor.metrics.latestTime | date:'MMM d, y h:mm:ss'}}</h5>
+                    <div class="form-group">
+                    <label for="" class="col-sm-12 control-label"><span data-translate="MEASUREMENT"></span></label>
+                    <div class="col-sm-12" style="    word-wrap: break-word!important;width: 100%;background: #e0e0e0; height: 300px; overflow: scroll;padding: 10px 5px">
+                        <input ng-model="searchText" style="width: 100%;margin: 10px 0px;line-height: 30px;" placeholder="Search..">
+                        <div flex="100" ng-repeat="item in available_sensors  | filter:searchText">
+                            <md-checkbox ng-checked="exists(item, selected_sensors)" ng-click="toggle(item, selected_sensors)">
+                                {{item.name}}
+                            </md-checkbox>
                         </div>
+
                     </div>
                 </div>
-            </div>
 
-            <div class="row area_box" ng-show="virtual_sensors.length" ng-init="getPSResources()">
-                <h2 class="area_title"><span data-translate="VIRTUAL_SENSORS"></span></h2>
-                <div class="col-sm-6 col-md-3 col-lg-2" style="margin-bottom: 5px" ng-repeat="sensor in virtual_sensors">
-                    <div class="sensorbox">
-                        <div class="panel-heading"> <span><i ng-show="hasPermission('modifyPermission')" class="fa fa-pencil-square" aria-hidden="true" ng-click="editSensorName(sensor)"></i> {{sensor.name}}</span>
-                            <div class="input-group" ng-show="sensor.editing" >
-                                <input type="text" ng-model="sensor.name" class="form-control">
-                                <span class="input-group-btn">
-                                        <button class="btn btn-secondary" type="button" ng-click="saveSensor(sensor)">Save</button>
-                                    </span>
-                            </div> - {{sensor.property}}</div>
-                        <div class="panel-body" ng-click="goToSensor(sensor.resourceId)">
-                            <h5 class="latest_value"><span data-translate="Latestvalue"></span></h5>
-                            <h4>{{sensor.metrics.latest+" "+sensor.uom}}</h4>
-                            <h5 class="latest_value" style="font-size:12px!important">{{sensor.metrics.latestTime | date:'MMM d, y h:mm:ss'}}</h5>
-                        </div>
+
+
+
+
+                    <div class="row text-center">
+                        <md-button class="md-accent md-raised" ng-click="getChart()"><span data-translate="UPDATE"></span></md-button>
                     </div>
                 </div>
+
             </div>
+        </div>
 
-
-
-
-            <div class="row area_box" ng-repeat="area in building.areas">
-                <h2 class="area_title">{{area.name}}</h2>
-                <div style="text-align: center;margin-bottom: 10px" ng-show="area.resources==0">
-                    <span data-translate="Therearenoassignedsensors"></span>
-                </div>
-                <div class="col-sm-6 col-md-3 col-lg-2" style="margin-bottom: 5px" ng-repeat="sensor in area.resources">
-                    <div class="sensorbox">
-                        <div class="panel-heading"> <span><i ng-show="hasPermission('modifyPermission')" class="fa fa-pencil-square" aria-hidden="true" ng-click="editSensorName(sensor)"></i> {{sensor.name}}</span>
-                            <div class="input-group" ng-show="sensor.editing" >
-                                <input type="text" ng-model="sensor.name" class="form-control">
-                                <span class="input-group-btn">
-                                        <button class="btn btn-secondary" type="button" ng-click="saveSensor(sensor)">Save</button>
-                                    </span>
-                            </div></div>
-                        <div class="panel-body" ng-click="goToSensor(sensor.resourceId)">
-                            <h5 class="latest_value"><span data-translate="Latestvalue"></span></h5>
-                            <h4>{{sensor.metrics.latest+" "+sensor.uom}}</h4>
-
-                            <h5 class="latest_value" style="font-size:12px!important">{{sensor.metrics.latestTime | date:'MMM d, y h:mm:ss'}}</h5>
-
+        <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+            <div class="panel panel-default panel-minimal">
+                <div class="panel-body">
+                    <div class="error alert alert-danger" ng-show="error_view">{{error_text}}</div>
+                    <div class="row">
+                        <div ng-show="loading" style="text-align: center;width:100%" class="chart_loading">
+                            <h4>Loading</h4>
+                            <md-progress-circular md-mode="indeterminate" style="margin:0 auto"></md-progress-circular>
                         </div>
+                        <div data-echarts id="diagram" data-options="line3.options" style="height: 350px;"></div>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
-</div>
+
 </div>

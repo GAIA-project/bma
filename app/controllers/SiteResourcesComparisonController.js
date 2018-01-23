@@ -1,235 +1,194 @@
 'use strict';
 var App = angular.module('app');
-App.controller('SiteResourcesComparisonController',function($scope,$q,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor,AccessToken){
+App.controller('SiteResourcesComparisonController',function($scope,$q,$rootScope,appConfig,$state,$stateParams,$timeout,site,Sensor,$filter) {
 
     _paq.push(['setUserId', $rootScope.TheUserName]);
-    _paq.push(['setDocumentTitle', "Sensors"]);
+    _paq.push(['setDocumentTitle', "Multiple Sensors Comparison"]);
     _paq.push(['trackPageView']);
 
-    $scope.building = {};
-    $scope.view_general_resources = 0;
+    $scope.available_measurements = [];
+    $scope.selected_sensors = [];
+    $scope.available_sensors = [];
+    $scope.line3 = {};
 
-    $scope.getInitAreas = function(){
-        var spark_areas = site.getSparkAreas($stateParams.id);
-        spark_areas.then(function(areas){
+    var senss = site.getResources($stateParams.id);
+    senss.then(function(sites) {
 
-            $scope.building.areas = areas.data.sites;
+        $scope.available_measurements = sites.data.resources;
+        console.log("Available Measurements");
+        console.log($scope.available_measurements);
+        angular.forEach(sites.data.resources,function(res,index){
 
-            angular.forEach($scope.building.areas,function(area){
-
-                var k = Area.getSiteInfo(area.id);
-                k.then(function(info){
-                    area.greekLocalizedName     = (!$rootScope.isUndefined(info.data.greekLocalizedName)?info.data.greekLocalizedName:area.name);
-                    area.italianLocalizedName   = (!$rootScope.isUndefined(info.data.italianLocalizedName)?info.data.italianLocalizedName:area.name);
-                    area.swedishLocalizedName   = (!$rootScope.isUndefined(info.data.swedishLocalizedName)?info.data.swedishLocalizedName:area.name);
-                    area.englishLocalizedName   = (!$rootScope.isUndefined(info.data.englishLocalizedName)?info.data.englishLocalizedName:area.name);
-                    if($rootScope.lang=='el')
-                        area.name = area.greekLocalizedName;
-                    else if ($rootScope.lang=='sw')
-                        area.name = area.englishLocalizedName;
-                    else if ($rootScope.lang=='it')
-                        area.name = area.italianLocalizedName;
-                    else
-                        area.name = area.englishLocalizedName;
-                });
-
-            });
-
-            $scope.building.areas.forEach(function(area){
-                $scope.details(area);
-            })
+            $scope.available_sensors.push({value:res.name,name:res.name,uom:res.uom,resource_id:res.resourceId});
+            console.log($scope.states);
         });
-    }
-
-
-
-    $scope.editSensorName = function(sensor){
-
-        sensor.editing = true;
-    }
-
-    $scope.saveSensor = function(sensor){
-        sensor.editing = false;
-
-        var k = Sensor.rename(sensor);
-        k.then(function(t){
-            _paq.push(['trackEvent', 'Sensor', 'Rename', sensor.name]);
-
-        }).catch(function(e){
-            $scope.error_view = 1;
-            $scope.error_text +=e.statusText;
-        });
-
-    }
-
-
-    $scope.viewGeneralResources = function(){
-        $scope.view_general_resources = 1;
-        $scope.getGeneralResources();
-    }
-    $scope.hideGeneralResources = function(){
-        $scope.view_general_resources = 0;
-    }
-    $scope.getGeneralResources = function(){
-
-        $scope.error_view = 0;
-        $scope.error_text = "";
-        $scope.general_resources = [];
-        var resources = Area.getResources($stateParams.id);
-        resources.then(function(info){
-
-            $scope.general_resources = info.data.resources;
-            $scope.general_resources.forEach(function(sensor,index){
-                var m = Sensor.getMeasurementsByResourceId(sensor.resourceId);
-                m.then(function(datas){
-
-                    sensor.metrics = datas.data;
-                    sensor.metrics.latest = parseFloat(sensor.metrics.latest).toFixed(2);
-                });
-            });
-
-        }).catch(function(e){
-
-            $scope.error_view = 1;
-            $scope.error_text +="Sparkworks:"+e.data.message;
-
-        });
-    }
-    $scope.details = function(area){
-
-        area.site_resources = [];
-        area.rest_resources = [];
-        $scope.error_view = 0;
-        $scope.error_text = "";
-
-        var resources = Area.getResources(area.id);
-        resources.then(function(info){
-
-            area.resources = info.data.resources;
-            area.resources.forEach(function(sensor,index){
-
-                if(sensor.uri.startsWith('site-')){
-                    console.log(sensor.id+" :Starts With site-");
-                    area.site_resources.push(sensor);
-                    var m = Sensor.getMeasurementsByResourceId(sensor.resourceId);
-                    m.then(function(datas){
-
-                        sensor.metrics = datas.data;
-                        sensor.metrics.latest = parseFloat(sensor.metrics.latest).toFixed(2);
-
-                    });
-                }else{
-                    area.rest_resources.push(sensor);
-                }
-            });
-
-        }).catch(function(e){
-
-            $scope.error_view = 1;
-            $scope.error_text +="Sparkworks:"+e.data.message;
-
-        });
-    }
-
-    $scope.available_observes = [];
-    $scope.available_observes.push({'name':'Light','encoded_name':'Light','uom':'lux','translated_name':'LIGHT'});
-    $scope.available_observes.push({'name':'Energy','encoded_name':'Energy','uom':'mWh','translated_name':'ENERGY'});
-    $scope.available_observes.push({'name':'Temperature','encoded_name':'Temperature','uom':'Centigrade','translated_name':'TEMPERATURE'});
-    $scope.available_observes.push({'name':'ComfortLevel','encoded_name':'comfort level','uom':'Raw','translated_name':'COMFORT_LEVEL'});
-    $scope.available_observes.push({'name':'SharedResource','encoded_name':'shared resource','uom':'Raw','translated_name':'SHARED_RESOURCE'});
-    $scope.virtual_sensors = [];
-
-    $scope.save_new_virtual_sensor = function(){
-
-        var obs = $scope.available_observes.filter(function(item) {
-            return item.name === $scope.new_virtual_sensor.observes;
-        })[0];
-
-        var data = {
-            "name":         $scope.new_virtual_sensor.name,
-            "observes":     $scope.new_virtual_sensor.observes,
-            "uom":          obs.uom
-        };
-        var req = {
-            method: 'POST',
-            url: appConfig.main.apis.main+'ps/resource',
-            headers: {
-                'Content-Type': 'application/json',"Authorization":"bearer "+AccessToken.get().access_token
-            },
-            data: data
-        }
-        $http(req).then(function(d){
-
-            var nj = {
-                "resources":[d.data]
-            };
-
-
-            var req2 = {
-                method: 'POST',
-                url: appConfig.main.apis.main+'location/site/'+$stateParams.id+'/resource/add',
-                headers: {
-                    'Content-Type': 'application/json',"Authorization":"bearer "+AccessToken.get().access_token
-                },
-                data: nj
-            }
-            $http(req2).then(function(d){
-
-                $scope.add_a_virtual_sensor_form = 0;
-                $scope.new_virtual_sensor = {};
-                $scope.getPSResources();
-
-            }, function(e){
-                console.log(e);
-            });
-
-        });
-
-    }
-
-    var t_site = site.getDetails($stateParams.id);
-    t_site.then(function(tsite){
-        $scope.building.details = tsite.data;
     });
 
 
-    $scope.getPSResources = function(){
+    $scope.toggle = function (item, list) {
+        var idx = list.indexOf(item);
+        if (idx > -1) list.splice(idx, 1);
+        else list.push(item);
 
-        var senss = site.getResources($stateParams.id);
-        senss.then(function(sites){
-            $scope.virtual_sensors = [];
-            sites.data.resources.forEach(function(thesensor,index){
+        console.log(list);
+        $scope.selected_sensors_to_show = list;
+    };
+    $scope.exists = function (item, list) {
+        return list.indexOf(item) > -1;
+    };
 
-                if(thesensor.uri.startsWith("gaia-ps")){
-                    $scope.virtual_sensors.push(thesensor);
-                    var m = Sensor.getMeasurementsByResourceId(thesensor.resourceId);
-                    m.then(function(datas){
-                        thesensor.metrics = datas.data;
-                        thesensor.metrics.latest = parseFloat(thesensor.metrics.latest).toFixed(2);
-                    });
+
+    $scope.getChart = function(){
+
+        $scope.loading=1;
+
+        $scope.counter = 0;
+        var date_from = $scope.from_time.getTime();
+        var date_to = $scope.to_time.getTime();
+
+
+        $scope.chart_times = [];
+        $scope.ress = [];
+        $scope.data = [];
+        $scope.chart = {};
+        $scope.chart.options = {};
+        $scope.line3.options = {};
+        $scope.line3.legend = {};
+        $scope.line3.options.title = "";
+        $scope.line3.options.tooltip = {trigger: 'axis'};
+        $scope.line3.options.legend = {data:[]};
+        $scope.line3.options.toolbox=$rootScope.toolbox;
+        $scope.line3.options.calculable=true;
+
+        $scope.line3.options.xAxis = [{
+            type : 'category',
+            boundaryGap : false,
+            data : $scope.chart_times
+        }];
+
+        $scope.line3.options.yAxis =[{
+            type : 'value',
+            axisLabel : {
+                formatter: '{value} '
+            }
+        }];
+
+        $scope.line3.options.series = [];
+
+        $scope.selected_sensors_to_show.forEach(function(sensor,index){
+            $scope.measurementUnit = sensor.uom;
+            sensor.chart = Sensor.getComparingQueryTimeRange({
+                "from": date_from,
+                "granularity": $scope.granularity,
+                "resourceID": sensor.resource_id,
+                "targetUom": sensor.uom,
+                "to": date_to
+            });
+
+
+
+            sensor.chart.then(function(vals){
+                var obj     = vals.data.results;
+                var thevals   = obj[Object.keys(obj)[0]];
+                $scope.ress.push({'sensor':sensor,'vals':thevals});
+                $scope.counter++;
+
+                if($scope.counter===($scope.selected_sensors_to_show.length)){
+                    $scope.drawchart();
                 }
 
+            }).catch(function(error){
+                console.log(error);
+                $scope.error = "error";
+                $scope.counter++;
+
+                if($scope.counter===($scope.selected_sensors_to_show.length)){
+                    $scope.drawchart();
+                }
+            });
+
+
+
+        });
+
+
+
+    }
+
+
+    $scope.drawchart=  function(){
+        $scope.legends = [];
+        var datas = [];
+        $scope.tdates = [];
+        $scope.time = [];
+
+        $scope.line3 = {};
+        delete $scope.line3;
+        $scope.line3 = {};
+
+        $scope.line3.options = {};
+        $scope.line3.options.legend = {};
+        $scope.line3.options.series = [];
+        _paq.push(['trackEvent', 'Compare', 'MultipleResources', '1']);
+
+        $scope.ress.forEach(function(res,index){
+
+
+            $scope.legends.push($filter('translate')(res.sensor.name));
+            var d = [];
+
+            res.vals.data.forEach(function(dat,index){
+                d.push(parseFloat(dat.reading).toFixed(2));
+                var m = new Date(dat.timestamp);
+                if(res.sensor.resource_id==$scope.ress[0].sensor.resource_id)
+                    $scope.time.push($rootScope.convertForTimeAxis(m,$scope.granularity));
+            });
+
+            datas.push({
+                name:$filter('translate')(res.sensor.name)+" ("+res.sensor.uom+")",
+                type:'line',
+                smooth:true,
+                itemStyle:   {normal: {areaStyle: {type: 'default'}}},
+                data:d
             });
 
         });
+
+
+        $scope.line3.options = {};
+        $scope.line3.options={
+            title : {
+                text: "",
+            },
+            tooltip : {
+                trigger: 'axis'
+            },
+            legend:{data:$scope.legends},
+            toolbox:$rootScope.toolbox,
+            calculable : true,
+            xAxis : [
+                {
+                    type : 'category',
+                    boundaryGap : false,
+                    scale : true,
+                    data : $scope.time
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value',
+                    scale : true,
+                    axisLabel : {
+                        formatter: '{value} '
+                    }
+                }
+            ],
+            series : datas
+        };
+        $scope.loading=0;
     }
 
 
 
 
-
-    $scope.goToSensor = function(sensor_id){
-        $location.path('page/sensor/view/'+sensor_id);
-    }
-
-    $scope.cancel_new_virtual_sensor = function(){
-        $scope.add_a_virtual_sensor_form = 0;
-        $scope.new_virtual_sensor = {};
-    }
-
-    $scope.addVirtualSensor = function(){
-
-        $scope.add_a_virtual_sensor_form = 1;
-        $scope.new_virtual_sensor = {};
-    }
-})
+});

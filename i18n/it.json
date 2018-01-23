@@ -224,5 +224,7 @@
 	"SHARED_RESOURCE":":Altro",
     "USERS_REQUESTS":"Richieste degli utenti",
     "MY_PROFILE":"il mio profilo",
-    "SETTINGS":"Impostazioni"
+    "SETTINGS":"Impostazioni",
+    "LOGOUT_TEXT":"Hai già effettuato il logout dal BMS. Se si desidera uscire dall'account SSO globale, fare clic sul seguente pulsante",
+    "multiple_resources":"Scegli risorse"
 }
