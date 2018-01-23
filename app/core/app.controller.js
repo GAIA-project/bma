@@ -708,6 +708,8 @@
         _paq.push(['setDocumentTitle', "TopView"]);
         _paq.push(['trackPageView']);
 
+
+
         $scope.building = {};
         $scope.zoom = 1;
         $scope.$on('onRepeatLast', function(scope, element, attrs){

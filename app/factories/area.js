@@ -52,7 +52,6 @@ angular.module('app').factory('Area', function($http,appConfig,AccessToken){
                 })
                 
             },
-
             getSiteInfo:function(site_id){
                 console.log("Get Site Info:"+site_id);
                 return $http({

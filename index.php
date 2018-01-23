@@ -2,13 +2,13 @@
 <html class="no-js">
     <head>
     <?php 
-        $version = 7519;
+        $version = 7520;
     ?>
 
         <meta charset="utf-8">
         <base href="/">
         <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-        <title><?php //echo $version; ?>GAIA - Building Manager </title>
+        <title><?php echo $version; ?>GAIA - Building Manager </title>
         <meta name="description" content="GAIA - Building Manager Application">
         <meta name="keywords" content="Gaia,project,eu,building,manager,application,energy">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -194,6 +194,7 @@
         
         <script src="app/factories/uom.js?v=<?php echo $version; ?>"></script>
         <script src="app/factories/area.js?v=<?php echo $version; ?>"></script>
+        <script src="app/factories/theArea.js?v=<?php echo $version; ?>"></script>
         <script src="app/factories/sites.js?v=<?php echo $version; ?>"></script>
         <script src="app/layout/layout.controller.js?v=<?php echo $version; ?>"></script>
         <script src="app/layout/layout.diretive.js?v=<?php echo $version; ?>"></script>
@@ -253,12 +254,17 @@
         <script src="app/controllers/sitesController.js?v=<?php echo $version; ?>"></script>
         <script src="app/controllers/LogoutController.js?v=<?php echo $version; ?>"></script>
         <script src="app/controllers/SiteSensorsController.js?v=<?php echo $version; ?>"></script>
+        <script src="app/controllers/SiteResourcesComparisonController.js?v=<?php echo $version; ?>"></script>
         <script src="app/controllers/SensorController.js?v=<?php echo $version; ?>"></script>
         <script src="app/controllers/BuildingRulesController.js?v=<?php echo $version; ?>"></script>
         <script src="app/controllers/SiteAreasController.js?v=<?php echo $version; ?>"></script>
         <script src="app/controllers/SiteSensorsComparisonController.js?v=<?php echo $version; ?>"></script>
         
-
+<style>
+.md-virtual-repeat-container {
+    width: auto!important;
+}
+</style>
 
 
     </body>

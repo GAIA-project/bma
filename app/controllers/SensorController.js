@@ -6,7 +6,7 @@ App.controller('SensorController',function($scope,$q,$rootScope,appConfig,$state
         $scope.sensor_measurements = {};
         $scope.dates_one = [];
         $scope.available_uoms = [];
-
+        $scope.is_wh_visible = false;
         $scope.sensor = {
             id:$stateParams.id
         };
@@ -27,6 +27,15 @@ App.controller('SensorController',function($scope,$q,$rootScope,appConfig,$state
                 $scope.t_sensor.name = ($rootScope.isUndefined($scope.t_sensor.name)?$scope.t_sensor.uri:$scope.t_sensor.name);
 
                 $scope.measurementUnit = chartdetails.data.uom;
+
+                console.log("MU******");
+                console.log(['mWh,Wh,kWh'].indexOf($scope.measurementUnit));
+                var k = ['mWh','Wh','kWh'];
+                if (k.indexOf($scope.measurementUnit) >= 0) {
+                    $scope.is_wh_visible = true;
+                }else{
+                    console.log($scope.measurementUnit+"!="+k.toString());
+                }
                 $scope.available_uoms.push(chartdetails.data.uom);
                 $scope.selected_uom = chartdetails.data.uom;
                 $scope.selected_granularity = 'day';

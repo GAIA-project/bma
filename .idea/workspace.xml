@@ -2,9 +2,346 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7dfbca7f-05b7-4a71-8e37-60e6c8feaa52" name="Default" comment="">
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/controllers/SiteResourcesComparisonController.js" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/factories/theArea.js" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/page/comparison/multiple_resources.html" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/vendors/echarts.common.min.js" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/app/controllers/sitesController.js" afterPath="$PROJECT_DIR$/app/controllers/sitesController.js" />
-      <change beforePath="$PROJECT_DIR$/i18n/sw.json" afterPath="$PROJECT_DIR$/i18n/sw.json" />
+      <change beforePath="$PROJECT_DIR$/app/controllers/SensorController.js" afterPath="$PROJECT_DIR$/app/controllers/SensorController.js" />
+      <change beforePath="$PROJECT_DIR$/app/controllers/SiteAreasController.js" afterPath="$PROJECT_DIR$/app/controllers/SiteAreasController.js" />
+      <change beforePath="$PROJECT_DIR$/app/core/app.controller.js" afterPath="$PROJECT_DIR$/app/core/app.controller.js" />
+      <change beforePath="$PROJECT_DIR$/app/core/config.route.js" afterPath="$PROJECT_DIR$/app/core/config.route.js" />
+      <change beforePath="$PROJECT_DIR$/app/factories/area.js" afterPath="$PROJECT_DIR$/app/factories/area.js" />
+      <change beforePath="$PROJECT_DIR$/app/layout/sidebar.html" afterPath="$PROJECT_DIR$/app/layout/sidebar.html" />
+      <change beforePath="$PROJECT_DIR$/app/page/building_top_view.html" afterPath="$PROJECT_DIR$/app/page/building_top_view.html" />
+      <change beforePath="$PROJECT_DIR$/app/page/sensor_view.html" afterPath="$PROJECT_DIR$/app/page/sensor_view.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/angular-animate/.bower.json" afterPath="$PROJECT_DIR$/bower_components/angular-animate/.bower.json" />
+      <change beforePath="$PROJECT_DIR$/bower_components/angular-material/angular-material.css" afterPath="$PROJECT_DIR$/bower_components/angular-material/angular-material.css" />
+      <change beforePath="$PROJECT_DIR$/bower_components/angular-messages/.bower.json" afterPath="$PROJECT_DIR$/bower_components/angular-messages/.bower.json" />
+      <change beforePath="$PROJECT_DIR$/bower_components/angular-translate/.bower.json" afterPath="$PROJECT_DIR$/bower_components/angular-translate/.bower.json" />
+      <change beforePath="$PROJECT_DIR$/bower_components/jquery/.bower.json" afterPath="$PROJECT_DIR$/bower_components/jquery/.bower.json" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/CHANGELOG.md" afterPath="$PROJECT_DIR$/bower_components/ngmap/CHANGELOG.md" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/CONTRIBUTORS.md" afterPath="$PROJECT_DIR$/bower_components/ngmap/CONTRIBUTORS.md" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/ISSUE_TEMPLATE.md" afterPath="$PROJECT_DIR$/bower_components/ngmap/ISSUE_TEMPLATE.md" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/LICENSE" afterPath="$PROJECT_DIR$/bower_components/ngmap/LICENSE" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/README.md" afterPath="$PROJECT_DIR$/bower_components/ngmap/README.md" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/app.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/app.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/bower.json" afterPath="$PROJECT_DIR$/bower_components/ngmap/bower.json" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/Attr2MapOptions.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/Attr2MapOptions.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/GeoCoder.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/GeoCoder.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/NavigatorGeolocation.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/NavigatorGeolocation.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/NgMap.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/NgMap.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/NgMapPool.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/NgMapPool.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/StreetView.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/StreetView.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/bicycling-layer.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/bicycling-layer.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/css/custom.css" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/css/custom.css" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/css/jsdoc-default.css" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/css/jsdoc-default.css" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/css/prettify-tomorrow.css" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/css/prettify-tomorrow.css" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/css/prettify.css" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/css/prettify.css" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/custom-control.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/custom-control.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/directions.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/directions.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/drawing-manager.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/drawing-manager.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/dynamic-maps-engine-layer.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/dynamic-maps-engine-layer.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/fonts/OpenSans-Bold-webfont.svg" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/fonts/OpenSans-Bold-webfont.svg" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/fonts/OpenSans-BoldItalic-webfont.svg" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/fonts/OpenSans-BoldItalic-webfont.svg" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/fonts/OpenSans-Italic-webfont.svg" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/fonts/OpenSans-Italic-webfont.svg" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/fonts/OpenSans-Light-webfont.svg" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/fonts/OpenSans-Light-webfont.svg" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/fonts/OpenSans-LightItalic-webfont.svg" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/fonts/OpenSans-LightItalic-webfont.svg" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/fonts/OpenSans-Regular-webfont.svg" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/fonts/OpenSans-Regular-webfont.svg" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/fusion-tables-layer.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/fusion-tables-layer.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/heatmap-layer.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/heatmap-layer.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/index.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/index.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/info-window.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/info-window.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/js/angular.min.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/js/angular.min.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/js/prettify.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/js/prettify.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/kml-layer.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/kml-layer.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/map-data.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/map-data.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/map-lazy-load.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/map-lazy-load.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/map-type.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/map-type.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/maps-engine-layer.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/maps-engine-layer.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/marker.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/marker.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/ngMap.ng-map.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/ngMap.ng-map.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/ngmap.custom-marker.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/ngmap.custom-marker.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/overlay-map-type.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/overlay-map-type.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/places-auto-complete.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/places-auto-complete.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/shape.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/shape.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/Attr2MapOptions.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/Attr2MapOptions.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/GeoCoder.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/GeoCoder.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/NavigatorGeolocation.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/NavigatorGeolocation.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/NgMap.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/NgMap.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/NgMapPool.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/NgMapPool.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/StreetView.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/StreetView.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/bicycling-layer.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/bicycling-layer.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/custom-control.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/custom-control.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/directions.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/directions.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/drawing-manager.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/drawing-manager.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/dynamic-maps-engine-layer.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/dynamic-maps-engine-layer.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/fusion-tables-layer.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/fusion-tables-layer.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/heatmap-layer.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/heatmap-layer.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/info-window.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/info-window.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/kml-layer.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/kml-layer.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/map-data.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/map-data.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/map-lazy-load.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/map-lazy-load.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/map-type.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/map-type.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/maps-engine-layer.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/maps-engine-layer.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/marker.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/marker.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/ngMap.ng-map.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/ngMap.ng-map.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/ngmap.custom-marker.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/ngmap.custom-marker.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/overlay-map-type.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/overlay-map-type.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/places-auto-complete.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/places-auto-complete.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/shape.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/shape.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/streetview-panorama.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/streetview-panorama.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/traffic-layer.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/traffic-layer.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/transit-layer.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/source/transit-layer.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/streetview-panorama.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/streetview-panorama.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/traffic-layer.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/traffic-layer.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/docs/transit-layer.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/docs/transit-layer.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/scripts/ng-map.debug.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/scripts/ng-map.debug.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/scripts/ng-map.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/scripts/ng-map.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/build/scripts/ng-map.min.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/build/scripts/ng-map.min.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/config/jsdoc/plugins/angular.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/config/jsdoc/plugins/angular.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/config/jsdoc/template/README.md" afterPath="$PROJECT_DIR$/bower_components/ngmap/config/jsdoc/template/README.md" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/config/jsdoc/template/publish.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/config/jsdoc/template/publish.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/config/jsdoc/template/static/scripts/linenumber.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/config/jsdoc/template/static/scripts/linenumber.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/config/jsdoc/template/static/scripts/prettify/Apache-License-2.0.txt" afterPath="$PROJECT_DIR$/bower_components/ngmap/config/jsdoc/template/static/scripts/prettify/Apache-License-2.0.txt" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/config/jsdoc/template/static/scripts/prettify/lang-css.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/config/jsdoc/template/static/scripts/prettify/lang-css.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/config/jsdoc/template/static/scripts/prettify/prettify.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/config/jsdoc/template/static/scripts/prettify/prettify.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/config/jsdoc/template/static/styles/jsdoc-default.css" afterPath="$PROJECT_DIR$/bower_components/ngmap/config/jsdoc/template/static/styles/jsdoc-default.css" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/config/jsdoc/template/static/styles/prettify-jsdoc.css" afterPath="$PROJECT_DIR$/bower_components/ngmap/config/jsdoc/template/static/styles/prettify-jsdoc.css" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/config/jsdoc/template/static/styles/prettify-tomorrow.css" afterPath="$PROJECT_DIR$/bower_components/ngmap/config/jsdoc/template/static/styles/prettify-tomorrow.css" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/config/jsdoc/template/tmpl/container.tmpl" afterPath="$PROJECT_DIR$/bower_components/ngmap/config/jsdoc/template/tmpl/container.tmpl" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/config/jsdoc/template/tmpl/details.tmpl" afterPath="$PROJECT_DIR$/bower_components/ngmap/config/jsdoc/template/tmpl/details.tmpl" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/config/jsdoc/template/tmpl/example.tmpl" afterPath="$PROJECT_DIR$/bower_components/ngmap/config/jsdoc/template/tmpl/example.tmpl" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/config/jsdoc/template/tmpl/examples.tmpl" afterPath="$PROJECT_DIR$/bower_components/ngmap/config/jsdoc/template/tmpl/examples.tmpl" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/config/jsdoc/template/tmpl/exceptions.tmpl" afterPath="$PROJECT_DIR$/bower_components/ngmap/config/jsdoc/template/tmpl/exceptions.tmpl" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/config/jsdoc/template/tmpl/layout.tmpl" afterPath="$PROJECT_DIR$/bower_components/ngmap/config/jsdoc/template/tmpl/layout.tmpl" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/config/jsdoc/template/tmpl/mainpage.tmpl" afterPath="$PROJECT_DIR$/bower_components/ngmap/config/jsdoc/template/tmpl/mainpage.tmpl" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/config/jsdoc/template/tmpl/members.tmpl" afterPath="$PROJECT_DIR$/bower_components/ngmap/config/jsdoc/template/tmpl/members.tmpl" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/config/jsdoc/template/tmpl/method.tmpl" afterPath="$PROJECT_DIR$/bower_components/ngmap/config/jsdoc/template/tmpl/method.tmpl" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/config/jsdoc/template/tmpl/params.tmpl" afterPath="$PROJECT_DIR$/bower_components/ngmap/config/jsdoc/template/tmpl/params.tmpl" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/config/jsdoc/template/tmpl/properties.tmpl" afterPath="$PROJECT_DIR$/bower_components/ngmap/config/jsdoc/template/tmpl/properties.tmpl" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/config/jsdoc/template/tmpl/returns.tmpl" afterPath="$PROJECT_DIR$/bower_components/ngmap/config/jsdoc/template/tmpl/returns.tmpl" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/config/jsdoc/template/tmpl/source.tmpl" afterPath="$PROJECT_DIR$/bower_components/ngmap/config/jsdoc/template/tmpl/source.tmpl" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/config/jsdoc/template/tmpl/tutorial.tmpl" afterPath="$PROJECT_DIR$/bower_components/ngmap/config/jsdoc/template/tmpl/tutorial.tmpl" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/config/jsdoc/template/tmpl/type.tmpl" afterPath="$PROJECT_DIR$/bower_components/ngmap/config/jsdoc/template/tmpl/type.tmpl" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/config/karma.conf.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/config/karma.conf.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/config/protractor.conf.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/config/protractor.conf.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/contributors.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/contributors.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/controllers/map-controller.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/controllers/map-controller.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/directives/bicycling-layer.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/directives/bicycling-layer.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/directives/custom-control.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/directives/custom-control.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/directives/custom-marker.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/directives/custom-marker.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/directives/directions.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/directives/directions.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/directives/drawing-manager.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/directives/drawing-manager.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/directives/dynamic-maps-engine-layer.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/directives/dynamic-maps-engine-layer.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/directives/fusion-tables-layer.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/directives/fusion-tables-layer.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/directives/heatmap-layer.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/directives/heatmap-layer.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/directives/info-window.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/directives/info-window.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/directives/kml-layer.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/directives/kml-layer.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/directives/map-data.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/directives/map-data.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/directives/map-lazy-load.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/directives/map-lazy-load.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/directives/map-type.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/directives/map-type.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/directives/map.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/directives/map.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/directives/maps-engine-layer.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/directives/maps-engine-layer.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/directives/marker.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/directives/marker.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/directives/overlay-map-type.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/directives/overlay-map-type.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/directives/places-auto-complete.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/directives/places-auto-complete.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/directives/shape.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/directives/shape.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/directives/street-view-panorama.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/directives/street-view-panorama.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/directives/traffic-layer.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/directives/traffic-layer.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/directives/transit-layer.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/directives/transit-layer.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/filters/camel-case.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/filters/camel-case.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/filters/jsonize.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/filters/jsonize.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/gulpfile.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/gulpfile.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/package.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/package.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/package.json" afterPath="$PROJECT_DIR$/bower_components/ngmap/package.json" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/road-trip.md" afterPath="$PROJECT_DIR$/bower_components/ngmap/road-trip.md" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/services/attr2-map-options.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/services/attr2-map-options.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/services/geo-coder.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/services/geo-coder.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/services/navigator-geolocation.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/services/navigator-geolocation.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/services/ng-map-pool.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/services/ng-map-pool.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/services/ng-map.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/services/ng-map.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/services/street-view.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/services/street-view.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/spec/TODO" afterPath="$PROJECT_DIR$/bower_components/ngmap/spec/TODO" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/spec/directives/map_controller_spec_back.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/spec/directives/map_controller_spec_back.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/spec/directives/map_spec_bak.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/spec/directives/map_spec_bak.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/spec/directives/marker_spec_bak.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/spec/directives/marker_spec_bak.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/spec/directives/shape_spec_bak.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/spec/directives/shape_spec_bak.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/spec/directives/street_view_panorama_spec_bak.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/spec/directives/street_view_panorama_spec_bak.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/spec/e2e/testapp_spec.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/spec/e2e/testapp_spec.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/spec/lib/angular-mocks.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/spec/lib/angular-mocks.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/spec/lib/angular.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/spec/lib/angular.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/spec/lib/markerclusterer.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/spec/lib/markerclusterer.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/spec/services/attr2_options_spec.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/spec/services/attr2_options_spec.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/spec/services/geo_coder_spec.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/spec/services/geo_coder_spec.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/spec/services/navigator_geolocation_spec.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/spec/services/navigator_geolocation_spec.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/spec/services/ng-map-pool-spec.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/spec/services/ng-map-pool-spec.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/USGSOverlay.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/USGSOverlay.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/aerial-rotate.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/aerial-rotate.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/aerial-simple.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/aerial-simple.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/all-examples.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/all-examples.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/all-examples.json" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/all-examples.json" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/circle-simple.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/circle-simple.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/control-custom-state.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/control-custom-state.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/control-custom.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/control-custom.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/control-disableUI.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/control-disableUI.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/control-options.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/control-options.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/control-positioning.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/control-positioning.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/control-simple.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/control-simple.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/custom-control.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/custom-control.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/custom-marker-2.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/custom-marker-2.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/custom-marker-clusterer.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/custom-marker-clusterer.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/custom-marker-custom-style.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/custom-marker-custom-style.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/custom-marker-ng-repeat.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/custom-marker-ng-repeat.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/custom-marker-two-way-binding.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/custom-marker-two-way-binding.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/custom-marker.css" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/custom-marker.css" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/custom-marker.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/custom-marker.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/directions-with-current-location.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/directions-with-current-location.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/directions-with-custom-marker.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/directions-with-custom-marker.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/directions-with-ng-repeat-panels.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/directions-with-ng-repeat-panels.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/directions.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/directions.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/directions2.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/directions2.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/drawing-manager.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/drawing-manager.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/event-arguments.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/event-arguments.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/event-domlistener.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/event-domlistener.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/event-properties.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/event-properties.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/event-simple.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/event-simple.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/events.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/events.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/geojson.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/geojson.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/groundoverlay-simple.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/groundoverlay-simple.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/gulpfile.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/gulpfile.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/heatmap.json" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/heatmap.json" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/icon-complex.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/icon-complex.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/icon-simple.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/icon-simple.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/infowindow-simple-max.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/infowindow-simple-max.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/infowindow-simple.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/infowindow-simple.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/infowindow-template.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/infowindow-template.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/infowindow_compile.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/infowindow_compile.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/infowindow_geolookup.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/infowindow_geolookup.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/infowindow_ng_click.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/infowindow_ng_click.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/layer-bicycling.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/layer-bicycling.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/layer-data-dynamic.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/layer-data-dynamic.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/layer-data-quakes-advanced.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/layer-data-quakes-advanced.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/layer-data-quakes-default.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/layer-data-quakes-default.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/layer-data-quakes-simple.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/layer-data-quakes-simple.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/layer-data-simple.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/layer-data-simple.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/layer-data-style.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/layer-data-style.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/layer-dynamicmapsengine.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/layer-dynamicmapsengine.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/layer-fusiontables-heatmap.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/layer-fusiontables-heatmap.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/layer-fusiontables-query.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/layer-fusiontables-query.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/layer-fusiontables-simple.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/layer-fusiontables-simple.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/layer-fusiontables-styling.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/layer-fusiontables-styling.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/layer-georss.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/layer-georss.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/layer-heatmap.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/layer-heatmap.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/layer-kml-features.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/layer-kml-features.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/layer-kml.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/layer-kml.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/layer-mapsengine.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/layer-mapsengine.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/layer-style-event.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/layer-style-event.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/layer-traffic.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/layer-traffic.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/layer-transit.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/layer-transit.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/lib/angular-ui-router.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/lib/angular-ui-router.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/lib/angular.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/lib/angular.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/lib/angular.min.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/lib/angular.min.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/lib/bootstrap.min.css" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/lib/bootstrap.min.css" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/lib/prettify-tomorrow-night.css" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/lib/prettify-tomorrow-night.css" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/lib/prettify-tomorrow.css" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/lib/prettify-tomorrow.css" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/lib/prettify.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/lib/prettify.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/map-coordinates.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/map-coordinates.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/map-geolocation.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/map-geolocation.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/map-gulp-usemin.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/map-gulp-usemin.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/map-gulp-usemin/map-gulp-usemin.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/map-gulp-usemin/map-gulp-usemin.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/map-gulp-usemin/myapp.min.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/map-gulp-usemin/myapp.min.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/map-initialized-callback.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/map-initialized-callback.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/map-initialized.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/map-initialized.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/map-lazy-inint.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/map-lazy-inint.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/map-lazy-load-params.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/map-lazy-load-params.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/map-projection-simple.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/map-projection-simple.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/map-simple.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/map-simple.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/map-with-dynamic-id.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/map-with-dynamic-id.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/map_app.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/map_app.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/map_control.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/map_control.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/map_events.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/map_events.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/map_fit_bounds.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/map_fit_bounds.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/map_geo_fallback_center.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/map_geo_fallback_center.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/map_no_default_style.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/map_no_default_style.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/map_options.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/map_options.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/map_with_address.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/map_with_address.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/map_with_current_position.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/map_with_current_position.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/map_with_dynamic_address.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/map_with_dynamic_address.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/map_with_dynamic_center.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/map_with_dynamic_center.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/map_zoom_to_include_markers.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/map_zoom_to_include_markers.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/mapsenginelayer-noauth-layerid.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/mapsenginelayer-noauth-layerid.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/mapsenginelayer-noauth-layerkey.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/mapsenginelayer-noauth-layerkey.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/maptype-base.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/maptype-base.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/maptype-image-overlay.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/maptype-image-overlay.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/maptype-image.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/maptype-image.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/maptype-overlay.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/maptype-overlay.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/maptype-styled-complex.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/maptype-styled-complex.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/maptype-styled-simple.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/maptype-styled-simple.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/marker-animations-iteration.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/marker-animations-iteration.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/marker-animations.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/marker-animations.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/marker-clusterer.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/marker-clusterer.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/marker-remove.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/marker-remove.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/marker-simple.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/marker-simple.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/marker-symbol-custom.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/marker-symbol-custom.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/marker-symbol-predefined.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/marker-symbol-predefined.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/marker-with-default-options.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/marker-with-default-options.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/marker.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/marker.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/marker_data_with_ng_repeat.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/marker_data_with_ng_repeat.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/marker_dynamic_ng_repeat.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/marker_dynamic_ng_repeat.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/marker_icon.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/marker_icon.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/marker_on_street_view.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/marker_on_street_view.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/marker_with_address.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/marker_with_address.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/marker_with_current_position.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/marker_with_current_position.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/marker_with_dynamic_address.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/marker_with_dynamic_address.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/marker_with_ng_repeat_dynamic.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/marker_with_ng_repeat_dynamic.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/marker_with_ng_repeat_no_watcher.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/marker_with_ng_repeat_no_watcher.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/marker_with_parent_controller.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/marker_with_parent_controller.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/multiple_maps_on_a_page.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/multiple_maps_on_a_page.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/overlay-custom.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/overlay-custom.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/overlay-hideshow.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/overlay-hideshow.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/overlay-remove.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/overlay-remove.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/overlay-simple.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/overlay-simple.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/overlay-symbol-animate.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/overlay-symbol-animate.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/overlay-symbol-arrow.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/overlay-symbol-arrow.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/overlay-symbol-custom.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/overlay-symbol-custom.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/overlay-symbol-dashed.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/overlay-symbol-dashed.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/partials/custom-info-window-template.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/partials/custom-info-window-template.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/places-auto-complete.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/places-auto-complete.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/polygon-arrays.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/polygon-arrays.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/polygon-autoclose.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/polygon-autoclose.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/polygon-draggable.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/polygon-draggable.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/polygon-simple.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/polygon-simple.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/polyline-complex.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/polyline-complex.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/polyline-remove.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/polyline-remove.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/polyline-simple.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/polyline-simple.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/rectangle-event.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/rectangle-event.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/rectangle-simple.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/rectangle-simple.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/rectangle-zoom.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/rectangle-zoom.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/script-tags-for-development.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/script-tags-for-development.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/scripts/get-starbucks.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/scripts/get-starbucks.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/scripts/markerclusterer.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/scripts/markerclusterer.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/scripts/markers.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/scripts/markers.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/scripts/quakes.geo.json" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/scripts/quakes.geo.json" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/scripts/starbucks.json" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/scripts/starbucks.json" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/shape.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/shape.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/shape_circle_with_current_position.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/shape_circle_with_current_position.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/shape_circle_with_dynamic_address.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/shape_circle_with_dynamic_address.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/shape_with_ng_repeat.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/shape_with_ng_repeat.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/street-view-panorama.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/street-view-panorama.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/street-view-panorama_container.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/street-view-panorama_container.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/street-view-panorama_container2.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/street-view-panorama_container2.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/street-view_road_trip.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/street-view_road_trip.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/taxi-data.js" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/taxi-data.js" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/ui-bootstrap.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/ui-bootstrap.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/ui-router.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/ui-router.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/ui-router2.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/ui-router2.html" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/us-states-20m.json" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/us-states-20m.json" />
+      <change beforePath="$PROJECT_DIR$/bower_components/ngmap/testapp/user-editable-shapes.html" afterPath="$PROJECT_DIR$/bower_components/ngmap/testapp/user-editable-shapes.html" />
+      <change beforePath="$PROJECT_DIR$/index.php" afterPath="$PROJECT_DIR$/index.php" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" afterPath="$PROJECT_DIR$/package-lock.json" />
+      <change beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
+      <change beforePath="$PROJECT_DIR$/services/bower_components/angular-material/angular-material.min.css" afterPath="$PROJECT_DIR$/services/bower_components/angular-material/angular-material.min.css" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -18,61 +355,87 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="building_areas.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/page/building_areas.html">
+      <file leaf-file-name="app.controller.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/core/app.controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="15" column="22" lean-forward="false" selection-start-line="15" selection-start-column="22" selection-end-line="15" selection-end-column="22" />
+            <state relative-caret-position="737">
+              <caret line="709" column="0" lean-forward="false" selection-start-line="709" selection-start-column="0" selection-end-line="709" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SiteAreasController.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/controllers/SiteAreasController.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="16" column="54" lean-forward="false" selection-start-line="16" selection-start-column="45" selection-end-line="16" selection-end-column="54" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="sitesController.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/controllers/sitesController.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="115" column="0" lean-forward="false" selection-start-line="115" selection-start-column="0" selection-end-line="115" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="sw.json" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/i18n/sw.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="208">
-              <caret line="122" column="21" lean-forward="false" selection-start-line="122" selection-start-column="21" selection-end-line="122" selection-end-column="21" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="el.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/i18n/el.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3480">
-              <caret line="232" column="51" lean-forward="false" selection-start-line="232" selection-start-column="51" selection-end-line="232" selection-end-column="51" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="23" lean-forward="false" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
+            <state relative-caret-position="755">
+              <caret line="266" column="8" lean-forward="false" selection-start-line="266" selection-start-column="8" selection-end-line="266" selection-end-column="8" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="config.route.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/core/config.route.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="184">
+              <caret line="252" column="66" lean-forward="false" selection-start-line="252" selection-start-column="66" selection-end-line="252" selection-end-column="66" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="angular-material.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bower_components/angular-material/angular-material.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="295">
+              <caret line="1364" column="1" lean-forward="true" selection-start-line="1364" selection-start-column="1" selection-end-line="1364" selection-end-column="29" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="angular-material.min.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/services/bower_components/angular-material/angular-material.min.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="5" column="31020" lean-forward="false" selection-start-line="5" selection-start-column="31020" selection-end-line="5" selection-end-column="31020" />
+              <folding>
+                <element signature="e#14626#14797#2" expanded="true" />
+                <element signature="e#15676#15847#2" expanded="true" />
+                <element signature="e#16351#16522#2" expanded="true" />
+                <element signature="e#117885#118972#2" expanded="true" />
+                <element signature="e#119029#120112#2" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ui.scss" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/styles/ui.scss">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="multiple_resources.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/page/comparison/multiple_resources.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="66" lean-forward="false" selection-start-line="0" selection-start-column="33" selection-end-line="0" selection-end-column="66" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SiteResourcesComparisonController.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/controllers/SiteResourcesComparisonController.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="30">
+              <caret line="2" column="39" lean-forward="false" selection-start-line="2" selection-start-column="39" selection-end-line="2" selection-end-column="39" />
               <folding />
             </state>
           </provider>
@@ -81,18 +444,18 @@
       <file leaf-file-name="SiteSensorsController.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/controllers/SiteSensorsController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1005">
-              <caret line="67" column="41" lean-forward="false" selection-start-line="67" selection-start-column="41" selection-end-line="67" selection-end-column="41" />
+            <state relative-caret-position="435">
+              <caret line="29" column="34" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="234" selection-end-column="6" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="site.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/factories/site.js">
+      <file leaf-file-name="building_sensors.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/page/building_sensors.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+            <state relative-caret-position="450">
+              <caret line="30" column="51" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="119" selection-end-column="6" />
               <folding />
             </state>
           </provider>
@@ -116,10 +479,23 @@
       <find>getGeneralResources</find>
       <find>Building</find>
       <find>Building'</find>
+      <find>SiteAreasController</find>
+      <find>area.js</find>
+      <find>building.areas</find>
+      <find>getSparkAreas</find>
+      <find>getSite</find>
+      <find>SiteTov</find>
+      <find>node</find>
+      <find>jst</find>
+      <find>tree</find>
+      <find>cloudf</find>
+      <find>TopViewCont</find>
+      <find>md-calendar-scroll-container</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/app/controllers</dir>
       <dir>$PROJECT_DIR$/app</dir>
+      <dir>$PROJECT_DIR$</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
@@ -128,16 +504,29 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/factories/area.js" />
         <option value="$PROJECT_DIR$/i18n/el.json" />
         <option value="$PROJECT_DIR$/app/factories/site.js" />
         <option value="$PROJECT_DIR$/app/page/building_areas.html" />
-        <option value="$PROJECT_DIR$/app/controllers/SiteAreasController.js" />
-        <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/app/controllers/SiteSensorsController.js" />
         <option value="$PROJECT_DIR$/app/page/building_sensors.html" />
         <option value="$PROJECT_DIR$/app/controllers/sitesController.js" />
         <option value="$PROJECT_DIR$/i18n/sw.json" />
+        <option value="$PROJECT_DIR$/app/page/sensor_view.html" />
+        <option value="$PROJECT_DIR$/app/controllers/SensorController.js" />
+        <option value="$PROJECT_DIR$/app/factories/area.js" />
+        <option value="$PROJECT_DIR$/app/controllers/SiteAreasController.js" />
+        <option value="$PROJECT_DIR$/app/factories/theArea.js" />
+        <option value="$PROJECT_DIR$/app/page/building_top_view.html" />
+        <option value="$PROJECT_DIR$/app/core/core.module.js" />
+        <option value="$PROJECT_DIR$/app/core/app.controller.js" />
+        <option value="$PROJECT_DIR$/vendors/echarts.common.min.js" />
+        <option value="$PROJECT_DIR$/app/layout/sidebar.html" />
+        <option value="$PROJECT_DIR$/app/page/comparison/multiple_resources.html" />
+        <option value="$PROJECT_DIR$/app/controllers/SiteResourcesComparisonController.js" />
+        <option value="$PROJECT_DIR$/app/core/config.route.js" />
+        <option value="$PROJECT_DIR$/bower_components/angular-material/angular-material.css" />
+        <option value="$PROJECT_DIR$/services/bower_components/angular-material/angular-material.min.css" />
+        <option value="$PROJECT_DIR$/index.php" />
       </list>
     </option>
   </component>
@@ -154,10 +543,9 @@
     <handled-path value="$PROJECT_DIR$/services/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="138" />
-    <option name="y" value="63" />
-    <option name="width" value="1782" />
-    <option name="height" value="959" />
+    <option name="y" value="23" />
+    <option name="width" value="1280" />
+    <option name="height" value="998" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -174,8 +562,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -191,30 +577,32 @@
             <path>
               <item name="bma" type="b2602c69:ProjectViewProjectNode" />
               <item name="bma" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="controllers" type="462c0819:PsiDirectoryNode" />
+              <item name="styles" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="bma" type="b2602c69:ProjectViewProjectNode" />
               <item name="bma" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="styles" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="bma" type="b2602c69:ProjectViewProjectNode" />
               <item name="bma" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="factories" type="462c0819:PsiDirectoryNode" />
+              <item name="styles" type="462c0819:PsiDirectoryNode" />
+              <item name="plugins" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="bma" type="b2602c69:ProjectViewProjectNode" />
               <item name="bma" type="462c0819:PsiDirectoryNode" />
-              <item name="i18n" type="462c0819:PsiDirectoryNode" />
+              <item name="styles" type="462c0819:PsiDirectoryNode" />
+              <item name="ui" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -250,34 +638,36 @@
       <workItem from="1513328547131" duration="5745000" />
       <workItem from="1513345085994" duration="730000" />
       <workItem from="1513778837636" duration="313000" />
-      <workItem from="1515589925585" duration="187000" />
+      <workItem from="1515589925585" duration="389000" />
+      <workItem from="1516103341540" duration="6072000" />
+      <workItem from="1516609132382" duration="4166000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="6975000" />
+    <option name="totallyTimeSpent" value="17415000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="138" y="63" width="1782" height="959" extended-state="0" />
+    <frame x="0" y="23" width="1280" height="998" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21043772" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29296875" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -289,6 +679,9 @@
       </list>
     </option>
   </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.php" />
+  </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
@@ -297,6 +690,22 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/app/factories/site.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/i18n/sw.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1830">
+          <caret line="122" column="21" lean-forward="false" selection-start-line="122" selection-start-column="21" selection-end-line="122" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/page/building_areas.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
@@ -317,7 +726,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3480">
           <caret line="232" column="51" lean-forward="false" selection-start-line="232" selection-start-column="51" selection-end-line="232" selection-end-column="51" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -365,7 +773,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3480">
           <caret line="232" column="51" lean-forward="false" selection-start-line="232" selection-start-column="51" selection-end-line="232" selection-end-column="51" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -428,7 +835,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3480">
           <caret line="232" column="51" lean-forward="false" selection-start-line="232" selection-start-column="51" selection-end-line="232" selection-end-column="51" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -477,20 +883,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/core/app.controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1755">
-          <caret line="817" column="42" lean-forward="true" selection-start-line="817" selection-start-column="42" selection-end-line="817" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/factories/area.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="54" column="0" lean-forward="false" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/services/app/factories/area.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="203">
@@ -498,73 +890,207 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/factories/site.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/i18n/el.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3480">
           <caret line="232" column="51" lean-forward="false" selection-start-line="232" selection-start-column="51" selection-end-line="232" selection-end-column="51" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.php">
+    <entry file="file://$PROJECT_DIR$/i18n/sw.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="23" lean-forward="false" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
+        <state relative-caret-position="1860">
+          <caret line="124" column="38" lean-forward="false" selection-start-line="124" selection-start-column="38" selection-end-line="124" selection-end-column="38" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/page/building_areas.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="22" lean-forward="false" selection-start-line="15" selection-start-column="22" selection-end-line="15" selection-end-column="22" />
+        <state relative-caret-position="0">
+          <caret line="0" column="52" lean-forward="false" selection-start-line="0" selection-start-column="33" selection-end-line="0" selection-end-column="52" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/SiteSensorsController.js">
+    <entry file="file://$PROJECT_DIR$/app/controllers/SensorController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1005">
-          <caret line="67" column="41" lean-forward="false" selection-start-line="67" selection-start-column="41" selection-end-line="67" selection-end-column="41" />
+        <state relative-caret-position="289">
+          <caret line="32" column="37" lean-forward="false" selection-start-line="32" selection-start-column="37" selection-end-line="32" selection-end-column="37" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/page/building_sensors.html">
+    <entry file="file://$PROJECT_DIR$/app/factories/site.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="54" lean-forward="false" selection-start-line="9" selection-start-column="54" selection-end-line="9" selection-end-column="54" />
+        <state relative-caret-position="345">
+          <caret line="23" column="25" lean-forward="false" selection-start-line="23" selection-start-column="12" selection-end-line="23" selection-end-column="25" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/SiteAreasController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="54" lean-forward="false" selection-start-line="16" selection-start-column="45" selection-end-line="16" selection-end-column="54" />
+        <state relative-caret-position="1935">
+          <caret line="129" column="49" lean-forward="false" selection-start-line="129" selection-start-column="28" selection-end-line="129" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/factories/area.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="810">
+          <caret line="54" column="19" lean-forward="false" selection-start-line="54" selection-start-column="12" selection-end-line="54" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/factories/theArea.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="35" lean-forward="false" selection-start-line="7" selection-start-column="35" selection-end-line="7" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/core/app.config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-313">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/page/sensor_view.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1470">
+          <caret line="98" column="62" lean-forward="false" selection-start-line="98" selection-start-column="62" selection-end-line="98" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/page/building_top_view.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="24" column="144" lean-forward="false" selection-start-line="24" selection-start-column="144" selection-end-line="24" selection-end-column="144" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/sitesController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="115" column="0" lean-forward="false" selection-start-line="115" selection-start-column="0" selection-end-line="115" selection-end-column="0" />
+        <state relative-caret-position="243">
+          <caret line="114" column="38" lean-forward="false" selection-start-line="114" selection-start-column="38" selection-end-line="114" selection-end-column="38" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/i18n/sw.json">
+    <entry file="file://$PROJECT_DIR$/app/core/core.module.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="122" column="21" lean-forward="false" selection-start-line="122" selection-start-column="21" selection-end-line="122" selection-end-column="21" />
+        <state relative-caret-position="150">
+          <caret line="10" column="18" lean-forward="false" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendors/echarts.common.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="28" column="13455" lean-forward="false" selection-start-line="28" selection-start-column="13455" selection-end-line="28" selection-end-column="13455" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/layout/sidebar.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="490">
+          <caret line="37" column="91" lean-forward="false" selection-start-line="37" selection-start-column="91" selection-end-line="37" selection-end-column="91" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/core/app.controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="737">
+          <caret line="709" column="0" lean-forward="false" selection-start-line="709" selection-start-column="0" selection-end-line="709" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/page/building_sensors.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="30" column="51" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="119" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/SiteSensorsController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="29" column="34" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="234" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/SiteResourcesComparisonController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="39" lean-forward="false" selection-start-line="2" selection-start-column="39" selection-end-line="2" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/page/comparison/multiple_resources.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="66" lean-forward="false" selection-start-line="0" selection-start-column="33" selection-end-line="0" selection-end-column="66" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/core/config.route.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="252" column="66" lean-forward="false" selection-start-line="252" selection-start-column="66" selection-end-line="252" selection-end-column="66" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bower_components/angular-material/angular-material.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="295">
+          <caret line="1364" column="1" lean-forward="true" selection-start-line="1364" selection-start-column="1" selection-end-line="1364" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/bower_components/angular-material/angular-material.min.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="5" column="31020" lean-forward="false" selection-start-line="5" selection-start-column="31020" selection-end-line="5" selection-end-column="31020" />
+          <folding>
+            <element signature="e#14626#14797#2" expanded="true" />
+            <element signature="e#15676#15847#2" expanded="true" />
+            <element signature="e#16351#16522#2" expanded="true" />
+            <element signature="e#117885#118972#2" expanded="true" />
+            <element signature="e#119029#120112#2" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/styles/ui.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="755">
+          <caret line="266" column="8" lean-forward="false" selection-start-line="266" selection-start-column="8" selection-end-line="266" selection-end-column="8" />
           <folding />
         </state>
       </provider>

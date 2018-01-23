@@ -1,6 +1,6 @@
 'use strict';
 var App = angular.module('app');
-App.controller('SiteAreasController',function($scope,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor,$filter){
+App.controller('SiteAreasController',function($scope,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor,$filter,theArea){
         
         _paq.push(['setUserId', $rootScope.TheUserName]);
         _paq.push(['setDocumentTitle', "Areas"]);
@@ -124,23 +124,18 @@ App.controller('SiteAreasController',function($scope,$rootScope,appConfig,$state
             var spark_areas = site.getSparkAreas($stateParams.id);
             spark_areas.then(function(areas){
                 $scope.building.areas = areas.data.sites;
-                angular.forEach($scope.building.areas,function(area){
 
-                    var k = Area.getSiteInfo(area.id);
-                    k.then(function(info){
-                        area.greekLocalizedName     = (!$rootScope.isUndefined(info.data.greekLocalizedName)?info.data.greekLocalizedName:area.name);
-                        area.italianLocalizedName   = (!$rootScope.isUndefined(info.data.italianLocalizedName)?info.data.italianLocalizedName:area.name);
-                        area.swedishLocalizedName   = (!$rootScope.isUndefined(info.data.swedishLocalizedName)?info.data.swedishLocalizedName:area.name);
-                        area.englishLocalizedName   = (!$rootScope.isUndefined(info.data.englishLocalizedName)?info.data.englishLocalizedName:area.name);
-                        if($rootScope.lang=='el')
-                            area.name = area.greekLocalizedName;
-                        else if ($rootScope.lang=='sw')
-                            area.name = area.englishLocalizedName;
-                        else if ($rootScope.lang=='it')
-                            area.name = area.italianLocalizedName;
-                        else
-                            area.name = area.englishLocalizedName;
-                    });
+                angular.forEach($scope.building.areas,function(area){
+                    //console.log(area);
+                    var x = theArea.getName(area);
+                    console.log("XXXXXXXX");
+                    console.log(x);
+                    // x.then(function(ret){
+                    //     area.name = ret;
+                    // })
+                    //console.log ("Area Name is: "+);
+
+
 
                 });
             });

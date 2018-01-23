@@ -215,7 +215,7 @@ angular.module('app').run(function($rootScope, $templateCache,$translate,$log,ap
                 return setRoutes(route);                            
             });
 
-            
+
             $stateProvider.state('page/transportation', {
                 url: '/page/transportation/:id',
                 templateUrl: 'app/page/transportation.html'
@@ -250,7 +250,11 @@ angular.module('app').run(function($rootScope, $templateCache,$translate,$log,ap
                 url: '/page/building/school_compare/:id',
                 templateUrl: 'app/page/sites_comparison.html'
             });
-             
+            $stateProvider.state('page/building/multiple_resources', {
+                url: '/page/building/multiple_resources/:id',
+                templateUrl: 'app/page/comparison/multiple_resources.html'
+            });
+
              
 
             $stateProvider.state('page/building/notifications', {

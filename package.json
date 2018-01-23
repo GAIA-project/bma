@@ -17,6 +17,7 @@
   "author": "manos zacharioudakis",
   "license": "MIT",
   "dependencies": {
-    "angular-oidc": "^1.1.2"
+    "angular-oidc": "^1.1.2",
+    "ng-js-tree": "0.0.10"
   }
 }
