@@ -1,7 +1,13 @@
 angular.module('app').factory('site', function($http,appConfig,AccessToken){
     
         return{
-
+            getAnomalies:function (site_id) {
+                return $http({
+                    url:'https://analytics.gaia-project.eu/gaia-analytics/anomalies/sites/'+site_id,
+                    method:'GET',
+                    headers: {"Accept": "application/json","Authorization":AccessToken.get().access_token}
+                })
+            },
             getSparkDetails:function(site_id){
                 return $http({
                     url:appConfig.main.apis.main+appConfig.main.apis.site+'/'+site_id,

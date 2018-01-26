@@ -1,4 +1,4 @@
-<div class="page" ng-controller="AnomaliesController" >
+<div class="page" ng-controller="SiteAnomaliesController" >
 <ngp-piwik ngp-set-js-url="http://piwic.gaia-project.eu/piwik.js" ngp-set-tracker-url="http://piwic.gaia-project.eu/piwik.php" ngp-set-site-id="1"> </ngp-piwik>
     <div class="row" style="margin-bottom:10px">
         <div class="col-md-8">
@@ -11,7 +11,7 @@
             </div>
         </div>
     </div>   
-
+    <div class="row" ng-show="no_anomalies_text_visible"><span data-translate="NO_AVAILABLE_ANOMALIES"></span> </div>
     <div class="row" ng-init="getAnomalies()">
         <div class="col-md-12">
             <div class="panel panel-default">
@@ -28,13 +28,12 @@
                             </thead>
                             <tbody>
                                 <tr ng-repeat="anomaly in anomalies">
-                                    <td>{{anomaly.id}}</td>                                    
-                                    <td class="numeric">{{anomaly.area}}</td>
-                                    <td class="numeric"> 
-                                        <span class="label label-default" ng-repeat="tag in anomaly.tags" style="margin-right:3px">{{tag}}</span> 
-                                    </td>
+                                    <td>{{anomaly.date}}</td>
+                                    <td class="numeric">{{anomaly.type}}</td>
+                                    <td class="numeric">{{anomaly.value}}</td>
+                                    <td class="numeric">{{anomaly.resourceId}}</td>
                                     <td>
-                                        <span class="label label-default" data-translate="VIEW" ng-click="openAnomaly(anomaly.id)"></span>
+                                        <span class="label label-default" data-translate="VIEW" ng-click="openAnomaly(anomaly)"></span>
                                     </td>
                                 </tr>
                             </tbody>

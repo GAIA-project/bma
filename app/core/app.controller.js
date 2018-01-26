@@ -174,30 +174,7 @@
     })
     
     
-    .controller('AnomaliesController',function($scope,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Anomaly){
-        
 
-        $scope.getAnomalies=function(){
-            var anomalies = Anomaly.getAnomalies($stateParams.id,1489442400000,1489142400000);
-            anomalies.then(function(tanomalies){
-                console.log('The Anomalies');
-                console.log(tanomalies);    
-            });
-            
-        }
-        $scope.openAnomaly = function(id){
-            
-  
-            $location.path('page/anomaly/view/'+id);   
-        }
-        var t_site = site.getDetails($stateParams.id);
-        t_site.then(function(site){
-           $scope.site = site.data; 
-           
-        });
-
-
-    })
     .controller('AnomalyCtrl',function($scope,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log){
         $scope.goToAnomalies = function(){
             $location.path('page/building/anomalies/141587');   

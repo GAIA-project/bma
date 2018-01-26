@@ -53,7 +53,7 @@ var App = angular.module('app');
                 bs.data.sites.forEach(function(ssite,index){
                     if(ssite.master){
                         ssite.display_name = ssite.name;
-                        $scope.buildings.push(ssite);                        
+                        $scope.buildings.push(ssite);
                         var details = site.getDetails(ssite.id);                        
                         details.then(function(details,index){                            
                             ssite.details = details.data;                            

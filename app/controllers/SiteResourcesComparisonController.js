@@ -53,7 +53,9 @@ App.controller('SiteResourcesComparisonController',function($scope,$q,$rootScope
         $scope.counter = 0;
         var date_from = $scope.from_time.getTime();
         var date_to = $scope.to_time.getTime();
-
+        $scope.line3 = {};
+        delete $scope.line3;
+        $scope.line3 = {};
 
         $scope.chart_times = [];
         $scope.ress = [];
@@ -131,9 +133,7 @@ App.controller('SiteResourcesComparisonController',function($scope,$q,$rootScope
         $scope.tdates = [];
         $scope.time = [];
 
-        $scope.line3 = {};
-        delete $scope.line3;
-        $scope.line3 = {};
+
 
         $scope.line3.options = {};
         $scope.line3.options.legend = {};

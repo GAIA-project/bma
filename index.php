@@ -8,7 +8,7 @@
         <meta charset="utf-8">
         <base href="/">
         <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-        <title><?php echo $version; ?>GAIA - Building Manager </title>
+        <title><?php //echo $version; ?>GAIA - Building Manager </title>
         <meta name="description" content="GAIA - Building Manager Application">
         <meta name="keywords" content="Gaia,project,eu,building,manager,application,energy">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -73,15 +73,16 @@
         <div id="loader-container"></div>
 
          <div style="display:none">
-    <oauth
-    site="https://sso.sparkworks.net/aa"
-    client-id="testone"
-    redirect-uri="http://bms.gaia-project.eu/"
-    profile-uri="#/page/buildings"
-    scope="read"
-    storage="localstorage">
-    </oauth>
-    </div>
+            
+            <oauth
+                site="https://sso.sparkworks.net/aa"
+                client-id="testone"
+                redirect-uri="http://bms.gaia-project.eu/"
+                profile-uri="#/page/buildings"
+                scope="read"
+                storage="localstorage">
+                </oauth>
+        </div>
        
 
         <header data-ng-include=" 'app/layout/header.html' "
@@ -259,6 +260,10 @@
         <script src="app/controllers/BuildingRulesController.js?v=<?php echo $version; ?>"></script>
         <script src="app/controllers/SiteAreasController.js?v=<?php echo $version; ?>"></script>
         <script src="app/controllers/SiteSensorsComparisonController.js?v=<?php echo $version; ?>"></script>
+        <script src="app/controllers/SiteAnomaliesController.js?v=<?php echo $version; ?>"></script>
+
+
+
         
 <style>
 .md-virtual-repeat-container {
