@@ -2,7 +2,7 @@
 <html class="no-js">
     <head>
     <?php 
-        $version = 7521;
+        $version = 7522;
     ?>
 
         <meta charset="utf-8">
@@ -75,8 +75,8 @@
          <div style="display:none">
             <oauth
                 site="https://sso.sparkworks.net/aa"
-                client-id="gaia_bma"
-                redirect-uri="http://devbms.gaia-project.eu"
+                client-id="testone"
+                redirect-uri="http://bms.gaia-project.eu"
                 profile-uri="#/page/buildings"
                 scope="read"
                 storage="localstorage">
