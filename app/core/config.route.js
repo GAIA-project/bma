@@ -10,22 +10,29 @@ angular.module('app').run(function($rootScope, $templateCache,$translate,$log,ap
         $rootScope.actions.push({'name':'edit_sensor_name','permission':['ROLE_GAIA_LOCAL_MANAGER','ROLE_GAIA_GLOBAL_MANAGER','ROLE_GAIA_ADMIN']});
         $rootScope.actions.push({'name':'edit_rule_engine','permission':['ROLE_GAIA_ADMIN','ROLE_GAIA_GLOBAL_MANAGER','ROLE_GAIA_LOCAL_MANAGER']});
 
-        // $rootScope.hasPermission = function(action){
 
-        //     var result = $filter('filter')($rootScope.actions, {'name':action});
-            
-        //     if(result.length==0)
-        //         console.error("There is non set permission:"+action);
-        //     else{
-        //         result=result[0];
-                
-        //         if(result.permission.indexOf(appConfig.main.auth_role)>-1){
-        //             return true;
-        //         }else
-        //         return false;
-        //     }
+    $rootScope.getLocalizedName = function(area){
+        console.log("Localized Name for");
+        console.log(area);
+        var name = area.extra_info.englishLocalizedName;
+        var clang= $rootScope.getLanguage();
 
-        // }
+        if(clang=='Greek')
+            name = area.extra_info.greekLocalizedName;
+        else if (clang=='Swidian')
+            name = area.extra_info.englishLocalizedName;
+        else if (clang=='Italy')
+            name = area.extra_info.italianLocalizedName;
+        else
+            name = area.extra_info.englishLocalizedName;
+
+        if($rootScope.isUndefined(name))
+            name = area.name;
+
+        return name;
+
+    }
+
 
         $rootScope.hasPermission = function(action){
 
@@ -44,19 +51,16 @@ angular.module('app').run(function($rootScope, $templateCache,$translate,$log,ap
         
         $rootScope.getL = function(){
         return $translate('Lang');
-            var l = "";
-            var x = $translate('Lang');
-            x.then(function(y){
-                l=y;
-            });
-            return x;
+
         }
-        $rootScope.getLanguage = function(){
-            var x = $rootScope.getL();
-            x.then(function(oo){
-                return oo;
-            });
-        }
+
+
+
+
+
+
+
+
 
         
         $rootScope.granularity_values = [];
@@ -266,6 +270,10 @@ angular.module('app').run(function($rootScope, $templateCache,$translate,$log,ap
             $stateProvider.state('page/building/topview',{
                 url:'/page/building/topview/:id',
                 templateUrl:'app/page/building_top_view.html'
+            });
+            $stateProvider.state('page/building/structure',{
+                url:'/page/building/structure/:id',
+                templateUrl:'app/page/site/structure.html'
             });
 
              $stateProvider.state('page/building/anomalies',{

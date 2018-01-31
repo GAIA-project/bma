@@ -1,0 +1,140 @@
+<div class="page" ng-controller="SiteStructureController" >
+
+    <div class="saved"><span data-translate="UPDATED"></span></div>
+    <div class="row" >
+        <div class="col-sm-12">
+            <h2 class="section-header">{{building.name}}</h2>
+        </div>
+    </div>
+    <div class="row" style="margin-top:10px">
+        <div class="col-sm-12 col-md-3">
+            <div class="panel panel-default panel-minimal">
+                <div class="divider divider-md"></div>
+                <div class="panel-heading">
+                    <span class="card-title"  data-translate="AVERAGE_AGGREGATED_POWER_PER_DAY"></span>
+                </div>
+                <div class="panel-body">
+                    <span data-translate="NO_DATA" ng-hide="building.aggregated_power.daily.average"></span>
+                    <span class="thevalue">{{building.aggregated_power.daily.average | number : 2}}</span>
+                    <span class="mofu">{{building.aggregated_power.daily.unitOfMeasurement}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-3">
+            <div class="panel panel-default panel-minimal">
+                <div class="divider divider-md"></div>
+                <div class="panel-heading">
+                    <span class="card-title"  data-translate="AVERAGE_AGGREGATED_POWER_PER_MONTH"></span>
+                </div>
+                    <div class="panel-body">
+                        <div class="col-md-12">
+                            <span data-translate="NO_DATA" ng-hide="building.aggregated_power.monthly.average"></span>
+                            <span class="thevalue">{{building.aggregated_power.monthly.average | number:2}}</span>
+                            <span class="mofu">{{building.aggregated_power.monthly.unitOfMeasurement}}</span>
+                        </div>
+                    </div>
+            </div>
+
+        </div>
+        <div class="col-sm-12 col-md-3">
+            <div class="panel panel-default panel-minimal">
+                <div class="divider divider-md"></div>
+                <div class="panel-heading">
+                    <span class="card-title"  data-translate="AGGREGATED_POWER_TODAY"></span>
+                </div>
+                <div class="panel-body">
+                    <span data-translate="NO_DATA" ng-hide="building.aggregated_power.today.average"></span>
+                    <span class="thevalue">{{building.aggregated_power.today.average | number : 2}}</span>
+                    <span class="mofu">{{building.aggregated_power.today.unitOfMeasurement}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-3">
+            <div class="panel panel-default panel-minimal">
+                <div class="divider divider-md"></div>
+                <div class="panel-heading">
+                    <span class="card-title"  data-translate="AGGREGATED_POWER_THIS_MONTH"></span>
+                </div>
+                <div class="panel-body">
+                    <span data-translate="NO_DATA" ng-hide="building.aggregated_power.this_month.average"></span>
+                    <span class="thevalue">{{building.aggregated_power.this_month.average | number : 2}}</span>
+                    <span class="mofu">{{building.aggregated_power.this_month.unitOfMeasurement}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <div class="panel panel-default panel-minimal">
+                <div class="divider divider-md"></div>
+                <div class="panel-heading"><span data-translate="AVERAGE_PER_WEEKDAY"></span></div>
+                <div class="panel-body">
+                    <div data-echarts data-options="bar_week_day.options" style="height: 350px;"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="row" style="margin-top: 10px">
+        <div class="col-sm-12 col-md-4">
+            <div class="panel panel-default panel-minimal">
+                <div class="divider divider-md"></div>
+                <div class="panel-heading">
+                    <span class="card-title"  data-translate="AREAS"></span>
+                </div>
+                <div class="panel-body" ng-init="getInitAreas()">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered no-margin">
+                            <thead>
+                            <tr>
+                                <th><span data-translate="Name"></span></th>
+                                <th><span data-translate="Actions"></span></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-show="building.subareas.length<1">
+                                <td colspan="2"><span data-translate="NO_SUBAREAS_AVAILABLE"></span> </td>
+                            </tr>
+                            <tr ng-repeat="area in building.subareas" ng-show="building.subareas.length>0">
+                                <td>{{area.printed_name}}</td>
+                                <td><a ui-wave href="javascript:;" ng-click="gotoArea(area)" class="btn btn-sm btn-raised btn-primary"><span data-translate="VIEW"></span></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-8">
+            <div class="panel panel-default panel-minimal">
+                <div class="divider divider-md"></div>
+                <div class="panel-heading">
+                    <span class="card-title"  data-translate="SENSORS"></span>
+                </div>
+                <div class="panel-body" ng-init="getAreasResources()">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered no-margin">
+                            <thead>
+                            <tr>
+                                <th><span data-translate="Name"></span></th>
+                                <th><span data-translate="Actions"></span></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="resource in building.site_resources">
+                                <td>{{resource.print_name}}</td>
+                                <td><a ui-wave href="javascript:;" ng-click="gotoSensor(resource)" class="btn btn-sm btn-raised btn-primary"><span data-translate="VIEW"></span></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

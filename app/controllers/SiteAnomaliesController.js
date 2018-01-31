@@ -14,9 +14,19 @@ App.controller('SiteAnomaliesController',function($scope,$rootScope,appConfig,$s
         });
     }
 
-    $scope.openAnomaly = function(id){
-        $location.path('page/anomaly/view/'+id);
+    $scope.openAnomaly = function(an){
+        var id=an.resourceId;
+        var d = an.date;
+        var source = 'anomaly'
+        $location.path('page/sensor/view/'+id).search({d:d,source:source});
     }
+
+    $scope.propertyName = 'date';
+    $scope.reverse = true;
+    $scope.sortBy = function(propertyName) {
+        $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
+        $scope.propertyName = propertyName;
+    };
 
 
 

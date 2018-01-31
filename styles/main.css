@@ -1,3 +1,11 @@
+span.mofu {
+  font-size: 20px;
+  margin-left: 10px;
+}
+span.thevalue{
+  font-size: 30px;
+}
+
 .z-depth-1, .wizard > .steps a,
 .wizard > .steps a:hover,
 .wizard > .steps a:active, .header-container, .header-container .dropdown-menu.with-arrow.panel {

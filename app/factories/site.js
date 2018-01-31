@@ -8,6 +8,33 @@ angular.module('app').factory('site', function($http,appConfig,AccessToken){
                     headers: {"Accept": "application/json","Authorization":AccessToken.get().access_token}
                 })
             },
+            getAggregatedPowerConsumption:function(site_id,from,to,granularity){
+                return $http({
+                    url:'https://analytics.gaia-project.eu/gaia-analytics/statistics/sites/'+site_id+'/aggregatedPowerConsumption',
+                    method:'GET',
+                    params:{
+                        'id':site_id,
+                        'from':from,
+                        'to':to,
+                        'granularity':granularity
+                    },
+                    headers: {"Accept": "application/json","Authorization":AccessToken.get().access_token}
+                })
+            },
+            getAggregatedPowerConsumptionDAYS:function(site_id,from,to,granularity,day){
+                return $http({
+                    url:'https://analytics.gaia-project.eu/gaia-analytics/statistics/sites/'+site_id+'/aggregatedPowerConsumption',
+                    method:'GET',
+                    params:{
+                        'id':site_id,
+                        'from':from,
+                        'to':to,
+                        'granularity':granularity,
+                        'days':[day]
+                    },
+                    headers: {"Accept": "application/json","Authorization":AccessToken.get().access_token}
+                })
+            },
             getSparkDetails:function(site_id){
                 return $http({
                     url:appConfig.main.apis.main+appConfig.main.apis.site+'/'+site_id,

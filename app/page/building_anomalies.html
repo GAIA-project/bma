@@ -4,12 +4,6 @@
         <div class="col-md-8">
             <h2 class="section-header">{{site.name}}</h2>
         </div>
-        <div class="col-md-4">
-            <div layout="row" layout-align="end center">
-                <md-button class="md-accent md-raised" ng-click="goToDashboard()"><span data-translate="DASHBOARD"></span></md-button> &nbsp;
-                <md-button class="md-accent md-raised" ng-click="goToEdit()"><span data-translate="EDIT_BUILDING"></span></md-button>
-            </div>
-        </div>
     </div>   
     <div class="row" ng-show="no_anomalies_text_visible"><span data-translate="NO_AVAILABLE_ANOMALIES"></span> </div>
     <div class="row" ng-init="getAnomalies()">
@@ -20,15 +14,19 @@
                         <table class="table table-bordered table-striped cf no-margin">
                             <thead class="cf">
                                 <tr>
-                                    <th>Id</th>
-                                    <th class="numeric"><span data-translate="AREA"></span></th>
-                                    <th class="numeric"><span data-translate="TAGS"></span></th>
+                                    <th class="numeric"></span>
+                                        <button ng-click="sortBy('date')"><span data-translate="DATE"></button>
+                                        <span class="sortorder" ng-show="propertyName === 'date'" ng-class="{reverse: reverse}"></span>
+                                    </th>
+                                    <th class="numeric"><span data-translate="TYPE"></span></th>
+                                    <th class="numeric"><span data-translate="VALUE"></span></th>
+                                    <th class="numeric"><span data-translate="RESOURCE"></span></th>
                                     <th class="numeric"><span data-translate="ACTIONS"></span></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="anomaly in anomalies">
-                                    <td>{{anomaly.date}}</td>
+                                <tr ng-repeat="anomaly in anomalies  | orderBy:propertyName:reverse">
+                                    <td>{{anomaly.date | date:'short'}}</td>
                                     <td class="numeric">{{anomaly.type}}</td>
                                     <td class="numeric">{{anomaly.value}}</td>
                                     <td class="numeric">{{anomaly.resourceId}}</td>

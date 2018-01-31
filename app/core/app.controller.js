@@ -2190,6 +2190,8 @@
         
         $rootScope.recommendations = 0;
 
+
+
          $rootScope.toolbox = {
             show : true,
             feature : {

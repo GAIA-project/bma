@@ -232,7 +232,15 @@
     "Name_in_Italian":"Όνομα Περιοχής στα Ιταλικά",
     "Name_in_Swedish":"Όνομα Περιοχής στα Σουηδικά",
     "multiple_resources":"Αισθητήρες επιλογής",
-    "NO_AVAILABLE_ANOMALIES":"Δεν υπάρχουν διαθέσιμες μη αναμενόμενη συμπεριφορά"
+    "NO_AVAILABLE_ANOMALIES":"Δεν υπάρχουν διαθέσιμες μη αναμενόμενη συμπεριφορά",
+    "STRUCTURE":"Δομή",
+    "NO_SUBAREAS_AVAILABLE":"Δεν υπάρχουν υποπεριοχές",
+    "AVERAGE_AGGREGATED_POWER_PER_DAY":"Μέση ημερήσια κατανάλωση ενέργειας",
+    "AVERAGE_AGGREGATED_POWER_PER_MONTH":"Μέση μηνιαία κατανάλωση ενέργειας",
+    "NO_DATA":"Δεν υπάρχουν δεδομένα",
+    "AGGREGATED_POWER_TODAY":"Κατανάλωση ενέργειας σήμερα",
+    "AGGREGATED_POWER_THIS_MONTH":"Τρέχων μήνας",
+    "AVERAGE_PER_WEEKDAY":"Μέση κατανάλωση ανα ημέρα της εβδομάδας"
 
 }
  

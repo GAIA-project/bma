@@ -229,5 +229,13 @@
     "SETTINGS": "Settings",
     "LOGOUT_TEXT": "You have already logged out from the BMS. If you want to logout from the global SSO account please click on the following button",
     "multiple_resources": "Choose resources",
-    "NO_AVAILABLE_ANOMALIES": "No anomalies detected"
+    "NO_AVAILABLE_ANOMALIES": "No anomalies detected",
+    "STRUCTURE":"Structure",
+    "NO_SUBAREAS_AVAILABLE":"There are no subareas",
+    "AVERAGE_AGGREGATED_POWER_PER_DAY":"Daily average power consumption",
+    "AVERAGE_AGGREGATED_POWER_PER_MONTH":"Monthly average power consumption",
+    "NO_DATA":"There are no data",
+    "AGGREGATED_POWER_TODAY":"Today's consumption",
+    "AGGREGATED_POWER_THIS_MONTH":"Current month consumption",
+    "AVERAGE_PER_WEEKDAY":"Average energy consumption per weekday"
 }

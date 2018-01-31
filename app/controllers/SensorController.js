@@ -1,6 +1,6 @@
 'use strict';
 var App = angular.module('app');
-App.controller('SensorController',function($scope,$q,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor,UoM,AccessToken){
+App.controller('SensorController',function($scope,$q,$rootScope,appConfig,$state,$stateParams,$timeout,site,$http,$location,$uibModal,$log,Area,Sensor,UoM,AccessToken,$routeParams){
         $scope.add_measurements_btn_view = false;
 
         $scope.sensor_measurements = {};
@@ -59,12 +59,27 @@ App.controller('SensorController',function($scope,$q,$rootScope,appConfig,$state
                 
                 $scope.second_period_to_time = new Date(measurements.data.latestTime);
                 $scope.first_period_from_time = new Date($scope.second_period_to_time-47*24*60*60*1000);
-                $scope.update();                
 
-                $scope.sensor.meatrics = measurements.data;                  
-                var the_data = measurements.data.day;                             
-               
-            }); 
+
+                $scope.sensor.meatrics = measurements.data;
+
+
+                if($location.search()){
+                    if($location.search().d){
+                        var d = $location.search().d;
+                        $scope.default_time = new Date(d);
+
+                        $scope.first_period_from_time = new Date($scope.default_time-2*24*60*60*1000);
+                        $scope.second_period_to_time = new Date($scope.default_time+parseInt(3*24*60*60*1000));
+                        $scope.selected_granularity = '5min';
+
+
+                    }
+                }
+                $scope.update();
+
+
+                });
          });
 
             

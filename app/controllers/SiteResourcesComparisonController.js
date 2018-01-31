@@ -128,8 +128,10 @@ App.controller('SiteResourcesComparisonController',function($scope,$q,$rootScope
 
     $scope.drawchart=  function(){
 
-        $scope.legends = [];
         var datas = [];
+        $scope.legends = [];
+        delete $scope.legends;
+        $scope.legends = [];
         $scope.tdates = [];
         $scope.time = [];
 
@@ -195,6 +197,10 @@ App.controller('SiteResourcesComparisonController',function($scope,$q,$rootScope
             series : datas
         };
         $scope.loading=0;
+
+        var chart = document.getElementById('diagram');
+        var myChart = echarts.init(chart);
+        myChart.setOption($scope.line3.options);
     }
 
 
