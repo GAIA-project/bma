@@ -90,17 +90,17 @@
                             <table class="table table-hover">
                                 <thead>
                                     <th></th>
-                                    <th><span data-translate="sum"></span></th>
+                                    <th><span ng-show="is_sum_visible" data-translate="sum"></span></th>
                                     <th><span data-translate="average"></span></th>
                                 </thead>
                                 <tr>
                                     <td><span data-translate="first_period"></span></td>
-                                    <td>{{obj.one.sum}}{{' '+measurementUnit}}</td>
+                                    <td ><span ng-show="is_sum_visible">{{obj.one.sum}}{{' '+measurementUnit}}</span></td>
                                     <td>{{obj.one.average}}{{' '+measurementUnit}}</td>
                                 </tr>
                                 <tr>
                                     <td><span data-translate="second_period"></span></td>
-                                    <td>{{obj.two.sum}}{{' '+measurementUnit}}</td>
+                                    <td><span  ng-show="is_sum_visible">{{obj.two.sum}}{{' '+measurementUnit}}</span></td>
                                     <td>{{obj.two.average}}{{' '+measurementUnit}}</td>
                                 </tr>
                             </table>

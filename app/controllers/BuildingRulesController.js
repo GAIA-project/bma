@@ -8,6 +8,7 @@ App.controller('BuildingRulesController',function($scope,$rootScope,appConfig,$s
         $scope.building = {};
         $scope.rules = [];
         $scope.error = 0;
+        $scope.av_rules = [];
 
         $scope.getInitAreas = function(){
             $scope.error = 0;
@@ -79,9 +80,23 @@ App.controller('BuildingRulesController',function($scope,$rootScope,appConfig,$s
         $scope.addRule = function(){
             $scope.error = 0;
             $scope.add_a_rule_form = 1;
+            $scope.av_rules.push({"name":"new Rule Name"});
             $scope.getSensors();
         }
+        $scope.addExtraRule = function(){
+            $scope.av_rules.push({"name":"new Rule Name"});
+        }
+        $scope.removeExtraRule = function () {
+            $scope.av_rules.splice(-1,1);
+        }
+        $scope.extra_rule_changed = function(){
 
+            if($scope.rule.big_operator=="AND" || $scope.rule.big_operator=="OR")
+                $scope.addExtraRule();
+            else if($scope.rule.big_operator=="NOTHING")
+                $scope.removeExtraRule();
+
+        }
 
       
         $scope.deleteRule = function(rule){
@@ -125,42 +140,83 @@ App.controller('BuildingRulesController',function($scope,$rootScope,appConfig,$s
             $scope.add_a_rule_form=0;
         }
         $scope.save_new_rule = function(){
+            console.log($scope.rule);
+            console.log($scope.av_rules);
+
 
             if($scope.rule.edit==1){
                 var method = "PUT";
                 var url = appConfig.main.apis.cnit+'rules/'+$scope.rule.rid.replace('#','');
-                _paq.push(['trackEvent', 'RuleEngine', 'Edit Rule', 'Rule id:'+$scope.rule.rid]); 
+                _paq.push(['trackEvent', 'RuleEngine', 'Edit Rule', 'Rule id:'+$scope.rule.rid]);
             }
             else{
                 var url = appConfig.main.apis.cnit+'area/'+$scope.selected_area.aid+'/rules';
                 var method = "POST";
-                _paq.push(['trackEvent', 'RuleEngine', 'Add Rule', 'Area:'+$stateParams.id]); 
+                _paq.push(['trackEvent', 'RuleEngine', 'Add Rule', 'Area:'+$stateParams.id]);
+            }
+            if($scope.av_rules.length>1){
+
+                var data = {
+                    "name":$scope.rule.name,
+                    "operator":$scope.rule.big_operator,
+                    "suggestion":$scope.rule.suggestion,
+                    "rules":[
+                        {
+                            "class":"SimpleThresholdRule",
+                            "fields":{
+                                "name":             $scope.rule.name,
+                                "description":      $scope.rule.description,
+                                "operator":         $scope.av_rules[0].operator,
+                                "suggestion":       $scope.rule.suggestion,
+                                "threshold":        $scope.av_rules[0].threshold,
+                                "uri":              $scope.av_rules[0].uri
+                            }
+
+                        },
+                        {
+                            "class":"SimpleThresholdRule",
+                            "fields":{
+                                "name":             $scope.rule.name,
+                                "description":      $scope.rule.description,
+                                "operator":         $scope.av_rules[1].operator,
+                                "suggestion":       $scope.rule.suggestion,
+                                "threshold":        $scope.av_rules[1].threshold,
+                                "uri":              $scope.av_rules[1].uri
+                            }
+
+                        }
+                    ]
+                }
+            }else{
+                var data = {
+                    "class":"SimpleThresholdRule",
+                    "fields":{
+                        "name":             $scope.rule.name,
+                        "description":      $scope.rule.description,
+                        "operator":         $scope.av_rules[0].operator,
+                        "suggestion":       $scope.rule.suggestion,
+                        "threshold":        $scope.av_rules[0].threshold,
+                        "uri":              $scope.av_rules[0].uri
+                    }
+
+                };
             }
 
-            var data = {
-                "class":"SimpleThresholdRule",
-                "fields":{
-                    "name":             $scope.rule.name,
-                    "description":      $scope.rule.description,
-                    "operator":         $scope.rule.operator,
-                    "suggestion":       $scope.rule.suggestion,
-                    "threshold":        $scope.rule.threshold,
-                    "uri":              $scope.rule.uri
-                }
-            };
+
 
             var req = {
                  method: method,
                  url: url,
                  headers: {
-                   'Content-Type': 'application/json'
+                   'Content-Type': 'application/json',
+                     "Authorization":"bearer "+AccessToken.get().access_token
                  },
                  data:data
             }
             $http(req).then(function(d){
                   $scope.rule = {};
                   $scope.getRules($scope.selected_area);
-                  
+
             }, function(e){
                 $scope.error = 1;
                 $scope.error_text = e.data.message;

@@ -237,5 +237,6 @@
     "NO_DATA":"There are no data",
     "AGGREGATED_POWER_TODAY":"Today's consumption",
     "AGGREGATED_POWER_THIS_MONTH":"Current month consumption",
-    "AVERAGE_PER_WEEKDAY":"Average energy consumption per weekday"
+    "AVERAGE_PER_WEEKDAY":"Average energy consumption per weekday",
+    "add_extra_rule":"Add extra rule"
 }

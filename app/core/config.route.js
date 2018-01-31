@@ -224,10 +224,10 @@ angular.module('app').run(function($rootScope, $templateCache,$translate,$log,ap
                 url: '/page/transportation/:id',
                 templateUrl: 'app/page/transportation.html'
             });
-            $stateProvider.state('page/area/rules', {
-                url: '/page/area/rules/:id',
-                templateUrl: 'app/page/area_rules.html'
-            });
+            // $stateProvider.state('page/area/rules', {
+            //     url: '/page/area/rules/:id',
+            //     templateUrl: 'app/page/area_rules.html'
+            // });
 
             $stateProvider.state('page/anomaly/view', {
                 url: '/page/anomaly/view/:id',
@@ -287,7 +287,7 @@ angular.module('app').run(function($rootScope, $templateCache,$translate,$log,ap
             });
             $stateProvider.state('page/building/rules', {
                 url: '/page/building/rules/:id',
-                templateUrl: 'app/page/building_rules.html'
+                templateUrl: 'app/page/site/rules.html'
             });
 
             $stateProvider.state('page/building/view', {

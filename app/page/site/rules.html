@@ -34,7 +34,7 @@
                 </div>                    
             </div>
         </div>
-        <div class="col-sm-12 col-md-4">
+        <div class="col-sm-12 col-md-8">
             <div class="panel panel-default panel-minimal">
                 <div class="panel-body" ng-show="selected_area">
                     <div class="text-left">{{selected_area.name}}</div>
@@ -64,7 +64,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-12 col-md-4">
+        <div class="col-sm-12 col-md-12">
             <div class="panel panel-default panel-minimal" ng-show="add_a_rule_form">
                 <div class="divider divider-md"></div>
                 <div class="panel-body">
@@ -84,11 +84,22 @@
                         <strong><span data-translate="suggestion"></span></strong>
                         <input class="form-control" type="text" name="" ng-model="rule.suggestion">
                     </div>
-                    <div class="row">
+                    <div class="col-sm-4 col-sm-offset-4">
+                        <div class="form-group">
+                            <strong><span data-translate="add_extra_rule"></span></strong>
+                            <md-select ng-model="rule.big_operator" ng-change="extra_rule_changed()">
+                                <md-option value="NOTHING">-</md-option>
+                                <md-option value="AND">AND</md-option>
+                                <md-option value="OR">OR</md-option>
+                            </md-select>
+                        </div>
+                    </div>
+
+                    <div class="row" ng-repeat="r in av_rules" style="padding: 10px;background: #f3f3f3; margin: 10px;">
                         <div class="col-sm-12 col-md-4">
                             <div class="form-group">
                             <strong><span data-translate="SENSOR"></span></strong>
-                            <md-select ng-model="rule.uri">
+                            <md-select ng-model="r.uri">
                                 <md-option ng-repeat="resource in selected_area_sensors" value="{{resource.uri}}">
                                     {{resource.name + " ("+resource.uom+")"}}
                                 </md-option>
@@ -98,7 +109,7 @@
                         <div class="col-sm-12 col-md-4">
                              <div class="form-group">
                                 <strong><span data-translate="operator"></span></strong>
-                                <md-select ng-model="rule.operator">
+                                <md-select ng-model="r.operator">
                                     <md-option value=">">></md-option>
                                     <md-option value="==">==</md-option>
                                     <md-option value="<"><</md-option>                                  
@@ -108,9 +119,10 @@
                         <div class="col-sm-12 col-md-4">
                             <div class="form-group">
                                 <strong><span data-translate="threshold"></span></strong>
-                                <input class="form-control" type="text" name="" ng-model="rule.threshold">
+                                <input class="form-control" type="text" name="" ng-model="r.threshold">
                             </div> 
                         </div>
+
                     </div>
                      
                      

@@ -2,13 +2,13 @@
 <html class="no-js">
     <head>
     <?php 
-        $version = 7520;
+        $version = 7521;
     ?>
 
         <meta charset="utf-8">
         <base href="/">
         <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-        <title><?php echo $version; ?>GAIA - Building Manager </title>
+        <title><?php //echo $version; ?>GAIA - Building Manager </title>
         <meta name="description" content="GAIA - Building Manager Application">
         <meta name="keywords" content="Gaia,project,eu,building,manager,application,energy">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">

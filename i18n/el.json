@@ -240,7 +240,8 @@
     "NO_DATA":"Δεν υπάρχουν δεδομένα",
     "AGGREGATED_POWER_TODAY":"Κατανάλωση ενέργειας σήμερα",
     "AGGREGATED_POWER_THIS_MONTH":"Τρέχων μήνας",
-    "AVERAGE_PER_WEEKDAY":"Μέση κατανάλωση ανα ημέρα της εβδομάδας"
+    "AVERAGE_PER_WEEKDAY":"Μέση κατανάλωση ανα ημέρα της εβδομάδας",
+    "add_extra_rule":"Προσθήκη Επιπλέον κανόνα"
 
 }
  

@@ -1367,7 +1367,7 @@
 
         $scope.av_granularities = $rootScope.granularity_values;
         $scope.av_granularities[0].gran_selected = true;
-
+        $scope.is_sum_visible=true;
 
     var todate = new Date().getTime();
         $scope.right_side_visible = 0;
@@ -1385,7 +1385,7 @@
 
         $scope.measurementUnit = "";
 
-        var vals    = [];      
+
         $scope.metrics = [];
         $scope.schools = [];
 
@@ -1448,6 +1448,11 @@
 
                 var sensor = result;
                 $scope.measurementUnit = sensor.uom;
+                if($scope.measurementUnit=='mWh' || $scope.measurementUnit=='Wh' || $scope.measurementUnit=='kWh')
+                    $scope.is_sum_visible=true;
+                else
+                    $scope.is_sum_visible = false;
+
                 $scope.obj = {};
                 $scope.obj.one = {};
                 $scope.obj.one.from = $scope.first_period_from_time.getTime();
@@ -1492,6 +1497,10 @@
                     $scope.tdates.push($rootScope.convertForTimeAxis(m,$scope.granularity));
                 });
 
+                if($scope.measurementUnit=='mWh' || $scope.measurementUnit=='Wh' || $scope.measurementUnit=='kWh')
+                    $scope.is_sum_visible=true;
+                else
+                    $scope.is_sum_visible = false;
 
                     $scope.line3.options={
                        title : {
