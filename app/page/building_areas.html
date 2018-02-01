@@ -117,7 +117,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr ng-repeat="sensor in selected_area.resources" ng-show="selected_area.resources.length">
+                                        <tr ng-repeat="sensor in selected_area.site_resources" ng-show="selected_area.site_resources.length">
                                             <td>
                                                 <span ng-hide="sensor.editing"><i ng-show="hasPermission('modifyPermission')" class="fa fa-pencil-square" aria-hidden="true" ng-click="editSensorName(sensor)"></i> {{sensor.name}}</span>
                                                 <div class="input-group" ng-show="sensor.editing" >
@@ -131,7 +131,7 @@
                                             <td>{{sensor.uri}}</td>
                                             <td>{{sensor.uom}}</td>
                                         </tr>
-                                        <tr ng-show="!selected_area.resources.length">
+                                        <tr ng-show="!selected_area.site_resources.length">
                                             <td style="text-align: center;" colspan="4"><span data-translate="Therearenoassignedsensors"></span></td>
                                         </tr>
                                     </tbody>

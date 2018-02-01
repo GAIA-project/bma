@@ -166,8 +166,31 @@ App.controller('SiteAreasController',function($scope,$rootScope,appConfig,$state
             
             var resources = Area.getResources(area.id);
             resources.then(function(info){
+                area.site_resources = [];
+                area.rest_resources = [];
 
-                $scope.selected_area.resources = info.data.resources;
+                area.resources = info.data.resources;
+                area.resources.forEach(function(sensor,index){
+
+                    if(sensor.uri.startsWith('site-')){
+                        console.log(sensor.id+" :Starts With site-");
+                        area.site_resources.push(sensor);
+                        $scope.selected_area.resources.push(sensor);
+                        var m = Sensor.getMeasurementsByResourceId(sensor.resourceId);
+                        m.then(function(datas){
+
+                            sensor.metrics = datas.data;
+                            sensor.metrics.latest = parseFloat(sensor.metrics.latest).toFixed(2);
+
+                        });
+                    }else{
+                        area.rest_resources.push(sensor);
+                    }
+                });
+
+
+
+
                 $scope.selected_area.subareas = info.data.subsites;
                 $scope.selected_area.name = area.name;
 
