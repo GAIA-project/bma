@@ -7,16 +7,17 @@
 
 
         <li><a md-button aria-label="meanu" href="#/page/buildings"><i class="zmdi zmdi-home"></i><span data-translate="BUILDINGS"></span> </a></li>
-        <li ng-show="main.selected_building>0"><a md-button aria-label="meanu" href="#/page/building/view/{{main.selected_building}}"><span data-translate="VIEW_BUILDING"></span> </a></li>
-        
 
-        <li ng-show="main.selected_building>0 && hasPermission('modifyPermission')">
-          <a md-button aria-label="meanu" href="#/page/building/edit/{{main.selected_building}}">
-            <span data-translate="EDIT_BUILDING"></span> 
-          </a>
+
+        <li ng-show="main.selected_building>0">
+            <a md-button aria-label="meanu" href="#"><span data-translate="BUILDING"></span></a>
+            <ul>
+                <li><a md-button aria-label="meanu" href="#/page/building/view/{{main.selected_building}}"><span data-translate="VIEW_BUILDING"></span> </a></li>
+                <li ng-show="hasPermission('modifyPermission')"><a md-button aria-label="meanu" href="#/page/building/edit/{{main.selected_building}}"><span data-translate="EDIT_BUILDING"></span></a></li>
+                <li><a md-button aria-label="meanu" href="#/page/building/areas/{{main.selected_building}}"><span data-translate="AREAS"></span> </a></li>
+
+            </ul>
         </li>
-        <li ng-show="main.selected_building>0"><a md-button aria-label="meanu" href="#/page/building/areas/{{main.selected_building}}"><span data-translate="AREAS"></span> </a></li>
-
 
         <li ng-show="main.selected_building>0"><a md-button aria-label="meanu" href="#/page/building/topview/{{main.selected_building}}"><span data-translate="TOPVIEW"></span> </a></li>
         <li ng-show="main.selected_building>0"><a md-button aria-label="meanu" href="#/page/building/structure/{{main.selected_building}}"><span data-translate="STRUCTURE"></span> </a></li>
