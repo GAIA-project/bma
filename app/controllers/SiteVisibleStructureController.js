@@ -11,6 +11,11 @@ App.controller('SiteStructureController',function($scope,$rootScope,appConfig,$s
     $scope.building.rest_resources = [];
     $scope.building.resources = [];
     $scope.building.site_resources = [];
+    $scope.av_granularities = $rootScope.granularity_values;
+    $scope.av_granularities[0].gran_selected = true;
+
+    $scope.bar_week_day_visible = true;
+    $scope.energy_consumption_per_sq_meter_visible = true;
 
     $scope.new_virtual_sensor = {};
 
@@ -90,6 +95,298 @@ App.controller('SiteStructureController',function($scope,$rootScope,appConfig,$s
     $scope.$on('$destroy', function() {
         langChanged();
     });
+
+    $scope.calculate = function(){
+        console.log("Calculation....");
+        console.log("From..:"+$scope.from_time);
+        console.log("To..:"+$scope.to_time);
+        console.log("Granularity..:"+$scope.granularity);
+        var site_id = $stateParams.id;
+        var from = new Date($scope.from_time).getTime();
+        var to   = new Date($scope.to_time).getTime();
+        var granularity = $scope.granularity;
+
+        $scope.analytics = {};
+
+        $scope.analytics.energy_consumption_sq_meter_loading = true;
+        var x = site.getEnergyConsumptionPerSQMeter(site_id,from,to,granularity);
+        x.then(function(data) {
+            $scope.analytics.energy_consumption_sq_meter_loading = false;
+            $scope.analytics.energy_consumption_sq_meter = parseFloat(data.data.average).toFixed(2);
+            $scope.analytics.energy_consumption_sq_meter_uom = data.data.unitOfMeasurement;
+            if(data.data.unitOfMeasurement=='mWh/m^2'){
+                $scope.analytics.energy_consumption_sq_meter = parseFloat(data.data.average).toFixed(2)/1000000;
+                $scope.analytics.energy_consumption_sq_meter_uom = 'kWh/m^2';
+            }
+        },function(error){
+            $scope.analytics.energy_consumption_sq_meter_loading = false;
+            $scope.analytics.energy_consumption_sq_meter = error.data.message;
+        });
+
+
+        $scope.analytics.energy_consumption_cubic_meter_loading = true;
+        var y = site.getEnergyConsumptionPerCubicMeter(site_id,from,to,granularity);
+        y.then(function(data) {
+            $scope.analytics.energy_consumption_cubic_meter_loading = false;
+            $scope.analytics.energy_consumption_cubic_meter = parseFloat(data.data.average).toFixed(2);
+            $scope.analytics.energy_consumption_cubic_meter_uom = data.data.unitOfMeasurement;
+            if(data.data.unitOfMeasurement=='mWh/m^3'){
+                $scope.analytics.energy_consumption_cubic_meter = parseFloat(data.data.average).toFixed(2)/1000000;
+                $scope.analytics.energy_consumption_cubic_meter_uom = 'kWh/m^3';
+            }
+        },function(error){
+            $scope.analytics.energy_consumption_cubic_meter_loading = false;
+            $scope.analytics.energy_consumption_cubic_meter = error.data.message;
+        });
+
+
+
+        $scope.analytics.load_peak_loading = true;
+        var t = site.getStatistics(site_id,from,to,granularity,'Calculated Power Consumption');
+        t.then(function(data) {
+
+            $scope.analytics.load_peak_loading = false;
+            $scope.analytics.load_peak = parseFloat(data.data.maximum).toFixed(2);
+            $scope.analytics.load_peak_uom = data.data.unitOfMeasurement;
+            if(data.data.unitOfMeasurement=='mWh'){
+                $scope.analytics.load_peak = parseFloat(data.data.maximum).toFixed(2)/1000000;
+                $scope.analytics.load_peak_uom = 'kWh';
+
+            }
+
+            $scope.analytics.co2_emmitions = parseFloat($scope.analytics.load_peak*0.514).toFixed(2);
+            $scope.analytics.co2_emmitions_uom = 'Kg CO2/m^2';
+            $scope.co2_emmitions_text = "Assuming that 1kWh is 0.514 Kg of CO2";
+
+            data.data.measurements.forEach(function(meas,ind){
+                if(meas.reading==data.data.maximum){
+                    $scope.analytics.load_peak_when = new Date(meas.timestamp);
+                }
+
+            })
+
+        },function(error){
+            $scope.analytics.load_peak_loading = false;
+            $scope.analytics.load_peak = error.data.message;
+        });
+
+
+
+
+
+        $scope.analytics.minimum_indoor_temperature_loading = true;
+        var t = site.getStatistics(site_id,from,to,granularity,'Temperature');
+        t.then(function(data) {
+
+            $scope.analytics.minimum_indoor_temperature_loading = false;
+            $scope.analytics.minimum_indoor_temperature = parseFloat(data.data.minimum).toFixed(2);
+            $scope.analytics.minimum_indoor_temperature_uom = data.data.unitOfMeasurement;
+
+            $scope.analytics.maximum_indoor_temperature_loading = false;
+            $scope.analytics.maximum_indoor_temperature = parseFloat(data.data.maximum).toFixed(2);
+            $scope.analytics.maximum_indoor_temperature_uom = data.data.unitOfMeasurement;
+
+        },function(error){
+            $scope.analytics.minimum_indoor_temperature_loading = false;
+            $scope.analytics.minimum_indoor_temperature = error.data.message;
+
+            $scope.analytics.maximum_indoor_temperature_loading = false;
+            $scope.analytics.maximum_indoor_temperature = error.data.message;
+        });
+
+
+
+
+        $scope.analytics.visual_comfort_loading = true;
+        var t = site.getStatistics(site_id,from,to,granularity,'Light');
+        t.then(function(data) {
+            console.log("STATISTICS Light");
+            console.log(data);
+            $scope.analytics.visual_comfort_loading = false;
+            $scope.analytics.visual_comfort = parseFloat(data.data.average).toFixed(2);
+            $scope.analytics.visual_comfort_uom = data.data.unitOfMeasurement;
+
+
+        },function(error){
+            $scope.analytics.visual_comfort_loading = false;
+            $scope.analytics.visual_comfort = error.data.message;
+        });
+
+
+
+
+        $scope.analytics.indoor_humidity_loading = true;
+        var t = site.getStatistics(site_id,from,to,granularity,'Relative Humidity');
+        t.then(function(data) {
+            console.log("STATISTICS Humidity");
+            console.log(data);
+            $scope.analytics.indoor_humidity_loading = false;
+            $scope.analytics.indoor_humidity = parseFloat(data.data.average).toFixed(2);
+            $scope.analytics.indoor_humidity_uom = data.data.unitOfMeasurement;
+
+
+        },function(error){
+            $scope.analytics.indoor_humidity_loading = false;
+            $scope.analytics.indoor_humidity = error.data.message;
+        });
+
+
+
+
+
+        $scope.analytics.aural_comfort_loading = true;
+        var t = site.getStatistics(site_id,from,to,granularity,'Noise');
+        t.then(function(data) {
+            console.log("STATISTICS Humidity");
+            console.log(data);
+            $scope.analytics.aural_comfort_loading = false;
+            $scope.analytics.aural_comfort = parseFloat(data.data.average).toFixed(2);
+            $scope.analytics.aural_comfort_uom = data.data.unitOfMeasurement;
+
+
+        },function(error){
+            $scope.analytics.aural_comfort_loading = false;
+            $scope.analytics.aural_comfort = error.data.message;
+        });
+
+
+
+
+    }
+
+    $scope.getEnergyConsumptionPerSQMeter = function(site_id,from,to,granularity){
+
+        $scope.energy_consumption_per_sq_meter = {};
+        $scope.energy_consumption_per_sq_meter_chart = {};
+        $scope.energy_consumption_per_sq_meter_loading_visible = 1;
+        $scope.energy_consumption_per_sq_meter.unitOfMeasurement = 'kWh/m^2';
+
+       var x = site.getEnergyConsumptionPerSQMeter(site_id,from,to,granularity);
+       x.then(function(data){
+           $scope.energy_consumption_per_sq_meter_loading_visible = 0;
+           console.log("ENERGY CONSUMPTON SQQQQQ");
+           console.log(data);
+           $scope.energy_consumption_per_sq_meter = data.data;
+           $scope.energy_consumption_per_sq_meter.average =$scope.energy_consumption_per_sq_meter.average/1000000;
+           $scope.energy_consumption_per_sq_meter.maximum =$scope.energy_consumption_per_sq_meter.maximum/1000000;
+           $scope.energy_consumption_per_sq_meter.unitOfMeasurement = 'kWh/m^2';
+
+           var months = [];
+           var data = [];
+           $scope.energy_consumption_per_sq_meter.measurements.forEach(function(meas,inde){
+               months.push(new Date(meas.timestamp));
+               data.push(parseFloat(meas.reading/1000000).toFixed(2));
+           });
+
+           $scope.energy_consumption_per_sq_meter_chart.options = {
+               tooltip : {
+                   trigger: 'axis',
+                   axisPointer : {
+                       type : 'shadow'
+                   }
+               },
+               calculable : true,
+               legend: {
+                   data:['Direct']
+               },
+               xAxis : [{
+                   type : 'category',
+                   data : months
+               }],
+               yAxis : [{type : 'value'}],
+               series : [
+                   {
+                       name:$scope.energy_consumption_per_sq_meter.unitOfMeasurement,
+                       type:'bar',
+                       data:data,
+                       itemStyle: {
+                           normal: {
+                               color: '#c2862d',
+                               shadowBlur: 70,
+                               shadowColor: 'rgba(0, 0, 0, 0.5)'
+                           }
+                       }
+                   }
+               ]
+           };
+
+
+
+       },function(error){
+           $scope.energy_consumption_per_sq_meter_loading_visible = 0;
+           $scope.energy_consumption_per_sq_meter_error_visible = 1;
+           $scope.energy_consumption_per_sq_meter_error = error.data.message;
+           $scope.energy_consumption_per_sq_meter_visible = 0;
+       })
+    }
+    $scope.getEnergyConsumptionPerCubicMeter = function(site_id,from,to,granularity){
+        $scope.energy_consumption_for_cubic = {};
+        $scope.energy_consumption_for_cubic_loading_visible = 1;
+        var x = site.getEnergyConsumptionPerCubicMeter(site_id,from,to,granularity);
+        x.then(function(data){
+            $scope.energy_consumption_cubic_meter = data.data;
+            $scope.energy_consumption_for_cubic_loading_visible = 0;
+            $scope.energy_consumption_cubic_meter.unitOfMeasurement = 'kWh/m^3';
+            $scope.energy_consumption_cubic_meter.average =$scope.energy_consumption_cubic_meter.average/1000000;
+            $scope.energy_consumption_cubic_meter.maximum =$scope.energy_consumption_cubic_meter.maximum/1000000;
+
+            var months = [];
+            var data = [];
+            $scope.energy_consumption_cubic_meter.measurements.forEach(function(meas,inde){
+                months.push(new Date(meas.timestamp));
+                data.push(parseFloat(meas.reading/1000000).toFixed(2));
+            });
+
+            $scope.energy_consumption_for_cubic.options = {
+                tooltip : {
+                    trigger: 'axis',
+                    axisPointer : {
+                        type : 'shadow'
+                    }
+                },
+                calculable : true,
+                legend: {
+                    data:['Direct']
+                },
+                xAxis : [{
+                    type : 'category',
+                    data : months
+                }],
+                yAxis : [{type : 'value'}],
+                series : [
+                    {
+                        name:$scope.energy_consumption_cubic_meter.unitOfMeasurement,
+                        type:'bar',
+                        data:data,
+                        itemStyle: {
+                            normal: {
+                                color: '#c2862d',
+                                shadowBlur: 200,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    }
+                ]
+            };
+
+
+
+        },function(error){
+            console.log("ENERGY CONSUMPTON Cubic");
+            console.log(error);
+            $scope.energy_consumption_for_cubic_error_visible = 1;
+            $scope.energy_consumption_for_cubic_error = error.data.message;
+            $scope.energy_consumption_for_cubic_loading_visible = 0;
+        })
+    }
+
+
+    var now = new Date().getTime();
+    var months_before = new Date(now-12*30*24*60*60*1000).getTime();
+    $scope.getEnergyConsumptionPerSQMeter($stateParams.id,months_before,now,"MONTH");
+    $scope.getEnergyConsumptionPerCubicMeter($stateParams.id,months_before,now,"MONTH");
+
+
     $scope.getDaysStats = function(){
         $scope.building.aggregated_power.mondays = 0;
         $scope.building.aggregated_power.tuesdays = 0;
@@ -186,7 +483,7 @@ App.controller('SiteStructureController',function($scope,$rootScope,appConfig,$s
 
                                     $scope.building.aggregated_power.sundays = y.data;
 
-
+                                    $scope.bar_week_day_visible = false;
                                     $scope.bar_week_day.options = {
                                         tooltip : {
                                             trigger: 'axis',
@@ -207,6 +504,13 @@ App.controller('SiteStructureController',function($scope,$rootScope,appConfig,$s
                                             {
                                                 name:'kWh',
                                                 type:'bar',
+                                                itemStyle: {
+                                                    normal: {
+                                                        color: '#c27e3f',
+                                                        shadowBlur: 200,
+                                                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                                    }
+                                                },
                                                 data:[parseFloat($scope.building.aggregated_power.mondays.average).toFixed(2),parseFloat($scope.building.aggregated_power.tuesdays.average).toFixed(2),parseFloat($scope.building.aggregated_power.wednesday.average).toFixed(2),parseFloat($scope.building.aggregated_power.thursdays.average).toFixed(2),parseFloat($scope.building.aggregated_power.fridays.average).toFixed(2),parseFloat($scope.building.aggregated_power.saturdays.average).toFixed(2),parseFloat($scope.building.aggregated_power.sundays.average).toFixed(2)]
                                             }
                                         ]

@@ -8,6 +8,49 @@ angular.module('app').factory('site', function($http,appConfig,AccessToken){
                     headers: {"Accept": "application/json","Authorization":AccessToken.get().access_token}
                 })
             },
+
+            getEnergyConsumptionPerSQMeter:function(site_id,from,to,granularity){
+                return $http({
+                    url:'https://analytics.gaia-project.eu/gaia-analytics/statistics/sites/'+site_id+'/weightBySquareMeter',
+                    method:'GET',
+                    params:{
+                        'id':site_id,
+                        'from':from,
+                        'to':to,
+                        'granularity':granularity,
+                        'property':'Calculated Power Consumption'
+                    },
+                    headers: {"Accept": "application/json","Authorization":AccessToken.get().access_token}
+                })
+            },
+            getEnergyConsumptionPerCubicMeter:function(site_id,from,to,granularity){
+                return $http({
+                    url:'https://analytics.gaia-project.eu/gaia-analytics/statistics/sites/'+site_id+'/weightByCubicMeter',
+                    method:'GET',
+                    params:{
+                        'id':site_id,
+                        'from':from,
+                        'to':to,
+                        'granularity':granularity,
+                        'property':'Calculated Power Consumption'
+                    },
+                    headers: {"Accept": "application/json","Authorization":AccessToken.get().access_token}
+                })
+            },
+            getStatistics:function(site_id,from,to,granularity,property){
+                return $http({
+                    url:'https://analytics.gaia-project.eu/gaia-analytics/statistics/sites/'+site_id,
+                    method:'GET',
+                    params:{
+                        'id':site_id,
+                        'from':from,
+                        'to':to,
+                        'granularity':granularity,
+                        'property':property
+                    },
+                    headers: {"Accept": "application/json","Authorization":AccessToken.get().access_token}
+                })
+            },
             getAggregatedPowerConsumption:function(site_id,from,to,granularity){
                 return $http({
                     url:'https://analytics.gaia-project.eu/gaia-analytics/statistics/sites/'+site_id+'/aggregatedPowerConsumption',

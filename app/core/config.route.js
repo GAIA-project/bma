@@ -259,7 +259,10 @@ angular.module('app').run(function($rootScope, $templateCache,$translate,$log,ap
                 templateUrl: 'app/page/comparison/multiple_resources.html'
             });
 
-             
+            $stateProvider.state('page/help', {
+                url: '/page/help',
+                templateUrl: 'app/page/help.html'
+            });
 
             $stateProvider.state('page/building/notifications', {
                 url: '/page/building/notifications/:id',

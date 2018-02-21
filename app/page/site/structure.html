@@ -64,18 +64,175 @@
         </div>
     </div>
     <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default panel-minimal">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group">
+                                <label class="col-sm-12 control-label"><span data-translate="FROM_TIME"></span></label>
+                                <div class="col-sm-12" style="background: white">
+                                    <md-datepicker ng-model="from_time" md-placeholder=""></md-datepicker>
+                                </div>
+                            </div>
 
-        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="col-sm-12 control-label"><span data-translate="TO_TIME"></span></label>
+                                <div class="col-sm-12" style="background: white">
+                                    <md-datepicker ng-model="to_time" md-placeholder=""></md-datepicker>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="col-sm-12 control-label"><span data-translate="GRANULARITY"></span></label>
+                                <div class="col-sm-12">
+                                    <md-select ng-model="granularity">
+                                        <md-option ng-repeat="gran in av_granularities" value="{{gran.text}}" ng-selected="{{gran.gran_selected}}">
+                                            <span data-translate="{{gran.name}}"></span>
+                                        </md-option>
+                                    </md-select>
+                                </div>
+                            </div>
+                            <div class="row text-center">
+                                <md-button class="md-accent md-raised" style="background: #009688" ng-click="calculate()"><span data-translate="UPDATE"></span></md-button>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-10">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-4">
+                                    <h4><span data-translate="EnergyRelated"></span> </h4>
+                                    <table class="table">
+                                        <tbody>
+                                        <tr>
+                                            <td class="title_of_meas"><span data-translate="energy_consumption_sq_meter"></span></td>
+                                            <td>{{analytics.energy_consumption_sq_meter|number:5}} {{analytics.energy_consumption_sq_meter_uom}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="title_of_meas"><span data-translate="energy_consumption_cubic_meter"></span></td>
+                                            <td>{{analytics.energy_consumption_cubic_meter|number:5}} {{analytics.energy_consumption_cubic_meter_uom}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="title_of_meas"><span data-translate="energy_consumption_peak_load"></span></td>
+                                            <td>{{analytics.load_peak|number:2}} {{analytics.load_peak_uom}}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-sm-12 col-md-4">
+                                    <h4><span data-translate="HumanComfort"></span></h4>
+                                    <table class="table">
+                                        <tbody>
+                                        <tr>
+                                            <td class="title_of_meas"><span data-translate="minimum_indoor_temperature"></span></td>
+                                            <td>{{analytics.minimum_indoor_temperature}} {{analytics.minimum_indoor_temperature_uom}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="title_of_meas"><span data-translate="maximum_indoor_temperature"></span></td>
+                                            <td>{{analytics.maximum_indoor_temperature}} {{analytics.maximum_indoor_temperature_uom}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="title_of_meas"><span data-translate="visual_comfort"></span></td>
+                                            <td>{{analytics.visual_comfort}} {{analytics.visual_comfort_uom}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="title_of_meas"><span data-translate="indoor_humidity"></span></td>
+                                            <td>{{analytics.indoor_humidity}} {{analytics.indoor_humidity_uom}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="title_of_meas"><span data-translate="aural_comfort"></span></td>
+                                            <td>{{analytics.aural_comfort}} {{analytics.aural_comfort_uom}}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
             <div class="panel panel-default panel-minimal">
                 <div class="divider divider-md"></div>
                 <div class="panel-heading"><span data-translate="AVERAGE_PER_WEEKDAY"></span></div>
                 <div class="panel-body">
+                    <div ng-show="bar_week_day_visible" style="text-align: center;width:100%" class="chart_loading">
+                        <h4>Loading</h4>
+                        <md-progress-circular md-mode="indeterminate" style="margin:0 auto"></md-progress-circular>
+                    </div>
                     <div data-echarts data-options="bar_week_day.options" style="height: 350px;"></div>
                 </div>
             </div>
-
         </div>
+
+        <div class="col-md-6">
+            <div class="panel panel-default panel-minimal">
+                <div class="divider divider-md"></div>
+                <div class="panel-heading"><span data-translate="CO2_EMMITIONS_PER_M2"></span></div>
+                <div class="panel-body">
+                    <div ng-show="co2_emmitions_loading_visible" style="text-align: center;width:100%" class="chart_loading">
+                        <h4>Loading</h4>
+                        <md-progress-circular md-mode="indeterminate" style="margin:0 auto"></md-progress-circular>
+                    </div>
+                    <div class="alert alert-danger" ng-show="co2_emmitions_error_visible">{{co2_emmitions_error}}</div>
+                    <div class="row" ng-hide="co2_emmitions_error_visible">
+                        <div class="col-sm-6"><span data-translate="average"></span> <br/>{{co2_emmitions.average|number:2}} {{co2_emmitions.unitOfMeasurement}}</div>
+                        <div class="col-sm-6"><span data-translate="maximum"></span> <br/>{{co2_emmitions.maximum|number:2}} {{co2_emmitions.unitOfMeasurement}}</div>
+                    </div>
+                    <div class="row">
+                        <div data-echarts ng-hide="co2_emmitions_error_visible" data-options="co2_emmitions.options" style="height: 350px;"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="panel panel-default panel-minimal">
+                <div class="divider divider-md"></div>
+                <div class="panel-heading"><span data-translate="ENERGY_CONSUMPTION_PER_SQ_METER"></span></div>
+                <div class="panel-body">
+                    <div ng-show="energy_consumption_per_sq_meter_loading_visible" style="text-align: center;width:100%" class="chart_loading">
+                        <h4>Loading</h4>
+                        <md-progress-circular md-mode="indeterminate" style="margin:0 auto"></md-progress-circular>
+                    </div>
+                    <div class="alert alert-danger" ng-show="energy_consumption_per_sq_meter_error_visible">{{energy_consumption_per_sq_meter_error}}</div>
+                    <div class="row" ng-hide="energy_consumption_per_sq_meter_error_visible">
+                        <div class="col-sm-6"><span data-translate="average"></span> <br/>{{energy_consumption_per_sq_meter.average|number:2}} {{energy_consumption_per_sq_meter.unitOfMeasurement}}</div>
+                        <div class="col-sm-6"><span data-translate="maximum"></span> <br/>{{energy_consumption_per_sq_meter.maximum|number:2}} {{energy_consumption_per_sq_meter.unitOfMeasurement}}</div>
+                    </div>
+                    <div class="row">
+                    <div data-echarts ng-hide="energy_consumption_per_sq_meter_error_visible" data-options="energy_consumption_per_sq_meter_chart.options" style="height: 350px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="panel panel-default panel-minimal">
+                <div class="divider divider-md"></div>
+                <div class="panel-heading"><span data-translate="ENERGY_CONSUMPTION_PER_CUBIC_METER"></span></div>
+                <div class="panel-body">
+                    <div ng-show="energy_consumption_for_cubic_loading_visible" style="text-align: center;width:100%" class="chart_loading">
+                        <h4>Loading</h4>
+                        <md-progress-circular md-mode="indeterminate" style="margin:0 auto"></md-progress-circular>
+                    </div>
+                    <div class="alert alert-danger" ng-show="energy_consumption_for_cubic_error_visible">{{energy_consumption_for_cubic_error}}</div>
+                    <div class="row" ng-hide="energy_consumption_for_cubic_error_visible">
+                        <div class="col-sm-6"><span data-translate="average"></span> <br/>{{energy_consumption_cubic_meter.average|number:2}} {{energy_consumption_cubic_meter.unitOfMeasurement}}</div>
+                        <div class="col-sm-6"><span data-translate="maximum"></span> <br/>{{energy_consumption_cubic_meter.maximum|number:2}} {{energy_consumption_cubic_meter.unitOfMeasurement}}</div>
+                    </div>
+                    <div class="row">
+                        <div data-echarts ng-hide="energy_consumption_for_cubic_error_visible" data-options="energy_consumption_for_cubic.options" style="height: 350px;"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+
+
     </div>
     <div class="row" style="margin-top: 10px">
         <div class="col-sm-12 col-md-4">

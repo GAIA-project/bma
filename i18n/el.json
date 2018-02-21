@@ -241,7 +241,32 @@
     "AGGREGATED_POWER_TODAY":"Κατανάλωση ενέργειας σήμερα",
     "AGGREGATED_POWER_THIS_MONTH":"Τρέχων μήνας",
     "AVERAGE_PER_WEEKDAY":"Μέση κατανάλωση ανα ημέρα της εβδομάδας",
-    "add_extra_rule":"Προσθήκη Επιπλέον κανόνα"
+    "add_extra_rule":"Προσθήκη Επιπλέον κανόνα",
+    "maximum":"Μέγιστη τιμή",
+    "energy_consumption_sq_meter":"Κατανάλωση ενέργειας ανα τετραγωνικό μέτρο",
+    "energy_consumption_cubic_meter":"Κατανάλωση ενέργειας ανα κυβικό μέτρο",
+    "energy_consumption_peak_load":"Υψηλότερη κατανάλωση",
+    "minimum_indoor_temperature":"Ελάχιστη εσωτερική θερμοκρασία",
+    "maximum_indoor_temperature":"Μέγιστη εσωτερική θερμοκρασία",
+    "visual_comfort":"Μέση Φωτεινότητα",
+    "indoor_humidity":"Εσωτερική υγρασία",
+    "aural_comfort":"Επίπεδα θορύβου",
+    "co_emmition_per_m2":"Εκπομπές Διοξιδίου του άνθρακα",
+    "ENERGY_CONSUMPTION_PER_CUBIC_METER":"Κατανάλωση ενέργειας ανα τετραγωνικό μέτρο",
+    "ENERGY_CONSUMPTION_PER_SQ_METER":"Κατανάλωση ενέργειας ανα κυβικό μέτρο",
+  "Find_manuals_help":"Μπορείτε να δείτε τα εγχειρίδια χρήσης",
+  "You_can_communicate_with_us":"Επικοινωνήστε με εμάς για:",
+  "technical_support":"Τεχνική βοήθεια",
+  "report_a_bug":"Αποστολή κάποιας δυσλειτουργίας",
+  "suggest_a_feature":"Προτείνετε κάποιο επιπλέον χαρακτηριστικό",
+  "suggest_improvement":"Προτείνετε κάποια βελτίωση",
+  "other_questions":"Άλλες ερωτήσεις",
+  "English_manuals":"Εγχειρίδιο χρήσης Αγγλικά",
+  "Greek_manuals":"Εγχειρίδιο χρήσης Ελληνικά",
+  "Italian_manuals":"Εγχειρίδιο χρήσης Ιταλικά",
+  "contact_us_sidebar":"Επικοινωνία/βοήθεια"
+
+
 
 }
  
