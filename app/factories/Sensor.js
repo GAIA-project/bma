@@ -11,6 +11,13 @@ angular.module('app').factory('Sensor', function($http,appConfig,AccessToken){
                     headers: {"Accept": "application/json","Authorization":"bearer "+AccessToken.get().access_token},
                 })
             },
+            delete:function(sensor_id){
+                return $http({
+                    url:appConfig.main.apis.main+'resource/'+sensor_id,
+                    method:'DELETE',
+                    headers: {"Accept": "application/json","Authorization":"bearer "+AccessToken.get().access_token},
+                })
+            },
             getAvailableUoM:function(resource_uom){
                 return $http({
                     url:appConfig.main.apis.main+'uom/source/'+resource_uom,
@@ -36,12 +43,6 @@ angular.module('app').factory('Sensor', function($http,appConfig,AccessToken){
             	 return $http({
                     url:appConfig.main.apis.over_db+'utility/sensors/getbyid/'+sensor_id,
                     method:'GET',
-                })
-            },
-            delete:function(sensor_id){
-                return $http({
-                    url:appConfig.main.apis.over_db+'utility/sensors/'+sensor_id,
-                    method:'DELETE',
                 })
             },
             getListOfRules:function(sensor_id){

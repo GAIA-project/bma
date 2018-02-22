@@ -75,8 +75,8 @@
          <div style="display:none">
             <oauth
                 site="https://sso.sparkworks.net/aa"
-                client-id="gaia_bma"
-                redirect-uri="http://devbms.gaia-project.eu"
+                client-id="testone"
+                redirect-uri="http://bms.gaia-project.eu"
                 profile-uri="#/page/buildings"
                 scope="read"
                 storage="localstorage">
@@ -221,7 +221,6 @@
         <script src="app/core/i18n.js?v=<?php echo $version; ?>"></script>
         <script src="app/table/table.controller.js?v=<?php echo $version; ?>"></script>
         <script src="vendors/angular-piwik.js?v=<?php echo $version; ?>"></script>
-
         
         <!-- endinject -->
         <!-- build:js scripts/app.js -->

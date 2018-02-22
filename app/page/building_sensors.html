@@ -47,32 +47,67 @@
             <div class="row area_box" ng-show="view_general_resources">
 
                 <h2 class="area_title"><span data-translate="GENERAL_RESOURCES"></span></h2>
-                    <div class="col-sm-6 col-md-3 col-lg-2" style="margin-bottom: 5px" ng-repeat="sensor in general_resources">
-                        <div class="sensorbox" style="min-height: 170px">
-                        <div class="panel-heading">
-                                <span><i ng-show="hasPermission('modifyPermission')" class="fa fa-pencil-square" aria-hidden="true" ng-click="editSensorName(sensor)"></i> {{sensor.name}}</span>
+                <div class="col-sm-10 col-sm-offset-1">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="sensor in general_resources">
+                            <td><span><i ng-show="hasPermission('modifyPermission')" class="fa fa-pencil-square" aria-hidden="true" ng-click="editSensorName(sensor)"></i> {{sensor.name}}</span>
                                 <div class="input-group" ng-show="sensor.editing" >
                                     <input type="text" ng-model="sensor.name" class="form-control">
                                     <span class="input-group-btn">
                                         <button class="btn btn-secondary" type="button" ng-click="saveSensor(sensor)">Save</button>
-                                    </span>                                                    
+                                    </span>
                                 </div>
-                             - {{sensor.property}}</div>
-                            <div class="panel-body" ng-click="goToSensor(sensor.resourceId)">
-                                <h5 class="latest_value"><span data-translate="Latestvalue"></span></h5>
-                                <h4>{{sensor.metrics.latest+" "+sensor.uom}}</h4>
-                                <h5 class="latest_value" style="font-size:12px!important">{{sensor.metrics.latestTime | date:'MMM d, y h:mm:ss'}}</h5>
-                            </div>
-                        </div>
-                    </div>
+                            </td>
+                            <td>
+                                {{sensor.property}}
+                            </td>
+                            <td>{{sensor.metrics.latest+" "+sensor.uom}}</td>
+                            <td>{{sensor.metrics.latestTime | date:'MMM d, y h:mm:ss'}}</td>
+                            <td><span class="btn btn-primary" data-translate="view_sensor" ng-click="goToSensor(sensor.resourceId)"></span> </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                </div>
             </div>
+                    <!--<div class="col-sm-6 col-md-3 col-lg-2" style="margin-bottom: 5px" ng-repeat="sensor in general_resources">-->
+                        <!--<div class="sensorbox" style="min-height: 170px">-->
+                        <!--<div class="panel-heading">-->
+                                <!---->
+                            <!---->
+                            <!--<div class="panel-body" ng-click="goToSensor(sensor.resourceId)">-->
+                                <!--<h5 class="latest_value"><span data-translate="Latestvalue"></span></h5>-->
+                                <!--<h4></h4>-->
+                                <!--<h5 class="latest_value" style="font-size:12px!important"></h5>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+            <!--</div>-->
 
             <div class="row area_box" ng-show="virtual_sensors.length" ng-init="getPSResources()">
                 <h2 class="area_title"><span data-translate="VIRTUAL_SENSORS"></span></h2>
                     <div class="col-sm-6 col-md-3 col-lg-2" style="margin-bottom: 5px" ng-repeat="sensor in virtual_sensors">
                         <div class="sensorbox">
-                        <div class="panel-heading"> <span><i ng-show="hasPermission('modifyPermission')" class="fa fa-pencil-square" aria-hidden="true" ng-click="editSensorName(sensor)"></i> {{sensor.name}}</span>
-                                <div class="input-group" ng-show="sensor.editing" >
+                        <div class="panel-heading">
+                            <span>
+                                <i ng-show="hasPermission('modifyPermission')" class="fa fa-trash" style="color:red;margin:10px" aria-hidden="true" ng-click="deleteSensor(sensor)"></i>
+                                <i ng-show="hasPermission('modifyPermission')" class="fa fa-pencil-square" aria-hidden="true" ng-click="editSensorName(sensor)"></i>
+                                <br/>
+                                {{sensor.name}}</span>
+
+
+                            <div class="input-group" ng-show="sensor.editing" >
                                     <input type="text" ng-model="sensor.name" class="form-control">
                                     <span class="input-group-btn">
                                         <button class="btn btn-secondary" type="button" ng-click="saveSensor(sensor)">Save</button>
@@ -116,5 +151,4 @@
             </div>
             </div>
         </div>
-    </div>  
 </div>

@@ -51,7 +51,20 @@ App.controller('SiteSensorsController',function($scope,$q,$rootScope,appConfig,$
             
             sensor.editing = true;
         }
+        $scope.deleteSensor = function(sensor){
+            var r = confirm("Are you sure?");
+            if (r == true) {
+                $scope.selected_delete_sensor = sensor;
+                $scope.confirm_delete();
+            }
 
+        }
+        $scope.confirm_delete = function(){
+                var x = Sensor.delete($scope.selected_delete_sensor.resourceId);
+                x.then(function(y){
+                    console.log(y);
+                })
+        }
         $scope.saveSensor = function(sensor){
             sensor.editing = false;
             
@@ -79,7 +92,7 @@ App.controller('SiteSensorsController',function($scope,$q,$rootScope,appConfig,$
             $scope.error_view = 0;
             $scope.error_text = "";
             $scope.general_resources = [];
-            var resources = Area.getResources($stateParams.id);
+            var resources = Area.getLocalResources($stateParams.id);
             resources.then(function(info){
                
                 $scope.general_resources = info.data.resources;
@@ -106,7 +119,7 @@ App.controller('SiteSensorsController',function($scope,$q,$rootScope,appConfig,$
             $scope.error_view = 0;
             $scope.error_text = "";
 
-            var resources = Area.getResources(area.id);
+            var resources = Area.getLocalResources(area.id);
             resources.then(function(info){
 
                 area.resources = info.data.resources;

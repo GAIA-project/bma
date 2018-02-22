@@ -254,7 +254,7 @@
     "ENERGY_CONSUMPTION_PER_CUBIC_METER":"Energy consumption per cubic meter",
     "ENERGY_CONSUMPTION_PER_SQ_METER":"Energy consumption per square meter",
     "Find_manuals_help":"You can find manuals",
-    "You_can_communicate_with_us":"You can communicate with us with the following ways",
+    "You_can_communicate_with_us":"You can communicate with us in the following ways",
     "technical_support":"Technical support",
     "report_a_bug":"Report a bug",
     "suggest_a_feature":"Suggest a feature",
@@ -263,5 +263,8 @@
     "English_manuals":"Manual in English",
     "Greek_manuals":"Manual in Greek",
     "Italian_manuals":"Manual in Italian",
-    "contact_us_sidebar":"Contact/Help"
+    "contact_us_sidebar":"Contact/Help",
+    "view_sensor":"view",
+    "ARE_YOU_SURE_ABOUT_THAT":"Are you sure? This action is not reversible",
+    "DELETE_RESOURCE_TITLE":"Delete Resource"
 }

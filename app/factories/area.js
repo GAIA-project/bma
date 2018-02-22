@@ -73,6 +73,13 @@ angular.module('app').factory('Area', function($http,appConfig,AccessToken){
                     headers: {"Accept": "application/json","Authorization":"bearer "+AccessToken.get().access_token}
                 })
             },
+            getLocalResources:function(area_id){
+                return $http({
+                    url:appConfig.main.apis.main+appConfig.main.apis.site+'/'+area_id+'/resources/localonly',
+                    method:'GET',
+                    headers: {"Accept": "application/json","Authorization":"bearer "+AccessToken.get().access_token}
+                })
+            },
             getSensors : function(area_id) {
                 return $http({
                     url: appConfig.main.apis.over_db+appConfig.main.apis.sensorsByArea+area_id,
