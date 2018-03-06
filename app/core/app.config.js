@@ -92,12 +92,24 @@
             text:       '#3D4051',
             gray:       '#EDF0F1'
         };
+        var chartColors = {
+            'Wh':'#c27e3f',
+            'kWh':'#c27e3f',
+            'mWh':'#c27e3f',
+            'Raw Value':'#9a9a9a',
+            '%':'#88c1b0',
+            'Centigrade':'#ff5e6f',
+            'Kelvin':'#ff5e6f',
+            'Celsius':'#ff5e6f',
+            'default':'#009688'
+        }
 
 
         return {
             pageTransitionOpts: pageTransitionOpts,
             main: main,
-            color: color
+            color: color,
+            chartColors:chartColors
         }
     }
 

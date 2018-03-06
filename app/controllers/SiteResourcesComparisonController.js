@@ -161,7 +161,7 @@ App.controller('SiteResourcesComparisonController',function($scope,$q,$rootScope
                 type:'line',
                 smooth:true,
                 yAxisIndex:index,
-                itemStyle:   {normal: {areaStyle: {type: 'default'}}},
+                itemStyle:   $rootScope.getItemStyle(res.sensor.uom),
                 data:d
             });
             $scope.yAxis.push({

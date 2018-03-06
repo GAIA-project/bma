@@ -266,7 +266,7 @@ App.controller('SensorController',function($scope,$q,$rootScope,appConfig,$state
                             name:'Measurements',
                             type:'line',
                             smooth:true,
-                            itemStyle: $rootScope.itemStyle,
+                            itemStyle: $rootScope.getItemStyle($scope.measurementUnit),
                             data:$scope.vals1
                         }
                     ]

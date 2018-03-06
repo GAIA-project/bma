@@ -183,7 +183,7 @@ App.controller('SiteSensorsComparisonController',function($scope,$q,$rootScope,a
                 name:$filter('translate')(res.sensor.name),
                 type:'line',
                 smooth:true,
-                itemStyle:   {normal: {areaStyle: {type: 'default'}}},
+                itemStyle:   $rootScope.getItemStyle(res.sensor.uom),
                 data:d
             });
 

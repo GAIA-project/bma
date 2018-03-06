@@ -18,7 +18,8 @@
         <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css?v=<?php echo $version; ?>">
         <link rel="stylesheet" href="bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css?v=<?php echo $version; ?>">
         <!-- end Needs images -->
-        
+
+             <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
             <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css" />
             <link rel="stylesheet" href="bower_components/angular-material/angular-material.min.css?v=1.1">
             <link rel="stylesheet" href="styles/bootstrap.css?v=<?php echo $version; ?>">
@@ -73,16 +74,14 @@
         <div id="loader-container"></div>
 
          <div style="display:none">
-            <oauth
-                site="https://sso.sparkworks.net/aa"
-                client-id="testone"
-                redirect-uri="http://bms.gaia-project.eu"
-                profile-uri="#/page/buildings"
-                scope="read"
-                storage="localstorage">
-            </oauth>
-
-
+                <oauth
+                    site="https://sso.sparkworks.net/aa"
+                    client-id="testone"
+                    redirect-uri="http://bms.gaia-project.eu"
+                    profile-uri="#/page/buildings"
+                    scope="read"
+                    storage="localstorage">
+                </oauth>
         </div>
        
 
@@ -263,8 +262,8 @@
         <script src="app/controllers/SiteAnomaliesController.js?v=<?php echo $version; ?>"></script>
         <script src="app/controllers/SiteVisibleStructureController.js?v=<?php echo $version; ?>"></script>
 
-
-
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="/vendors/toastr_script.js"/></script>
         
 <style>
 .md-virtual-repeat-container {

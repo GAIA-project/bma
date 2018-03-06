@@ -1136,8 +1136,7 @@
                     name:res.name,
                     type:'line',
                     smooth:true,
-                    itemStyle: {normal: {areaStyle: {type: 'default'}}},
-                    /*itemStyle: $rootScope.itemStyle,*/
+                    itemStyle: $rootScope.getItemStyle(res.sensor.uom),
                     data:d
                 });  
             });
@@ -1535,7 +1534,7 @@
                                 type:'line',
                                 smooth:true,
                                 /*itemStyle: {normal: {areaStyle: {type: 'default'}}},*/
-                                itemStyle: $rootScope.itemStyle,
+                                itemStyle: $rootScope.getItemStyle($scope.measurementUnit),
                                 data:$scope.vals1
                             }                            
                         ]
@@ -1594,7 +1593,7 @@
                                     type:'line',
                                     smooth:true,
                                     /*itemStyle: {normal: {areaStyle: {type: 'default'}}},*/
-                                    itemStyle: $rootScope.itemStyle,
+                                    itemStyle: $rootScope.getItemStyle($scope.measurementUnit),
                                     data:$scope.vals2
                                 }
                             ]
@@ -1897,7 +1896,7 @@
                             type:'line',
                             smooth:true,
                             /*itemStyle: {normal: {areaStyle: {type: 'default'},color:'#98b13a'}},*/
-                            itemStyle: $rootScope.itemStyle,
+                            itemStyle: $rootScope.getItemStyle(chart.measurementUnit),
                             data:metrics_of_this
                         }
                     ]
@@ -2035,7 +2034,7 @@
                             type:'line',
                             smooth:true,
                             /*itemStyle: {normal: {areaStyle: {type: 'default'},color:'#98b13a'}},*/
-                            itemStyle: $rootScope.itemStyle,
+                            itemStyle: $rootScope.getItemStyle(chart.measurementUnit),
                             data:metrics_of_this
                         }
                     ]
@@ -2170,7 +2169,7 @@
                                         name:$scope.sitename,
                                         type:'line',
                                         smooth:true,
-                                        itemStyle: $rootScope.itemStyle,
+                                        itemStyle: $rootScope.getItemStyle($scope.energy_chart.uom),
                                         data:metrics_of_this
                                     }
                                 ]
@@ -2449,7 +2448,7 @@
                             type:'line',
                             smooth:true,
                             /*itemStyle: {normal: {areaStyle: {type: 'default'},color:'#98b13a'}},*/
-                            itemStyle: $rootScope.itemStyle,
+                            itemStyle: $rootScope.getItemStyle(chart.measurementUnit),
                             data:metrics_of_this
                         }
                     ]
@@ -2568,7 +2567,7 @@
                                         type:'line',
                                         smooth:true,
                                         /*itemStyle: {normal: {areaStyle: {type: 'default'}}},*/
-                                        itemStyle: $rootScope.itemStyle,
+                                        itemStyle: $rootScope.getItemStyle($scope.central_chart_uom),
                                         data:metrics_of_this
                                     }
                                 ]
@@ -3829,6 +3828,16 @@
             window.open(new_url,'_blank');
         }
         $rootScope.recommendations=0;
+        $rootScope.getItemStyle = function(item){
+            console.log("GET ITEM STYLE");
+            console.log(item);
+            console.log("APP CONFIG");
+            console.log(appConfig);
+            if(appConfig.chartColors[item])
+                return  {normal: {areaStyle: {type: 'default'},color:appConfig.chartColors[item]}};
+            else
+                return {normal: {areaStyle: {type: 'default'},color:appConfig.chartColors['default']}};
+        }
         $rootScope.itemStyle = {normal: {areaStyle: {type: 'default'},color:'#98b13a'}};
         //$rootScope.itemStyle = {normal: {areaStyle: {type: 'default'},color:'red'}};
         $rootScope.toolbox = {
@@ -3863,12 +3872,15 @@
                 
                 stompClient.connect({}, function (f) {
                        stompClient.subscribe('/recommendations/'+school_id, function (message) {
-                        console.log("MESSAGE ALERT"); 
+                           showToast(message);
+                           console.log("MESSAGE ALERT");
                         console.log(message);
                         $rootScope.recommendations++;
 
                         console.log("Recommendations: "+$rootScope.recommendations);
                         $rootScope.recommendation_alert = 1;
+
+
 
                     });
                 });

@@ -150,7 +150,7 @@ App.controller('BuildingRulesController',function($scope,$rootScope,appConfig,$s
                 _paq.push(['trackEvent', 'RuleEngine', 'Edit Rule', 'Rule id:'+$scope.rule.rid]);
             }
             else{
-                var url = appConfig.main.apis.cnit+'area/'+$scope.selected_area.aid+'/rules';
+                var url = appConfig.main.apis.cnit+'area/'+$scope.selected_area.aid+'/rules/composite';
                 var method = "POST";
                 _paq.push(['trackEvent', 'RuleEngine', 'Add Rule', 'Area:'+$stateParams.id]);
             }
