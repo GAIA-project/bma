@@ -74,15 +74,15 @@
         <div id="loader-container"></div>
 
          <div style="display:none">
-                <oauth
-                    site="https://sso.sparkworks.net/aa"
-                    client-id="testone"
-                    redirect-uri="http://bms.gaia-project.eu"
-                    profile-uri="#/page/buildings"
-                    scope="read"
-                    storage="localstorage">
-                </oauth>
-        </div>
+            <oauth
+                site="https://sso.sparkworks.net/aa"
+                client-id="devbms"
+                redirect-uri="http://devbms.gaia-project.eu"
+                profile-uri="#/page/buildings"
+                scope="read"
+                storage="localstorage">
+            </oauth>
+         </div>
        
 
         <header data-ng-include=" 'app/layout/header.html' "
