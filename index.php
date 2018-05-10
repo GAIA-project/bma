@@ -76,8 +76,8 @@
          <div style="display:none">
             <oauth
                 site="https://sso.sparkworks.net/aa"
-                client-id="devbms"
-                redirect-uri="http://devbms.gaia-project.eu"
+                client-id="bms"
+                redirect-uri="http://bms.gaia-project.eu"
                 profile-uri="#/page/buildings"
                 scope="read"
                 storage="localstorage">
