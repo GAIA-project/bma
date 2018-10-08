@@ -37,7 +37,7 @@
         
 
         var t_site = $http({
-                    url: 'http://150.140.5.64:8080/gaia-building-knowledge-base/sites/'+$stateParams.id+'/siteInfo',
+                    url: 'https://buildings.gaia-project.eu//gaia-building-knowledge-base/sites/'+$stateParams.id+'/siteInfo',
                     method: 'GET',
                     headers: {"Content-Type": "application/hal+json","Authorization":$rootScope.getToken()}
         });
@@ -81,8 +81,8 @@
             $scope.sensor_measurements = {};
             $scope.obj = {};
             $scope.obj.one = {};
-            $scope.obj.one.from = $rootScope.convertToMiliseconds($scope.selected_from);
-            $scope.obj.one.to = $rootScope.convertToMiliseconds($scope.selected_to)+((1000*60*60*24)-2000);
+            $scope.obj.one.from = $rootScope.convertToMiliseconds(new Date($scope.selected_from));
+            $scope.obj.one.to = $rootScope.convertToMiliseconds(new Date($scope.selected_to))+((1000*60*60*24)-2000);
             $scope.obj.one.resourceID= $scope.energy_chart.resource_id;
             $scope.obj.one.targetUom = $scope.energy_chart.measurementUnit;
             $scope.obj.one.granularity = $scope.selected_step;

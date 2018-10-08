@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7dfbca7f-05b7-4a71-8e37-60e6c8feaa52" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/app/layout/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/layout/header.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/app/core/app.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/app/core/app.controller.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -23,37 +23,32 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="html" value="4" />
+          <entry key="html" value="5" />
+          <entry key="js" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="HTML" value="4" />
+          <entry key="HTML" value="5" />
+          <entry key="JavaScript" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="html" value="133" />
+          <entry key="js" value="23" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="HTML" value="133" />
+          <entry key="JavaScript" value="23" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/controllers/sitesController.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1980">
-              <caret line="132" column="41" selection-start-line="132" selection-start-column="31" selection-end-line="132" selection-end-column="41" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/core/app.controller.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -72,11 +67,36 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/layout/header.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="376">
-              <caret line="310" column="52" selection-start-line="310" selection-start-column="52" selection-end-line="310" selection-end-column="52" />
+            <state relative-caret-position="691">
+              <caret line="331" column="3" lean-forward="true" selection-start-line="331" selection-start-column="3" selection-end-line="331" selection-end-column="3" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/services/app/controllers/sitesController.js">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/services/app/page/chart.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <folding>
+                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/services/app/core/app.controller.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="236">
+              <caret line="83" column="95" selection-start-line="83" selection-start-column="82" selection-end-line="83" selection-end-column="95" />
             </state>
           </provider>
         </entry>
@@ -140,8 +160,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>travele</find>
-      <find>vc_col-sm</find>
       <find>bootstrap</find>
       <find>Building</find>
       <find>getCentralChart</find>
@@ -170,12 +188,15 @@
       <find>co2_emmitions</find>
       <find>options</find>
       <find>bms</find>
+      <find>ChartController</find>
+      <find>selected_from</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/app/factories</dir>
       <dir>$PROJECT_DIR$/app/controllers</dir>
       <dir>$PROJECT_DIR$</dir>
       <dir>$PROJECT_DIR$/app</dir>
+      <dir>$PROJECT_DIR$/services/app</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
@@ -184,7 +205,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/services/bower_components/angular-material/angular-material.min.css" />
         <option value="$PROJECT_DIR$/i18n/it.json" />
         <option value="$PROJECT_DIR$/app/page/sites_comparison.html" />
         <option value="$PROJECT_DIR$/app/controllers/sitesController.js" />
@@ -235,6 +255,7 @@
         <option value="$PROJECT_DIR$/app/page/buildings.html" />
         <option value="$PROJECT_DIR$/app/layout/sidebar.html" />
         <option value="$PROJECT_DIR$/app/layout/header.html" />
+        <option value="$PROJECT_DIR$/services/app/core/app.controller.js" />
       </list>
     </option>
   </component>
@@ -318,6 +339,26 @@
               <item name="bma" type="462c0819:PsiDirectoryNode" />
               <item name="services" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="bma" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bma" type="462c0819:PsiDirectoryNode" />
+              <item name="services" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="bma" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bma" type="462c0819:PsiDirectoryNode" />
+              <item name="services" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="controllers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="bma" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bma" type="462c0819:PsiDirectoryNode" />
+              <item name="services" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="page" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -382,12 +423,12 @@
       <workItem from="1523884811767" duration="407000" />
       <workItem from="1524492681611" duration="52000" />
       <workItem from="1525946892010" duration="69000" />
-      <workItem from="1539004254338" duration="1800000" />
+      <workItem from="1539004254338" duration="2045000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="108858000" />
+    <option name="totallyTimeSpent" value="109103000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="221" y="111" width="1680" height="877" extended-state="0" />
@@ -428,14 +469,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/controllers/SiteStructureController" />
-    <entry file="file://$PROJECT_DIR$/services/app/core/config.route.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="75" column="9" lean-forward="true" selection-start-line="70" selection-start-column="7" selection-end-line="75" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/styles/main.css">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -743,8 +776,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/layout/header.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="376">
-          <caret line="310" column="52" selection-start-line="310" selection-start-column="52" selection-end-line="310" selection-end-column="52" />
+        <state relative-caret-position="691">
+          <caret line="331" column="3" lean-forward="true" selection-start-line="331" selection-start-column="3" selection-end-line="331" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/app/controllers/sitesController.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/app/page/chart.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/app/core/app.controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="236">
+          <caret line="83" column="95" selection-start-line="83" selection-start-column="82" selection-end-line="83" selection-end-column="95" />
         </state>
       </provider>
     </entry>
