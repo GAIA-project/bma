@@ -2,16 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7dfbca7f-05b7-4a71-8e37-60e6c8feaa52" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/images/Gaia_SocialMedia.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/Gaia_header_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/Gaia_header_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/Gaia_header_3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/Gaia_header_4.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/layout/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/layout/header.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/layout/sidebar.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/layout/sidebar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/page/buildings.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/page/buildings.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/page/help.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/page/help.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -81,11 +72,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/layout/header.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="376">
-              <caret line="310" column="55" selection-start-line="310" selection-start-column="55" selection-end-line="310" selection-end-column="55" />
+              <caret line="310" column="52" selection-start-line="310" selection-start-column="52" selection-end-line="310" selection-end-column="52" />
             </state>
           </provider>
         </entry>
@@ -116,11 +107,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/layout/sidebar.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="529">
-              <caret line="49" column="51" selection-start-line="49" selection-start-column="51" selection-end-line="49" selection-end-column="51" />
+            <state relative-caret-position="154">
+              <caret line="24" column="55" selection-start-line="24" selection-start-column="55" selection-end-line="24" selection-end-column="55" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
@@ -240,10 +231,10 @@
         <option value="$PROJECT_DIR$/i18n/en.json" />
         <option value="$PROJECT_DIR$/app/page/site/structure.html" />
         <option value="$PROJECT_DIR$/index.php" />
-        <option value="$PROJECT_DIR$/app/layout/header.html" />
         <option value="$PROJECT_DIR$/app/page/help.html" />
         <option value="$PROJECT_DIR$/app/page/buildings.html" />
         <option value="$PROJECT_DIR$/app/layout/sidebar.html" />
+        <option value="$PROJECT_DIR$/app/layout/header.html" />
       </list>
     </option>
   </component>
@@ -325,24 +316,7 @@
             <path>
               <item name="bma" type="b2602c69:ProjectViewProjectNode" />
               <item name="bma" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="layout" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="bma" type="b2602c69:ProjectViewProjectNode" />
-              <item name="bma" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="page" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="bma" type="b2602c69:ProjectViewProjectNode" />
-              <item name="bma" type="462c0819:PsiDirectoryNode" />
-              <item name="images" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="bma" type="b2602c69:ProjectViewProjectNode" />
-              <item name="bma" type="462c0819:PsiDirectoryNode" />
-              <item name="vendors" type="462c0819:PsiDirectoryNode" />
+              <item name="services" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -408,12 +382,12 @@
       <workItem from="1523884811767" duration="407000" />
       <workItem from="1524492681611" duration="52000" />
       <workItem from="1525946892010" duration="69000" />
-      <workItem from="1539004254338" duration="1607000" />
+      <workItem from="1539004254338" duration="1800000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="108665000" />
+    <option name="totallyTimeSpent" value="108858000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="221" y="111" width="1680" height="877" extended-state="0" />
@@ -734,13 +708,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/layout/header.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="376">
-          <caret line="310" column="55" selection-start-line="310" selection-start-column="55" selection-end-line="310" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/page/help.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -765,12 +732,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/layout/sidebar.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="529">
-          <caret line="49" column="51" selection-start-line="49" selection-start-column="51" selection-end-line="49" selection-end-column="51" />
+        <state relative-caret-position="154">
+          <caret line="24" column="55" selection-start-line="24" selection-start-column="55" selection-end-line="24" selection-end-column="55" />
           <folding>
             <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/layout/header.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="376">
+          <caret line="310" column="52" selection-start-line="310" selection-start-column="52" selection-end-line="310" selection-end-column="52" />
         </state>
       </provider>
     </entry>
