@@ -21,6 +21,6 @@ services are:
 - CTI rule engine
 
 To configure the BMA platform to exchange information with these services
-you have to configure the app.config.js file in the  ```'app/core/```  directory.
+you have to configure the app.config.js file in the  ```app/core/```  directory.
 
 
