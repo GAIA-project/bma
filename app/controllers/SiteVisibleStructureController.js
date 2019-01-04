@@ -97,10 +97,7 @@ App.controller('SiteStructureController',function($scope,$rootScope,appConfig,$s
     });
 
     $scope.calculate = function(){
-        console.log("Calculation....");
-        console.log("From..:"+$scope.from_time);
-        console.log("To..:"+$scope.to_time);
-        console.log("Granularity..:"+$scope.granularity);
+
         var site_id = $stateParams.id;
         var from = new Date($scope.from_time).getTime();
         var to   = new Date($scope.to_time).getTime();
@@ -157,7 +154,9 @@ App.controller('SiteStructureController',function($scope,$rootScope,appConfig,$s
             $scope.analytics.co2_emmitions = parseFloat($scope.analytics.load_peak*0.514).toFixed(2);
             $scope.analytics.co2_emmitions_uom = 'Kg CO2/m^2';
             $scope.co2_emmitions_text = "Assuming that 1kWh is 0.514 Kg of CO2";
-
+            console.log("CO2");
+            console.log(data);
+            //manos
             data.data.measurements.forEach(function(meas,ind){
                 if(meas.reading==data.data.maximum){
                     $scope.analytics.load_peak_when = new Date(meas.timestamp);
@@ -200,8 +199,7 @@ App.controller('SiteStructureController',function($scope,$rootScope,appConfig,$s
         $scope.analytics.visual_comfort_loading = true;
         var t = site.getStatistics(site_id,from,to,granularity,'Light');
         t.then(function(data) {
-            console.log("STATISTICS Light");
-            console.log(data);
+
             $scope.analytics.visual_comfort_loading = false;
             $scope.analytics.visual_comfort = parseFloat(data.data.average).toFixed(2);
             $scope.analytics.visual_comfort_uom = data.data.unitOfMeasurement;
@@ -218,8 +216,7 @@ App.controller('SiteStructureController',function($scope,$rootScope,appConfig,$s
         $scope.analytics.indoor_humidity_loading = true;
         var t = site.getStatistics(site_id,from,to,granularity,'Relative Humidity');
         t.then(function(data) {
-            console.log("STATISTICS Humidity");
-            console.log(data);
+
             $scope.analytics.indoor_humidity_loading = false;
             $scope.analytics.indoor_humidity = parseFloat(data.data.average).toFixed(2);
             $scope.analytics.indoor_humidity_uom = data.data.unitOfMeasurement;
@@ -237,8 +234,7 @@ App.controller('SiteStructureController',function($scope,$rootScope,appConfig,$s
         $scope.analytics.aural_comfort_loading = true;
         var t = site.getStatistics(site_id,from,to,granularity,'Noise');
         t.then(function(data) {
-            console.log("STATISTICS Humidity");
-            console.log(data);
+
             $scope.analytics.aural_comfort_loading = false;
             $scope.analytics.aural_comfort = parseFloat(data.data.average).toFixed(2);
             $scope.analytics.aural_comfort_uom = data.data.unitOfMeasurement;
@@ -264,8 +260,7 @@ App.controller('SiteStructureController',function($scope,$rootScope,appConfig,$s
        var x = site.getEnergyConsumptionPerSQMeter(site_id,from,to,granularity);
        x.then(function(data){
            $scope.energy_consumption_per_sq_meter_loading_visible = 0;
-           console.log("ENERGY CONSUMPTON SQQQQQ");
-           console.log(data);
+
            $scope.energy_consumption_per_sq_meter = data.data;
            $scope.energy_consumption_per_sq_meter.average =$scope.energy_consumption_per_sq_meter.average/1000000;
            $scope.energy_consumption_per_sq_meter.maximum =$scope.energy_consumption_per_sq_meter.maximum/1000000;
@@ -372,8 +367,7 @@ App.controller('SiteStructureController',function($scope,$rootScope,appConfig,$s
 
 
         },function(error){
-            console.log("ENERGY CONSUMPTON Cubic");
-            console.log(error);
+
             $scope.energy_consumption_for_cubic_error_visible = 1;
             $scope.energy_consumption_for_cubic_error = error.data.message;
             $scope.energy_consumption_for_cubic_loading_visible = 0;
@@ -402,8 +396,6 @@ App.controller('SiteStructureController',function($scope,$rootScope,appConfig,$s
         var months_before = new Date(now-12*30*24*60*60*1000).getTime();
         var mondays = site.getAggregatedPowerConsumptionDAYS($stateParams.id,months_before,now,"DAY","MONDAY");
         mondays.then(function(y){
-            console.log("DAYS")
-            console.log(y);
 
             if(y.data.unitOfMeasurement == 'mWh'){
                 y.data.unitOfMeasurement = 'kWh';
@@ -413,8 +405,7 @@ App.controller('SiteStructureController',function($scope,$rootScope,appConfig,$s
 
             var tuesdays = site.getAggregatedPowerConsumptionDAYS($stateParams.id,months_before,now,"DAY","TUESDAY");
             tuesdays.then(function(y){
-                console.log("DAYS")
-                console.log(y);
+
 
                 if(y.data.unitOfMeasurement == 'mWh'){
                     y.data.unitOfMeasurement = 'kWh';
@@ -424,8 +415,7 @@ App.controller('SiteStructureController',function($scope,$rootScope,appConfig,$s
 
                 var wednesday = site.getAggregatedPowerConsumptionDAYS($stateParams.id,months_before,now,"DAY","WEDNESDAY");
                 wednesday.then(function(y){
-                    console.log("DAYS")
-                    console.log(y);
+
 
                     if(y.data.unitOfMeasurement == 'mWh'){
                         y.data.unitOfMeasurement = 'kWh';
@@ -436,8 +426,7 @@ App.controller('SiteStructureController',function($scope,$rootScope,appConfig,$s
 
                     var thursdays = site.getAggregatedPowerConsumptionDAYS($stateParams.id,months_before,now,"DAY","THURSDAY");
                     thursdays.then(function(y){
-                        console.log("DAYS")
-                        console.log(y);
+
 
                         if(y.data.unitOfMeasurement == 'mWh'){
                             y.data.unitOfMeasurement = 'kWh';
@@ -448,8 +437,7 @@ App.controller('SiteStructureController',function($scope,$rootScope,appConfig,$s
 
                         var fridays = site.getAggregatedPowerConsumptionDAYS($stateParams.id,months_before,now,"DAY","FRIDAY");
                         fridays.then(function(y){
-                            console.log("DAYS")
-                            console.log(y);
+
 
                             if(y.data.unitOfMeasurement == 'mWh'){
                                 y.data.unitOfMeasurement = 'kWh';
@@ -461,8 +449,7 @@ App.controller('SiteStructureController',function($scope,$rootScope,appConfig,$s
 
                             var saturdays = site.getAggregatedPowerConsumptionDAYS($stateParams.id,months_before,now,"DAY","SATURDAY");
                             saturdays.then(function(y){
-                                console.log("DAYS")
-                                console.log(y);
+
 
                                 if(y.data.unitOfMeasurement == 'mWh'){
                                     y.data.unitOfMeasurement = 'kWh';
@@ -473,8 +460,7 @@ App.controller('SiteStructureController',function($scope,$rootScope,appConfig,$s
 
                                 var sundays = site.getAggregatedPowerConsumptionDAYS($stateParams.id,months_before,now,"DAY","SUNDAY");
                                 sundays.then(function(y){
-                                    console.log("DAYS")
-                                    console.log(y);
+
 
                                     if(y.data.unitOfMeasurement == 'mWh'){
                                         y.data.unitOfMeasurement = 'kWh';
@@ -608,15 +594,24 @@ App.controller('SiteStructureController',function($scope,$rootScope,appConfig,$s
     $scope.getInitAreas = function(){
         var spark_areas = site.getSparkAreas($stateParams.id);
         spark_areas.then(function(areas){
+            console.log("Spark Areas for "+$stateParams.id);
+            console.log(areas);
             $scope.building.subareas = areas.data.sites;
 
             angular.forEach($scope.building.subareas,function(area){
 
                 var subsite = site.getDetails(area.id);
                 subsite.then(function(tsite){
+                    console.log("T SITE FOUND");
+                    console.log(tsite);
                     $scope.building.details = tsite.data;
                     area.extra_info = tsite.data;
                     area.printed_name = $rootScope.getLocalizedName(area);
+                }).catch(function(response) {
+
+                    $scope.building.details = area.data;
+                    area.extra_info = area.data;
+                    area.printed_name = area.name;
                 });
 
 
@@ -656,7 +651,7 @@ App.controller('SiteStructureController',function($scope,$rootScope,appConfig,$s
         $location.path('page/building/structure/'+area.id);
     }
     $scope.gotoSensor = function(sensor){
-        console.log(sensor);
+
         $location.path('page/sensor/view/'+sensor.resourceId);
     }
 

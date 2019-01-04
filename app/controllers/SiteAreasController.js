@@ -155,7 +155,7 @@ App.controller('SiteAreasController',function($scope,$rootScope,appConfig,$state
        }
 
         $scope.details = function(area){
-
+            console.log("***** AREA ***** ");
             console.log(area);
             $scope.selected_area_view = 1;
             $scope.add_an_area_form = 0;  
@@ -191,7 +191,8 @@ App.controller('SiteAreasController',function($scope,$rootScope,appConfig,$state
 
 
 
-                $scope.selected_area.subareas = info.data.subsites;
+                $scope.selected_area.subareas = area.subsites;
+
                 $scope.selected_area.name = area.name;
 
             }).catch(function(e){

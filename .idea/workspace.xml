@@ -2,7 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7dfbca7f-05b7-4a71-8e37-60e6c8feaa52" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/services/app/core/app.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/app/core/app.controller.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/markdown-navigator.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/markdown-navigator/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controllers/SensorController.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/SensorController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controllers/SiteAreasController.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/SiteAreasController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controllers/SiteVisibleStructureController.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/SiteVisibleStructureController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/core/config.route.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/core/config.route.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/layout/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/layout/header.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/layout/sidebar.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/layout/sidebar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/page/building_areas.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/page/building_areas.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/katerina.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/nelly.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/version.html" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -17,32 +32,57 @@
     <session id="561392327">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.open.time.1" value="1" />
-          <entry key="project.opened" value="1" />
+          <entry key="project.closed" value="8" />
+          <entry key="project.open.time.1" value="3" />
+          <entry key="project.open.time.10" value="1" />
+          <entry key="project.open.time.11" value="1" />
+          <entry key="project.open.time.3" value="1" />
+          <entry key="project.open.time.5" value="2" />
+          <entry key="project.open.time.6" value="1" />
+          <entry key="project.open.time.7" value="2" />
+          <entry key="project.opened" value="11" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="html" value="5" />
-          <entry key="js" value="2" />
+          <entry key="css" value="1" />
+          <entry key="gitignore" value="1" />
+          <entry key="html" value="14" />
+          <entry key="jpg" value="10" />
+          <entry key="js" value="15" />
+          <entry key="json" value="1" />
+          <entry key="md" value="1" />
+          <entry key="php" value="1" />
+          <entry key="png" value="6" />
+          <entry key="svg" value="1" />
+          <entry key="txt" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="HTML" value="5" />
-          <entry key="JavaScript" value="2" />
+          <entry key="HTML" value="14" />
+          <entry key="Image" value="16" />
+          <entry key="JSON" value="1" />
+          <entry key="JavaScript" value="15" />
+          <entry key="PHP" value="1" />
+          <entry key="PLAIN_TEXT" value="4" />
+          <entry key="SVG" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="html" value="133" />
-          <entry key="js" value="23" />
+          <entry key="gitignore" value="9" />
+          <entry key="html" value="173" />
+          <entry key="js" value="869" />
+          <entry key="md" value="495" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="HTML" value="133" />
-          <entry key="JavaScript" value="23" />
+          <entry key="HTML" value="173" />
+          <entry key="JavaScript" value="869" />
+          <entry key="Markdown" value="495" />
+          <entry key="PLAIN_TEXT" value="9" />
         </counts>
       </usages-collector>
     </session>
@@ -50,92 +90,24 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/core/app.controller.js">
+        <entry file="file://$PROJECT_DIR$/app/core/config.route.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="11100">
-              <caret line="740" column="56" selection-start-line="740" selection-start-column="56" selection-end-line="740" selection-end-column="56" />
+            <state relative-caret-position="529">
+              <caret line="315" lean-forward="true" selection-start-line="315" selection-end-line="315" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/index.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="79" column="56" selection-start-line="79" selection-start-column="37" selection-end-line="79" selection-end-column="56" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/layout/header.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="691">
-              <caret line="331" column="3" lean-forward="true" selection-start-line="331" selection-start-column="3" selection-end-line="331" selection-end-column="3" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/services/app/controllers/sitesController.js">
+        <entry file="file://$PROJECT_DIR$/app/core/core.module.js">
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/services/app/page/chart.html">
+        <entry file="file://$PROJECT_DIR$/app/core/app.controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <folding>
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/services/app/core/app.controller.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="236">
-              <caret line="83" column="95" selection-start-line="83" selection-start-column="82" selection-end-line="83" selection-end-column="95" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/page/help.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" column="10" lean-forward="true" selection-start-line="1" selection-start-column="4" selection-end-line="5" selection-end-column="10" />
-              <folding>
-                <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/page/buildings.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="6" column="54" selection-start-line="6" selection-start-column="54" selection-end-line="6" selection-end-column="54" />
-              <folding>
-                <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/layout/sidebar.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="154">
-              <caret line="24" column="55" selection-start-line="24" selection-start-column="55" selection-end-line="24" selection-end-column="55" />
-              <folding>
-                <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-              </folding>
+            <state relative-caret-position="15">
+              <caret line="2059" column="48" selection-start-line="2059" selection-start-column="48" selection-end-line="2059" selection-end-column="48" />
             </state>
           </provider>
         </entry>
@@ -143,10 +115,48 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/core/app.config.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1545">
-              <caret line="103" column="24" selection-start-line="103" selection-start-column="24" selection-end-line="103" selection-end-column="24" />
+            <state relative-caret-position="495">
+              <caret line="33" column="17" selection-start-line="33" selection-start-column="17" selection-end-line="33" selection-end-column="17" />
             </state>
           </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/layout/header.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="260">
+              <caret line="310" column="52" selection-start-line="310" selection-start-column="52" selection-end-line="310" selection-end-column="52" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/package.json">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="15">
+              <caret line="1" column="9" selection-start-line="1" selection-start-column="9" selection-end-line="1" selection-end-column="9" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/images/assets/600_400-6.jpg">
+          <provider selected="true" editor-type-id="images" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/images/assets/style_typography_roboto1.png">
+          <provider selected="true" editor-type-id="images" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/app.module.js">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
@@ -160,43 +170,44 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>bootstrap</find>
-      <find>Building</find>
-      <find>getCentralChart</find>
-      <find>getItemStyle</find>
-      <find>$rootScope.toolbox</find>
-      <find>$rootScope.item</find>
-      <find>$chart</find>
-      <find>itemSr</find>
-      <find>itemS</find>
-      <find>itemSty</find>
-      <find>$rootScope.itemStyle</find>
-      <find>item</find>
-      <find>itemStyle</find>
-      <find>getItemStyle =</find>
-      <find>rootScope.getItemStyle =</find>
-      <find>itemSt</find>
-      <find>connectToR</find>
-      <find>Co2</find>
-      <find>&quot;CO2_EMMITIONS_PER_M2&quot;:&quot;Εκπομές διοξειδίου του άνθρακα ανα τετραγωνικό μέτρο&quot;</find>
-      <find>Find_manuals_help</find>
-      <find>DELETE_RESOURCE_TITLE</find>
-      <find>co2</find>
-      <find>SiteStructure</find>
-      <find>SiteStru</find>
-      <find>$scope.co2_emmitions</find>
-      <find>co2_emmitions</find>
-      <find>options</find>
       <find>bms</find>
       <find>ChartController</find>
       <find>selected_from</find>
+      <find>nav</find>
+      <find>openNewWindow</find>
+      <find>SiteViewController</find>
+      <find>getCentralChart</find>
+      <find>TOPVIEW</find>
+      <find>average_</find>
+      <find>co2_emmitions_error_visible</find>
+      <find>CO2</find>
+      <find>co2_emmitions</find>
+      <find>resource/query/timerange</find>
+      <find>SensorContr</find>
+      <find>console.</find>
+      <find>setChartValues</find>
+      <find>multiple res</find>
+      <find>convertForTimeAxis</find>
+      <find>SiteResourcesComparisonController</find>
+      <find>update</find>
+      <find>getComparingQueryTimeRange</find>
+      <find>convertToMiliseconds</find>
+      <find>SiteStructureCon</find>
+      <find>SiteStructureController</find>
+      <find>Areas</find>
+      <find>subareas</find>
+      <find>There are</find>
+      <find>site_resources</find>
+      <find>debug</find>
+      <find>DEV</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/app/factories</dir>
+      <dir>$PROJECT_DIR$/services/app</dir>
+      <dir>$PROJECT_DIR$/app/page</dir>
       <dir>$PROJECT_DIR$/app/controllers</dir>
       <dir>$PROJECT_DIR$</dir>
       <dir>$PROJECT_DIR$/app</dir>
-      <dir>$PROJECT_DIR$/services/app</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
@@ -205,8 +216,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/i18n/it.json" />
-        <option value="$PROJECT_DIR$/app/page/sites_comparison.html" />
         <option value="$PROJECT_DIR$/app/controllers/sitesController.js" />
         <option value="$PROJECT_DIR$/app/core/core.module.js" />
         <option value="$PROJECT_DIR$/app/page/comparison/multiple_resources.html" />
@@ -222,11 +231,7 @@
         <option value="$PROJECT_DIR$/app/chart/echarts.controller.js" />
         <option value="$PROJECT_DIR$/app/page/building_comparison.html" />
         <option value="$PROJECT_DIR$/app/page/site/rules.html" />
-        <option value="$PROJECT_DIR$/app/controllers/SiteAreasController.js" />
-        <option value="$PROJECT_DIR$/app/page/building_areas.html" />
         <option value="$PROJECT_DIR$/app/factories/site.js" />
-        <option value="$PROJECT_DIR$/app/controllers/SiteVisibleStructureController.js" />
-        <option value="$PROJECT_DIR$/app/core/config.route.js" />
         <option value="$PROJECT_DIR$/app/factories/area.js" />
         <option value="$PROJECT_DIR$/app/page/building_sensors.html" />
         <option value="$PROJECT_DIR$/app/controllers/SiteSensorsController.js" />
@@ -235,11 +240,9 @@
         <option value="$PROJECT_DIR$/plot.js" />
         <option value="$PROJECT_DIR$/start_charters.js" />
         <option value="$PROJECT_DIR$/mailer_first_request.php" />
-        <option value="$PROJECT_DIR$/css" />
         <option value="$PROJECT_DIR$/ma.html" />
         <option value="$PROJECT_DIR$/maps/index.html" />
         <option value="$USER_HOME$/Library/Caches/com.binarynights.ForkLift2/#2/index.html" />
-        <option value="$PROJECT_DIR$/app/controllers/SensorController.js" />
         <option value="$PROJECT_DIR$/app/controllers/SiteResourcesComparisonController.js" />
         <option value="$PROJECT_DIR$/app/controllers/SiteSensorsComparisonController.js" />
         <option value="$PROJECT_DIR$/app/core/app.config.js" />
@@ -253,9 +256,17 @@
         <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/app/page/help.html" />
         <option value="$PROJECT_DIR$/app/page/buildings.html" />
-        <option value="$PROJECT_DIR$/app/layout/sidebar.html" />
-        <option value="$PROJECT_DIR$/app/layout/header.html" />
         <option value="$PROJECT_DIR$/services/app/core/app.controller.js" />
+        <option value="$PROJECT_DIR$/app/layout/sidebar.html" />
+        <option value="$PROJECT_DIR$/app/controllers/SensorController.js" />
+        <option value="$PROJECT_DIR$/app/controllers/SiteVisibleStructureController.js" />
+        <option value="$PROJECT_DIR$/app/controllers/SiteAreasController.js" />
+        <option value="$PROJECT_DIR$/app/page/building_areas.html" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/css" />
+        <option value="$PROJECT_DIR$/app/core/config.route.js" />
+        <option value="$PROJECT_DIR$/app/layout/header.html" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -312,8 +323,8 @@
     </packageJsonPaths>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="221" />
-    <option name="y" value="111" />
+    <option name="x" value="147" />
+    <option name="y" value="25" />
     <option name="width" value="1680" />
     <option name="height" value="877" />
   </component>
@@ -322,6 +333,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -329,41 +341,10 @@
               <item name="bma" type="b2602c69:ProjectViewProjectNode" />
               <item name="bma" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="bma" type="b2602c69:ProjectViewProjectNode" />
-              <item name="bma" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="bma" type="b2602c69:ProjectViewProjectNode" />
-              <item name="bma" type="462c0819:PsiDirectoryNode" />
-              <item name="services" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="bma" type="b2602c69:ProjectViewProjectNode" />
-              <item name="bma" type="462c0819:PsiDirectoryNode" />
-              <item name="services" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="bma" type="b2602c69:ProjectViewProjectNode" />
-              <item name="bma" type="462c0819:PsiDirectoryNode" />
-              <item name="services" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="controllers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="bma" type="b2602c69:ProjectViewProjectNode" />
-              <item name="bma" type="462c0819:PsiDirectoryNode" />
-              <item name="services" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="page" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -423,15 +404,25 @@
       <workItem from="1523884811767" duration="407000" />
       <workItem from="1524492681611" duration="52000" />
       <workItem from="1525946892010" duration="69000" />
-      <workItem from="1539004254338" duration="2045000" />
+      <workItem from="1539004254338" duration="2270000" />
+      <workItem from="1539172184458" duration="427000" />
+      <workItem from="1539270874870" duration="1000" />
+      <workItem from="1540888324162" duration="1460000" />
+      <workItem from="1541502153770" duration="888000" />
+      <workItem from="1541777746583" duration="22000" />
+      <workItem from="1542022365811" duration="4001000" />
+      <workItem from="1543493287680" duration="1195000" />
+      <workItem from="1545053363840" duration="981000" />
+      <workItem from="1546611244962" duration="81000" />
+      <workItem from="1546611344270" duration="790000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="109103000" />
+    <option name="totallyTimeSpent" value="119174000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="221" y="111" width="1680" height="877" extended-state="0" />
+    <frame x="147" y="25" width="1680" height="877" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.29174203" />
@@ -469,208 +460,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/styles/main.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="9" selection-start-column="5" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/core/core.module.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="18" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/chart/echarts-bar.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" column="14" selection-start-line="14" selection-start-column="8" selection-end-line="24" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/page/building_comparison.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1074">
-          <caret line="113" column="34" lean-forward="true" selection-start-line="113" selection-start-column="34" selection-end-line="113" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/chart/echarts.controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1285">
-          <caret line="335" column="62" selection-start-line="335" selection-start-column="62" selection-end-line="335" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/core/i18n.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="145">
-          <caret line="67" column="27" selection-start-line="67" selection-start-column="22" selection-end-line="67" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/page/SiteSensorsComparison.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="990">
-          <caret line="66" column="41" selection-start-line="66" selection-start-column="41" selection-end-line="66" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/page/building_areas.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="133" column="82" selection-start-line="133" selection-start-column="82" selection-end-line="133" selection-end-column="82" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/page/comparison/multiple_resources.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="825">
-          <caret line="55" column="26" selection-start-line="53" selection-start-column="20" selection-end-line="55" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/factories/site.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="455">
-          <caret line="39" column="25" selection-start-line="39" selection-start-column="12" selection-end-line="39" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/page/building.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="14" selection-start-line="15" selection-start-column="8" selection-end-line="18" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/page/add-a-rule.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="79" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/core/config.route.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="319">
-          <caret line="263" column="43" selection-start-line="263" selection-start-column="43" selection-end-line="263" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/page/blank.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="14" lean-forward="true" selection-start-line="5" selection-start-column="14" selection-end-line="5" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/page/building_sensors.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2295">
-          <caret line="153" selection-start-line="153" selection-end-line="153" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/factories/Sensor.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="690">
-          <caret line="46" column="14" selection-start-line="46" selection-start-column="14" selection-end-line="46" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/factories/area.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1125">
-          <caret line="75" column="29" selection-start-line="75" selection-start-column="12" selection-end-line="75" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/page/site/rules.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1965">
-          <caret line="131" column="86" selection-start-line="131" selection-start-column="73" selection-end-line="131" selection-end-column="86" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/BuildingRulesController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2280">
-          <caret line="152" column="101" selection-start-line="152" selection-start-column="101" selection-end-line="152" selection-end-column="101" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/plot.js" />
-    <entry file="file://$PROJECT_DIR$/mailer_first_request.php" />
-    <entry file="file://$PROJECT_DIR$/start_charters.js" />
-    <entry file="file://$PROJECT_DIR$/app/factories/theArea.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="53" selection-start-line="15" selection-start-column="15" selection-end-line="22" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-column="669" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ma.html" />
-    <entry file="file://$USER_HOME$/Library/Caches/com.binarynights.ForkLift2/#2/index.html" />
-    <entry file="file://$PROJECT_DIR$/maps/index.html" />
-    <entry file="file://$PROJECT_DIR$/app/controllers/SiteSensorsComparisonController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8">
-          <caret line="185" column="68" selection-start-line="185" selection-start-column="68" selection-end-line="185" selection-end-column="68" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/SiteSensorsController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="160" column="68" selection-start-line="160" selection-start-column="68" selection-end-line="160" selection-end-column="68" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/SiteAreasController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="176" column="33" selection-start-line="176" selection-start-column="30" selection-end-line="176" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/SiteAnomaliesController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="75" selection-start-line="20" selection-start-column="75" selection-end-line="20" selection-end-column="75" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/SensorController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="446">
-          <caret line="268" column="62" selection-start-line="268" selection-start-column="62" selection-end-line="268" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/SiteResourcesComparisonController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="163" column="69" lean-forward="true" selection-start-line="163" selection-start-column="29" selection-end-line="163" selection-end-column="69" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="6" selection-start-line="17" selection-start-column="6" selection-end-line="17" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/services/app/page/buildings.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
@@ -699,20 +488,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/page/site/structure.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="182" column="124" selection-start-line="182" selection-start-column="124" selection-end-line="182" selection-end-column="124" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/SiteVisibleStructureController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="714">
-          <caret line="339" column="55" selection-start-line="339" selection-start-column="48" selection-end-line="339" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/sitesController.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1980">
@@ -720,83 +495,235 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/core/app.controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="11100">
-          <caret line="740" column="56" selection-start-line="740" selection-start-column="56" selection-end-line="740" selection-end-column="56" />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/services/app/controllers/sitesController.js">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/core/app.config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1545">
-          <caret line="103" column="24" selection-start-line="103" selection-start-column="24" selection-end-line="103" selection-end-column="24" />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/services/app/page/chart.html">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.php">
+    <entry file="file://$PROJECT_DIR$/app/page/buildings.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="79" column="56" selection-start-line="79" selection-start-column="37" selection-end-line="79" selection-end-column="56" />
+        <state relative-caret-position="90">
+          <caret line="6" column="54" selection-start-line="6" selection-start-column="54" selection-end-line="6" selection-end-column="54" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/page/help.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
-          <caret line="5" column="10" lean-forward="true" selection-start-line="1" selection-start-column="4" selection-end-line="5" selection-end-column="10" />
-          <folding>
-            <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-          </folding>
+          <caret line="5" column="10" selection-start-line="1" selection-start-column="4" selection-end-line="5" selection-end-column="10" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/page/buildings.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="54" selection-start-line="6" selection-start-column="54" selection-end-line="6" selection-end-column="54" />
-          <folding>
-            <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/layout/sidebar.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="24" column="55" selection-start-line="24" selection-start-column="55" selection-end-line="24" selection-end-column="55" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/layout/header.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="691">
-          <caret line="331" column="3" lean-forward="true" selection-start-line="331" selection-start-column="3" selection-end-line="331" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/services/app/controllers/sitesController.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/services/app/page/chart.html">
+    <entry file="file://$PROJECT_DIR$/app/page/building_view.html">
       <provider selected="true" editor-type-id="text-editor">
         <state>
-          <folding>
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
+          <caret column="51" selection-start-column="33" selection-end-column="51" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/services/app/core/app.controller.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="236">
-          <caret line="83" column="95" selection-start-line="83" selection-start-column="82" selection-end-line="83" selection-end-column="95" />
+        <state relative-caret-position="708">
+          <caret line="88" selection-start-line="88" selection-end-line="88" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/layout/sidebar.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="8" selection-start-line="21" selection-start-column="8" selection-end-line="21" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/SiteResourcesComparisonController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="49" selection-start-line="2" selection-start-column="16" selection-end-line="2" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/page/comparison/multiple_resources.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="227">
+          <caret line="39" column="51" selection-start-line="39" selection-start-column="41" selection-end-line="39" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/SensorController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2835">
+          <caret line="189" column="123" selection-start-line="189" selection-start-column="123" selection-end-line="189" selection-end-column="123" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/page/site/structure.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3795">
+          <caret line="253" column="58" selection-start-line="253" selection-start-column="50" selection-end-line="253" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/SiteVisibleStructureController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="9195">
+          <caret line="613" column="50" selection-start-line="613" selection-start-column="50" selection-end-line="613" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/page/building_areas.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2265">
+          <caret line="151" column="54" selection-start-line="151" selection-start-column="54" selection-end-line="151" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/SiteAreasController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2895">
+          <caret line="193" column="52" selection-start-line="193" selection-start-column="52" selection-end-line="193" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/factories/Sensor.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1920">
+          <caret line="128" column="12" selection-start-line="128" selection-start-column="12" selection-end-line="128" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/page/sensor_view.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1245">
+          <caret line="83" column="61" selection-start-line="83" selection-start-column="55" selection-end-line="83" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1185">
+          <caret line="79" column="56" selection-start-line="79" selection-start-column="37" selection-end-line="79" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/version.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="180">
+            <caret line="12" selection-start-line="12" selection-end-line="12" />
+          </first_editor>
+          <second_editor>
+            <markdownNavigatorState />
+          </second_editor>
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="25" selection-start-line="25" selection-end-line="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LICENCE.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/images/puff.svg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/images/youtube_icon.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/images/Gaia_SocialMedia.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/images/Gaia_header_3.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/images/Gaia_header_4.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/images/g1.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/images/background/3.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/images/background/1.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/images/background/4.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/images/assets/400_400-3.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/images/assets/600_400-1.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/images/assets/600_400-2.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/images/assets/600_400-3.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/images/assets/600_400-4.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/images/assets/600_400-5.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/images/assets/600_400-6.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/images/assets/style_typography_roboto1.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/app.module.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/core/config.route.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="529">
+          <caret line="315" lean-forward="true" selection-start-line="315" selection-end-line="315" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/core/core.module.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/core/app.controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="2059" column="48" selection-start-line="2059" selection-start-column="48" selection-end-line="2059" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/core/app.config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="495">
+          <caret line="33" column="17" selection-start-line="33" selection-start-column="17" selection-end-line="33" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/layout/header.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="310" column="52" selection-start-line="310" selection-start-column="52" selection-end-line="310" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="9" selection-start-line="1" selection-start-column="9" selection-end-line="1" selection-end-column="9" />
         </state>
       </provider>
     </entry>

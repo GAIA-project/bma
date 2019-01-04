@@ -54,14 +54,6 @@ angular.module('app').run(function($rootScope, $templateCache,$translate,$log,ap
 
         }
 
-
-
-
-
-
-
-
-
         
         $rootScope.granularity_values = [];
         $rootScope.granularity_values.push({'text':'5min','name':'per_5min'});
@@ -124,11 +116,12 @@ angular.module('app').run(function($rootScope, $templateCache,$translate,$log,ap
         
         
         $rootScope.convertToMiliseconds = function(tdat){
+            console.log("Convert TO miliseconds");
                 tdat = new Date(tdat);
                 var day = tdat.getDate();
-                var month = tdat.getMonth();                
+                var month = tdat.getMonth();
                 var year = tdat.getFullYear();
-               
+
                 var utcDate = new Date(Date.UTC(year,month,day));
                 var starttime = new Date(utcDate.getFullYear(),utcDate.getMonth(),utcDate.getDate())/1;
                 
@@ -147,7 +140,8 @@ angular.module('app').run(function($rootScope, $templateCache,$translate,$log,ap
                     return m.getHours()+":"+m.getMinutes()+":00";
                 break; 
                 case 'hour':                                        
-                    return m.getHours()+":00 - "+parseInt(m.getHours()+1)+":00";
+                    var x = m.getDate()+"/"+parseInt(m.getMonth()+1)+"/"+m.getUTCFullYear()+"\n"+m.getHours()+":00 - "+parseInt(m.getHours()+1)+":00";
+                    return x;
                 break; 
                 case 'day':
                     return m.getDate()+"/"+parseInt(m.getMonth()+1)+"/"+m.getUTCFullYear();
@@ -172,15 +166,6 @@ angular.module('app').run(function($rootScope, $templateCache,$translate,$log,ap
         }
 
         $rootScope.$on('$viewContentLoaded', function() {
-    
-           
-            /*console.log("TOKEN:"+appConfig.main.auth_token);
-            if(appConfig.main.debug==false){
-            
-                if(appConfig.main.auth_token=='none' || $rootScope.isUndefined(appConfig.main.auth_token)){
-                    $state.go('page/signin');
-                }
-            }*/
 
         });
 
@@ -328,40 +313,6 @@ angular.module('app').run(function($rootScope, $templateCache,$translate,$log,ap
                     $location.replace();
                   }
             })
-
-           /* $routeProvider
-                .when('/access_token=:accessToken', {
-                  template: '',
-                  controller: function ($location, AccessToken) {
-                    var hash = $location.path().substr(1);
-                    AccessToken.setTokenFromString(hash);
-                    alert(0);
-                    $location.path('/');
-                    $location.replace();
-                  }
-            });*/
-
-
-
-           /* console.log($routeProvider);
-            $routeProvider
-                .when('/access_token=:accessToken', {
-                  template: '',
-                  controller: function ($location, AccessToken) {
-                    var hash = $location.path().substr(1);
-                    AccessToken.setTokenFromString(hash);
-                    alert(0);
-                    $location.path('/');
-                    $location.replace();
-                  }
-            });
-                 $routeProvider
-    .when("/", { templateUrl: "app/page/buildings.html", controller: "SitesController" })
-    .when("/Dashboard", { templateUrl: "DashboardForm/dfTemplate.html", controller: "dfController" })
-    .when("/Analysis",  { templateUrl: "AnalysisForm/afTemplate.html", controller: "afController" })
-    .otherwise({ redirectTo: "/Reporting" })*/
-            
-                     
 
 
            

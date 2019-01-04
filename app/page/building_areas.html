@@ -149,6 +149,8 @@
                                     <tbody>
                                         <tr ng-repeat="area in selected_area.subareas" ng-show="selected_area.subareas.length">
                                             <td>{{area.name}}</td>
+                                            <td><span data-translate="DETAILS"></span></td>
+                                            <td><span data-translate="VIEW"></span></td>
                                         </tr>
                                         <tr ng-show="!selected_area.subareas.length">
                                             <td style="text-align: center;" colspan="4"><span data-translate="Therearenoassignedareas"></span></td>

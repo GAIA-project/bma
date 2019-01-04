@@ -19,7 +19,6 @@
             </ul>
         </li>
 
-        <li ng-show="main.selected_building>0"><a md-button aria-label="meanu" href="#/page/building/topview/{{main.selected_building}}"><span data-translate="TOPVIEW"></span> </a></li>
         <li ng-show="main.selected_building>0"><a md-button aria-label="meanu" href="#/page/building/structure/{{main.selected_building}}"><span data-translate="STRUCTURE"></span> </a></li>
         <li ng-show="main.selected_building>0"><a md-button aria-label="meanu" href="#/page/building/sensors/{{main.selected_building}}"><span data-translate="SENSORS"></span> </a></li>
         <li ng-show="main.selected_building>0"><a md-button aria-label="meanu" href="#/page/building/anomalies/{{main.selected_building}}"><span data-translate="ANOMALIES"></span> </a></li>
@@ -45,18 +44,22 @@
 
         
         <li><a md-button aria-label="meanu" href="#/page/help"><i class="fa fa-info"></i><span data-translate="contact_us_sidebar"></span> </a></li>
+        <li><img src="/images/Gaia_SocialMedia.png" style="max-width: 100%"/></li>
+        <li>
+            <img src="images/facebook_group_image.png" class="social_1" onclick="openNewWindow('https://www.facebook.com/groups/430658993982993')"/>
+            <img src="images/facebook_icon.png" class="social_2" onclick="openNewWindow('https://www.facebook.com/EUGAIAProject/')"/>
+            <img src="images/youtube_icon.png" class="social_3" onclick="openNewWindow('https://www.youtube.com/watch?v=IiN2nITSpGw&list=PLUMQocOUND_4rL1wga9q7wj69Am61KePv')"/>
+        </li>
 
     </ul>
-    <div class="social_images" style="bottom:120px;">
-        <div class="row">
-            <div class="col-sm-12">
-                <img src="/images/Gaia_SocialMedia.png" style="max-width: 100%"/>
-            </div>
-        </div>
-      <img src="images/facebook_group_image.png" class="social_1" ng-click="openNewWindow('https://www.facebook.com/groups/430658993982993')"/>
-      <img src="images/facebook_icon.png" class="social_2" ng-click="openNewWindow('https://www.facebook.com/EUGAIAProject/')"/>
-      <img src="images/youtube_icon.png" class="social_3" ng-click="openNewWindow('https://www.youtube.com/watch?v=IiN2nITSpGw&list=PLUMQocOUND_4rL1wga9q7wj69Am61KePv')"/>
-    </div>
+    <!--<div class="social_images" style="bottom:120px;">-->
+        <!--<div class="row">-->
+            <!--<div class="col-sm-12">-->
+                <!--<img src="/images/Gaia_SocialMedia.png" style="max-width: 100%"/>-->
+            <!--</div>-->
+        <!--</div>-->
+      <!---->
+    <!--</div>-->
 
     
 </div>

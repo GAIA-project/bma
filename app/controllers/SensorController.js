@@ -50,8 +50,7 @@ App.controller('SensorController',function($scope,$q,$rootScope,appConfig,$state
 
         var meas = Sensor.getMeasurementsByResourceId($scope.sensor.id);
         meas.then(function(measurements){
-                console.log("**********")
-                console.log(measurements.data.keyName);
+
                 if(measurements.data.keyName.startsWith("gaia-ps")){
                     console.log("STARTS WITH GAIA-PS");
                     $scope.add_measurements_btn_view = true;
@@ -175,13 +174,24 @@ App.controller('SensorController',function($scope,$q,$rootScope,appConfig,$state
             
             $scope.obj = {};
             $scope.obj.one = {};
-            $scope.obj.one.from = $rootScope.convertToMiliseconds($scope.first_period_from_time);
-            $scope.obj.one.to = $rootScope.convertToMiliseconds($scope.second_period_to_time)+((1000*60*60*24)-2000);
-            $scope.obj.one.resourceID= $scope.sensor.id;
-            $scope.obj.one.granularity = $scope.selected_granularity;
-            $scope.obj.one.targetUom = $scope.selected_uom;
+            $scope.obj.one.from         = $rootScope.convertToMiliseconds($scope.first_period_from_time);
+            $scope.obj.one.to           = $rootScope.convertToMiliseconds($scope.second_period_to_time)+((1000*60*60*24)-2000);
+            $scope.obj.one.resourceID   = $scope.sensor.id;
+            $scope.obj.one.granularity  = $scope.selected_granularity;
+            $scope.obj.one.targetUom    = $scope.selected_uom;
             $scope.measurementUnit      = $scope.selected_uom;
 
+            console.log("********** BEFORE CHANGED FOR DAY ************");
+            console.log($scope.first_period_from_time);
+            if($scope.selected_granularity == 'day'){
+                console.log("********** CHANGED FOR DAY ************");
+                console.log($scope.first_period_from_time);
+                $scope.obj.one.from         = $rootScope.convertToMiliseconds($scope.first_period_from_time)+(100*60*60*12);
+                $scope.obj.one.to           = $rootScope.convertToMiliseconds($scope.second_period_to_time)+(1000*60*60*14);
+            }
+
+            console.log("*****************");
+            console.log($scope.obj.one);
             var first = Sensor.getComparingQueryTimeRange($scope.obj.one);
               first.then(function(vals){
                 
@@ -201,6 +211,7 @@ App.controller('SensorController',function($scope,$q,$rootScope,appConfig,$state
                     $scope.vals1.push(parseFloat(val.reading).toFixed(2));
                     var m = new Date(val.timestamp);                        
                     $scope.tdates.push($rootScope.convertForTimeAxis(m,$scope.obj.one.granularity));
+                    //$scope.tdates.push(m);
                     //console.log(val.timestamp+":"+val.reading+":"+$rootScope.addCommas(parseFloat(val.reading).toFixed(2)));
                 });
                 $scope.setChartValues();
@@ -265,6 +276,7 @@ App.controller('SensorController',function($scope,$q,$rootScope,appConfig,$state
                         {
                             name:'Measurements',
                             type:'line',
+                            sampling: 'average',
                             smooth:true,
                             itemStyle: $rootScope.getItemStyle($scope.measurementUnit),
                             data:$scope.vals1
