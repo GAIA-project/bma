@@ -2443,3 +2443,7 @@ tr.alert {
     background: #ca8f8f!important;
     color: #8f0909;
 }
+
+span.blue-text {
+  color: #3e5c9a;
+}

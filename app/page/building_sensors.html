@@ -126,7 +126,10 @@
 
 
             <div class="row area_box" ng-repeat="area in building.areas">
-            <h2 class="area_title">{{area.name}}</h2>
+                <h2 class="area_title" ng-click="go_to_sensors(area)">
+                    <span ng-show="area.subsites.length>0" class="blue-text">{{area.name}} </span>
+                    <span ng-hide="area.subsites.length>0">{{area.name}} </span>
+                </h2>
             <div style="text-align: center;margin-bottom: 10px" ng-show="area.resources==0">
                 <span data-translate="Therearenoassignedsensors"></span>
             </div>

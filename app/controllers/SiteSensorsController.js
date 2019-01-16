@@ -9,7 +9,11 @@ App.controller('SiteSensorsController',function($scope,$q,$rootScope,appConfig,$
         $scope.building = {};
         $scope.view_general_resources = 0;
 
-
+    $scope.go_to_sensors = function(area){
+        console.log(area);
+        if(area.subsites.length>0)
+            $location.path('page/building/sensors/'+area.id);
+    }
     $scope.av_granularities = $rootScope.granularity_values;
     $scope.av_granularities[0].gran_selected = true;
         
