@@ -151,6 +151,24 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-sm-6 col-md-3 col-lg-2" style="margin-bottom: 5px" ng-repeat="sensor in area.rest_resources">
+                    <div class="sensorbox">
+                        <div class="panel-heading"> <span><i ng-show="hasPermission('modifyPermission')" class="fa fa-pencil-square" aria-hidden="true" ng-click="editSensorName(sensor)"></i> {{sensor.name}}</span>
+                            <div class="input-group" ng-show="sensor.editing" >
+                                <input type="text" ng-model="sensor.name" class="form-control">
+                                <span class="input-group-btn">
+                                        <button class="btn btn-secondary" type="button" ng-click="saveSensor(sensor)">Save</button>
+                                    </span>
+                            </div></div>
+                        <div class="panel-body" ng-click="goToSensor(sensor.resourceId)">
+                            <h5 class="latest_value"><span data-translate="Latestvalue"></span></h5>
+                            <h4>{{sensor.metrics.latest+" "+sensor.uom}}</h4>
+
+                            <h5 class="latest_value" style="font-size:12px!important">{{sensor.metrics.latestTime | date:'MMM d, y h:mm:ss'}}</h5>
+
+                        </div>
+                    </div>
+                </div>
             </div>
             </div>
         </div>

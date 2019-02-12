@@ -128,7 +128,8 @@ App.controller('SiteSensorsController',function($scope,$q,$rootScope,appConfig,$
 
                 area.resources = info.data.resources;
                 area.resources.forEach(function(sensor,index){
-
+                    console.log(area);
+                    console.log(sensor.uri);
                     if(sensor.uri.startsWith('site-')){
                         console.log(sensor.id+" :Starts With site-");
                         area.site_resources.push(sensor);
@@ -141,6 +142,14 @@ App.controller('SiteSensorsController',function($scope,$q,$rootScope,appConfig,$
                         });
                     }else{
                         area.rest_resources.push(sensor);
+                        var m = Sensor.getMeasurementsByResourceId(sensor.resourceId);
+                        m.then(function(datas){
+
+                            sensor.metrics = datas.data;
+                            sensor.metrics.latest = parseFloat(sensor.metrics.latest).toFixed(2);
+
+                        });
+
                     }
                 });
 
